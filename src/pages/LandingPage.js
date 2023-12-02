@@ -1,27 +1,29 @@
 import React from "react";
-import Box from "../components/Landing/Box";
 import Bill from "../components/svgs/Bill";
-import Button from "../components/Landing/Button";
-import NavBar from "../components/Landing/NavBar";
-import Text from "../components/Landing/Text";
 import Document from "../components/svgs/Document";
 import Financial from "../components/svgs/Financial";
 import IDCard from "../components/svgs/IDCard";
 import Multiple from "../components/svgs/Multiple";
 import Receipt from "../components/svgs/Receipt";
 import Graph from "../components/svgs/Graph";
-import Caroursel from "../components/Landing/Carousel";
-import Footer from "../components/Landing/Footer";
+import NavBar from "../components/common/NavBar";
+import Text from "../components/common/Text";
+import Button from "../components/common/Button";
+import Box from "../components/common/Box";
+import Caroursel from "../components/common/Carousel";
+import Footer from "../components/common/Footer";
 
 export function LandingPage() {
   return (
       <div className="gap-32 flex flex-col">
-      <NavBar />
+      {/* <NavBar /> */}
+      <NavBar/>
         <div className="flex flex-col justify-center items-center gap-10">
           <div className="flex">
             <img src={require("../assets/dashboard.png")} alt="dashboard"></img>
           </div>
           <div className="flex flex-col justify-center items-center">
+            
             <Text
               className="w-2/3 text-center"
               weight="semibold"
@@ -43,6 +45,7 @@ export function LandingPage() {
                 Never worry about your taxes again!
               </Text>
             </Text>
+            
             <Button variant="cirTrans" size="lg">
               Get Started
             </Button>
@@ -50,6 +53,7 @@ export function LandingPage() {
         </div>
 
         <div className="flex justify-center items-center px-20 gap-10 flex-col">
+          
           <Box className="flex justify-around max-w-screen-xl">
             <div className="flex flex-col flex-1 gap-8 pl-10 py-16">
               <Financial color="#A2CBCB" bg="#CFE9E9" />
@@ -214,10 +218,12 @@ export function LandingPage() {
           </div>
 
           <div className="w-full m-auto">
+            
             <Caroursel/>
           </div>
         </div>
 
+        
         <Footer/>
       </div>
   );
