@@ -14,3 +14,56 @@ axiosInstance.interceptors.request.use(function(config) {
   return config;
 })
 
+export const createTransaction = async(amount, description, date, transactionType, type, userId) => {
+  const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, userId})
+
+  try {
+    if (res.status === 200) {
+      return res.data;
+    } 
+  } catch (err) {
+    return err;
+  }
+}
+
+export const deleteTransaction = async(userId, transactionId) => {
+  const res = await axiosInstance.delete(`transaction/delete/${userId}/${transactionId}`)
+
+  try {
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (err) {
+    return err;
+  }
+}
+
+export const getTransactions = async(userId, startDate, endDate) => {
+  let res;
+  if (startDate && endDate) {
+    res = await axiosInstance.get(`transaction/viewall/${userId}/?startDate=${startDate}&endDate=${endDate}`)
+  } else {
+    res = await axiosInstance.get(`transaction/viewall/${userId}`)
+  }
+
+  try {
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (err) {
+    return err
+  }
+}
+
+export const getTransactionDetail = async(userId, transactionId) => {
+  const res = await axiosInstance.get(`transaction/${userId}/${transactionId}`)
+
+  try {
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (err) {
+    return err;
+  }
+}
+
