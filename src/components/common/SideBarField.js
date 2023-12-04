@@ -9,7 +9,7 @@ function SideBarField({ title, icon}) {
             onMouseLeave={() => setIsHovered(false)}
         >
             <Icon svg={icon} customClass='mt-0.5' isHovered={isHovered}/>
-            <div className="font-semibold hover:text-white">{title}</div>
+            <div className='font-semibold text-gray-400 hover:text-white'>{title}</div>
         </div>
     )
 }
