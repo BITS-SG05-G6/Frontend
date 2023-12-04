@@ -1,12 +1,5 @@
 import { DashboardIcon, HelpIcon, PlanIcon, LogoutIcon, ProfileIcon, InvoiceIcon, WalletIcon, StatisticsIcon, TransactionIcon } from "../../assets/sidebarIcons"
-function SideBarField({ title, icon, isHovered }) {
-    return (
-        <div className={`py-3 pl-4 pr-20 rounded-lg justify-start gap-2 flex ${isHovered ? 'bg-pink-400' : ''}`}>
-            <div className="mt-0.5">{icon}</div>
-            <div className={`font-semibold ${isHovered ? 'text-white' : ''}`}>{title}</div>
-        </div>
-    )
-}
+import SideBarField from "./SideBarField";
 function SideBar() {
     return (
         <div className="w-60 h-screen ps-1 bg-neutral-50 flex-col justify-center items-start gap-10 inline-flex fixed">
