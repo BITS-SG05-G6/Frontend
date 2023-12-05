@@ -7,13 +7,13 @@ export function SignUp() {
   return (
     //Login container
     <div class="w-full h-screen bg-white flex items-start justify-center">
-      <div className="w-1/2 h-full flex flex-col p-40 ml-10 justify-self-center">
+      <div className="w-1/2 h-full flex flex-col p-20 ml-10 justify-self-center">
         <img
           className="w-32 h-5 mb-32"
           src={require("../assets/logo.png")}
         ></img>
         {/* Login Form */}
-        <div className="w-90 flex flex-col">
+        <div className="w-90 flex flex-col items-center">
           <div className="w-full flex flex-col mb-5">
             <h2 class="font-bold text-3xl text-black">Create new account</h2>
             <p class="text-md mt-4 text-gray">

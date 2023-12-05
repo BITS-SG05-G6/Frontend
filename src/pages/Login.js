@@ -10,7 +10,7 @@ export function Login() {
   return (
     //Login container
     <div class="w-full h-screen bg-white flex items-start justify-center">
-      <div className="w-1/2 h-full flex flex-col p-40 ml-10 justify-self-center">
+      <div className="w-1/2 h-full flex flex-col p-20 ml-10 justify-self-center">
         <img
           className="w-32 h-5 mb-32"
           src={require("../assets/logo.png")}
@@ -37,13 +37,13 @@ export function Login() {
               type={"password"}
             ></FormInput>
             <div className="flex flex-row justify-between w-80">
-              <Checkbox label="Remember me" />
+              <Checkbox label="Remember me" color="black"/>
               <Text
                 noLink={false}
                 variant="text-sm"
                 href="/forgetpassword"
                 className="text-black mt-3"
-              >
+              >   
                 Forget password
               </Text>
             </div>
@@ -71,7 +71,7 @@ export function Login() {
             </Button>
             <div class="w-full flex items-center">
               <Text className="mt-4" weight="font-normal" variant="text-base">
-                Don’t have an account?
+                Don’t have an account? 
               </Text>
               <Text
                 noLink={false}
@@ -79,7 +79,7 @@ export function Login() {
                 href="/signup"
                 className="text-black mt-3 underline underline-offset-1"
               >
-                Sign In
+                Sign Up
               </Text>
             </div>
           </div>
