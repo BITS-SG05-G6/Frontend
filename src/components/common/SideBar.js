@@ -1,4 +1,5 @@
-import { DashboardIcon, HelpIcon, PlanIcon, LogoutIcon, ProfileIcon, InvoiceIcon, WalletIcon, StatisticsIcon, TransactionIcon } from "../../assets/sidebarIcons"
+import React from "react";
+import { DashboardIcon, HelpIcon, PlanIcon, LogoutIcon, ProfileIcon, InvoiceIcon, WalletIcon, StatisticsIcon, TransactionIcon } from "../../components/svgs/sidebarIcons"
 import SideBarField from "./SideBarField";
 function SideBar() {
     return (
@@ -8,17 +9,17 @@ function SideBar() {
             </div>
             <div className="flex flex-col justify-start items-start gap-10 mb-10 ms-4">
                 <div className="flex flex-col justify-start items-start gap-2">
-                    <SideBarField title="Dashboard" icon={<DashboardIcon />} isHovered={false} />
-                    <SideBarField title="Transactions" icon={<TransactionIcon />} isHovered={false} />
-                    <SideBarField title="Invoices" icon={<InvoiceIcon />} isHovered={false} />
-                    <SideBarField title="My Wallets" icon={<WalletIcon />} isHovered={false} />
-                    <SideBarField title="Planning" icon={<PlanIcon />} isHovered={false} />
-                    <SideBarField title='Statistics' icon={<StatisticsIcon />} isHovered={false} />
-                    <SideBarField title='My Profile' icon={<ProfileIcon />} isHovered={false} />
+                    <SideBarField title="Dashboard" icon={<DashboardIcon/>}/>
+                    <SideBarField title="Transactions" icon={<TransactionIcon/>}/>
+                    <SideBarField title="Invoices" icon={<InvoiceIcon/>}/>
+                    <SideBarField title="My Wallets" icon={<WalletIcon/>}/>
+                    <SideBarField title="Planning" icon={<PlanIcon/>} />
+                    <SideBarField title='Statistics' icon={<StatisticsIcon/>}/>
+                    <SideBarField title='My Profile' icon={<ProfileIcon/>}/>
                 </div>
                 <div className="flex flex-col justify-start items-start gap-2">
-                    <SideBarField title='Help' icon={<HelpIcon />} isHovered={false} />
-                    <SideBarField title='Log Out' icon={<LogoutIcon />} isHovered={false} />
+                    <SideBarField title='Help' icon={<HelpIcon/>} isHovered={false} />
+                    <SideBarField title='Log Out' icon={<LogoutIcon/>} isHovered={false} />
                 </div>
             </div>
         </div>
