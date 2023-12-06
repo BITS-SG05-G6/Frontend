@@ -18,20 +18,17 @@ const InputVariants = cva(
   }
 );
 
-const LabelVariants = cva(
-  "form-control w-full", 
-  {
-    variants: {
-      labelType: {
-        side: "form-control w-full flex flex-row gap-10 justify-around ",
-        up: "form-control w-full"
-      }
+const LabelVariants = cva("form-control w-full", {
+  variants: {
+    labelType: {
+      side: "form-control w-full flex flex-row gap-10 justify-around ",
+      up: "form-control w-full",
     },
-    defaultVariants: {
-      labelType: "up"
-    }
-  }
-)
+  },
+  defaultVariants: {
+    labelType: "up",
+  },
+});
 
 function FormInput({
   type,
@@ -41,23 +38,46 @@ function FormInput({
   label,
   value,
   onChange,
-  labelType
+  labelType,
 }) {
   return (
     <>
-      <label className={cn(LabelVariants({labelType}))}>
-        <div className="label w-12">
-          <Text variant="text-sm" weight="semibold" className="label-text w-12">
-            {label}
-          </Text>
-        </div>
-        <input
-          type={type}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          className={cn(InputVariants({ size, className }))}
-        />
+      <label className={cn(LabelVariants({ labelType }))}>
+        {labelType === "side" ? (
+          <>
+            <div className="label w-12">
+              <Text
+                variant="text-sm"
+                weight="semibold"
+                className="label-text w-12"
+              >
+                {label}
+              </Text>
+            </div>
+            <input
+              type={type}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
+              className={cn(InputVariants({ size, className }))}
+            />
+          </>
+        ) : (
+          <>
+            <div className="label w-full">
+              <Text variant="text-sm" weight="semibold" className="label-text">
+                {label}
+              </Text>
+            </div>
+            <input
+              type={type}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
+              className={cn(InputVariants({ size, className }))}
+            />
+          </>
+        )}
       </label>
     </>
   );

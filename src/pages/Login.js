@@ -27,7 +27,6 @@ const Login = () => {
       theme: "outline",
       size: "large",
       shape: "square",
-      width: "384",
       text: "Sign in with Google",
       logo_alignment: "center",
     });
@@ -58,7 +57,7 @@ const Login = () => {
             <Text>Welcome back! Please enter your details</Text>
           </div>
 
-          <form className="flex flex-col gap-6">
+          <form className="flex flex-col gap-6 max-w-sm">
             <Controller
               name="email"
               control={control}
@@ -108,7 +107,7 @@ const Login = () => {
             />
 
             <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>Sign In</Button>
-            <div id="signUpDiv"></div>
+            <div id="signUpDiv" className="object-cover"></div>
           </form>
 
           <div className="mt-6 text-center max-w-sm">
