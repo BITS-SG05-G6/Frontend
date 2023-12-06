@@ -1,5 +1,6 @@
 import React from "react";
-import { BellIcon } from "../../assets/sidebarIcons";
+import { BellIcon } from "../svgs/sidebarIcons";
+// import { BellIcon } from "../../assets/sidebarIcons";
 import Icon from "./Icon";
 
 function Header({ title, username }) {

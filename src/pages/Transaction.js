@@ -24,12 +24,8 @@ function Transaction() {
 
             <div className="ms-72 pe-4">
                 <Header title='Transactions' username='Tom Vo' />
-                <div className="text-end my-3">
-                    <Button onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}>
-                        <Icon svg={<CreateTransactionIcon />} isHovered={isHovered} hoverColor="#EF5DA8" fillColor="#FFFFFF" />
-                        <div>Create Transaction</div>
-                    </Button>
+                <div className="flex justify-end my-3">
+                    <TransactionForm/>
                 </div>
                 <div className="flex gap-10">
                     <div className="flex flex-col gap-2">

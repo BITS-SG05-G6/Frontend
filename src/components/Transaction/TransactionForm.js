@@ -6,6 +6,8 @@ import { Controller, useForm } from "react-hook-form";
 import Select from "../common/Select";
 import TransactionCalendar from "./TransactionCalendar";
 import Textarea from "../common/Textarea";
+import Icon from "../common/Icon";
+import { CreateTransactionIcon } from "../svgs/sidebarIcons";
 
 // import es from 'date-fns/locale/es'
 // registerLocale('es', es);
@@ -15,6 +17,8 @@ const TransactionForm = ({ children }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = (d) => {
     console.log(d);
@@ -52,8 +56,19 @@ const TransactionForm = ({ children }) => {
 
   return (
     <>
-      <Button onClick={() => document.getElementById("my_modal_1").showModal()}>
-        Create Transaction
+      <Button
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={() => document.getElementById("my_modal_1").showModal()}
+      >
+        <Icon
+          svg={<CreateTransactionIcon />}
+          isHovered={isHovered}
+          hoverColor="#EF5DA8"
+          fillColor="#FFFFFF"
+        />
+
+        <Text variant="text-sm" weight="bold">Create Transaction</Text>
       </Button>
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box flex flex-col justify-center w-full">
@@ -61,10 +76,7 @@ const TransactionForm = ({ children }) => {
             Add Transaction
           </Text>
           <div className="modal-action mx-0 block w-full">
-            <form
-              method="dialog"
-              className="flex flex-col gap-4"
-            >
+            <form method="dialog" className="flex flex-col gap-4">
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>

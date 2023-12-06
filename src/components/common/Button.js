@@ -31,7 +31,7 @@ const ButtonVariants = cva(
     },
   })
 
-const Button = ({ children, variant, size, className, href, onMouseEnter, onMouseLeave }) => {
+const Button = ({ children, variant, size, className, href, onMouseEnter, onMouseLeave, onClick }) => {
   return (
     href ? (
       <Link
@@ -39,13 +39,16 @@ const Button = ({ children, variant, size, className, href, onMouseEnter, onMous
         to={href}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onClick={onClick}
       >
         {children}
       </Link>
     ) : (
       <button className={cn(ButtonVariants({ variant, size, className }))}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}>
+        onMouseLeave={onMouseLeave}
+        onClick={onClick}
+        >
         {children}
       </button>
     ));

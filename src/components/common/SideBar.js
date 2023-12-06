@@ -1,5 +1,6 @@
 import React from "react";
-import { DashboardIcon, HelpIcon, PlanIcon, LogoutIcon, ProfileIcon, InvoiceIcon, WalletIcon, StatisticsIcon, TransactionIcon } from "../../assets/sidebarIcons"
+import { DashboardIcon, HelpIcon, InvoiceIcon, LogoutIcon, PlanIcon, ProfileIcon, StatisticsIcon, TransactionIcon, WalletIcon } from "../svgs/sidebarIcons";
+// import { DashboardIcon, HelpIcon, PlanIcon, LogoutIcon, ProfileIcon, InvoiceIcon, WalletIcon, StatisticsIcon, TransactionIcon } from "../../assets/sidebarIcons"
 import SideBarField from "./SideBarField";
 function SideBar() {
     return (
@@ -17,6 +18,7 @@ function SideBar() {
                     <SideBarField title='Statistics' icon={<StatisticsIcon />} />
                     <SideBarField title='My Profile' icon={<ProfileIcon />} />
                 </div>
+                
                 <div className="flex flex-col justify-start items-start gap-2">
                     <SideBarField title='Help' icon={<HelpIcon />} isHovered={false} />
                     <SideBarField title='Log Out' icon={<LogoutIcon />} isHovered={false} />
