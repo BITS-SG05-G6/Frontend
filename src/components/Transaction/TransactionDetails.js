@@ -4,14 +4,14 @@ import axios from 'axios';
 
 function TransactionDetails({ transactionId }) {
     const [transaction, setTransaction] = useState({});
-    
+
     useEffect(() => {
         async function fetchTransactionDetails() {
             try {
                 const response = await axios.get("");
                 setTransaction(response.data);
             }
-            catch(error) {
+            catch (error) {
                 console.error("Error fetching data: ", error);
             }
         }
@@ -49,8 +49,8 @@ function TransactionDetails({ transactionId }) {
                 <textarea className="texarea textarea-md border-slate-400 rounded border text-sm mx-4 my-2 p-2" placeholder={transaction.description} disabled></textarea>
             </div>
             <div className="py-3 flex gap-2 justify-center">
-                <Button children='Edit' variant='blueButton' size='lg'/>
-                <Button children='Delete' variant='redButton' size='lg' className='px-10'/>
+                <Button children='Edit' variant='blueButton' size='lg' />
+                <Button children='Delete' variant='redButton' size='lg' className='px-10' />
             </div>
         </div>
     )

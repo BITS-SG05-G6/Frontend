@@ -4,7 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
 import Test from './pages/Test';
 import Transaction from './pages/Transaction';
-
+import { Login } from "./pages/Login";
+import { SignUp } from "./pages/Signup";
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
        <Route path="/" element={<LandingPage/>}></Route>
        <Route path="/test" element={<Test/>}></Route>
        <Route path="/transaction" element={<Transaction/>}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/signup" element={<SignUp />}></Route>
     </Routes>
-     
   );
 }
 
