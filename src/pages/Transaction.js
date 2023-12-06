@@ -19,15 +19,14 @@ function Transaction() {
         setSelectedDate(date);
     }
     return (
-        <div className="flex">
+        <div className="w-full relative">
             <SideBar />
-
-            <div className="ms-72 pe-4">
+            <div className="absolute left-72">
                 <Header title='Transactions' username='Tom Vo' />
                 <div className="flex justify-end my-3">
                     <TransactionForm/>
                 </div>
-                <div className="flex gap-10">
+                <div className="flex gap-12">
                     <div className="flex flex-col gap-2">
                         <TransactionCalendar selectedDate={selectedDate} onDateChange={handleDateChange} />
                         <TransactionList selectedDate={selectedDate} />
