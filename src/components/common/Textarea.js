@@ -1,10 +1,10 @@
-import React from "react";
 import { cva } from "class-variance-authority";
+import React from "react";
 import { cn } from "../../utils/cn";
 import Text from "./Text";
 
-const InputVariants = cva(
-  "input input-bordered hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none",
+const TextareaVariant = cva(
+  "input input-bordered hover:border-[#7879F1] h-24 focus:border-[#7879F1] focus:outline-none",
   {
     variants: {
       size: {
@@ -18,34 +18,30 @@ const InputVariants = cva(
   }
 );
 
-function FormInput({
-  type,
-  placeholder,
+const Textarea = ({
   size,
   className,
   label,
   value,
   onChange,
-}) {
-  // const {register} = useForm();
+}) => {
   return (
     <>
-      <label className="form-control w-full flex flex-row gap-10 justify-around ">
+      <label className="form-control w-full flex flex-row gap-10 justify-around">
         <div className="label w-12">
           <Text variant="text-sm" weight="semibold" className="label-text w-12">
             {label}
           </Text>
         </div>
-        <input
-          type={type}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          className={cn(InputVariants({ size, className }))}
-        />
+     
+        <textarea
+        value={value}
+        onChange={onChange}
+          className={cn(TextareaVariant({ size, className }))}
+        ></textarea>
       </label>
     </>
   );
-}
+};
 
-export default FormInput;
+export default Textarea;

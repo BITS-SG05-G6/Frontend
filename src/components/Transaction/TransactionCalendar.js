@@ -1,20 +1,14 @@
-import { useState } from "react";
 import Calendar from 'react-calendar';
 import '../../App.css';
 
 
-function TransactionCalendar() {
-    const [value, setValue] = useState(new Date());
-
-    function onChange(nextValue) {
-        setValue(nextValue);
-    }
+function TransactionCalendar({selectedDate, onDateChange}) {
     return (
         <div>
             <Calendar
                 className="react-calendar" 
-                value={value}
-                onChange={onChange}
+                value={selectedDate}
+                onChange={onDateChange}
             />
         </div>
     )
