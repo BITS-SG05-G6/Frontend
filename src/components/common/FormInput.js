@@ -9,7 +9,7 @@ const InputVariants = cva(
     variants: {
       size: {
         default: "w-full max-w-xs text-sm",
-        small: "w-sm text-sm",
+        small: "w-full max-w-sm text-sm",
       },
     },
     defaultVariants: {
@@ -17,6 +17,21 @@ const InputVariants = cva(
     },
   }
 );
+
+const LabelVariants = cva(
+  "form-control w-full", 
+  {
+    variants: {
+      labelType: {
+        side: "form-control w-full flex flex-row gap-10 justify-around ",
+        up: "form-control w-full"
+      }
+    },
+    defaultVariants: {
+      labelType: "up"
+    }
+  }
+)
 
 function FormInput({
   type,
@@ -26,11 +41,11 @@ function FormInput({
   label,
   value,
   onChange,
+  labelType
 }) {
-  // const {register} = useForm();
   return (
     <>
-      <label className="form-control w-full flex flex-row gap-10 justify-around ">
+      <label className={cn(LabelVariants({labelType}))}>
         <div className="label w-12">
           <Text variant="text-sm" weight="semibold" className="label-text w-12">
             {label}

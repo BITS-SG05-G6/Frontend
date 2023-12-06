@@ -4,7 +4,6 @@ import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Select from "../common/Select";
-import TransactionCalendar from "./TransactionCalendar";
 import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
@@ -94,6 +93,7 @@ const TransactionForm = ({ children }) => {
                       name="amount"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
                     />
                     {errors.amount && (
                       <Text className="text-red-500 px-32 mt-3">
@@ -160,6 +160,7 @@ const TransactionForm = ({ children }) => {
                       name="date"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
                     />
                   </div>
                 )}
