@@ -40,9 +40,11 @@ const Signup = () => {
     <div className="flex justify-between h-screen">
       <div className="w-1/2 flex justify-center items-center">
         <Text
-          className="absolute top-20 left-20 text-[#EF5DA8]"
+          className="absolute top-6 left-6 text-[#EF5DA8]"
           variant="text-xl"
           weight="bold"
+          noLink={false}
+          href="/"
         >
           Wise
           <Text className="text-black" variant="text-xl" weight="bold">
