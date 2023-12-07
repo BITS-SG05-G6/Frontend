@@ -10,7 +10,6 @@ import TransactionList from "../components/Transaction/TransactionList";
 const Transaction = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { transactionId } = useParams();
-  const [isHovered, setIsHovered] = useState(false);
 
   function handleDateChange(date) {
     setSelectedDate(date);
@@ -30,14 +29,12 @@ const Transaction = () => {
               <TransactionCalendar
                 selectedDate={selectedDate}
                 onDateChange={handleDateChange}
-                className='flex justify-center'
+                className="flex justify-center"
               />
               <TransactionList selectedDate={selectedDate} />
             </div>
-            
-           
-            <TransactionDetails transactionId={transactionId} />
 
+            <TransactionDetails transactionId={transactionId} />
           </div>
         </div>
       </div>

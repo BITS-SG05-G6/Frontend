@@ -35,12 +35,11 @@ const SideBar = () => {
         <SideBarField title="Planning" icon={<PlanIcon />} />
         <SideBarField title="Statistics" icon={<StatisticsIcon />} />
         <SideBarField title="My Profile" icon={<ProfileIcon />} />
-
       </div>
 
       <div className="flex gap-2 flex-col absolute bottom-6">
-      <SideBarField title="Help" icon={<HelpIcon />}  />
-        <SideBarField title="Log Out" icon={<LogoutIcon />}/>
+        <SideBarField title="Help" icon={<HelpIcon />} />
+        <SideBarField title="Log Out" icon={<LogoutIcon />} />
       </div>
     </div>
   );
