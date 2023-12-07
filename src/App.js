@@ -8,7 +8,7 @@ import Transaction from './pages/Transaction';
 import Login from './pages/Login';
 import { Login2 } from './pages/Login2';
 import Signup from './pages/Signup';
-import { Login } from "./pages/Login";
+// import { Login } from "./pages/Login";
 import { SignUp } from "./pages/Signup";
 import Transaction2 from './pages/Transaction2';
 
