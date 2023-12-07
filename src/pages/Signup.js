@@ -1,99 +1,169 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
 import Button from "../components/common/Button";
-import Text from "../components/common/Text";
 import FormInput from "../components/common/FormInput";
+import Text from "../components/common/Text";
 
-export function SignUp() {
+const Signup = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  function handleCallbackResponse(res) {
+    console.log("Encoded KWT ID token: " + res.credential);
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id: "635121721005",
+      callback: handleCallbackResponse,
+    });
+
+    // google.accounts.id.render()
+    google.accounts.id.renderButton(document.getElementById("signUpDiv"), {
+      theme: "outline",
+      size: "large",
+      shape: "square",
+      text: "Sign in with Google",
+      logo_alignment: "center",
+    });
+  }, []);
+
+  const onSubmit = (d) => {
+    console.log(d);
+  };
+
   return (
-    //Login container
-    <div class="w-full h-screen bg-white flex items-start justify-center">
-      <div className="w-1/2 h-full flex flex-col p-20 ml-10 justify-self-center">
-        <img
-          className="w-32 h-5 mb-32"
-          src={require("../assets/logo.png")}
-        ></img>
-        {/* Login Form */}
-        <div className="w-90 flex flex-col items-center">
-          <div className="w-full flex flex-col mb-5">
-            <h2 class="font-bold text-3xl text-black">Create new account</h2>
-            <p class="text-md mt-4 text-gray">
-              Welcome back! Please enter your details
-            </p>
+    <div className="flex justify-between h-screen">
+      <div className="w-1/2 flex justify-center items-center">
+        <Text
+          className="absolute top-6 left-6 text-[#EF5DA8]"
+          variant="text-xl"
+          weight="bold"
+          noLink={false}
+          href="/"
+        >
+          Wise
+          <Text className="text-black" variant="text-xl" weight="bold">
+            Wallet
+          </Text>
+        </Text>
+        <div className="flex flex-col w-1/2">
+          <div className="flex flex-col gap-3 mb-12">
+            <Text variant="text-2xl" weight="bold">
+              Create new account
+            </Text>
+            <Text>Welcome! Please enter your details</Text>
           </div>
-          <div className="w-full flex flex-col">
-            <p className="text-black">Full Name</p>
-            <FormInput
-              className="mt-2 bg-white"
-              placeholder={"Enter your fullname"}
-              type={"name"}
-            ></FormInput>
-            <p className="text-black">Email</p>
-            <FormInput
-              className="mt-2 bg-white"
-              placeholder={"Enter your email"}
-              type={"email"}
-            ></FormInput>
-            <p className="text-black mt-4">Password</p>
-            <FormInput
-              className={"mt-2 bg-white"}
-              placeholder={"Password"}
-              type={"password"}
-            ></FormInput>
-            <Button
-              className="mt-4 w-80"
-              variant="filled"
-              size="lg"
-              type="login"
-            >
-              Create Account
+
+          <form className="flex flex-col gap-6 max-w-sm">
+            <Controller
+              name="fullname"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Full Name is required!" }}
+              render={({ field }) => (
+                <div>
+                  <FormInput
+                    type="text"
+                    label="Full Name"
+                    name="fullname"
+                    size="small"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                  {errors.fullname && (
+                    <Text className="text-red-500 mt-3">
+                      {errors.fullname.message}
+                    </Text>
+                  )}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Email is required!" }}
+              render={({ field }) => (
+                <div>
+                  <FormInput
+                    type="text"
+                    label="Email"
+                    name="email"
+                    size="small"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                  {errors.email && (
+                    <Text className="text-red-500 mt-3">
+                      {errors.email.message}
+                    </Text>
+                  )}
+                </div>
+              )}
+            />
+
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Password is required!" }}
+              render={({ field }) => (
+                <div>
+                  <FormInput
+                    type="password"
+                    label="Password"
+                    name="password"
+                    size="small"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                  {errors.password && (
+                    <Text className="text-red-500 mt-3">
+                      {errors.password.message}
+                    </Text>
+                  )}
+                </div>
+              )}
+            />
+
+            <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
+              Sign In
             </Button>
-            <Button
-              size="lg"
-              variant="roundOutline"
-              color="blue-gray"
-              className="flex items-center gap-3 mt-4 w-80"
-              type="login-google"
+            <div id="signUpDiv" className="object-cover"></div>
+          </form>
+
+          <div className="mt-6 text-center max-w-sm">
+            <Text variant="text-sm" className="text-gray-300">
+            Already have an account? 
+            </Text>
+            <Text
+              variant="text-sm"
+              className="text-[#EF5DA8]"
+              noLink={false}
+              href="/login"
             >
-              <img
-                src="https://docs.material-tailwind.com/icons/google.svg"
-                alt="metamask"
-                className="h-4 w-60"
-              />
-              Sign Up with Google
-            </Button>
-            <div class="w-full flex items-center">
-              <Text className="mt-4" weight="font-normal" variant="text-base">
-                Already have an account?
-              </Text>
-              <Text
-                noLink={false}
-                variant="text-sm"
-                href="/login"
-                className="text-black mt-3 underline underline-offset-1"
-              >
-                Sign In
-              </Text>
-            </div>
+              {" "}
+              Sign in
+            </Text>
           </div>
         </div>
       </div>
 
-      {/* Image */}
-      {/* <div class=" bg-white sm:block hidden">
+      <div className="w-1/2 object-cover">
         <img
-          className="w-full h-full object-cover "
-          src={require("../assets/loginside.png")}
-          alt="image"
-        ></img>
-      </div> */}
-
-      <div class="w-1/2 h-screen bg-[#dfe0e3] sm:block hidden">
-        <img
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover"
           src={require("../assets/loginside.png")}
           alt="image"
         ></img>
       </div>
     </div>
   );
-}
+};
+
+export default Signup;
