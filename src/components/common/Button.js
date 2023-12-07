@@ -14,12 +14,15 @@ const ButtonVariants = cva(
         cirTrans: 'btn bg-[#FCDDEC] hover:bg-transparent hover:border-[#EF5DA8] text-white hover:text-[#EF5DA8] rounded-full',
         redButton: 'btn bg-red-400 hover:bg-transparent hover:border-red-400 text-white hover:text-red-400 rounded-[10px]',
         blueButton: 'btn bg-[#7879F1] hover:bg-transparent hover:border-[#7879F1] text-white hover:text-[#7879F1] rounded-[10px]',
+        close: 'btn btn-sm btn-circle bg-transparent border-transparent hover:bg-transparent hover:border-transparent',
         navButton: 'py-3 ps-4 pe-20 rounded-lg bg-neutral-50 hover:bg-pink-400 border-none shadow-none'
       },
       size: {
         default: 'h-10 py-2 px-4 text-sm',
         sm: 'h-9 py-2 rounded-md text-xs',
-        lg: 'h-11 px-11 text-sm'
+        lg: 'h-11 px-11 text-sm max-w-sm',
+        xl: 'h-12 px-12 text-sm',
+        fix: 'absolute right-2 top-2'
       }
     },
     defaultVariants: {
@@ -28,7 +31,7 @@ const ButtonVariants = cva(
     },
   })
 
-const Button = ({ children, variant, size, className, href, onMouseEnter, onMouseLeave }) => {
+const Button = ({ children, variant, size, className, href, onMouseEnter, onMouseLeave, onClick, id }) => {
   return (
     href ? (
       <Link
@@ -36,17 +39,21 @@ const Button = ({ children, variant, size, className, href, onMouseEnter, onMous
         to={href}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onClick={onClick}
+        id={id}
       >
         {children}
       </Link>
     ) : (
       <button className={cn(ButtonVariants({ variant, size, className }))}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}>
+        onMouseLeave={onMouseLeave}
+        onClick={onClick}
+        id={id}
+        >
         {children}
       </button>
     ));
 };
-
 
 export default Button;
