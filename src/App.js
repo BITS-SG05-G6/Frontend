@@ -8,6 +8,9 @@ import Transaction from './pages/Transaction';
 import Login from './pages/Login';
 import { Login2 } from './pages/Login2';
 import Signup from './pages/Signup';
+import { Login } from "./pages/Login";
+import { SignUp } from "./pages/Signup";
+import Transaction2 from './pages/Transaction2';
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup/>}></Route>
+
+       <Route path="/transaction2" element={<Transaction2/>}></Route>
+  
     </Routes>
   );
 }
