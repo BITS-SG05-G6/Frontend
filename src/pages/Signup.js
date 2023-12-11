@@ -3,13 +3,16 @@ import { Controller, useForm } from "react-hook-form";
 import Button from "../components/common/Button";
 import FormInput from "../components/common/FormInput";
 import Text from "../components/common/Text";
+import * as axiosInstance from "../services/axiosService";
 
 const Signup = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
   function handleCallbackResponse(res) {
     console.log("Encoded KWT ID token: " + res.credential);
@@ -32,8 +35,14 @@ const Signup = () => {
     });
   }, []);
 
-  const onSubmit = (d) => {
-    console.log(d);
+  const onSubmit = async(d) => {
+    await axiosInstance.signup(d.username, d.password)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err.response.data.error.message);
+    })
   };
 
   return (
@@ -61,47 +70,29 @@ const Signup = () => {
 
           <form className="flex flex-col gap-6 max-w-sm">
             <Controller
-              name="fullname"
+              name="username"
               control={control}
               defaultValue=""
-              rules={{ required: "Full Name is required!" }}
+              rules={{
+                required: "Username is required!",
+                minLength: {
+                  value: 2,
+                  message: "Username should be at least 2 characters long.",
+                },
+              }}
               render={({ field }) => (
                 <div>
                   <FormInput
                     type="text"
-                    label="Full Name"
-                    name="fullname"
+                    label="Username"
+                    name="username"
                     size="small"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
-                  {errors.fullname && (
+                  {errors.username && (
                     <Text className="text-red-500 mt-3">
-                      {errors.fullname.message}
-                    </Text>
-                  )}
-                </div>
-              )}
-            />
-
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              rules={{ required: "Email is required!" }}
-              render={({ field }) => (
-                <div>
-                  <FormInput
-                    type="text"
-                    label="Email"
-                    name="email"
-                    size="small"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                  {errors.email && (
-                    <Text className="text-red-500 mt-3">
-                      {errors.email.message}
+                      {errors.username.message}
                     </Text>
                   )}
                 </div>
@@ -112,7 +103,14 @@ const Signup = () => {
               name="password"
               control={control}
               defaultValue=""
-              rules={{ required: "Password is required!" }}
+              rules={{
+                required: "Password is required!",
+                pattern: {
+                  value: /^(?=.*[A-Z]).{8,}$/,
+                  message:
+                    "At least one uppercase letter and be at least 8 characters long",
+                },
+              }}
               render={({ field }) => (
                 <div>
                   <FormInput
@@ -133,14 +131,14 @@ const Signup = () => {
             />
 
             <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
-              Sign In
+              Sign Up
             </Button>
             <div id="signUpDiv" className="object-cover"></div>
           </form>
 
           <div className="mt-6 text-center max-w-sm">
             <Text variant="text-sm" className="text-gray-300">
-            Already have an account? 
+              Already have an account?
             </Text>
             <Text
               variant="text-sm"
@@ -159,7 +157,7 @@ const Signup = () => {
         <img
           className="w-full h-full object-cover"
           src={require("../assets/loginside.png")}
-          alt="image"
+          alt="login"
         ></img>
       </div>
     </div>

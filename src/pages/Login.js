@@ -3,13 +3,17 @@ import { Controller, useForm } from "react-hook-form";
 import Button from "../components/common/Button";
 import FormInput from "../components/common/FormInput";
 import Text from "../components/common/Text";
+import Cookies from "js-cookie";
+import * as axiosInstance from "../services/axiosService";
 
 const Login = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onChange"
+  });
 
   function handleCallbackResponse(res) {
     console.log("Encoded KWT ID token: " + res.credential);
@@ -32,8 +36,16 @@ const Login = () => {
     });
   }, []);
 
-  const onSubmit = (d) => {
-    console.log(d);
+  const onSubmit = async(d) => {
+    await axiosInstance.signin(d.username, d.password)
+    .then((res) => {
+      console.log(res);
+      Cookies.set("token", res.token);
+    })
+    .catch((err) => {
+      console.log(err.response.data.error.message);
+    })
+    // console.log(d);
   };
 
   return (
@@ -58,24 +70,30 @@ const Login = () => {
           </div>
 
           <form className="flex flex-col gap-6 max-w-sm">
-            <Controller
-              name="email"
+          <Controller
+              name="username"
               control={control}
               defaultValue=""
-              rules={{ required: "Email is required!" }}
+              rules={{
+                required: "Username is required!",
+                minLength: {
+                  value: 2,
+                  message: "Username should be at least 2 characters long.",
+                },
+              }}
               render={({ field }) => (
                 <div>
                   <FormInput
                     type="text"
-                    label="Email"
-                    name="email"
+                    label="Username"
+                    name="username"
                     size="small"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
-                  {errors.email && (
+                  {errors.username && (
                     <Text className="text-red-500 mt-3">
-                      {errors.email.message}
+                      {errors.username.message}
                     </Text>
                   )}
                 </div>
@@ -106,7 +124,9 @@ const Login = () => {
               )}
             />
 
-            <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>Sign In</Button>
+            <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
+              Sign In
+            </Button>
             <div id="signUpDiv" className="object-cover"></div>
           </form>
 
@@ -114,7 +134,12 @@ const Login = () => {
             <Text variant="text-sm" className="text-gray-300">
               Don’t have an account?
             </Text>
-            <Text variant="text-sm" className="text-[#EF5DA8]" noLink={false} href="/signup">
+            <Text
+              variant="text-sm"
+              className="text-[#EF5DA8]"
+              noLink={false}
+              href="/signup"
+            >
               {" "}
               Sign up for free
             </Text>
