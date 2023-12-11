@@ -45,7 +45,6 @@ const Login = () => {
     .catch((err) => {
       console.log(err.response.data.error.message);
     })
-    // console.log(d);
   };
 
   return (
@@ -151,7 +150,7 @@ const Login = () => {
         <img
           className="w-full h-full object-cover"
           src={require("../assets/loginside.png")}
-          alt="image"
+          alt="login"
         ></img>
       </div>
     </div>

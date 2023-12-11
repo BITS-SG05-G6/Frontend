@@ -7,6 +7,7 @@ import Select from "../common/Select";
 import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
+import * as axiosInstance from "../../services/axiosService";
 
 // import es from 'date-fns/locale/es'
 // registerLocale('es', es);
@@ -14,13 +15,26 @@ const TransactionForm = ({ children }) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const onSubmit = (d) => {
-    console.log(d);
+  const onSubmit = async (d) => {
+    await axiosInstance
+      .createTransaction(d.amount, d.description, d.date, "Normal", "Expense", d.title)
+      .then((res) => {
+        console.log(res);
+        reset();
+        document.getElementById("my_modal_1").close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // console.log(d);
   };
 
   const options = [
@@ -53,6 +67,17 @@ const TransactionForm = ({ children }) => {
     },
   ];
 
+  const type = [
+    {
+      id: "Expense",
+      name: "Expense"
+    }, 
+    {
+      id: "Income",
+      name: "Income"
+    }
+  ]
+
   return (
     <>
       <Button
@@ -67,7 +92,9 @@ const TransactionForm = ({ children }) => {
           fillColor="#FFFFFF"
         />
 
-        <Text variant="text-sm" weight="bold">Create Transaction</Text>
+        <Text variant="text-sm" weight="bold">
+          Create Transaction
+        </Text>
       </Button>
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box flex flex-col justify-center w-full">
@@ -79,6 +106,30 @@ const TransactionForm = ({ children }) => {
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
+
+              <Controller
+                name="title"
+                control={control}
+                defaultValue=""
+                rules={{ required: "Title is required!" }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="text"
+                      label="Title"
+                      name="title"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
+                    {errors.title && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.title.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
 
               <Controller
                 name="amount"
@@ -126,7 +177,7 @@ const TransactionForm = ({ children }) => {
                 )}
               />
 
-              <Controller
+              {/* <Controller
                 name="wallet"
                 control={control}
                 defaultValue={options[0].id}
@@ -142,6 +193,28 @@ const TransactionForm = ({ children }) => {
                     {errors.wallet && (
                       <Text className="text-red-500 px-32 mt-3">
                         {errors.wallet.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              /> */}
+
+              <Controller
+                name="type"
+                control={control}
+                defaultValue={type[0].id}
+                render={({ field }) => (
+                  <div>
+                    <Select
+                      label="Type"
+                      name="type"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      options={type}
+                    />
+                    {errors.type && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.type.message}
                       </Text>
                     )}
                   </div>

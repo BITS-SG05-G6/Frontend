@@ -38,8 +38,8 @@ export const signin = async(username, password) => {
   }
 }
 
-export const createTransaction = async(amount, description, date, transactionType, type, userId) => {
-  const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, userId})
+export const createTransaction = async(amount, description, date, transactionType, type, title) => {
+  const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, title})
 
   try {
     if (res.status === 200) {
