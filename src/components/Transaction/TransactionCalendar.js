@@ -2,9 +2,9 @@ import Calendar from 'react-calendar';
 import '../../App.css';
 
 
-function TransactionCalendar({selectedDate, onDateChange}) {
+function TransactionCalendar({selectedDate, onDateChange, className}) {
     return (
-        <div>
+        <div className={className}>
             <Calendar
                 className="react-calendar" 
                 value={selectedDate}
