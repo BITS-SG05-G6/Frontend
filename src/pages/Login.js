@@ -43,7 +43,8 @@ const Login = () => {
       Cookies.set("token", res.token);
     })
     .catch((err) => {
-      console.log(err.response.data.error.message);
+      console.log(err)
+      // console.log(err.response.data.error.message);
     })
   };
 

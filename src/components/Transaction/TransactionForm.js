@@ -7,7 +7,7 @@ import Select from "../common/Select";
 import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
-import * as axiosInstance from "../../services/axiosService";
+import * as axiosInstance from "../../services/transactions";
 
 // import es from 'date-fns/locale/es'
 // registerLocale('es', es);

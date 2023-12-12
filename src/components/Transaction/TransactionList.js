@@ -1,7 +1,7 @@
 import TransactionCard from "./TransactionCard";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import * as axiosInstance from '../../services/transactions'
 
 function TransactionList({ selectedDate }) {
   // Set transaction list
@@ -22,30 +22,28 @@ function TransactionList({ selectedDate }) {
       amount: 10,
     },
   ]);
-  const { userId } = useParams();
+  const [transaction, setTransaction] = useState(null);
+  
 
-  // useEffect(() => {
-  //     // Fetch transactions based on user Id and date
-  //     async function fetchTransactions() {
-  //         try {
-  //             // Extract user id from URL
-  //             const userParam = userId;
-  //             const formattedDate = selectedDate.toISOString().split('T')[0];
-  //             // Recieve response
-  //             const response = await axios.get("", {
-  //                 params: {
-  //                     userId: userParam,
-  //                     date: formattedDate
-  //                 }
-  //             }); // Not define link yet
-  //             setTransactions(response.data);
-  //         }
-  //         catch (error) {
-  //             console.error('Error fetching data: ', error);
-  //         }
-  //     }
-  //     fetchTransactions()
-  // }, [userId, selectedDate]);
+  // Fetch transactions
+  useEffect(() => {
+    // Fetch transactions based on user Id and date
+    let date = selectedDate;
+    const fetchData = async () => {
+      try {
+        console.log('Date: ', selectedDate);
+        // Recieve response
+        let res = await axiosInstance.getTransactions( date );
+        setTransactions(res);
+      }
+      catch (error) {
+        console.log(error.response.data.message.error);
+      }
+    }
+      
+    fetchData();
+
+  }, [selectedDate]);
 
   return (
     <div className="px-10">
