@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import Button from "../components/common/Button";
 import FormInput from "../components/common/FormInput";
 import Text from "../components/common/Text";
-import * as axiosInstance from "../services/axiosService";
+import * as axiosInstance from "../services/auth";
 
 const Signup = () => {
   const {

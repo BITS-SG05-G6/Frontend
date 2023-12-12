@@ -1,5 +1,5 @@
 import React from 'react';
-import * as axiosInstance from "../services/axiosService"
+import * as axiosInstance from "../services/transactions"
 function Test() {
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -42,10 +42,9 @@ function Test() {
 
     try {
       const userId = "656da7668a456e1316715912";
-      const sD = "2023-12-2";
-      const eD = "2023-12-6";
+      const date = "2023-12-03";
 
-      await axiosInstance.getTransactions(userId, sD, eD)
+      await axiosInstance.getTransactions(userId, date)
       .then((res) => {
         console.log(res)
       })
