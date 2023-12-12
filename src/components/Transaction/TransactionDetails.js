@@ -5,19 +5,6 @@ import axios from 'axios';
 function TransactionDetails({ transactionId }) {
     const [transaction, setTransaction] = useState({});
 
-    useEffect(() => {
-        async function fetchTransactionDetails() {
-            try {
-                const response = await axios.get("");
-                setTransaction(response.data);
-            }
-            catch (error) {
-                console.error("Error fetching data: ", error);
-            }
-        }
-        fetchTransactionDetails();
-    }, [transactionId]);
-
     return (
         <div className="w-96 h-[660px] bg-white rounded-[10px] border border-gray-300">
             <div className="px-2 py-3 flex flex-col gap-2">
