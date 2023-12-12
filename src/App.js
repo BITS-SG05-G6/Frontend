@@ -4,11 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
 import Test from './pages/Test';
 import Transaction from './pages/Transaction';
-// import { SignUp } from "./pages/Signup";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-// import { Login } from "./pages/Login";
-import { SignUp } from "./pages/Signup";
 
 function App() {
   return (
