@@ -4,7 +4,7 @@ import Button from "../components/common/Button";
 import FormInput from "../components/common/FormInput";
 import Text from "../components/common/Text";
 import Cookies from "js-cookie";
-import * as axiosInstance from "../services/axiosService";
+import * as axiosInstance from "../services/auth";
 
 const Login = () => {
   const {

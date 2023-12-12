@@ -1,42 +1,4 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-
-const axiosInstance = axios.create({
-  baseURL: 'http://localhost:4000/api/',
-  timeout: 1000,
-  headers: {
-    Accept: 'application/json',
-  }
-})
-
-axiosInstance.interceptors.request.use(function(config) {
-  config.headers.authorization = Cookies.get('token');
-  return config;
-})
-
-export const signup = async(username, password) => {
-  const res = await axiosInstance.post("/signup", {username, password});
-
-  try {
-    if (res.status === 200) {
-      return res.data;
-    }
-  } catch (err) {
-    return err;
-  }
-}
-
-export const signin = async(username, password) => {
-  const res = await axiosInstance.post("/signin", {username, password});
-
-  try {
-    if (res.status === 200) {
-      return res.data;
-    }
-  } catch (err) {
-    return err;
-  }
-}
+import axiosInstance  from "./axios";
 
 export const createTransaction = async(amount, description, date, transactionType, type, userId) => {
   const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, userId})
@@ -62,10 +24,10 @@ export const deleteTransaction = async(userId, transactionId) => {
   }
 }
 
-export const getTransactions = async(userId, startDate, endDate) => {
+export const getTransactions = async(userId, date) => {
   let res;
-  if (startDate && endDate) {
-    res = await axiosInstance.get(`transaction/viewall/${userId}/?startDate=${startDate}&endDate=${endDate}`)
+  if (date) {
+    res = await axiosInstance.get(`transaction/viewall/${userId}/?date=${date}`)
   } else {
     res = await axiosInstance.get(`transaction/viewall/${userId}`)
   }
