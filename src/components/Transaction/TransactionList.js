@@ -26,25 +26,25 @@ function TransactionList({ selectedDate }) {
   
 
   // Fetch transactions
-  useEffect(() => {
-    // Fetch transactions based on user Id and date
-    let date = selectedDate;
-    const fetchData = async () => {
-      try {
-        console.log('Date: ', selectedDate);
-        // Recieve response
-        let res = await axiosInstance.getTransactions( date );
-        setTransactions(res);
-      }
-      catch (error) {
-        console.log(error);
-        // console.log(error.response.data.message.error);
-      }
-    }
+  // useEffect(() => {
+  //   // Fetch transactions based on user Id and date
+  //   let date = selectedDate;
+  //   const fetchData = async () => {
+  //     try {
+  //       console.log('Date: ', selectedDate);
+  //       // Recieve response
+  //       let res = await axiosInstance.getTransactions( date );
+  //       setTransactions(res);
+  //     }
+  //     catch (error) {
+  //       console.log(error.response.data.message.error);
+  //     }
+  //   }
+ 
       
-    fetchData();
+  //   fetchData();
 
-  }, [selectedDate]);
+  // }, [selectedDate]);
 
   return (
     <div className="px-10">
