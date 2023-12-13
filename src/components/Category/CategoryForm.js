@@ -87,16 +87,11 @@ const CategoryForm = ({ children }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => document.getElementById("my_modal_2").showModal()}
+        variant="none"
       >
-        <Icon
-          svg={<CreateTransactionIcon />}
-          isHovered={isHovered}
-          hoverColor="#EF5DA8"
-          fillColor="#FFFFFF"
-        />
 
-        <Text variant="text-sm" weight="bold">
-          Create Category
+        <Text variant="text-md" weight="bold">
+          + Add New Category
         </Text>
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
