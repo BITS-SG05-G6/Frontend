@@ -9,7 +9,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 // import { Login } from "./pages/Login";
 import { SignUp } from "./pages/Signup";
-
+import Wallet from './pages/Wallet'
+import WalletCard from './components/Wallet/WalletCard';
 function App() {
   return (
     <Routes>
@@ -17,6 +18,8 @@ function App() {
        <Route path="/test" element={<Test/>}></Route>
        <Route path="/transaction" element={<Transaction/>}></Route>
        <Route path="/login" element={<Login/>}></Route>
+       <Route path="/wallet" element={<Wallet/>}></Route>
+       <Route path="/walletcard" element={<WalletCard/>}></Route>
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup/>}></Route>
