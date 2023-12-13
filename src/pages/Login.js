@@ -5,6 +5,7 @@ import FormInput from "../components/common/FormInput";
 import Text from "../components/common/Text";
 import Cookies from "js-cookie";
 import * as axiosInstance from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -14,6 +15,8 @@ const Login = () => {
   } = useForm({
     mode: "onChange"
   });
+
+  const navigate = useNavigate();
 
   function handleCallbackResponse(res) {
     console.log("Encoded KWT ID token: " + res.credential);
@@ -41,6 +44,7 @@ const Login = () => {
     .then((res) => {
       console.log(res);
       Cookies.set("token", res.token);
+      navigate("/transaction")
     })
     .catch((err) => {
       console.log(err)
@@ -51,10 +55,12 @@ const Login = () => {
   return (
     <div className="flex justify-between h-screen">
       <div className="w-1/2 flex justify-center items-center">
-        <Text
-          className="absolute top-20 left-20 text-[#EF5DA8]"
+      <Text
+          className="absolute top-6 left-6 text-[#EF5DA8]"
           variant="text-xl"
           weight="bold"
+          noLink={false}
+          href="/"
         >
           Wise
           <Text className="text-black" variant="text-xl" weight="bold">
