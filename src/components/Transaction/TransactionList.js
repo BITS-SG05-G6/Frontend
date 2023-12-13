@@ -37,7 +37,8 @@ function TransactionList({ selectedDate }) {
         setTransactions(res);
       }
       catch (error) {
-        console.log(error.response.data.message.error);
+        console.log(error);
+        // console.log(error.response.data.message.error);
       }
     }
       
