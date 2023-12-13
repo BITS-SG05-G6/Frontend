@@ -24,12 +24,12 @@ export const deleteTransaction = async(userId, transactionId) => {
   }
 }
 
-export const getTransactions = async(userId, date) => {
+export const getTransactions = async(date) => {
   let res;
   if (date) {
-    res = await axiosInstance.get(`transaction/viewall/${userId}/?date=${date}`)
+    res = await axiosInstance.get(`transaction/viewall/?date=${date}`)
   } else {
-    res = await axiosInstance.get(`transaction/viewall/${userId}`)
+    res = await axiosInstance.get(`transaction/viewall/`)
   }
 
   try {

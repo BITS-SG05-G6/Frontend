@@ -9,8 +9,6 @@ import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
 import * as axiosInstance from "../../services/transactions";
 
-// import es from 'date-fns/locale/es'
-// registerLocale('es', es);
 const TransactionForm = ({ children }) => {
   const {
     control,
@@ -25,7 +23,14 @@ const TransactionForm = ({ children }) => {
 
   const onSubmit = async (d) => {
     await axiosInstance
-      .createTransaction(d.amount, d.description, d.date, "Normal", "Expense", d.title)
+      .createTransaction(
+        d.amount,
+        d.description,
+        d.date,
+        "Normal",
+        "Expense",
+        d.title
+      )
       .then((res) => {
         console.log(res);
         reset();

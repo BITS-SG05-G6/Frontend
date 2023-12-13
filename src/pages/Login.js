@@ -45,6 +45,7 @@ const Login = () => {
       console.log(res);
       Cookies.set("token", res.token);
       navigate("/transaction")
+
     })
     .catch((err) => {
       console.log(err)
