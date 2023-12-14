@@ -7,7 +7,6 @@ import Transaction from './pages/Transaction';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Category from './pages/Category';
-
 function App() {
   return (
     <Routes>

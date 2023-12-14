@@ -1,5 +1,6 @@
 import React from "react";
 import Text from "./Text";
+import { NavLink } from "react-router-dom";
 import {
   DashboardIcon,
   HelpIcon,
@@ -28,18 +29,18 @@ const SideBar = () => {
       </Text>
 
       <div className="flex flex-col gap-2 mt-20 ">
-        <SideBarField title="Dashboard" icon={<DashboardIcon />} />
-        <SideBarField title="Transactions" icon={<TransactionIcon />} />
-        <SideBarField title="Invoices" icon={<InvoiceIcon />} />
-        <SideBarField title="My Wallets" icon={<WalletIcon />} />
-        <SideBarField title="Planning" icon={<PlanIcon />} />
-        <SideBarField title="Statistics" icon={<StatisticsIcon />} />
-        <SideBarField title="My Profile" icon={<ProfileIcon />} />
+        <SideBarField path='/dashboard' title="Dashboard" icon={<DashboardIcon />} />
+        <SideBarField path='/transaction' title="Transactions" icon={<TransactionIcon />} />
+        <SideBarField path='/invoices' title="Invoices" icon={<InvoiceIcon />} />
+        <SideBarField path='/wallets' title="My Wallets" icon={<WalletIcon />} />
+        <SideBarField path='/planning' title="Planning" icon={<PlanIcon />} />
+        <SideBarField path='/statistics' title="Statistics" icon={<StatisticsIcon />} />
+        <SideBarField path='/profile' title="My Profile" icon={<ProfileIcon />} />
       </div>
 
       <div className="flex gap-2 flex-col absolute bottom-6">
-        <SideBarField title="Help" icon={<HelpIcon />} />
-        <SideBarField title="Log Out" icon={<LogoutIcon />} />
+        <SideBarField path='/help' title="Help" icon={<HelpIcon />} />
+        <SideBarField path='/logout' title="Log Out" icon={<LogoutIcon />} />
       </div>
     </div>
   );
