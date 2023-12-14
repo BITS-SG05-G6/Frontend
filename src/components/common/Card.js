@@ -6,18 +6,19 @@ import { IconList } from "../svgs/IconList";
 import Button from "./Button";
 import CategoryForm from "../Category/CategoryForm";
 
-const Card = ({ icon, color, add }) => {
+const Card = ({ icon, color, add, type, name, amount }) => {
+  // console.log(type);
   return (
     <Box
-      className="flex justify-center items-center gap-20 flex-col h-80"
+      className="flex justify-center items-center gap-20 flex-col h-80 max-w-xs"
       color="gray"
     >
       {add ? (
-        <CategoryForm/>
+        <CategoryForm categoryType={type}/>
       ) : (
         <>
           <Text variant="text-lg" weight="semibold">
-            Transportation
+            {name}
           </Text>
           <div
             className="p-4 rounded-xl"
@@ -31,7 +32,7 @@ const Card = ({ icon, color, add }) => {
               }
             })}
           </div>
-          <Text weight="bold">300$</Text>
+          <Text weight="bold">{amount} VND</Text>
         </>
       )}
     </Box>
