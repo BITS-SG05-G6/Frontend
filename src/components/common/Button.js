@@ -14,6 +14,7 @@ const ButtonVariants = cva(
         cirTrans: 'btn bg-[#FCDDEC] hover:bg-transparent hover:border-[#EF5DA8] text-white hover:text-[#EF5DA8] rounded-full',
         redButton: 'btn bg-red-400 hover:bg-transparent hover:border-red-400 text-white hover:text-red-400 rounded-[10px]',
         blueButton: 'btn bg-[#7879F1] hover:bg-transparent hover:border-[#7879F1] text-white hover:text-[#7879F1] rounded-[10px]',
+        lightPrimary: 'btn bg-pink-300 hover:bg-transparent hover:border-pink-300 text-white hover:text-[#7879F1] rounded-[10px]',
         close: 'btn btn-sm btn-circle bg-transparent border-transparent hover:bg-transparent hover:border-transparent',
       },
       size: {
