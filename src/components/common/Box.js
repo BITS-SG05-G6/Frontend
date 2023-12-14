@@ -22,6 +22,9 @@ const BoxVariants = cva(
       noBorder: {
         true: 'border-transparent'
       },
+      size: {
+        xs: "max-w-xs"
+      }
     },
     defaultVariants: {
       spacing: 'md',
@@ -30,9 +33,9 @@ const BoxVariants = cva(
   } 
 ) 
 
-const Box = ({children, spacing, className, color, noBorder = true}) => {
+const Box = ({children, spacing, className, color, noBorder = true, size}) => {
   return (
-    <div className={cn(BoxVariants({spacing, className, noBorder, color}))}>{children}</div>
+    <div className={cn(BoxVariants({spacing, className, noBorder, color, size}))}>{children}</div>
   )
 }
 

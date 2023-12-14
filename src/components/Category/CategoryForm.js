@@ -9,6 +9,8 @@ import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
 import * as axiosInstance from "../../services/transactions";
 import ColorPicker from "../common/ColorPicker";
+import IconPicker from "../common/IconPicker";
+import { IconList } from "../svgs/IconList";
 
 // import es from 'date-fns/locale/es'
 // registerLocale('es', es);
@@ -71,13 +73,13 @@ const CategoryForm = ({ children }) => {
   const type = [
     {
       id: "Expense",
-      name: "Expense"
-    }, 
+      name: "Expense",
+    },
     {
       id: "Income",
-      name: "Income"
-    }
-  ]
+      name: "Income",
+    },
+  ];
 
   return (
     <>
@@ -85,24 +87,19 @@ const CategoryForm = ({ children }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => document.getElementById("my_modal_2").showModal()}
+        variant="none"
       >
-        <Icon
-          svg={<CreateTransactionIcon />}
-          isHovered={isHovered}
-          hoverColor="#EF5DA8"
-          fillColor="#FFFFFF"
-        />
 
-        <Text variant="text-sm" weight="bold">
-          Create Category
+        <Text variant="text-md" weight="bold">
+          + Add New Category
         </Text>
       </Button>
-      <dialog id="my_modal_2" className="modal">
-        <div className="modal-box flex flex-col justify-center w-full">
+      <dialog id="my_modal_2" className="modal overflow-visible">
+        <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add Category
           </Text>
-          <div className="modal-action mx-0 block w-full">
+          <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">
               <Button variant="close" className="text-black" size="fix">
                 x
@@ -154,14 +151,33 @@ const CategoryForm = ({ children }) => {
                 )}
               />
 
-<Controller
+              <Controller
                 name="color"
                 control={control}
                 defaultValue="#f5d1e4"
                 render={({ field }) => (
                   <div>
-                    <ColorPicker 
-                      label="Color" 
+                    <ColorPicker
+                      label="Color"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    />
+                    {errors.type && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.type.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
+
+              <Controller
+                name="icon"
+                control={control}
+                defaultValue="file-invoice-dollar"
+                render={({ field }) => (
+                  <div>
+                    <IconPicker
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                     />
