@@ -140,7 +140,10 @@ const TransactionForm = ({ children }) => {
                 name="amount"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Amount is required!" }}
+                rules={{ required: "Amount is required!" , pattern: {
+                  value: /^([^.0-]\d+|\d)$/,
+                  message: "It must be a positive number"
+                }}}
                 render={({ field }) => (
                   <div>
                     <FormInput

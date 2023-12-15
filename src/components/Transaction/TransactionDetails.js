@@ -1,14 +1,14 @@
+import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 
-function TransactionDetails({ transactionId }) {
-    const [transaction, setTransaction] = useState(null);
-
+function TransactionDetails({ transaction }) {
+    // const [transaction, setTransaction] = useState(null);
     return (
         <div className="w-96">
             {transaction ? (
-                <div className="h-[90%] bg-white rounded-[10px] border border-gray-300">
+                <div className=" bg-white rounded-[10px] border border-gray-300">
                     <div className="px-2 py-3 flex flex-col gap-2">
                         <div className="text-gray-800 text-xl font-semibold text-center">{transaction.title}</div>
                         <div className="text-red-400 text-lg font-bold text-center">{transaction.amount}VND</div>
@@ -29,7 +29,7 @@ function TransactionDetails({ transactionId }) {
                             </tr>
                             <tr>
                                 <th className='text-gray-400'>Date</th>
-                                <td className="text-end font-semibold"><span className="bg-slate-200 rounded-[10px] px-3 py-1">{transaction.date}</span></td>
+                                <td className="text-end font-semibold"><span className="bg-slate-200 rounded-[10px] px-3 py-1">{format(new Date(transaction.date), "dd/MM/yyyy")}</span></td>
                             </tr>
                         </table>
                     </div>
@@ -42,7 +42,7 @@ function TransactionDetails({ transactionId }) {
             ) :
                 (
                     <div className="relative top-1/3 flex flex-col justify-start items-center">
-                            <img src={require("../../assets/transactionplaceholder.png")} width='30%' height='30%' className=""></img>
+                            <img src={require("../../assets/transactionplaceholder.png")} width='30%' height='30%' className="" alt="no transaction"></img>
                         <div>
                             <Text className='text-slate-400' variant='text-md'>Choose a transaction</Text>
                         </div>

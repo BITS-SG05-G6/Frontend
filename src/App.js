@@ -13,6 +13,7 @@ function App() {
        <Route path="/" element={<LandingPage/>}></Route>
        <Route path="/test" element={<Test/>}></Route>
        <Route path="/transaction" element={<Transaction/>}></Route>
+       <Route path="/transaction/:id" element={<Transaction/>}></Route>
        <Route path="/login" element={<Login/>}></Route>
 
       {/* <Route path="/login" element={<Login />}></Route> */}
