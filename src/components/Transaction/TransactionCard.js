@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "../common/Button";
 import Text from "../common/Text";
 
-function TransactionCard({ title, amount, category, id }) {
+function TransactionCard({ title, amount, category, id, color}) {
   return (
     <tr className="w-full">
       {/* The user can click on a transaction row to view the details */}
@@ -20,7 +20,10 @@ function TransactionCard({ title, amount, category, id }) {
       </td>
       {category ? (
         <td>
-            <Text variant="text-sm" className="bg-[#FCDDEC] rounded-xl px-3 py-1">{category}</Text>
+            <Text variant="text-sm" className="rounded-xl px-3 py-1" style={{
+                backgroundColor: `${color}40`,
+                color: color,
+              }}>{color}</Text>
           {/* <span className="bg-[#FCDDEC] rounded-xl px-3 py-1">{category}</span> */}
         </td>
       ) : (

@@ -34,13 +34,13 @@ const TextVariants = cva(
   }
 );
 
-const Text = ({ children, variant, weight, className, href }) => {
+const Text = ({ children, variant, weight, className, href, style }) => {
   return (
     href ? 
-    <Link to={href} className={cn(TextVariants({ variant, weight, className }))}>
+    <Link to={href} className={cn(TextVariants({ variant, weight, className }))} style={style}>
       {children}
     </Link>
-    : <span className={cn(TextVariants({ variant, weight, className }))}>
+    : <span className={cn(TextVariants({ variant, weight, className }))} style={style}>
       {children}
     </span>
   );

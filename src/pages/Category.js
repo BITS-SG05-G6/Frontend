@@ -31,12 +31,12 @@ const Category = () => {
 
         <div className="grid gap-10 grid-cols-4 px-10">
           {categories.map((category) => (
-            <Card
-              icon={category.icon}
-              color={category.color}
-              name={category.name}
-              amount={category.amount}
-            />
+           category.type === type ?  <Card
+           icon={category.icon}
+           color={category.color}
+           name={category.name}
+           amount={category.amount}
+         /> : null
           ))}
           <Card add={true} type={type} />
         </div>

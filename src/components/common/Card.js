@@ -14,7 +14,7 @@ const Card = ({ icon, color, add, type, name, amount }) => {
       color="gray"
     >
       {add ? (
-        <CategoryForm categoryType={type}/>
+        <CategoryForm categoryType={type} />
       ) : (
         <>
           <Text variant="text-lg" weight="semibold">
@@ -24,13 +24,11 @@ const Card = ({ icon, color, add, type, name, amount }) => {
             className="p-4 rounded-xl"
             style={{ backgroundColor: `${color}30` }}
           >
-            {IconList.map((i) => {
-              if (i.value === icon) {
-                return (
-                  <FontAwesomeIcon icon={i.icon} size="2xl" color={color} />
-                );
-              }
-            })}
+            {IconList.map((i) =>
+              i.value === icon ? (
+                <FontAwesomeIcon icon={i.icon} size="2xl" color={color} />
+              ) : null
+            )}
           </div>
           <Text weight="bold">{amount} VND</Text>
         </>

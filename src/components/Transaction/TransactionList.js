@@ -6,7 +6,7 @@ import * as axiosInstance from "../../services/transactions";
 function TransactionList({ transactions }) {
   // Set transaction list
   // const [transactions, setTransactions] = useState([]);
-
+  // console.log(transactions[0])
   return (
     <div className="px-10">
       {transactions ? (
@@ -26,6 +26,7 @@ function TransactionList({ transactions }) {
                 title={transaction.title}
                 category={transaction.category}
                 amount={transaction.amount}
+                color={transaction.color}
               />
             ))}
           </tbody>

@@ -24,7 +24,7 @@ const Select = ({
   label,
   value,
   onChange,
-  options}) => {
+  options, disabled}) => {
     return (
       <>
         <label className="form-control w-full flex flex-row gap-10 justify-around ">
@@ -37,16 +37,29 @@ const Select = ({
             value={value}
             onChange={onChange}
             className={cn(SelectVariant({ size, className }))}
+            disabled={disabled}
             >
               {
-                options.map((option) => {
-                  if (option.id) {
+                options.length > 1 && options.map((option) => {
+                   if (option.id) {
                     return <option key={option.id} value={option.id}>{option.name}</option>
                   } else {
                     return <option key={option} value={option}>{option}</option>
                   }
                 })
               }
+              {/* {options && options.map((option) => {
+              })} */}
+              {/* {
+                // options.map((option) => {
+                  // return <div>{option.name}</div>
+                  // if (option.id) {
+                  //   return <option key={option.id} value={option.id}>{option.name}</option>
+                  // } else {
+                  //   return <option key={option} value={option}>{option}</option>
+                  // }
+                }) */}
+              {/* } */}
             </select>
           
         </label>
