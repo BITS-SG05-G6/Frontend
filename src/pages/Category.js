@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../components/common/Button";
 import Card from "../components/common/Card";
 import Header from "../components/common/Header";
 import SideBar from "../components/common/SideBar";
+import { CategoryContext } from "../context/categoryContext";
 
 const Category = () => {
+  const { type, setType, categories } = useContext(CategoryContext);
   return (
     <div>
       <SideBar />
@@ -13,15 +15,30 @@ const Category = () => {
         <Header title="My Budgets" />
 
         <div className="flex justify-end px-6 gap-4">
-          <Button>Expense</Button>
-          <Button variant="roundOutline">Income</Button>
+          <Button
+            variant={type === "Expense" ? "" : "roundOutline"}
+            onClick={() => setType("Expense")}
+          >
+            Expense
+          </Button>
+          <Button
+            variant={type === "Income" ? "" : "roundOutline"}
+            onClick={() => setType("Income")}
+          >
+            Income
+          </Button>
         </div>
+
         <div className="grid gap-10 grid-cols-4 px-10">
-          <Card icon="file-invoice-dollar" color="#0077FF" />
-          <Card icon="file-invoice-dollar" color="#0077FF" />
-          <Card icon="file-invoice-dollar" color="#0077FF" />
-          <Card icon="file-invoice-dollar" color="#0077FF" />
-          <Card add={true}/>
+          {categories.map((category) => (
+            <Card
+              icon={category.icon}
+              color={category.color}
+              name={category.name}
+              amount={category.amount}
+            />
+          ))}
+          <Card add={true} type={type} />
         </div>
       </div>
     </div>

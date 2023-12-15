@@ -40,7 +40,11 @@ const Select = ({
             >
               {
                 options.map((option) => {
-                  return <option key={option.id} value={option.id}>{option.name}</option>
+                  if (option.id) {
+                    return <option key={option.id} value={option.id}>{option.name}</option>
+                  } else {
+                    return <option key={option} value={option}>{option}</option>
+                  }
                 })
               }
             </select>

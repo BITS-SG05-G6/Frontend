@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -7,14 +7,15 @@ import Select from "../common/Select";
 import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
-import * as axiosInstance from "../../services/transactions";
+import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import { IconList } from "../svgs/IconList";
+import { CategoryContext } from "../../context/categoryContext";
 
 // import es from 'date-fns/locale/es'
 // registerLocale('es', es);
-const CategoryForm = ({ children }) => {
+const CategoryForm = ({ categoryType }) => {
   const {
     control,
     handleSubmit,
@@ -22,64 +23,34 @@ const CategoryForm = ({ children }) => {
     formState: { errors },
   } = useForm({
     mode: "onChange",
+    defaultValues: {
+      type: categoryType,
+    },
   });
+
+  const { handleAddCategory } = useContext(CategoryContext);
 
   const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
-    // await axiosInstance
-    //   .createTransaction(d.amount, d.description, d.date, "Normal", "Expense", d.title)
-    //   .then((res) => {
-    //     console.log(res);
-    //     reset();
-    //     document.getElementById("my_modal_1").close();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    console.log(d);
+    await axiosInstance
+      .createCategory(d.name, d.type, d.color, d.icon, d.description)
+      .then((res) => {
+        console.log(res);
+        reset();
+        document.getElementById("my_modal_2").close();
+        handleAddCategory();
+      })
+      .catch((err) => {
+        console.log(err.response.data.error.message);
+      });
   };
 
-  const options = [
-    {
-      name: "Wallet 1",
-      id: "1",
-    },
-    {
-      name: "Wallet 2",
-      id: "2",
-    },
-    {
-      name: "Wallet 3",
-      id: "3",
-    },
-  ];
+  const type = ["Expense", "Income"];
 
-  const categories = [
-    {
-      name: "Category 1",
-      id: "1",
-    },
-    {
-      name: "Category 2",
-      id: "2",
-    },
-    {
-      name: "Category 3",
-      id: "3",
-    },
-  ];
-
-  const type = [
-    {
-      id: "Expense",
-      name: "Expense",
-    },
-    {
-      id: "Income",
-      name: "Income",
-    },
-  ];
+  useEffect(() => {
+    reset({ type: categoryType });
+  }, [categoryType, reset]);
 
   return (
     <>
@@ -89,7 +60,6 @@ const CategoryForm = ({ children }) => {
         onClick={() => document.getElementById("my_modal_2").showModal()}
         variant="none"
       >
-
         <Text variant="text-md" weight="bold">
           + Add New Category
         </Text>
@@ -132,7 +102,7 @@ const CategoryForm = ({ children }) => {
               <Controller
                 name="type"
                 control={control}
-                defaultValue={type[0].id}
+                defaultValue={categoryType}
                 render={({ field }) => (
                   <div>
                     <Select
