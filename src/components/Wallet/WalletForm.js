@@ -26,13 +26,7 @@ const WalletForm =({children}) =>{
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => document.getElementById("my_modal_1").showModal()}
         >
-          {/* <Icon
-            // svg={<CreateTransactionIcon />}
-            isHovered={isHovered}
-            hoverColor="#EF5DA8"
-            fillColor="#FFFFFF"
-          /> */}
-  
+
           <Text variant="text-sm" weight="bold">Add Wallet</Text>
         </Button>
         <dialog id="my_modal_1" className="modal">

@@ -8,22 +8,27 @@ import WalletCard from "../components/Wallet/WalletCard";
 const Wallet = () => {
     const { walletId } = useParams();
     return(
-        <>
             <div>
                 <SideBar/>
-                <div>
+                <div className="pl-60 flex flex-col gap-5">
                     <Header title={"My Wallet"} username={"Anh Pham"} />
                     <div className="flex justify-end px-6">
                         <WalletForm/>
                     </div>
-                    <div className="flex justify-end px-10">
-                        <div >
-                            <WalletCard title="Wallet 1" amount="10000" used="4020"/>
-                        </div>
+                <div className="grid gap-10 grid-cols-4 px-20">
+                        <WalletCard title="Wallet 1" amount="10000" used="4020" color={"#61dafb"}/>
+                        <WalletCard title="Wallet 1" amount="10000" used="4020" color={"#61dafb"}/>
+                        <WalletCard title="Wallet 1" amount="10000" used="4020" color={"#61dafb"}/>
+                        <WalletCard title="Wallet 1" amount="10000" used="4020" color={"#61dafb"}/>
+                        <WalletCard title="Wallet 1" amount="10000" used="4020" color={"#61dafb"}/>
+                        <WalletCard title="Wallet 1" amount="10000" used="4020" color={"#61dafb"}/>
+                        <WalletCard title="Wallet 1" amount="10000" used="4020" color={"#61dafb"}/>
+                        <WalletCard title="Wallet 1" amount="10000" used="4020" color={"#61dafb"}/>
+
+
                     </div>
                 </div>
             </div>
-        </>
     )
 }
 
