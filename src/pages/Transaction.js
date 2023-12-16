@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CategoryForm from "../components/Category/CategoryForm";
 import Header from "../components/common/Header";
 import SideBar from "../components/common/SideBar";
 import TransactionCalendar from "../components/Transaction/TransactionCalendar";
@@ -40,7 +39,7 @@ const Transaction = () => {
     async function fetchTransaction () {
       await axiosInstance.getTransactionDetail(id)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         setTransaction(res);
       })
       .catch((err) => {

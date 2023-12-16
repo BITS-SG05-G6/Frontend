@@ -1,12 +1,7 @@
 import TransactionCard from "./TransactionCard";
-import React, { useState, useEffect } from "react";
 import Text from "../common/Text";
-import * as axiosInstance from "../../services/transactions";
 
 function TransactionList({ transactions }) {
-  // Set transaction list
-  // const [transactions, setTransactions] = useState([]);
-  // console.log(transactions[0])
   return (
     <div className="px-10">
       {transactions ? (

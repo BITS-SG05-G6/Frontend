@@ -4,7 +4,7 @@ import { cn } from "../../utils/cn";
 import Text from "./Text";
 
 const SelectVariant = cva(
-  "input input-bordered hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none",
+  "input input-bordered hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none cursor-pointer",
   {
     variants: {
       size: {
@@ -48,18 +48,7 @@ const Select = ({
                   }
                 })
               }
-              {/* {options && options.map((option) => {
-              })} */}
-              {/* {
-                // options.map((option) => {
-                  // return <div>{option.name}</div>
-                  // if (option.id) {
-                  //   return <option key={option.id} value={option.id}>{option.name}</option>
-                  // } else {
-                  //   return <option key={option} value={option}>{option}</option>
-                  // }
-                }) */}
-              {/* } */}
+          
             </select>
           
         </label>

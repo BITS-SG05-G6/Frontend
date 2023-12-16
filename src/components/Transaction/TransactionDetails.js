@@ -1,10 +1,7 @@
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
-import Button from "../common/Button";
 import Text from "../common/Text";
 
 function TransactionDetails({ transaction }) {
-  // const [transaction, setTransaction] = useState(null);
   return (
     <div className="w-96">
       {transaction ? (
@@ -18,21 +15,41 @@ function TransactionDetails({ transaction }) {
             </div>
           </div>
 
-          <div className="flex flex-col">
-              <div className="flex justify-between">
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between">
               <Text className="text-gray-400">Type</Text>
               <Text weight="semibold">{transaction.type}</Text>
-              </div>
+            </div>
 
-              <div className="flex justify-between">
+            <div className="flex justify-between">
               <Text className="text-gray-400">Category</Text>
-              <Text weight="semibold" >{transaction.category}</Text>
-              </div>
+              <Text weight="semibold" className="rounded-xl px-2 " style={{
+                backgroundColor: `${transaction.categoryColor}40`,
+                color: transaction.categoryColor,
+              }}>{transaction.category}</Text>
+            </div>
 
-              <div className="flex justify-between">
-              <Text className="text-gray-400">Type</Text>
-              <Text weight="semibold">{transaction.type}</Text>
-              </div>
+            <div className="flex justify-between">
+              <Text className="text-gray-400">Wallet</Text>
+              <Text weight="semibold">{transaction.wallet}</Text>
+            </div>
+
+            <div className="flex justify-between">
+              <Text className="text-gray-400">Date</Text>
+              <Text weight="semibold">
+                {format(new Date(transaction.date), "dd/MM/yyyy")}
+              </Text>
+            </div>
+
+            <div className="flex flex-col gap-2 justify-start">
+            <Text className="text-gray-400">Description</Text>
+              <textarea
+                className="textarea min-h-fit textarea-md border-slate-400 rounded border text-sm"
+                value={transaction.description}
+                placeholder={transaction.description}
+                disabled
+              />
+            </div>
           </div>
           {/* <div className="px-5 py-3">
             <table className="table">

@@ -17,7 +17,7 @@ function ColorPicker({
             type="color"
             value={value}
             onChange={onChange}
-            className="focus:outline-none focus:border-none bg-transparent rounded-full w-12 h-12"
+            className="focus:outline-none focus:border-none bg-transparent rounded-full w-12 h-12 cursor-pointer"
           />
           <input
             type="text"
@@ -25,6 +25,9 @@ function ColorPicker({
             disabled
             onChange={onChange}
             className="input input-bordered"
+            style={{
+              backgroundColor: `${value}40`,
+              color: value,}}
           />
         </div>
       </label>
