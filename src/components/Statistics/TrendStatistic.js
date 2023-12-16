@@ -1,43 +1,53 @@
+// Import necessary components and libraries
 import {
   Card,
   CardBody,
   CardHeader,
-  Typography,
 } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
-import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import * as axiosInstance from "../../services/statistics";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { statisticExpensesWeekly, statisticExpensesMonthly } from '../../services/statistics';
 
-export default function DefaultStatistic({ typeOfData }) {
+// Define the TrendStatistic component
+export default function TrendStatistic({ typeOfData }) {
+  // State to hold fetched expense data
   const [expenseData, setExpenseData] = useState([]);
+
+  // Fetch expense data based on typeOfData when component mounts or typeOfData changes
   useEffect(() => {
+    // Retrieve user ID from the JWT token stored in cookies
     const token = Cookies.get("token");
     const decodedToken = jwtDecode(token);
     const userId = decodedToken.id;
 
+    // Fetch data based on the type provided (Weekly or Monthly)
     const fetchData = async () => {
       try {
-        let response;
+        let response = [];
         if (typeOfData === "Weekly") {
           response = await statisticExpensesWeekly(userId);
         } else if (typeOfData === "Monthly") {
           response = await statisticExpensesMonthly(userId);
         }
 
-        setExpenseData(response || []); // Assuming response data is structured with totalsByDay field
+        // Update the expenseData state with the fetched response (or an empty array if no response)
+        setExpenseData(response || []);
       } catch (error) {
         console.error("Error fetching expenses:", error);
       }
     };
     fetchData();
   }, [typeOfData]);
+
+  // Extract categories, expenses, and incomes from fetched expense data
   const categories = Object.keys(expenseData).sort();
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);
+
+  // Configuration for the line chart using ApexCharts
   const chartConfig = {
     type: "line",
     height: 340,
@@ -45,10 +55,11 @@ export default function DefaultStatistic({ typeOfData }) {
       {
         name: "Income",
         data: incomes,
+        
       },
       {
         name: "Expenses",
-        data: expenses, // Use fetched expense data here
+        data: expenses, 
       },
     ],
     options: {
@@ -59,12 +70,13 @@ export default function DefaultStatistic({ typeOfData }) {
       },
       title: {
         text: "Transaction Trend",
-        align: "left",
+        align: "middle",
       },
       dataLabels: {
         enabled: false,
       },
       colors: ["#F178B6", "#ACCCCC"],
+      
       stroke: {
         lineCap: "round",
         curve: "smooth",
@@ -98,7 +110,7 @@ export default function DefaultStatistic({ typeOfData }) {
             fontWeight: 400,
           },
 
-          datetimeUTC: false, // Specify whether the dates are in UTC or local time
+          datetimeUTC: false, 
         },
         tickAmount: 6,
       },
@@ -126,13 +138,13 @@ export default function DefaultStatistic({ typeOfData }) {
   };
   return (
     <Card>
-      <CardHeader
+      {/* <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
         className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
-      ></CardHeader>
-      <CardBody className="mx-48 pb-0">
+      ></CardHeader> */}
+      <CardBody className="pb-0">
         <Chart {...chartConfig} />
       </CardBody>
     </Card>

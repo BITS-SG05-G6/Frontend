@@ -5,7 +5,7 @@ import Chart from "react-apexcharts";
 import * as axiosInstance from "../../services/statistics";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-const BarChartStatistic = () => {
+const ExpensesDistributionStatistic = () => {
   const colors = [
     "#008FFB",
     "#00E396",
@@ -16,51 +16,58 @@ const BarChartStatistic = () => {
     "#26a69a",
     "#D10CE8",
   ];
-  const [distributionData, setDistributionData] = useState({
-    "<1000": 0,
-    "1000-2000": 0,
-    "2000-5000": 0,
-    ">5000": 0,
-  });    useEffect(() => {
+  const [distributionData, setDistributionData] = useState([]
+
+  );
+
+  useEffect(() => {
     const token = Cookies.get("token");
     const decodedToken = jwtDecode(token);
     const userId = decodedToken.id;
-    const fetchData = async () => {
-      const response = await axiosInstance.statisticExpensesDistribution(
-        userId
-      );
-      setDistributionData(response);
-      // console.log(response);
-    };
-    if (!distributionData["<1000"]) { // Condition to check if data already exists
-      fetchData(); // Fetch data only if it doesn't exist
-    }  }, [distributionData]);
 
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.statisticExpensesDistribution(
+          userId
+        );
+        setDistributionData(response);
+        console.log(response)
+      } catch (error) {
+        console.error("Error fetching expenses:", error);
+      }
+    };
+    fetchData();
+  }, []);
   const seriesData = Object.values(distributionData);
-  const data= [1,2,3,4];
-  console.log("default",data);
-  console.log("check",seriesData);
-  const [chartData] = useState({
-    series: [{
-      name: 'Expense Distribution', 
-      data: seriesData,
-    }],
+  console.log("series data", seriesData);
+  const chartData = {
+    type: "bar",
+    height: 340,
+    series: [
+      {
+        name:"Amount",
+        data: seriesData,
+      },
+    ],
     options: {
       chart: {
         height: 350,
         type: "bar",
         events: {
-          click: function (chart, w, e) {
-            // console.log(chart, w, e)
-          },
+          click: function (chart, w, e) {},
         },
       },
       colors: colors,
+      title: {
+        text: "Expenses Distribution",
+        align: "middle",
+      },
       plotOptions: {
         bar: {
           columnWidth: "45%",
           distributed: true,
         },
+        
       },
       dataLabels: {
         enabled: false,
@@ -68,8 +75,20 @@ const BarChartStatistic = () => {
       legend: {
         show: false,
       },
+      yaxis: {
+        labels: {
+          style: {
+            colors: "#616161",
+            fontSize: "12px",
+            fontFamily: "inherit",
+            fontWeight: 400,
+          },
+
+        },
+        tickAmount: 2,
+      },
       xaxis: {
-        // categories: Object.keys(distributionData),
+        categories: Object.keys(distributionData),
         labels: {
           style: {
             colors: colors,
@@ -78,19 +97,15 @@ const BarChartStatistic = () => {
         },
       },
     },
-  });
-
+  };
 
   return (
     <div id="chart">
       <Chart
-        options={chartData.options}
-        series={chartData.series}
-        type="bar"
-        height={350}
+        {...chartData}
       />
     </div>
   );
 };
 
-export default BarChartStatistic;
+export default ExpensesDistributionStatistic;

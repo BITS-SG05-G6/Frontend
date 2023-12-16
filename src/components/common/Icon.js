@@ -1,9 +1,9 @@
 import React from "react";
 
-function Icon({ svg, customClass, isHovered, hoverColor, fillColor }) {
-
+function Icon({ svg, customClass, isHovered, hoverColor, isActive, fillColor, activeColor }) {
+    const fill = isActive? activeColor : isHovered? hoverColor : fillColor;
     const updateSvg = React.cloneElement(svg, {
-        fill: isHovered ? hoverColor : fillColor
+        fill: fill
     })
     return (
         <div className={`icon-container cursor-pointer ${customClass}`}>

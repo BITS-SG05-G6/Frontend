@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -7,9 +7,15 @@ import Select from "../common/Select";
 import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
-import * as axiosInstance from "../../services/transactions";
+import * as axiosInstance from "../../services/category";
+import ColorPicker from "../common/ColorPicker";
+import IconPicker from "../common/IconPicker";
+import { IconList } from "../svgs/IconList";
+import { CategoryContext } from "../../context/categoryContext";
 
-const TransactionForm = ({ children }) => {
+// import es from 'date-fns/locale/es'
+// registerLocale('es', es);
+const CategoryForm = ({ categoryType }) => {
   const {
     control,
     handleSubmit,
@@ -17,197 +23,86 @@ const TransactionForm = ({ children }) => {
     formState: { errors },
   } = useForm({
     mode: "onChange",
+    defaultValues: {
+      type: categoryType,
+    },
   });
+
+  const { handleAddCategory } = useContext(CategoryContext);
 
   const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
     await axiosInstance
-      .createTransaction(
-        d.amount,
-        d.description,
-        d.date,
-        "Normal",
-        "Expense",
-        d.title
-      )
+      .createCategory(d.name, d.type, d.color, d.icon, d.description)
       .then((res) => {
         console.log(res);
         reset();
-        document.getElementById("my_modal_1").close();
+        document.getElementById("my_modal_2").close();
+        handleAddCategory();
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.error.message);
       });
-    // console.log(d);
   };
 
-  const options = [
-    {
-      name: "Wallet 1",
-      id: "1",
-    },
-    {
-      name: "Wallet 2",
-      id: "2",
-    },
-    {
-      name: "Wallet 3",
-      id: "3",
-    },
-  ];
+  const type = ["Expense", "Income"];
 
-  const categories = [
-    {
-      name: "Category 1",
-      id: "1",
-    },
-    {
-      name: "Category 2",
-      id: "2",
-    },
-    {
-      name: "Category 3",
-      id: "3",
-    },
-  ];
-
-  const type = [
-    {
-      id: "Expense",
-      name: "Expense"
-    }, 
-    {
-      id: "Income",
-      name: "Income"
-    }
-  ]
+  useEffect(() => {
+    reset({ type: categoryType });
+  }, [categoryType, reset]);
 
   return (
     <>
       <Button
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => document.getElementById("my_modal_1").showModal()}
+        onClick={() => document.getElementById("my_modal_2").showModal()}
+        variant="none"
       >
-        <Icon
-          svg={<CreateTransactionIcon />}
-          isHovered={isHovered}
-          hoverColor="#EF5DA8"
-          fillColor="#FFFFFF"
-        />
-
-        <Text variant="text-sm" weight="bold">
-          Create Transaction
+        <Text variant="text-md" weight="bold">
+          + Add New Category
         </Text>
       </Button>
-      <dialog id="my_modal_1" className="modal">
-        <div className="modal-box flex flex-col justify-center w-full">
+      <dialog id="my_modal_2" className="modal overflow-visible">
+        <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Add Transaction
+            Add Category
           </Text>
-          <div className="modal-action mx-0 block w-full">
+          <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
 
               <Controller
-                name="title"
+                name="name"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Title is required!" }}
+                rules={{ required: "Name is required!" }}
                 render={({ field }) => (
                   <div>
                     <FormInput
                       type="text"
-                      label="Title"
-                      name="title"
+                      label="Name"
+                      name="name"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
                     />
-                    {errors.title && (
+                    {errors.name && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.title.message}
+                        {errors.name.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
-
-              <Controller
-                name="amount"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Amount is required!" }}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      type="number"
-                      label="Amount"
-                      name="amount"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      labelType="side"
-                    />
-                    {errors.amount && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.amount.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              />
-
-              <Controller
-                name="category"
-                control={control}
-                defaultValue={categories[0].id}
-                render={({ field }) => (
-                  <div>
-                    <Select
-                      label="Category"
-                      name="category"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      options={categories}
-                    />
-                    {errors.category && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.category.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              />
-
-              {/* <Controller
-                name="wallet"
-                control={control}
-                defaultValue={options[0].id}
-                render={({ field }) => (
-                  <div>
-                    <Select
-                      label="Wallet"
-                      name="wallet"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      options={options}
-                    />
-                    {errors.wallet && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.wallet.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              /> */}
 
               <Controller
                 name="type"
                 control={control}
-                defaultValue={type[0].id}
+                defaultValue={categoryType}
                 render={({ field }) => (
                   <div>
                     <Select
@@ -227,19 +122,40 @@ const TransactionForm = ({ children }) => {
               />
 
               <Controller
-                name="date"
+                name="color"
                 control={control}
-                defaultValue={new Date().toISOString().substr(0, 10)}
+                defaultValue="#f5d1e4"
                 render={({ field }) => (
                   <div>
-                    <FormInput
-                      type="date"
-                      label="Date"
-                      name="date"
+                    <ColorPicker
+                      label="Color"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
-                      labelType="side"
                     />
+                    {errors.type && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.type.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
+
+              <Controller
+                name="icon"
+                control={control}
+                defaultValue="file-invoice-dollar"
+                render={({ field }) => (
+                  <div>
+                    <IconPicker
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    />
+                    {errors.type && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.type.message}
+                      </Text>
+                    )}
                   </div>
                 )}
               />
@@ -278,4 +194,4 @@ const TransactionForm = ({ children }) => {
   );
 };
 
-export default TransactionForm;
+export default CategoryForm;

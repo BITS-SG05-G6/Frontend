@@ -36,3 +36,15 @@ export const statisticExpensesDistribution = async(userId) => {
         return err;
       }
 }
+
+export const compareExpenseIncomeByMonth = async(userId) => {
+  const res = await axiosInstance.get(`/statistic/compareexpanseincomebymonth/${userId}`);
+    try {
+        if (res.status === 200) {
+          return res.data;
+        }
+      } catch (err) {
+        return err;
+      }
+}
+
