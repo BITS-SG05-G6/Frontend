@@ -8,7 +8,6 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Category from './pages/Category';
 import Wallet from './pages/Wallet'
-import WalletCard from './components/Wallet/WalletCard';
 
 function App() {
   return (
@@ -18,8 +17,7 @@ function App() {
        <Route path="/transaction" element={<Transaction/>}></Route>
        <Route path="/transaction/:id" element={<Transaction/>}></Route>
        <Route path="/login" element={<Login/>}></Route>
-       <Route path="/wallet" element={<Wallet/>}></Route>
-       <Route path="/walletcard" element={<WalletCard/>}></Route>
+       <Route path="/wallets" element={<Wallet/>}></Route>
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup/>}></Route>

@@ -67,7 +67,7 @@ const CategoryForm = ({ categoryType }) => {
       <dialog id="my_modal_2" className="modal overflow-visible">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Add Category
+            Add New Category
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">

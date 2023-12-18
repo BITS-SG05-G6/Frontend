@@ -6,6 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
 import ColorPicker from "../common/ColorPicker";
+import IconPicker from "../common/IconPicker";
 
 const WalletForm = ({ children }) => {
   const {
@@ -25,40 +26,49 @@ const WalletForm = ({ children }) => {
       <Button
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => document.getElementById("my_modal_1").showModal()}
+        onClick={() => document.getElementById("my_modal_3").showModal()}
+        variant="none"
       >
-        <Text variant="text-sm" weight="bold">
-          Add Wallet
+        <Text variant="text-md" weight="bold">
+          + Add New Wallet
         </Text>
       </Button>
-      <dialog id="my_modal_1" className="modal">
-        <div className="modal-box flex flex-col justify-center w-full">
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Create new wallet
+            Add New Wallet
           </Text>
-          <div className="modal-action mx-0 block w-full">
+          <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
 
               <Controller
-                name="wallet_name"
+                name="name"
                 control={control}
                 defaultValue=""
+                rules={{ required: "Name is required!" }}
                 render={({ field }) => (
                   <div>
                     <FormInput
-                      type="string"
+                      type="text"
                       label="Name"
-                      name="wallet_name"
+                      name="name"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
                     />
+                    {errors.name && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.name.message}
+                      </Text>
+                    )}
                   </div>
                 )}
               />
+              
               <Controller
                 name="amount"
                 control={control}
@@ -79,6 +89,7 @@ const WalletForm = ({ children }) => {
                         {errors.amount.message}
                       </Text>
                     )}
+
                   </div>
                 )}
               />
@@ -90,6 +101,25 @@ const WalletForm = ({ children }) => {
                   <div>
                     <ColorPicker
                       label="Color"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    />
+                    {errors.type && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.type.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
+
+              <Controller
+                name="icon"
+                control={control}
+                defaultValue="file-invoice-dollar"
+                render={({ field }) => (
+                  <div>
+                    <IconPicker
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                     />
@@ -117,14 +147,15 @@ const WalletForm = ({ children }) => {
               />
 
               <div className="flex justify-around">
-                <Button size="xl">Cancel</Button>
-                <Button
+              <Button
                   size="xl"
-                  variant="roundOutline"
+                  
                   onClick={handleSubmit(onSubmit)}
                 >
                   Save
                 </Button>
+                <Button variant="roundOutline" size="xl">Cancel</Button>
+                
               </div>
             </form>
           </div>
