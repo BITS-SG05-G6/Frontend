@@ -16,8 +16,8 @@ export const deleteCategory = async(id) => {
 
 }
 
-export const getCategory = async(type) => {
-  const res = await axiosInstance.get(`/category/view/${type}`)
+export const getCategory = async() => {
+  const res = await axiosInstance.get(`/category/view`)
 
   try {
     if (res.status === 200) {

@@ -4,7 +4,7 @@ import { cn } from "../../utils/cn";
 import Text from "./Text";
 
 const SelectVariant = cva(
-  "input input-bordered hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none",
+  "input input-bordered hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none cursor-pointer",
   {
     variants: {
       size: {
@@ -24,7 +24,7 @@ const Select = ({
   label,
   value,
   onChange,
-  options}) => {
+  options, disabled}) => {
     return (
       <>
         <label className="form-control w-full flex flex-row gap-10 justify-around ">
@@ -37,16 +37,18 @@ const Select = ({
             value={value}
             onChange={onChange}
             className={cn(SelectVariant({ size, className }))}
+            disabled={disabled}
             >
               {
-                options.map((option) => {
-                  if (option.id) {
+                options.length > 1 && options.map((option) => {
+                   if (option.id) {
                     return <option key={option.id} value={option.id}>{option.name}</option>
                   } else {
                     return <option key={option} value={option}>{option}</option>
                   }
                 })
               }
+          
             </select>
           
         </label>

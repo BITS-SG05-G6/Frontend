@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -8,6 +8,7 @@ import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
 import * as axiosInstance from "../../services/transactions";
+import { CategoryContext } from "../../context/categoryContext";
 
 const TransactionForm = ({ children }) => {
   const {
@@ -15,9 +16,11 @@ const TransactionForm = ({ children }) => {
     handleSubmit,
     reset,
     formState: { errors },
+    watch
   } = useForm({
     mode: "onChange",
   });
+  const { type, setType, categories } = useContext(CategoryContext);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -29,7 +32,8 @@ const TransactionForm = ({ children }) => {
         d.date,
         "Normal",
         "Expense",
-        d.title
+        d.title,
+        d.category,
       )
       .then((res) => {
         console.log(res);
@@ -41,7 +45,7 @@ const TransactionForm = ({ children }) => {
       });
     // console.log(d);
   };
-
+  // console.log(categories);
   const options = [
     {
       name: "Wallet 1",
@@ -57,22 +61,7 @@ const TransactionForm = ({ children }) => {
     },
   ];
 
-  const categories = [
-    {
-      name: "Category 1",
-      id: "1",
-    },
-    {
-      name: "Category 2",
-      id: "2",
-    },
-    {
-      name: "Category 3",
-      id: "3",
-    },
-  ];
-
-  const type = [
+  const types = [
     {
       id: "Expense",
       name: "Expense"
@@ -140,7 +129,10 @@ const TransactionForm = ({ children }) => {
                 name="amount"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Amount is required!" }}
+                rules={{ required: "Amount is required!" , pattern: {
+                  value: /^([^.0-]\d+|\d)$/,
+                  message: "It must be a positive number"
+                }}}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -160,7 +152,8 @@ const TransactionForm = ({ children }) => {
                 )}
               />
 
-              <Controller
+              {
+                categories.length > 1 && <Controller
                 name="category"
                 control={control}
                 defaultValue={categories[0].id}
@@ -170,7 +163,13 @@ const TransactionForm = ({ children }) => {
                       label="Category"
                       name="category"
                       value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
+                      onChange={(e) => {field.onChange(e.target.value)
+                      
+                      categories.map((category) => {
+                        if (category.id === e.target.value) {
+                          setType(category.type)
+                        }
+                      })}}
                       options={categories}
                     />
                     {errors.category && (
@@ -181,6 +180,8 @@ const TransactionForm = ({ children }) => {
                   </div>
                 )}
               />
+              }
+              
 
               {/* <Controller
                 name="wallet"
@@ -207,16 +208,19 @@ const TransactionForm = ({ children }) => {
               <Controller
                 name="type"
                 control={control}
-                defaultValue={type[0].id}
+                defaultValue={type}
                 render={({ field }) => (
                   <div>
-                    <Select
+                    <FormInput
                       label="Type"
                       name="type"
-                      value={field.value}
+                      value={type}
                       onChange={(e) => field.onChange(e.target.value)}
-                      options={type}
+                      disabled
+                      options={types}
+                      labelType="side"
                     />
+                    {/* <FormInput /> */}
                     {errors.type && (
                       <Text className="text-red-500 px-32 mt-3">
                         {errors.type.message}

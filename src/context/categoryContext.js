@@ -13,10 +13,10 @@ const CategoryProvider = ({ children }) => {
   const [type, setType] = useState("Expense");
   const [categories, setCategories] = useState([
     {
-      id: null,
-      name: null,
-      icon: null,
-      color: null,
+      id: "",
+      name: "",
+      icon: "",
+      color: "",
     },
   ]);
 

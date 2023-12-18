@@ -30,16 +30,19 @@ const TextVariants = cva(
     defaultVariants: {
       variant: "text-base",
       weight: "regular",
-      noLink: "true"
     },
   }
 );
 
-const Text = ({ children, variant, weight, className, href, noLink }) => {
+const Text = ({ children, variant, weight, className, href, style }) => {
   return (
-    <Link to={href} className={cn(TextVariants({ variant, weight, className, noLink }))}>
+    href ? 
+    <Link to={href} className={cn(TextVariants({ variant, weight, className }))} style={style}>
       {children}
     </Link>
+    : <span className={cn(TextVariants({ variant, weight, className }))} style={style}>
+      {children}
+    </span>
   );
 };
 

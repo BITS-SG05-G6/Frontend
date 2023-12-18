@@ -39,6 +39,7 @@ function FormInput({
   value,
   onChange,
   labelType,
+  disabled
 }) {
   return (
     <>
@@ -60,6 +61,7 @@ function FormInput({
               onChange={onChange}
               placeholder={placeholder}
               className={cn(InputVariants({ size, className }))}
+              disabled={disabled}
             />
           </>
         ) : (
@@ -75,6 +77,7 @@ function FormInput({
               onChange={onChange}
               placeholder={placeholder}
               className={cn(InputVariants({ size, className }))}
+              disabled={disabled}
             />
           </>
         )}
