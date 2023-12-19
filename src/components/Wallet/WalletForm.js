@@ -1,73 +1,43 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
-import Select from "../common/Select";
 import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
-import { CreateTransactionIcon } from "../svgs/sidebarIcons";
-import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
-import { IconList } from "../svgs/IconList";
-import { CategoryContext } from "../../context/categoryContext";
 
-// import es from 'date-fns/locale/es'
-// registerLocale('es', es);
-const CategoryForm = ({ categoryType }) => {
+const WalletForm = ({ children }) => {
   const {
     control,
     handleSubmit,
-    reset,
     formState: { errors },
-  } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      type: categoryType,
-    },
-  });
-
-  const { handleAddCategory } = useContext(CategoryContext);
+  } = useForm();
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const onSubmit = async (d) => {
-    await axiosInstance
-      .createCategory(d.name, d.type, d.color, d.icon, d.description)
-      .then((res) => {
-        console.log(res);
-        reset();
-        document.getElementById("my_modal_2").close();
-        handleAddCategory();
-      })
-      .catch((err) => {
-        console.log(err.response.data.error.message);
-      });
+  const onSubmit = (d) => {
+    console.log(d);
   };
-
-  const type = ["Expense", "Income"];
-
-  useEffect(() => {
-    reset({ type: categoryType });
-  }, [categoryType, reset]);
 
   return (
     <>
       <Button
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => document.getElementById("my_modal_2").showModal()}
+        onClick={() => document.getElementById("my_modal_3").showModal()}
         variant="none"
       >
         <Text variant="text-md" weight="bold">
-          + Add New Category
+          + Add New Wallet
         </Text>
       </Button>
-      <dialog id="my_modal_2" className="modal overflow-visible">
+
+      <dialog id="my_modal_3" className="modal">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Add New Category
+            Add New Wallet
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">
@@ -98,29 +68,31 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-
+              
               <Controller
-                name="type"
+                name="amount"
                 control={control}
-                defaultValue={categoryType}
+                defaultValue=""
+                rules={{ required: "Amount is required!" }}
                 render={({ field }) => (
                   <div>
-                    <Select
-                      label="Type"
-                      name="type"
+                    <FormInput
+                      type="number"
+                      label="Amount"
+                      name="amount"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
-                      options={type}
+                      labelType="side"
                     />
-                    {errors.type && (
+                    {errors.amount && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.type.message}
+                        {errors.amount.message}
                       </Text>
                     )}
+
                   </div>
                 )}
               />
-
               <Controller
                 name="color"
                 control={control}
@@ -159,7 +131,6 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-
               <Controller
                 name="description"
                 control={control}
@@ -176,15 +147,15 @@ const CategoryForm = ({ categoryType }) => {
               />
 
               <div className="flex justify-around">
-                <Button
+              <Button
                   size="xl"
-                  variant="roundOutline"
+                  
                   onClick={handleSubmit(onSubmit)}
                 >
                   Save
                 </Button>
-
-                <Button size="xl">Cancel</Button>
+                <Button variant="roundOutline" size="xl">Cancel</Button>
+                
               </div>
             </form>
           </div>
@@ -194,4 +165,4 @@ const CategoryForm = ({ categoryType }) => {
   );
 };
 
-export default CategoryForm;
+export default WalletForm;

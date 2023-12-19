@@ -159,7 +159,7 @@ const Login = () => {
           className="w-full h-full object-cover"
           src={require("../assets/loginside.png")}
           alt="login"
-        ></img>
+        />
       </div>
     </div>
   );

@@ -4,17 +4,18 @@ import Box from "./Box";
 import Text from "./Text";
 import { IconList } from "../svgs/IconList";
 import Button from "./Button";
-import CategoryForm from "../Category/CategoryForm";
+import WalletForm from "../Wallet/WalletForm";
 
-const Card = ({ icon, color, add, type, name, amount,  }) => {
+const ProgressCard = ({ icon, color, add, name, amount, used }) => {
   // console.log(type);
+  console.log((used / amount) * 100);
   return (
     <Box
-      className="flex justify-center items-center gap-20 flex-col h-80 max-w-xs"
+      className="flex justify-center items-center gap-10 flex-col h-80 max-w-xs"
       color="gray"
     >
       {add ? (
-        <CategoryForm categoryType={type} />
+        <WalletForm />
       ) : (
         <>
           <Text variant="text-lg" weight="semibold">
@@ -30,11 +31,17 @@ const Card = ({ icon, color, add, type, name, amount,  }) => {
               ) : null
             )}
           </div>
-          <Text weight="bold">{amount} VND</Text>
+          <Text weight="bold">{used}/{amount} VND</Text>
+          <div className="w-40 rounded-lg" style={{background: `${color}30`}}>
+            <div
+              className={`h-3 bg-purple-200 rounded-lg`}
+              style={{ width: `${(used / amount) * 100}%`, background: `${color}`}}
+            ></div>
+          </div>
         </>
       )}
     </Box>
   );
 };
 
-export default Card;
+export default ProgressCard;

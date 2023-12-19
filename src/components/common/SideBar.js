@@ -1,6 +1,5 @@
 import React from "react";
 import Text from "./Text";
-import { NavLink } from "react-router-dom";
 import {
   DashboardIcon,
   HelpIcon,

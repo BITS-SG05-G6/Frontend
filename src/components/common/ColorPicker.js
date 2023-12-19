@@ -6,6 +6,7 @@ function ColorPicker({
   value,
   onChange,
 }) {
+
   return (
     <>
       <label className="form-control w-full flex items-center flex-row gap-10 justify-around">
@@ -25,9 +26,11 @@ function ColorPicker({
             disabled
             onChange={onChange}
             className="input input-bordered"
+
             style={{
               backgroundColor: `${value}40`,
               color: value,}}
+
           />
         </div>
       </label>
