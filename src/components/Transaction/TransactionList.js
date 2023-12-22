@@ -1,7 +1,22 @@
 import TransactionCard from "./TransactionCard";
 import Text from "../common/Text";
+import * as axiosInstance from "../../services/transactions";
+import { useContext } from "react";
+import { TransactionContext } from "../../context/transactionContext";
 
 function TransactionList({ transactions }) {
+  const { handleUpdateTransaction } = useContext(TransactionContext);
+
+  const handleDel = async(id) => {
+    await axiosInstance.deleteTransaction(id)
+    .then((res) => {
+      console.log(res);
+      handleUpdateTransaction();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
   return (
     <div className="px-10">
       {transactions ? (
@@ -22,6 +37,7 @@ function TransactionList({ transactions }) {
                 category={transaction.category}
                 amount={transaction.amount}
                 color={transaction.color}
+                handleDel={() => handleDel(transaction._id)}
               />
             ))}
           </tbody>

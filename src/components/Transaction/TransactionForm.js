@@ -9,85 +9,89 @@ import Icon from "../common/Icon";
 import { CreateTransactionIcon } from "../svgs/sidebarIcons";
 import * as axiosInstance from "../../services/transactions";
 import { CategoryContext } from "../../context/categoryContext";
+import { WalletContext } from "../../context/walletContext";
+import { TransactionContext } from "../../context/transactionContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
+import { IconList } from "../svgs/IconList";
 
-const TransactionForm = ({ children }) => {
+const TransactionForm = ({
+  children,
+  category,
+  wallet,
+  buttonName,
+  className,
+  variant,
+  icon,
+}) => {
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors },
-    watch
+    watch,
   } = useForm({
-    mode: "onChange",
+    mode: "onChange"
   });
   const { type, setType, categories } = useContext(CategoryContext);
-
+  const selectedCategory = watch("category");
+  const { wallets } = useContext(WalletContext);
   const [isHovered, setIsHovered] = useState(false);
+  const types = ["Expense", "Income"];
+  // console.log(category);
+  const [categoryDefault, setCategoryDefault] = useState(null);
 
+  const { handleUpdateTransaction } = useContext(TransactionContext);
   const onSubmit = async (d) => {
+    // console.log(d);
+    const categoryType = category ? category.type : (selectedCategory === "none" || selectedCategory === undefined) ? d.type : type;
+    const categoryValue = category ? category.id : d.category;
+    const walletValue = wallet ? wallet.id : d.wallet;
     await axiosInstance
       .createTransaction(
         d.amount,
         d.description,
         d.date,
         "Normal",
-        "Expense",
+        categoryType,
         d.title,
-        d.category,
+        categoryValue,
+        walletValue
       )
       .then((res) => {
+        document.getElementById("my_modal_1").close();
+        handleUpdateTransaction();
         console.log(res);
         reset();
-        document.getElementById("my_modal_1").close();
       })
       .catch((err) => {
         console.log(err);
       });
     // console.log(d);
   };
-  // console.log(categories);
-  const options = [
-    {
-      name: "Wallet 1",
-      id: "1",
-    },
-    {
-      name: "Wallet 2",
-      id: "2",
-    },
-    {
-      name: "Wallet 3",
-      id: "3",
-    },
-  ];
 
-  const types = [
-    {
-      id: "Expense",
-      name: "Expense"
-    }, 
-    {
-      id: "Income",
-      name: "Income"
-    }
-  ]
+  const openModal = (c) => {
+    document.getElementById("my_modal_1").showModal()
+  }
+
 
   return (
     <>
       <Button
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => document.getElementById("my_modal_1").showModal()}
+        onClick={() => openModal(category)}
+        variant={variant}
+        className={className}
       >
-        <Icon
-          svg={<CreateTransactionIcon />}
-          isHovered={isHovered}
-          hoverColor="#EF5DA8"
-          fillColor="#FFFFFF"
-        />
+        {icon
+          ? IconList.map((i) =>
+              i.value === icon ? <FontAwesomeIcon icon={i.icon} /> : null
+            )
+          : null}
 
         <Text variant="text-sm" weight="bold">
-          Create Transaction
+          {buttonName}
         </Text>
       </Button>
       <dialog id="my_modal_1" className="modal">
@@ -129,10 +133,13 @@ const TransactionForm = ({ children }) => {
                 name="amount"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Amount is required!" , pattern: {
-                  value: /^([^.0-]\d+|\d)$/,
-                  message: "It must be a positive number"
-                }}}
+                rules={{
+                  required: "Amount is required!",
+                  pattern: {
+                    value: /^([^.0-]\d+|\d)$/,
+                    message: "It must be a positive number",
+                  },
+                }}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -153,87 +160,112 @@ const TransactionForm = ({ children }) => {
               />
 
               {
-                categories.length > 1 && <Controller
-                name="category"
-                control={control}
-                defaultValue={categories[0].id}
-                render={({ field }) => (
-                  <div>
-                    <Select
-                      label="Category"
-                      name="category"
-                      value={field.value}
-                      onChange={(e) => {field.onChange(e.target.value)
-                      
-                      categories.map((category) => {
-                        if (category.id === e.target.value) {
-                          setType(category.type)
-                        }
-                      })}}
-                      options={categories}
-                    />
-                    {errors.category && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.category.message}
-                      </Text>
+               wallets && (
+                  <Controller
+                    name="wallet"
+                    control={control}
+                    render={({ field }) => (
+                      <div>
+                        <Select
+                          label="Wallet"
+                          name="wallet"
+                          value={field.value}
+                          onChange={(e) => field.onChange(e.target.value)}
+                          options={wallets}
+                          placeholder="Please choose a wallet"
+                        />
+                        {errors.wallet && (
+                          <Text className="text-red-500 px-32 mt-3">
+                            {errors.wallet.message}
+                          </Text>
+                        )}
+                      </div>
                     )}
-                  </div>
+                  />
                 )}
-              />
-              }
+              
+           
+              
+                {categories && (
+                  <Controller
+                    name="category"
+                    control={control}
+                    render={({ field }) => (
+                      <div>
+                        <Select
+                          label="Category"
+                          name="category"
+                          value={field.value}
+                          onChange={(e) => {
+                            field.onChange(e.target.value);
+                            categories.map((category) =>
+                              category.id === e.target.value
+                                ? setType(category.type)
+                                : null
+                            );
+                          }}
+                          options={categories}
+                          placeholder="Please choose a category"
+                        />
+                        {errors.category && (
+                          <Text className="text-red-500 px-32 mt-3">
+                            {errors.category.message}
+                          </Text>
+                        )}
+                      </div>
+                    )}
+                  />
+                )}
               
 
-              {/* <Controller
-                name="wallet"
-                control={control}
-                defaultValue={options[0].id}
-                render={({ field }) => (
-                  <div>
-                    <Select
-                      label="Wallet"
-                      name="wallet"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      options={options}
-                    />
-                    {errors.wallet && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.wallet.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              /> */}
-
-              <Controller
-                name="type"
-                control={control}
-                defaultValue={type}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      label="Type"
-                      name="type"
-                      value={type}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      disabled
-                      options={types}
-                      labelType="side"
-                    />
-                    {/* <FormInput /> */}
-                    {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.type.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              />
+              
+              {(selectedCategory === undefined || selectedCategory === "none") ? (
+                <Controller
+                  name="type"
+                  control={control}
+                  rules={{
+                    required:
+                      selectedCategory === "none" ||
+                      selectedCategory === undefined
+                        ? "Type is required"
+                        : false,
+                  }}
+                  render={({ field }) => (
+                    <div>
+                      <Select
+                        label="Type"
+                        name="type"
+                        value={field.value}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                        }}
+                        options={types}
+                        placeholder="Please choose a type"
+                        none={false}
+                      />
+                      {errors.type && (
+                        <Text className="text-red-500 px-32 mt-3">
+                          {errors.type.message}
+                        </Text>
+                      )}
+                    </div>
+                  )}
+                />
+              ) : (
+                <FormInput
+                  label="Type"
+                  name="categoryType"
+                  value={type}
+                  disabled
+                  labelType="side"
+                />
+              )}
 
               <Controller
                 name="date"
                 control={control}
                 defaultValue={new Date().toISOString().substr(0, 10)}
+                rules={{ required: "Date is required!" }}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -244,6 +276,11 @@ const TransactionForm = ({ children }) => {
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
                     />
+                    {errors.date && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.date.message}
+                      </Text>
+                    )}
                   </div>
                 )}
               />

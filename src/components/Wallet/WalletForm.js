@@ -7,6 +7,7 @@ import Textarea from "../common/Textarea";
 import Icon from "../common/Icon";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
+import * as axiosInstance from "../../services/wallet";
 
 const WalletForm = ({ children }) => {
   const {
@@ -17,8 +18,15 @@ const WalletForm = ({ children }) => {
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const onSubmit = (d) => {
+  const onSubmit = async(d) => {
     console.log(d);
+    await axiosInstance.createWallet(d.name, d.amount, d.color, d.icon, d.description)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
   return (
@@ -49,7 +57,9 @@ const WalletForm = ({ children }) => {
                 name="name"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Name is required!" }}
+                rules={{
+                  required: "Name is required!",
+                }}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -68,28 +78,32 @@ const WalletForm = ({ children }) => {
                   </div>
                 )}
               />
-              
+
               <Controller
                 name="amount"
                 control={control}
-                defaultValue=""
-                rules={{ required: "Amount is required!" }}
+                rules={
+                  { 
+                pattern: {
+                  value: /^([^.0-]\d+|\d)$/,
+                  message: "It must be a positive number",
+                }}}
                 render={({ field }) => (
                   <div>
                     <FormInput
                       type="number"
-                      label="Amount"
+                      label="Initial Amount"
                       name="amount"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
+                      placeholder="e.g: 0"
                     />
                     {errors.amount && (
                       <Text className="text-red-500 px-32 mt-3">
                         {errors.amount.message}
                       </Text>
                     )}
-
                   </div>
                 )}
               />
@@ -147,15 +161,12 @@ const WalletForm = ({ children }) => {
               />
 
               <div className="flex justify-around">
-              <Button
-                  size="xl"
-                  
-                  onClick={handleSubmit(onSubmit)}
-                >
+                <Button size="xl" onClick={handleSubmit(onSubmit)}>
                   Save
                 </Button>
-                <Button variant="roundOutline" size="xl">Cancel</Button>
-                
+                <Button variant="roundOutline" size="xl">
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>

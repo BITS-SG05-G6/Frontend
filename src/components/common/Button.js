@@ -4,7 +4,7 @@ import { cn } from "../../utils/cn";
 import { Link } from "react-router-dom";
 
 const ButtonVariants = cva(
-  "btn bg-[#EF5DA8] hover:bg-transparent hover:border-[#EF5DA8] text-white hover:text-[#EF5DA8] text-sm",
+  "btn bg-[#EF5DA8] hover:bg-transparent hover:border-[#EF5DA8] text-white hover:text-[#EF5DA8] text-sm outline-none",
   {
     variants: {
       variant: {
@@ -17,11 +17,12 @@ const ButtonVariants = cva(
         lightPrimary: 'btn bg-pink-300 hover:bg-transparent hover:border-pink-300 text-white hover:text-[#7879F1] rounded-[10px]',
         close: 'btn btn-sm btn-circle bg-transparent border-transparent hover:bg-transparent hover:border-transparent',
         none: 'btn bg-transparent hover:bg-transparent text-[#5D5FEF] border-none shadow-none',
+        gray: "btn bg-gray-200 "
       },
       size: {
         default: 'h-10 py-2 px-4 text-sm',
         sm: 'h-9 py-2 rounded-md text-xs',
-        lg: 'h-11 px-11 text-sm max-w-sm',
+        lg: 'h-11 px-9 text-sm max-w-sm',
         xl: 'h-12 px-12 text-sm',
         fix: 'absolute right-2 top-2'
       }
@@ -32,7 +33,7 @@ const ButtonVariants = cva(
     },
   })
 
-const Button = ({ children, variant, size, className, href, onMouseEnter, onMouseLeave, onClick, id }) => {
+const Button = ({ children, variant, size, className, href, onMouseEnter, onMouseLeave, onClick, id, value }) => {
   return (
     href ? (
       <Link
@@ -51,6 +52,7 @@ const Button = ({ children, variant, size, className, href, onMouseEnter, onMous
         onMouseLeave={onMouseLeave}
         onClick={onClick}
         id={id}
+        value={value}
         >
         {children}
       </button>

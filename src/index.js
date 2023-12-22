@@ -5,16 +5,25 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
+import AuthProvider from "./context/authContext";
 import CategoryProvider from "./context/categoryContext";
+import WalletProvider from "./context/walletContext";
+import TransactionProvider from "./context/transactionContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CategoryProvider>
-      <Router>
-        <App />
-      </Router>
-    </CategoryProvider>
+    <AuthProvider>
+      <TransactionProvider>
+        <CategoryProvider>
+          <WalletProvider>
+            <Router>
+              <App />
+            </Router>
+          </WalletProvider>
+        </CategoryProvider>
+      </TransactionProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

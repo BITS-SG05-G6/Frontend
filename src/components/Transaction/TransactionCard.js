@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 
-function TransactionCard({ title, amount, category, id, color}) {
+function TransactionCard({ title, amount, category, id, color, handleDel}) {
   return (
     <tr className="w-full">
       {/* The user can click on a transaction row to view the details */}
@@ -22,18 +22,18 @@ function TransactionCard({ title, amount, category, id, color}) {
             <Text variant="text-sm" className="rounded-xl px-3 py-1" style={{
                 backgroundColor: `${color}40`,
                 color: color,
-              }}>{color}</Text>
+              }}>{category}</Text>
           {/* <span className="bg-[#FCDDEC] rounded-xl px-3 py-1">{category}</span> */}
         </td>
       ) : (
         <td>
-            <Text variant="text-sm" className="bg-[#FCDDEC] rounded-xl px-3 py-1">None</Text>
+            <Text variant="text-sm" className="bg-[#FCDDEC] rounded-xl px-3 py-1 text-[#EF5CA8]">None</Text>
         </td>
       )}
       <td className="font-bold">{amount} VND</td>
       <td className="flex gap-1 justify-center">
         <Button variant="blueButton">Edit</Button>
-        <Button variant="redButton">Delete</Button>
+        <Button variant="redButton" onClick={handleDel}>Delete</Button>
       </td>
     </tr>
     // <div className="flex w-full">

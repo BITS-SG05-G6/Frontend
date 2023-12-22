@@ -24,7 +24,7 @@ const Select = ({
   label,
   value,
   onChange,
-  options, disabled}) => {
+  options, disabled, placeholder, none = true}) => {
     return (
       <>
         <label className="form-control w-full flex flex-row gap-10 justify-around ">
@@ -39,9 +39,12 @@ const Select = ({
             className={cn(SelectVariant({ size, className }))}
             disabled={disabled}
             >
+              <option disabled selected>{placeholder}</option>
+              {none === true ? <option key="none" value="none">None</option> : null}
               {
                 options.length > 1 && options.map((option) => {
                    if (option.id) {
+                    //  return <div>{option.name}</div>
                     return <option key={option.id} value={option.id}>{option.name}</option>
                   } else {
                     return <option key={option} value={option}>{option}</option>
