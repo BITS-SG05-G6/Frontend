@@ -6,9 +6,8 @@ import Test from './pages/Test';
 import Transaction from './pages/Transaction';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import DefaultStatistic from './components/Statistics/TrendStatistic';
-import TestStatisticPage from './pages/TestStatisticPage';
 import Category from './pages/Category';
+import StatisticPage from './pages/Statistic';
 function App() {
   return (
     <Routes>
@@ -19,7 +18,7 @@ function App() {
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup/>}></Route>
-      <Route path="/statistics" element={<TestStatisticPage/>}></Route>
+      <Route path="/statistics" element={<StatisticPage/>}></Route>
       <Route path='/category' element={<Category/>}></Route>
 
   

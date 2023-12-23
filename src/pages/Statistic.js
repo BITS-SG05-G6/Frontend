@@ -11,7 +11,7 @@ import { jwtDecode } from "jwt-decode";
 import LineChart from "../components/Statistics/LineChart";
 import BarChart from "../components/Statistics/BarChart";
 
-const TestStatisticPage = () => {
+const StatisticPage = () => {
   const token = Cookies.get("token");
   const decodedToken = jwtDecode(token);
   const userId = decodedToken.id;
@@ -343,4 +343,4 @@ const TestStatisticPage = () => {
   );
 };
 
-export default TestStatisticPage;
+export default StatisticPage;
