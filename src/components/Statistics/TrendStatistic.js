@@ -46,7 +46,7 @@ export default function TrendStatistic({ typeOfData }) {
   const categories = Object.keys(expenseData).sort();
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);
-
+  console.log(expenseData)
   // Configuration for the line chart using ApexCharts
   const chartConfig = {
     type: "line",
@@ -82,7 +82,11 @@ export default function TrendStatistic({ typeOfData }) {
         curve: "smooth",
       },
       markers: {
-        size: 0,
+        size: 6,
+        strokeWidth: 0,
+        hover: {
+          size: 9
+        }
       },
       xaxis: {
         axisTicks: {
@@ -116,17 +120,17 @@ export default function TrendStatistic({ typeOfData }) {
       },
       grid: {
         show: true,
-        borderColor: "#dddddd",
+        // borderColor: "#dddddd",
         strokeDashArray: 1,
         xaxis: {
           lines: {
             show: true,
           },
         },
-        padding: {
-          top: 10,
-          right: 20,
-        },
+        // padding: {
+        //   top: 10,
+        //   right: 20,
+        // },
       },
       fill: {
         opacity: 0.8,
@@ -135,18 +139,19 @@ export default function TrendStatistic({ typeOfData }) {
         theme: "dark",
       },
     },
+    
   };
   return (
-    <Card>
+    <div>
       {/* <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
         className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
       ></CardHeader> */}
-      <CardBody className="pb-0">
+     
         <Chart {...chartConfig} />
-      </CardBody>
-    </Card>
+      
+    </div>
   );
 }

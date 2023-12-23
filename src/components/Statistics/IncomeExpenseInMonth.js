@@ -6,7 +6,7 @@ import * as axiosInstance from "../../services/statistics";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 const IncomeExpenseInMonth = () => {
-  const colors = ["#FF4560", "#00E396"];
+  const colors = ["#EF5DA8", "#00E396"];
   const [data, setData] = useState([]);
 
   useEffect(() => {

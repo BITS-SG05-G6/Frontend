@@ -9,7 +9,7 @@ const ExpensesDistributionStatistic = () => {
   const colors = [
     "#008FFB",
     "#00E396",
-    "#FEB019",
+    "#EF5DA8",
     "#FF4560",
     "#775DD0",
     "#546E7A",
