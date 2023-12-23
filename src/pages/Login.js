@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Button from "../components/common/Button";
 import FormInput from "../components/common/FormInput";
@@ -6,6 +6,7 @@ import Text from "../components/common/Text";
 import Cookies from "js-cookie";
 import * as axiosInstance from "../services/auth";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 const Login = () => {
   const {
@@ -15,6 +16,8 @@ const Login = () => {
   } = useForm({
     mode: "onChange"
   });
+
+  const { fetchData } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -44,6 +47,7 @@ const Login = () => {
     .then((res) => {
       console.log(res);
       Cookies.set("token", res.token);
+      fetchData();
       navigate("/transaction")
 
     })

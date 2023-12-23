@@ -1,7 +1,7 @@
 import axiosInstance  from "./axios";
 
-export const createTransaction = async(amount, description, date, transactionType, type, title, category) => {
-  const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, title, category})
+export const createTransaction = async(amount, description, date, transactionType, type, title, category, wallet) => {
+  const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, title, category, wallet})
 
   try {
     if (res.status === 200) {
@@ -12,8 +12,8 @@ export const createTransaction = async(amount, description, date, transactionTyp
   }
 }
 
-export const deleteTransaction = async(userId, transactionId) => {
-  const res = await axiosInstance.delete(`transaction/delete/${userId}/${transactionId}`)
+export const deleteTransaction = async(transactionId) => {
+  const res = await axiosInstance.delete(`transaction/delete/${transactionId}`)
 
   try {
     if (res.status === 200) {

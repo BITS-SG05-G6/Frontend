@@ -28,7 +28,7 @@ const CategoryForm = ({ categoryType }) => {
     },
   });
 
-  const { handleAddCategory } = useContext(CategoryContext);
+  const { handleUpdateCategory } = useContext(CategoryContext);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -39,18 +39,12 @@ const CategoryForm = ({ categoryType }) => {
         console.log(res);
         reset();
         document.getElementById("my_modal_2").close();
-        handleAddCategory();
+        handleUpdateCategory();
       })
       .catch((err) => {
         console.log(err.response.data.error.message);
       });
   };
-
-  const type = ["Expense", "Income"];
-
-  useEffect(() => {
-    reset({ type: categoryType });
-  }, [categoryType, reset]);
 
   return (
     <>
@@ -99,19 +93,22 @@ const CategoryForm = ({ categoryType }) => {
                 )}
               />
 
-              <Controller
+<Controller
                 name="type"
                 control={control}
-                defaultValue={categoryType}
+                // defaultValue={type}
                 render={({ field }) => (
                   <div>
-                    <Select
+                    <FormInput
                       label="Type"
                       name="type"
-                      value={field.value}
+                      value={categoryType}
                       onChange={(e) => field.onChange(e.target.value)}
-                      options={type}
+                      disabled
+                      // options={types}
+                      labelType="side"
                     />
+                    {/* <FormInput /> */}
                     {errors.type && (
                       <Text className="text-red-500 px-32 mt-3">
                         {errors.type.message}
