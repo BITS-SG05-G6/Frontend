@@ -12,7 +12,7 @@ const Category = () => {
       <SideBar />
 
       <div className="pl-60 flex flex-col gap-5">
-        <Header title="My Budgets" />
+        <Header title="My Categories" />
 
         <div className="flex justify-end px-6 gap-4">
           <Button

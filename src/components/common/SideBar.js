@@ -1,5 +1,6 @@
 import React from "react";
 import Text from "./Text";
+import { NavLink } from "react-router-dom";
 import {
   DashboardIcon,
   HelpIcon,
@@ -20,12 +21,15 @@ const SideBar = () => {
         className="absolute top-8 left-8 text-[#EF5DA8]"
         variant="text-xl"
         weight="bold"
+        noLink={false}
+        href='/dashboard'
       >
         Wise
         <Text className="text-black" variant="text-xl" weight="bold">
           Wallet
         </Text>
       </Text>
+
 
       <div className="flex flex-col gap-2 mt-20 ">
         <SideBarField path='/dashboard' title="Dashboard" icon={<DashboardIcon />} />
