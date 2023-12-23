@@ -12,7 +12,7 @@ const WalletProvider = ({ children }) => {
 
   const [newWallet, setNewWallet] = useState(false);
 
-  const handleAddWallet = () => {
+  const handleUpdateWallet = () => {
     setNewWallet(newWallet === "true" ? "false" : "true");
   };
 
@@ -46,7 +46,7 @@ const WalletProvider = ({ children }) => {
   }, [userInfo?.id, newWallet, handleUpdateTransaction]);
 
   const walletList = {
-    handleAddWallet,
+    handleUpdateWallet,
     wallets,
   };
 

@@ -38,8 +38,7 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety }) 
           <div className="flex justify-around w-full">
             {
               variety === "Category" ?
-              // <CategoryForm/>
-              <TransactionForm buttonName="Add" variant="blueButton" category={{id: id, name: name}}/>
+              <TransactionForm buttonName="Add" variant="blueButton" category={{id: id, name: name, type: type}}/>
               :
               <TransactionForm buttonName="Add" variant="blueButton" wallet={{id: id, name: name}}/>
             }

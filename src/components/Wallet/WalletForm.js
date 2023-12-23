@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
-import Icon from "../common/Icon";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import * as axiosInstance from "../../services/wallet";
+import { WalletContext } from "../../context/walletContext";
 
 const WalletForm = ({ children }) => {
   const {
@@ -17,12 +17,14 @@ const WalletForm = ({ children }) => {
   } = useForm();
 
   const [isHovered, setIsHovered] = useState(false);
+  const { handleUpdateWallet } = useContext(WalletContext);
 
   const onSubmit = async(d) => {
     console.log(d);
     await axiosInstance.createWallet(d.name, d.amount, d.color, d.icon, d.description)
     .then((res) => {
       console.log(res)
+      handleUpdateWallet();
     })
     .catch((err) => {
       console.log(err);

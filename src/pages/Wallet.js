@@ -1,14 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext } from "react";
 import Header from "../components/common/Header";
 import SideBar from "../components/common/SideBar";
-import ProgressCard from "../components/common/ProgressCard";
 import Card from "../components/common/Card";
 import * as axiosInstance from "../services/wallet";
 import { WalletContext } from "../context/walletContext";
 
 const Wallet = () => {
-  const { wallets } = useContext(WalletContext);
+  const { wallets, handleUpdateWallet } = useContext(WalletContext);
+  const handleDel = async(id) => {
+    await axiosInstance.deleteWallet(id)
+    .then((res) => {
+      console.log(res);
+      handleUpdateWallet();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
   return (
     <div>
       <SideBar />
@@ -26,6 +34,7 @@ const Wallet = () => {
            amount={wallet.amount}
            variety="Wallet"
            id={wallet.id}
+           handleDel={() => handleDel(wallet.id)}
          /> 
           ))}
           

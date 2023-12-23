@@ -38,6 +38,7 @@ function TransactionList({ transactions }) {
                 amount={transaction.amount}
                 color={transaction.color}
                 handleDel={() => handleDel(transaction._id)}
+                type={transaction.type}
               />
             ))}
           </tbody>

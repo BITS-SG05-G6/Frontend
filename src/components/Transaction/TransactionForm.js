@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Select from "../common/Select";
 import Textarea from "../common/Textarea";
-import Icon from "../common/Icon";
-import { CreateTransactionIcon } from "../svgs/sidebarIcons";
 import * as axiosInstance from "../../services/transactions";
 import { CategoryContext } from "../../context/categoryContext";
 import { WalletContext } from "../../context/walletContext";
 import { TransactionContext } from "../../context/transactionContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 import { IconList } from "../svgs/IconList";
 
 const TransactionForm = ({
@@ -31,20 +28,22 @@ const TransactionForm = ({
     formState: { errors },
     watch,
   } = useForm({
-    mode: "onChange"
+    mode: "onChange",
   });
   const { type, setType, categories } = useContext(CategoryContext);
   const selectedCategory = watch("category");
   const { wallets } = useContext(WalletContext);
   const [isHovered, setIsHovered] = useState(false);
   const types = ["Expense", "Income"];
-  // console.log(category);
-  const [categoryDefault, setCategoryDefault] = useState(null);
 
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const onSubmit = async (d) => {
     // console.log(d);
-    const categoryType = category ? category.type : (selectedCategory === "none" || selectedCategory === undefined) ? d.type : type;
+    const categoryType = category
+      ? category.type
+      : selectedCategory === "none" || selectedCategory === undefined
+      ? d.type
+      : type;
     const categoryValue = category ? category.id : d.category;
     const walletValue = wallet ? wallet.id : d.wallet;
     await axiosInstance
@@ -59,7 +58,11 @@ const TransactionForm = ({
         walletValue
       )
       .then((res) => {
-        document.getElementById("my_modal_1").close();
+        document
+          .getElementById(
+            category ? category.id : wallet ? wallet.id : "my_modal_1"
+          )
+          .close();
         handleUpdateTransaction();
         console.log(res);
         reset();
@@ -67,20 +70,22 @@ const TransactionForm = ({
       .catch((err) => {
         console.log(err);
       });
-    // console.log(d);
   };
 
-  const openModal = (c) => {
-    document.getElementById("my_modal_1").showModal()
-  }
-
+  const openModal = () => {
+    document
+      .getElementById(
+        category ? category.id : wallet ? wallet.id : "my_modal_1"
+      )
+      .showModal();
+  };
 
   return (
     <>
       <Button
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => openModal(category)}
+        onClick={() => openModal()}
         variant={variant}
         className={className}
       >
@@ -94,7 +99,10 @@ const TransactionForm = ({
           {buttonName}
         </Text>
       </Button>
-      <dialog id="my_modal_1" className="modal">
+      <dialog
+        id={category ? category.id : wallet ? wallet.id : "my_modal_1"}
+        className="modal"
+      >
         <div className="modal-box flex flex-col justify-center w-full">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add Transaction
@@ -159,8 +167,16 @@ const TransactionForm = ({
                 )}
               />
 
-              {
-               wallets && (
+              {wallet ? (
+                <FormInput
+                  label="Wallet"
+                  name="wallet"
+                  value={wallet.name}
+                  disabled
+                  labelType="side"
+                />
+              ) : (
+                wallets && (
                   <Controller
                     name="wallet"
                     control={control}
@@ -182,11 +198,19 @@ const TransactionForm = ({
                       </div>
                     )}
                   />
-                )}
-              
-           
-              
-                {categories && (
+                )
+              )}
+
+              {category ? (
+                <FormInput
+                  label="Category"
+                  name="category"
+                  value={category.name}
+                  disabled
+                  labelType="side"
+                />
+              ) : (
+                categories && (
                   <Controller
                     name="category"
                     control={control}
@@ -215,11 +239,19 @@ const TransactionForm = ({
                       </div>
                     )}
                   />
-                )}
-              
+                )
+              )}
 
-              
-              {(selectedCategory === undefined || selectedCategory === "none") ? (
+              {category ? (
+                <FormInput
+                  label="Type"
+                  name="categoryType"
+                  value={category.type}
+                  disabled
+                  labelType="side"
+                />
+              ) : selectedCategory === undefined ||
+                selectedCategory === "none" ? (
                 <Controller
                   name="type"
                   control={control}

@@ -23,3 +23,15 @@ export const getWallet = async() => {
     return err;
   }
 }
+
+export const deleteWallet = async(id) => {
+  const res = await axiosInstance.delete(`/wallet/delete/${id}`)
+
+  try {
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch(err) {
+    return err;
+  }
+}

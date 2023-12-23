@@ -1,12 +1,12 @@
 import React from "react";
+import { cn } from "../../utils/cn";
 import Button from "../common/Button";
 import Text from "../common/Text";
 
-function TransactionCard({ title, amount, category, id, color, handleDel}) {
+function TransactionCard({ title, amount, category, id, color, handleDel, type}) {
   return (
     <tr className="w-full">
       {/* The user can click on a transaction row to view the details */}
-      {/* <td>{title}</td> */}
       <td>
         <Text
           variant="text-sm"
@@ -14,7 +14,6 @@ function TransactionCard({ title, amount, category, id, color, handleDel}) {
           href={`/transaction/${id}`}
         >
           {title}
-          {/* {id} */}
         </Text>
       </td>
       {category ? (
@@ -23,27 +22,18 @@ function TransactionCard({ title, amount, category, id, color, handleDel}) {
                 backgroundColor: `${color}40`,
                 color: color,
               }}>{category}</Text>
-          {/* <span className="bg-[#FCDDEC] rounded-xl px-3 py-1">{category}</span> */}
         </td>
       ) : (
         <td>
             <Text variant="text-sm" className="bg-[#FCDDEC] rounded-xl px-3 py-1 text-[#EF5CA8]">None</Text>
         </td>
       )}
-      <td className="font-bold">{amount} VND</td>
+      <td className={cn(type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center font-bold")}>{amount} VND</td>
       <td className="flex gap-1 justify-center">
         <Button variant="blueButton">Edit</Button>
         <Button variant="redButton" onClick={handleDel}>Delete</Button>
       </td>
     </tr>
-    // <div className="flex w-full">
-    //     <Text>{title}</Text>
-    //     <Text>{category}</Text>
-    //     <Text>{amount} VND</Text>
-    //     <div>
-    //     <Button variant="blueButton">Edit</Button>
-    // <Button variant="redButton">Delete</Button></div>
-    // </div>
   );
 }
 

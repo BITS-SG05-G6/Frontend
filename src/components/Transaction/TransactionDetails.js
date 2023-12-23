@@ -1,6 +1,6 @@
 import { format } from "date-fns";
-import Box from "../common/Box";
 import Text from "../common/Text";
+import { cn } from "../../utils/cn"
 
 function TransactionDetails({ transaction }) {
   return (
@@ -8,12 +8,11 @@ function TransactionDetails({ transaction }) {
       {transaction ? (
         <div className=" bg-white rounded-[10px] border border-gray-300 flex flex-col p-6">
           <div className="px-2 py-3 flex flex-col gap-2">
+    
             <div className="text-gray-800 text-xl font-semibold text-center">
               {transaction.title}
             </div>
-            <div className="text-red-400 text-lg font-bold text-center">
-              {transaction.amount} VND
-            </div>
+            <Text variant="text-lg" weight="bold" className={cn(transaction.type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center")}>{transaction.amount} VND</Text>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -61,7 +60,7 @@ function TransactionDetails({ transaction }) {
                       color: transaction.walletColor,
                     }}
                   >
-                    {transaction.walletColor}
+                    {transaction.wallet}
                   </Text>
         
               ) : (

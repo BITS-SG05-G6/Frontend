@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Button from "../components/common/Button";
 import Card from "../components/common/Card";
 import Header from "../components/common/Header";
@@ -8,9 +8,6 @@ import * as axiosInstance from "../services/category";
 
 const Category = () => {
   const { type, setType, categories, handleUpdateCategory } = useContext(CategoryContext);
-  const handleAdd = (id) => {
-
-  }
 
   const handleDel = async(id) => {
     await axiosInstance.deleteCategory(id)
