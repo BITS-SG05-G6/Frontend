@@ -23,3 +23,15 @@ export const signup = async(username, password) => {
       return err;
     }
   }
+
+  export const getProfile = async() => {
+    const res = await axiosInstance.get("/profile")
+
+    try {
+      if (res.status === 200) {
+        return res.data;
+      }
+    } catch(err) {
+      return err;
+    }
+  }
