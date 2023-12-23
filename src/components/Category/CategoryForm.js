@@ -33,8 +33,9 @@ const CategoryForm = ({ categoryType }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
+    console.log(d.budget);
     await axiosInstance
-      .createCategory(d.name, d.type, d.color, d.icon, d.description)
+      .createCategory(d.name, d.type, d.color, d.icon, d.description, d.budget)
       .then((res) => {
         console.log(res);
         reset();
@@ -92,8 +93,9 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
+              {/* Budget field */}
 
-<Controller
+              <Controller
                 name="type"
                 control={control}
                 // defaultValue={type}
@@ -171,7 +173,25 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
+              <Controller
+                name="budget"
+                control={control}
+                defaultValue=""
+                // rules={{ required: "Budget is required!" }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="text"
+                      label="Budget"
+                      name="budget"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
 
+                  </div>
+                )}
+              />
               <div className="flex justify-around">
                 <Button
                   size="xl"
