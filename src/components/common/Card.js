@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Box from "./Box";
+import Button from "./Button";
 import Text from "./Text";
 import { IconList } from "../svgs/IconList";
 import CategoryForm from "../Category/CategoryForm";
@@ -25,7 +26,7 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety}) =
       style={{
         backgroundColor: isHovered ? '#FFFFFF' : '',
         border: isHovered ? `3px solid ${color}` : '',
-        transform: isHovered ? 'translate(20px, -10px)' : 'translate(0,0)',
+        transform: isHovered ? 'translate(0, -10px)' : 'translate(0,0)',
         transition: 'transform 0.5s'
       }}
     >

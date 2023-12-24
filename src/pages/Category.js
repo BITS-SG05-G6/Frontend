@@ -9,6 +9,8 @@ import * as axiosInstance from "../services/category";
 const Category = () => {
   const { type, setType, categories, handleUpdateCategory } = useContext(CategoryContext);
 
+
+
   const handleDel = async(id) => {
     await axiosInstance.deleteCategory(id)
     .then((res) => {
