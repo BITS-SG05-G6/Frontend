@@ -4,7 +4,7 @@ import { cn } from "../../utils/cn";
 import { Link } from "react-router-dom";
 
 const ButtonVariants = cva(
-  "btn bg-[#EF5DA8] hover:bg-transparent hover:border-[#EF5DA8] text-white hover:text-[#EF5DA8] text-sm outline-none",
+  "btn bg-[#F472B6] hover:bg-transparent hover:border-[#F472B6] text-white hover:text-[#F472B6] text-sm outline-none",
   {
     variants: {
       variant: {
