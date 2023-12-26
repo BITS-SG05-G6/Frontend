@@ -62,7 +62,7 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, cu
             variety === "Category" ?
             <TransactionForm buttonName="Add" variant="blueButton" category={{id: id, name: name, type: type}}/>
             :
-            <TransactionForm buttonName="Add" variant="blueButton" wallet={{id: id, name: name}}/>
+            <TransactionForm buttonName="Add" variant="blueButton" wallet={{id: id, name: name, currency: currency}}/>
           }
    
         

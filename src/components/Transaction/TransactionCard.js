@@ -3,7 +3,7 @@ import { cn } from "../../utils/cn";
 import Button from "../common/Button";
 import Text from "../common/Text";
 
-function TransactionCard({ title, amount, category, id, color, handleDel, type}) {
+function TransactionCard({ title, amount, category, id, color, handleDel, type, currency}) {
   return (
     <tr className="w-full">
       {/* The user can click on a transaction row to view the details */}
@@ -28,7 +28,7 @@ function TransactionCard({ title, amount, category, id, color, handleDel, type})
             <Text variant="text-sm" className="bg-[#FCDDEC] rounded-xl px-3 py-1 text-[#EF5CA8]">None</Text>
         </td>
       )}
-      <td className={cn(type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center font-bold")}>{amount} VND</td>
+      <td className={cn(type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center font-bold")}>{amount} {currency}</td>
       <td className="flex gap-1 justify-center">
         <Button variant="blueButton">Edit</Button>
         <Button variant="redButton" onClick={handleDel}>Delete</Button>
