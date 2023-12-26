@@ -11,7 +11,7 @@ const WalletProvider = ({ children }) => {
   const { handleUpdateTransaction } = useContext(TransactionContext)
 
   const [newWallet, setNewWallet] = useState(false);
-
+  const [currency, setCurrency] = useState("");
   const handleUpdateWallet = () => {
     setNewWallet(newWallet === "true" ? "false" : "true");
   };
@@ -22,7 +22,8 @@ const WalletProvider = ({ children }) => {
       name: "",
       icon: "",
       color: "",
-      amount: 0
+      amount: 0,
+      currency: ""
     },
   ]);
 
@@ -37,7 +38,8 @@ const WalletProvider = ({ children }) => {
           id: "",
           name: "",
           icon: "",
-          color: ""
+          color: "",
+          currency: ""
         }]);
       }
     }
@@ -48,6 +50,8 @@ const WalletProvider = ({ children }) => {
   const walletList = {
     handleUpdateWallet,
     wallets,
+    currency,
+    setCurrency
   };
 
   return (
