@@ -8,7 +8,7 @@ function SideBarField({ title, icon, path, onClick }) {
 
     return (
         <NavLink to={path}
-        className={({ isActive }) => `justify-start gap-2 flex h-11 px-11 text-sm max-w-sm py-3 ps-4 pe-20 rounded-lg bg-neutral-50 hover:bg-pink-400 border-none shadow-none ${
+        className={({ isActive }) => `justify-start gap-2 flex h-11 px-11 text-sm max-w-sm py-3 ps-4 pe-20 rounded-lg bg-neutral-50 hover:bg-[pink]-400 border-none shadow-none ${
             isActive ? "bg-pink-400" : "" 
           } ${isActive? setIsActive(true): setIsActive(false)}`}
             onMouseEnter={() => setIsHovered(true)}

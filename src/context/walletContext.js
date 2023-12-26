@@ -22,7 +22,8 @@ const WalletProvider = ({ children }) => {
       name: "",
       icon: "",
       color: "",
-      amount: 0
+      amount: 0,
+      currency: ""
     },
   ]);
 
@@ -37,7 +38,8 @@ const WalletProvider = ({ children }) => {
           id: "",
           name: "",
           icon: "",
-          color: ""
+          color: "",
+          currency: ""
         }]);
       }
     }
