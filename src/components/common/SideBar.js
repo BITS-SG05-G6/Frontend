@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Text from "./Text";
+import CategoryIcon from "../svgs/CategoryIcon";
 import {
   DashboardIcon,
   HelpIcon,
@@ -35,23 +36,27 @@ const SideBar = () => {
   }
   return (
     <div className="h-screen w-60 bg-neutral-50 fixed flex flex-col px-3">
+      {/* Logo section */}
       <Text
         className="absolute top-8 left-8 text-[#EF5DA8]"
         variant="text-xl"
         weight="bold"
+        noLink={false}
+        href='/dashboard'
       >
         Wise
         <Text className="text-black" variant="text-xl" weight="bold">
           Wallet
         </Text>
       </Text>
-
+      {/*  Side bar navigation */}
       <div className="flex flex-col gap-2 mt-20 ">
         <SideBarField path='/dashboard' title="Dashboard" icon={<DashboardIcon />} />
         <SideBarField path='/transaction' title="Transactions" icon={<TransactionIcon />} />
-        <SideBarField path='/invoices' title="Invoices" icon={<InvoiceIcon />} />
+        <SideBarField path='/category' title='My Categories' icon={<CategoryIcon/>}></SideBarField>
+        <SideBarField path='/invoices' title="My Invoices" icon={<InvoiceIcon />} />
         <SideBarField path='/wallets' title="My Wallets" icon={<WalletIcon />} />
-        <SideBarField path='/planning' title="Planning" icon={<PlanIcon />} />
+        <SideBarField path='/planning' title="My Planning" icon={<PlanIcon />} />
         <SideBarField path='/statistics' title="Statistics" icon={<StatisticsIcon />} />
         <SideBarField path='/profile' title="My Profile" icon={<ProfileIcon />} />
       </div>

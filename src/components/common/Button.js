@@ -8,7 +8,7 @@ const ButtonVariants = cva(
   {
     variants: {
       variant: {
-        roundOutline: 'btn hover:bg-[#EF5DA8] bg-transparent border-[#EF5DA8] hover:text-white text-[#EF5DA8]',
+        roundOutline: 'btn hover:bg-pink-100 hover:border-pink-100 bg-transparent border-[#EF5DA8] hover:text-white text-[#EF5DA8]',
         cirFill: 'btn bg-[#EF5DA8] hover:bg-transparent hover:border-[#EF5DA8] text-white hover:text-[#EF5DA8] rounded-full',
         cirOutline: 'btn hover:bg-[#EF5DA8] bg-transparent border-[#EF5DA8] hover:text-white text-[#EF5DA8] rounded-full',
         cirTrans: 'btn bg-[#FCDDEC] hover:bg-transparent hover:border-[#EF5DA8] text-white hover:text-[#EF5DA8] rounded-full',
