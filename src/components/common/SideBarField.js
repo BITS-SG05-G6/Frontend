@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Icon from "./Icon";
 import { NavLink } from "react-router-dom";
-function SideBarField({ title, icon, path }) {
+function SideBarField({ title, icon, path, onClick }) {
     const [isHovered, setIsHovered] = useState(false);
     const [isActive, setIsActive] = useState(false);
 
@@ -11,6 +11,7 @@ function SideBarField({ title, icon, path }) {
                 ${isActive ? setIsActive(true) : setIsActive(false)}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={onClick}
             style={{ backgroundColor: isActive ? '#F472B6' : '' }}
         >
             {/*Dynamic icon*/}

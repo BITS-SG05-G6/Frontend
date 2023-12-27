@@ -8,36 +8,40 @@ import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
-
+import Select from "../common/Select";
+import { currencyList } from "../svgs/OptionList";
 const WalletForm = ({ children }) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const [isHovered, setIsHovered] = useState(false);
   const { handleUpdateWallet } = useContext(WalletContext);
 
-  const onSubmit = async(d) => {
-    console.log(d);
-    await axiosInstance.createWallet(d.name, d.amount, d.color, d.icon, d.description)
-    .then((res) => {
-      console.log(res)
-      handleUpdateWallet();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+  const onSubmit = async (d) => {
+    await axiosInstance
+      .createWallet(d.name, d.amount, d.color, d.icon, d.description, d.currency)
+      .then((res) => {
+        document
+        .getElementById("my_modal_3")
+          .close();
+        handleUpdateWallet();
+        console.log(res);
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <>
       <Button
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onClick={() => document.getElementById("my_modal_3").showModal()}
-        variant="none"
+        variant="card"
+        className="h-80 w-full"
       >
         <Text variant="text-md" weight="bold">
           + Add New Wallet
@@ -82,19 +86,45 @@ const WalletForm = ({ children }) => {
               />
 
               <Controller
+                name="currency"
+                control={control}
+                rules={{
+                  required: "Currency is required!",
+                }}
+                render={({ field }) => (
+                  <div>
+                    <Select
+                          label="Currency"
+                          name="currency"
+                          value={field.value}
+                          onChange={(e) => field.onChange(e.target.value)}
+                          options={currencyList}
+                          placeholder="Please choose a currency"
+                          none={false}
+                        />
+                    {errors.currency && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.currency.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
+
+              <Controller
                 name="amount"
                 control={control}
-                rules={
-                  { 
-                pattern: {
-                  value: /^([^.0-]\d+|\d)$/,
-                  message: "It must be a positive number",
-                }}}
+                rules={{
+                  pattern: {
+                    value: /^([^.0-]\d+|\d)$/,
+                    message: "It must be a positive number",
+                  },
+                }}
                 render={({ field }) => (
                   <div>
                     <FormInput
                       type="number"
-                      label="Initial Amount"
+                      label="Balance"
                       name="amount"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Text from "./Text";
 import CategoryIcon from "../svgs/CategoryIcon";
 import {
@@ -13,8 +13,27 @@ import {
   WalletIcon,
 } from "../svgs/sidebarIcons";
 import SideBarField from "./SideBarField";
+import * as axiosInstance from "../../services/auth";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { AuthContext } from "../../context/authContext";
 
 const SideBar = () => {
+  const navigate = useNavigate();
+  const {fetchData} = useContext(AuthContext);
+
+  const logOut = async() => {
+    await axiosInstance.signout()
+    .then((res) => {
+      Cookies.remove('token');
+      fetchData();
+      console.log(res)
+      navigate('/')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
   return (
     <div className="h-screen w-60 bg-neutral-50 fixed flex flex-col px-3">
       {/* Logo section */}
@@ -44,7 +63,7 @@ const SideBar = () => {
 
       <div className="flex gap-2 flex-col absolute bottom-6">
         <SideBarField path='/help' title="Help" icon={<HelpIcon />} />
-        <SideBarField path='/logout' title="Log Out" icon={<LogoutIcon />} />
+        <SideBarField path='/logout' title="Log Out" icon={<LogoutIcon />} onClick={logOut}/>
       </div>
     </div>
   );

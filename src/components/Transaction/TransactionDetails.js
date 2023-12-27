@@ -12,7 +12,7 @@ function TransactionDetails({ transaction }) {
             <div className="text-gray-800 text-xl font-semibold text-center">
               {transaction.title}
             </div>
-            <Text variant="text-lg" weight="bold" className={cn(transaction.type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center")}>{transaction.amount} VND</Text>
+            <Text variant="text-lg" weight="bold" className={cn(transaction.type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center")}>{transaction.amount} {transaction.currency}</Text>
           </div>
 
           <div className="flex flex-col gap-4">

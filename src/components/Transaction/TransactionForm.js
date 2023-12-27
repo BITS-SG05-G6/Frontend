@@ -11,6 +11,7 @@ import { WalletContext } from "../../context/walletContext";
 import { TransactionContext } from "../../context/transactionContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconList } from "../svgs/IconList";
+import { transactionType, currencyList } from "../svgs/OptionList";
 
 const TransactionForm = ({
   children,
@@ -30,20 +31,24 @@ const TransactionForm = ({
   } = useForm({
     mode: "onChange",
   });
+  // const { currency, setCurrency } = useState("123");
   const { type, setType, categories } = useContext(CategoryContext);
   const selectedCategory = watch("category");
-  const { wallets } = useContext(WalletContext);
+  const selectedWallet = watch("wallet");
+  const { wallets, currency, setCurrency } = useContext(WalletContext);
   const [isHovered, setIsHovered] = useState(false);
-  const types = ["Expense", "Income"];
-
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const onSubmit = async (d) => {
-    // console.log(d);
     const categoryType = category
       ? category.type
       : selectedCategory === "none" || selectedCategory === undefined
       ? d.type
       : type;
+      const walletCurrency = wallet
+      ? wallet.type
+      : selectedWallet === "none" || selectedWallet === undefined
+      ? d.currency
+      : currency;
     const categoryValue = category ? category.id : d.category;
     const walletValue = wallet ? wallet.id : d.wallet;
     await axiosInstance
@@ -55,7 +60,8 @@ const TransactionForm = ({
         categoryType,
         d.title,
         categoryValue,
-        walletValue
+        walletValue,
+        walletCurrency
       )
       .then((res) => {
         document
@@ -186,7 +192,14 @@ const TransactionForm = ({
                           label="Wallet"
                           name="wallet"
                           value={field.value}
-                          onChange={(e) => field.onChange(e.target.value)}
+                          onChange={(e) => {
+                            field.onChange(e.target.value);
+                            wallets.map((wallet) =>
+                              wallet.id === e.target.value
+                                ? setCurrency(wallet.currency)
+                                : null
+                            );
+                          }}
                           options={wallets}
                           placeholder="Please choose a wallet"
                         />
@@ -199,6 +212,52 @@ const TransactionForm = ({
                     )}
                   />
                 )
+              )}
+
+              {wallet ? (
+                <FormInput
+                  label="Currency"
+                  name="currency"
+                  value={wallet.currency}
+                  disabled
+                  labelType="side"
+                />
+              ) : selectedWallet === undefined || selectedWallet === "none" ? (
+                <Controller
+                  name="currency"
+                  control={control}
+                  rules={{
+                    required: "Currency is required!",
+                  }}
+                  render={({ field }) => (
+                    <div>
+                      <Select
+                        label="Currency"
+                        name="currency"
+                        value={field.value}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                        }}
+                        options={currencyList}
+                        placeholder="Please choose a currency"
+                        none={false}
+                      />
+                      {errors.currency && (
+                        <Text className="text-red-500 px-32 mt-3">
+                          {errors.currency.message}
+                        </Text>
+                      )}
+                    </div>
+                  )}
+                />
+              ) : (
+                <FormInput
+                  label="Currency"
+                  name="currency"
+                  value={currency}
+                  disabled
+                  labelType="side"
+                />
               )}
 
               {category ? (
@@ -271,7 +330,7 @@ const TransactionForm = ({
                         onChange={(e) => {
                           field.onChange(e.target.value);
                         }}
-                        options={types}
+                        options={transactionType}
                         placeholder="Please choose a type"
                         none={false}
                       />
