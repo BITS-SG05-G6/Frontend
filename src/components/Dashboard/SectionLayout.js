@@ -7,7 +7,7 @@ function SectionLayout({ title, children, className, viewList }) {
         <div className={`w-full py-5 ${className}`}>
             {/* Section title*/}
             <div className="flex justify-between">
-                <Text variant='text-lg' weight='bold'>{title}</Text>
+                <Text variant='text-md' weight='bold'>{title}</Text>
                 {viewList && (
                     <div className="flex gap-2">
                         <Text variant='text-sm' weight='semibold'>View All</Text>
