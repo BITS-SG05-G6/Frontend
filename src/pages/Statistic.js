@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import LineChart from "../components/Statistics/LineChart";
 import BarChart from "../components/Statistics/BarChart";
+import StatisticCard from "../components/Statistics/StatisticCard";
 
 const StatisticPage = () => {
   const token = Cookies.get("token");
@@ -18,17 +19,17 @@ const StatisticPage = () => {
   const type = ["This Week", "Last Month", "Total"];
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
   //Chart 1 - Trend Statistic Chart
-  const [selectedType, setSelectedType] = useState("This Week");
+  const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
   //Chart 2 - Distribution chart
-  const [selectedTypeChart2, setSelectedTypeChart2] = useState("This Week");
+  const [selectedTypeChart2, setSelectedTypeChart2] = useState(type[0]);
   //Chart 3 - Category Income
-  const [selectedTypeChart3, setSelectedTypeChart3] = useState("This Week");
+  const [selectedTypeChart3, setSelectedTypeChart3] = useState(type[0]);
   //Chart 4 - Category Expense
-  const [selectedTypeChart4, setSelectedTypeChart4] = useState("This Week");
+  const [selectedTypeChart4, setSelectedTypeChart4] = useState(type[0]);
   //Chart 5 - Income/Expense Ratio Chart
-  const [selectedTypeChart5, setSelectedTypeChart5] = useState("This Week");
+  const [selectedTypeChart5, setSelectedTypeChart5] = useState(type[0]);
   //Chart 6 - Wallet Expense
-  const [selectedTypeChart6, setSelectedTypeChart6] = useState("This Week");
+  const [selectedTypeChart6, setSelectedTypeChart6] = useState(type[0]);
 
   //Handle change data of chart
   //Chart 1 - Trend Statistic Chart
@@ -139,11 +140,11 @@ const StatisticPage = () => {
     const fetchData = async () => {
       try {
         let response = [];
-        if (selectedTypeChart4 === "This Week") {
+        if (selectedTypeChart4 === "Total") {
           response = await axiosInstance.categoryExenseTotal(userId);
-        } else if (selectedTypeChart4 === "Last Month") {
+        } else if (selectedTypeChart4 === "Last Week") {
           response = await axiosInstance.categoryExenseLastWeek(userId);
-        } else if (selectedTypeChart4 === "Total") {
+        } else if (selectedTypeChart4 === "Last Month") {
           response = await axiosInstance.categoryExenseLastMonth(userId);
         }
         setExCatData(response.expensesByCategory || []);
@@ -179,36 +180,51 @@ const StatisticPage = () => {
   const InExVal = Object.values(InExData);
   const InExKey = Object.keys(InExData);
 
-    //Wallet Expense (6th Chart)
-    const [walletData, setWalletData] = useState([]);
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          let response = [];
-          if (selectedTypeChart6 === "This Week") {
-            response = await axiosInstance.walletExenseWeek(userId);
-          } else if (selectedTypeChart6 === "Last Month") {
-            response = await axiosInstance.walletExenseMonth(userId);
-          } else if (selectedTypeChart6 === "Total") {
-            response = await axiosInstance.walletExenseTotal(userId);
-          }
-          setWalletData(response.expenseByWallet || []);
-        } catch (error) {
-          console.error("Error fetching expenses:", error);
+  //Wallet Expense (6th Chart)
+  const [walletData, setWalletData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let response = [];
+        if (selectedTypeChart6 === "This Week") {
+          response = await axiosInstance.walletExenseWeek(userId);
+        } else if (selectedTypeChart6 === "Last Month") {
+          response = await axiosInstance.walletExenseMonth(userId);
+        } else if (selectedTypeChart6 === "Total") {
+          response = await axiosInstance.walletExenseTotal(userId);
         }
-      };
-      fetchData();
-    }, [selectedTypeChart6, userId]);
+        setWalletData(response.expenseByWallet || []);
+      } catch (error) {
+        console.error("Error fetching expenses:", error);
+      }
+    };
+    fetchData();
+  }, [selectedTypeChart6, userId]);
 
-    const walletAmount = walletData.map((category) => category.totalExpense);
-    const categoryWallet = walletData.map((category) => category.walletName);
+  const walletAmount = walletData.map((category) => category.totalExpense);
+  const categoryWallet = walletData.map((category) => category.walletName);
   return (
     <>
       <SideBar />
-      <div className="pl-80 flex flex-col gap-5">
-        <Header title="Statistic" username="Anh Bui" />
-        <div class="grid gap-4 grid-cols-2 pr-5">
+      <div className="pl-80 flex flex-col gap-5 ">
+        {/* NavBar */}
+        <div className="sticky top-0 bg-white z-10">
+          <Header title="Statistic" username="Anh Bui" />
+        </div>
+        <div class="grid gap-8 grid-cols-3 place-items-center mb-10">
+          <div>
+            <StatisticCard type="Total Balance" isPrimary="true" amount="$1250"/>
+          </div>
 
+          <div>
+            <StatisticCard type="Total Income" isPrimary="true"  amount="$1250"/>
+          </div>
+          <div>
+            <StatisticCard type="Total Expense" isPrimary="true"  amount="$1250"/>
+          </div>
+         
+        </div>
+        <div class="grid gap-8 grid-cols-2 mr-10">
           {/* Chart 1 */}
           <div className="shadow-md">
             <div className="flex flex-row justify-between w-full">
@@ -269,10 +285,7 @@ const StatisticPage = () => {
                 />
               </div>
             </div>
-            <PieChart
-              data={IncomeAmount}
-              categories={CategoryIncome}
-            />
+            <PieChart data={IncomeAmount} categories={CategoryIncome} />
           </div>
 
           {/* Chart 4 */}
