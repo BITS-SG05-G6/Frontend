@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Category from './pages/Category';
 import Wallet from './pages/Wallet'
 import Dashboard from './pages/Dashboard';
+import WalletList from './components/Dashboard/WalletList';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
        <Route path="/transaction/:id" element={<Transaction/>}></Route>
        <Route path="/login" element={<Login/>}></Route>
        <Route path="/wallets" element={<Wallet/>}></Route>
+       <Route path='/testing' element={<WalletList/>}></Route>
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup/>}></Route>

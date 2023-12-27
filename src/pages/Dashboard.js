@@ -1,6 +1,8 @@
 import SideBar from "../components/common/SideBar";
 import Header from "../components/common/Header";
 import OverviewCard from '../components/Dashboard/OverviewCard'
+import WalletList from "../components/Dashboard/WalletList";
+import SectionLayout from "../components/Dashboard/SectionLayout";
 
 function Dashboard() {
 
@@ -9,17 +11,11 @@ function Dashboard() {
             <SideBar />
             <div className="pl-60 flex flex-col gap-5">
                 <Header title="Dashboard" username="Tom Vo" />
-                <div>
-                    <div>
-                        {/* Wallet overview */}
-                        <div></div>
-                        {/* Bill overview */}
-                        <div></div>
-                    </div>
-                    <div>
+                <div className="grid grid-cols-3">
+                    <div className="col-span-2">
                         {/*Balance overview */}
-                        <div className="px-10 py-5 flex justify-evenly">
-                            <OverviewCard type='balance' isPrimary='true' />
+                        <div className="px-5 py-5 flex justify-evenly gap-5">
+                            <OverviewCard type='balance' isPrimary />
                             <OverviewCard type='spending' />
                             <OverviewCard type='savings' />
                         </div>
@@ -28,6 +24,18 @@ function Dashboard() {
                         {/* Transaction overview */}
                         <div></div>
                     </div>
+                    <div>
+                        {/* Wallet overview */}
+                        <SectionLayout className='ps-5 pr-10' title='My Wallets' viewList='true' >
+                            <WalletList />
+                        </SectionLayout>
+                        {/* <div className="w-full pr-10">
+                            <WalletList />
+                        </div> */}
+                        {/* Bill overview */}
+                        <div></div>
+                    </div>
+
 
                 </div>
             </div>
