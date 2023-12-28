@@ -4,7 +4,7 @@ import { cn } from "../../utils/cn";
 import Text from "./Text";
 
 const SelectVariant = cva(
-  "input input-bordered hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none cursor-pointer",
+  "select select-bordered  hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none cursor-pointer",
   {
     variants: {
       size: {

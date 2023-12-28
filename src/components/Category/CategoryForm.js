@@ -12,6 +12,7 @@ import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import { IconList } from "../svgs/IconList";
 import { CategoryContext } from "../../context/categoryContext";
+import Box from "../common/Box";
 
 // import es from 'date-fns/locale/es'
 // registerLocale('es', es);
@@ -53,11 +54,16 @@ const CategoryForm = ({ categoryType }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => document.getElementById("my_modal_2").showModal()}
-        variant="none"
+        variant="card"
+        className="h-80 w-full"
       >
+        {/* <Box  className="flex justify-center items-center gap-10 flex-col h-80 w-full p-0"
+    color="gray"> */}
         <Text variant="text-md" weight="bold">
           + Add New Category
         </Text>
+        {/* </Box> */}
+        
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">

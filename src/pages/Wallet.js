@@ -17,6 +17,7 @@ const Wallet = () => {
       console.log(err);
     })
   }
+  console.log(wallets);
   return (
     <div>
       <SideBar />
@@ -34,6 +35,7 @@ const Wallet = () => {
            amount={wallet.amount}
            variety="Wallet"
            id={wallet.id}
+           currency={wallet.currency}
            handleDel={() => handleDel(wallet.id)}
          /> 
           ))}
