@@ -10,39 +10,18 @@ import { TransactionContext } from "../context/transactionContext";
 import * as axiosInstance from "../services/transactions";
 
 const Transaction = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { selectedDate, setSelectedDate, transactions } = useContext(TransactionContext);
   const { id } = useParams();
-  const [transactions, setTransactions] = useState(null);
   const [transaction, setTransaction] = useState(null);
-  const { updateTransaction } = useContext(TransactionContext);
 
   function handleDateChange(date) {
     setSelectedDate(date);
   }
 
-  // console.log(id);
-
-  // console.log(selectedDate);
-  useEffect(() => {
-    async function fetchData () {
-      await axiosInstance.getTransactions(selectedDate)
-      .then((res) => {
-        // console.log(res);
-        setTransactions(res.transactions);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }
-
-    fetchData();
-  }, [selectedDate, updateTransaction])
-
   useEffect(() => {
     async function fetchTransaction () {
       await axiosInstance.getTransactionDetail(id)
       .then((res) => {
-        console.log(res);
         setTransaction(res);
       })
       .catch((err) => {
@@ -51,7 +30,6 @@ const Transaction = () => {
     }
     fetchTransaction();
   }, [id])
-
 
   return (
     <>

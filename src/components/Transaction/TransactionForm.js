@@ -86,6 +86,15 @@ const TransactionForm = ({
       .showModal();
   };
 
+  const closeModal = () => {
+    document
+      .getElementById(
+        category ? category.id : wallet ? wallet.id : "my_modal_1"
+      )
+      .close();
+    // reset();
+  }
+
   return (
     <>
       <Button
@@ -115,7 +124,7 @@ const TransactionForm = ({
           </Text>
           <div className="modal-action mx-0 block w-full">
             <form method="dialog" className="flex flex-col gap-4">
-              <Button variant="close" className="text-black" size="fix">
+              <Button variant="close" onClick={closeModal} className="text-black" size="fix">
                 x
               </Button>
 
@@ -400,7 +409,7 @@ const TransactionForm = ({
                   Save
                 </Button>
 
-                <Button size="xl">Cancel</Button>
+                <Button size="xl" onClick={closeModal}>Cancel</Button>
               </div>
             </form>
           </div>
