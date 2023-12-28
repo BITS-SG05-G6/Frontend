@@ -9,8 +9,6 @@ import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import { CategoryContext } from "../../context/categoryContext";
 
-// import es from 'date-fns/locale/es'
-// registerLocale('es', es);
 const CategoryForm = ({ categoryType }) => {
   const {
     control,
