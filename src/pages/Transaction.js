@@ -58,7 +58,7 @@ const Transaction = () => {
       <div>
         <SideBar />
 
-        <div className="pl-60 flex flex-col gap-5">
+        <div className="pl-64 flex flex-col gap-5">
           <Header title="Transactions" username="Tom Vo" />
           <div className="flex justify-end px-6">
             <TransactionForm buttonName="Create Transaction" icon="file-invoice-dollar"/>
