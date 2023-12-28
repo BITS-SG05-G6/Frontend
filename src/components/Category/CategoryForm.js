@@ -1,18 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
-import Select from "../common/Select";
 import Textarea from "../common/Textarea";
-import Icon from "../common/Icon";
-import { CreateTransactionIcon } from "../svgs/sidebarIcons";
 import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
-import { IconList } from "../svgs/IconList";
 import { CategoryContext } from "../../context/categoryContext";
-import Box from "../common/Box";
 
 // import es from 'date-fns/locale/es'
 // registerLocale('es', es);
