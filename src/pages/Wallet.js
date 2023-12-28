@@ -17,11 +17,11 @@ const Wallet = () => {
       console.log(err);
     })
   }
-  console.log(wallets);
+  // console.log(wallets);
   return (
     <div>
       <SideBar />
-      <div className="pl-60 flex flex-col gap-5">
+      <div className="pl-64 flex flex-col gap-5">
         <Header title={"My Wallet"} username={"Anh Pham"} />
           
          

@@ -14,28 +14,25 @@ import {
 } from "../svgs/sidebarIcons";
 import SideBarField from "./SideBarField";
 import * as axiosInstance from "../../services/auth";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AuthContext } from "../../context/authContext";
 
 const SideBar = () => {
-  const navigate = useNavigate();
   const {fetchData} = useContext(AuthContext);
 
   const logOut = async() => {
+    console.log("123")
     await axiosInstance.signout()
     .then((res) => {
       Cookies.remove('token');
       fetchData();
-      console.log(res)
-      navigate('/')
     })
     .catch((err) => {
       console.log(err)
     })
   }
   return (
-    <div className="h-screen w-60 bg-neutral-50 fixed flex flex-col px-3">
+    <div className="h-screen w-64 bg-neutral-50 fixed flex flex-col px-3">
       {/* Logo section */}
       <Text
         className="absolute top-8 left-8 text-[#EF5DA8]"
@@ -63,7 +60,7 @@ const SideBar = () => {
 
       <div className="flex gap-2 flex-col absolute bottom-6">
         <SideBarField path='/help' title="Help" icon={<HelpIcon />} />
-        <SideBarField path='/logout' title="Log Out" icon={<LogoutIcon />} onClick={logOut}/>
+        <SideBarField path='/' title="Log Out" icon={<LogoutIcon />} onClick={logOut}/>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const Category = () => {
     <div>
       <SideBar />
 
-      <div className="pl-60 flex flex-col gap-5">
+      <div className="pl-64 flex flex-col gap-5">
         <Header title="My Categories" />
 
         <div className="flex justify-end px-6 gap-4">

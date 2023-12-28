@@ -6,11 +6,9 @@ import { TransactionContext } from "../../context/transactionContext";
 
 function TransactionList({ transactions }) {
   const { handleUpdateTransaction } = useContext(TransactionContext);
-
   const handleDel = async(id) => {
     await axiosInstance.deleteTransaction(id)
     .then((res) => {
-      console.log(res);
       handleUpdateTransaction();
     })
     .catch((err) => {
