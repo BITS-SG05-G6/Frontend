@@ -35,7 +35,7 @@ const SideBar = () => {
     })
   }
   return (
-    <div className="h-screen w-60 bg-neutral-50 fixed flex flex-col px-3">
+    <div className="h-screen w-64 bg-neutral-50 fixed flex flex-col px-3">
       {/* Logo section */}
       <Text
         className="absolute top-8 left-8 text-[#EF5DA8]"
