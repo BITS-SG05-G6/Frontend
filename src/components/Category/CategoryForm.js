@@ -94,7 +94,25 @@ const CategoryForm = ({ categoryType }) => {
                 )}
               />
               {/* Budget field */}
+              <Controller
+                name="budget"
+                control={control}
+                defaultValue=""
+                // rules={{ required: "Budget is required!" }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="text"
+                      label="Budget"
+                      name="budget"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
 
+                  </div>
+                )}
+              />
               <Controller
                 name="type"
                 control={control}
@@ -173,25 +191,7 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-              <Controller
-                name="budget"
-                control={control}
-                defaultValue=""
-                // rules={{ required: "Budget is required!" }}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      type="text"
-                      label="Budget"
-                      name="budget"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      labelType="side"
-                    />
-
-                  </div>
-                )}
-              />
+              
               <div className="flex justify-around">
                 <Button
                   size="xl"
