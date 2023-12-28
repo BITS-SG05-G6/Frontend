@@ -18,52 +18,52 @@ const StatisticPage = () => {
   const userId = decodedToken.id;
   const type = ["This Week", "Last Month", "Total"];
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
-  //Chart 1 - Trend Statistic Chart
+  //Chart  - Trend Statistic Chart
   const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
-  //Chart 2 - Distribution chart
+  //Chart  - Distribution chart
   const [selectedTypeChart2, setSelectedTypeChart2] = useState(type[0]);
-  //Chart 3 - Category Income
+  //Chart  - Category Income
   const [selectedTypeChart3, setSelectedTypeChart3] = useState(type[0]);
-  //Chart 4 - Category Expense
+  //Chart  - Category Expense
   const [selectedTypeChart4, setSelectedTypeChart4] = useState(type[0]);
-  //Chart 5 - Income/Expense Ratio Chart
+  //Chart  - Income/Expense Ratio Chart
   const [selectedTypeChart5, setSelectedTypeChart5] = useState(type[0]);
-  //Chart 6 - Wallet Expense
+  //Chart  - Wallet Expense
   const [selectedTypeChart6, setSelectedTypeChart6] = useState(type[0]);
 
   //Handle change data of chart
-  //Chart 1 - Trend Statistic Chart
+  //Chart  - Trend Statistic Chart
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value); // Update selectedType state on option change
   };
 
-  //Chart 2 - Distribution chart
+  //Chart  - Distribution chart
 
   const handleTypeChangeChart2 = (event) => {
     setSelectedTypeChart2(event.target.value);
   };
 
-  //Chart 3 - Category Income
+  //Chart  - Category Income
   const handleTypeChangeChart3 = (event) => {
     setSelectedTypeChart3(event.target.value);
   };
 
-  //Chart 4 - Category Expense
+  //Chart  - Category Expense
   const handleTypeChangeChart4 = (event) => {
     setSelectedTypeChart4(event.target.value);
   };
-  //Chart 5 - Income/Expense Ratio Chart
+  //Chart  - Income/Expense Ratio Chart
 
   const handleTypeChangeChart5 = (event) => {
     setSelectedTypeChart5(event.target.value);
   };
 
-  //Chart 6 - Wallet Expense
+  //Chart  - Wallet Expense
   const handleTypeChangeChart6 = (event) => {
     setSelectedTypeChart6(event.target.value);
   };
 
-  //Line chart data (1st chart)
+  //Line chart data
   const [expenseData, setExpenseData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +87,7 @@ const StatisticPage = () => {
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);
 
-  //Distribution data (2nd chart)
+  //Distribution data
   const [distributionData, setDistributionData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -111,7 +111,7 @@ const StatisticPage = () => {
   const distributionVal = Object.values(distributionData);
   const distributionKey = Object.keys(distributionData);
 
-  //Category Income (3rd Chart)
+  //Category Income
   const [inCatData, setInCatData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -134,7 +134,7 @@ const StatisticPage = () => {
   const IncomeAmount = inCatData.map((category) => category.totalIncome);
   const CategoryIncome = inCatData.map((category) => category.categoryName);
 
-  //Category Expense (4th Chart)
+  //Category Expense
   const [exCatData, setExCatData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -142,8 +142,10 @@ const StatisticPage = () => {
         let response = [];
         if (selectedTypeChart4 === "Total") {
           response = await axiosInstance.categoryExenseTotal(userId);
-        } else if (selectedTypeChart4 === "Last Week") {
+          console.log(response);
+        } else if (selectedTypeChart4 === "This Week") {
           response = await axiosInstance.categoryExenseLastWeek(userId);
+          console.log(response);
         } else if (selectedTypeChart4 === "Last Month") {
           response = await axiosInstance.categoryExenseLastMonth(userId);
         }
@@ -157,7 +159,7 @@ const StatisticPage = () => {
   const ExpenseAmount = exCatData.map((category) => category.totalExpense);
   const Category = exCatData.map((category) => category.categoryName);
 
-  //Income/Expense Ratio (5th Chart)
+  //Income/Expense Ratio
   const [InExData, setInExData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -206,12 +208,13 @@ const StatisticPage = () => {
   return (
     <>
       <SideBar />
-      <div className="pl-80 flex flex-col gap-5 ">
+      <div className="pl-56 flex flex-col gap-5 ">
         {/* NavBar */}
-        <div className="sticky top-0 bg-white z-10">
+        <div className="sticky top-0 bg-white z-10 ml-4">
           <Header title="Statistic" username="Anh Bui" />
         </div>
-        <div class="grid gap-8 grid-cols-3 place-items-center mb-10">
+        {/* Card statistic */}
+        {/* <div class="grid gap-8 grid-cols-3 mb-10 px-10">
           <div>
             <StatisticCard type="Total Balance" isPrimary="true" amount="$1250"/>
           </div>
@@ -223,22 +226,22 @@ const StatisticPage = () => {
             <StatisticCard type="Total Expense" isPrimary="true"  amount="$1250"/>
           </div>
          
-        </div>
-        <div class="grid gap-8 grid-cols-2 mr-10">
-          {/* Chart 1 */}
-          <div className="shadow-md">
+        </div> */}
+        <div className="px-10">
+          {/* Trending Income/Expense Statistic */}
+          <div className="shadow-md bg-pink-100">
             <div className="flex flex-row justify-between w-full">
               <div className="flex items-center ml-4">
                 <Text children="Trend Statistic" weight="bold" />
               </div>
-              <div className="flex items-center mr-10">
+              <div className="flex items-center mr-10 mt-5">
                 <Select
                   name="type"
                   size="small"
                   value={selectedType}
                   onChange={handleTypeChange}
                   options={typeTrendStatistic}
-                  className=""
+                  className="bg-pink-100"
                 />
               </div>
             </div>
@@ -248,8 +251,11 @@ const StatisticPage = () => {
               incomes={incomes}
             />
           </div>
-          {/* Chart 2 */}
-          <div className="shadow-md">
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 px-10">
+          {/* Chart Distribution */}
+          {/* <div className="shadow-md">
             <div className="flex flex-row justify-between w-full">
               <div className="flex items-center ml-4">
                 <Text children="Distribution Expense Data" weight="bold" />
@@ -266,30 +272,33 @@ const StatisticPage = () => {
               </div>
             </div>
             <BarChart data={distributionVal} categories={distributionKey} />
-          </div>
+          </div> */}
 
-          {/* Chart 3 */}
-          <div className="shadow-md">
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex items-center ml-4">
-                <Text children="Category Income" weight="bold" />
+          {/*  Income/Expense Ratio Statistic */}
+
+          <div className="col-span-2">
+            <div className="shadow-md bg-pink-100">
+              <div className="flex flex-row justify-between w-full">
+                <div className="flex items-center ml-4">
+                  <Text children="Income/Expense Ratio" weight="bold" />
+                </div>
+                <div className="flex items-center mr-10">
+                  <Select
+                    name="type"
+                    size="small"
+                    value={selectedTypeChart5}
+                    onChange={handleTypeChangeChart5}
+                    options={type}
+                    className="bg-pink-100 mt-5"
+                  />
+                </div>
               </div>
-              <div className="flex items-center mr-10">
-                <Select
-                  name="type"
-                  size="small"
-                  value={selectedTypeChart3}
-                  onChange={handleTypeChangeChart3}
-                  options={type}
-                  className=""
-                />
-              </div>
+              <BarChart data={InExVal} categories={InExKey} />
             </div>
-            <PieChart data={IncomeAmount} categories={CategoryIncome} />
           </div>
 
-          {/* Chart 4 */}
-          <div className="shadow-md">
+          {/* Category Expense */}
+          <div className="shadow-md bg-pink-100">
             <div className="flex flex-row justify-between w-full">
               <div className="flex items-center ml-4">
                 <Text children="Category Expense" weight="bold" />
@@ -301,54 +310,52 @@ const StatisticPage = () => {
                   value={selectedTypeChart4}
                   onChange={handleTypeChangeChart4}
                   options={type}
-                  className=""
+                  className="bg-pink-100 mt-5"
                 />
               </div>
             </div>
-            <PieChart
-              title="Categories Distribution"
-              data={ExpenseAmount}
-              categories={Category}
-            />
+            <PieChart data={ExpenseAmount} categories={Category} />
           </div>
 
-          {/* Chart 5 */}
-          <div className="shadow-md">
+          {/* Category Income */}
+          <div className="shadow-md bg-pink-100">
             <div className="flex flex-row justify-between w-full">
               <div className="flex items-center ml-4">
-                <Text children="Income/Expense Ratio" weight="bold" />
+                <Text children="Category Income" weight="bold" />
               </div>
               <div className="flex items-center mr-10">
                 <Select
                   name="type"
                   size="small"
-                  value={selectedTypeChart5}
-                  onChange={handleTypeChangeChart5}
+                  value={selectedTypeChart3}
+                  onChange={handleTypeChangeChart3}
                   options={type}
-                  className=""
+                  className="bg-pink-100 mt-5"
                 />
               </div>
             </div>
-            <BarChart data={InExVal} categories={InExKey} />
+            <PieChart data={IncomeAmount} categories={CategoryIncome} />
           </div>
-          {/* Chart 6 */}
-          <div className="shadow-md">
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex items-center ml-4">
-                <Text children="Wallet Expense" weight="bold" />
+          {/* Wallet Expense */}
+          <div className="col-span-2">
+            <div className="shadow-md bg-pink-100">
+              <div className="flex flex-row justify-between w-full">
+                <div className="flex items-center ml-4">
+                  <Text children="Wallet Expense" weight="bold" />
+                </div>
+                <div className="flex items-center mr-10">
+                  <Select
+                    name="type"
+                    size="small"
+                    value={selectedTypeChart6}
+                    onChange={handleTypeChangeChart6}
+                    options={type}
+                    className="bg-pink-100 mt-5"
+                  />
+                </div>
               </div>
-              <div className="flex items-center mr-10">
-                <Select
-                  name="type"
-                  size="small"
-                  value={selectedTypeChart6}
-                  onChange={handleTypeChangeChart6}
-                  options={type}
-                  className=""
-                />
-              </div>
+              <BarChart data={walletAmount} categories={categoryWallet} />
             </div>
-            <BarChart data={walletAmount} categories={categoryWallet} />
           </div>
         </div>
       </div>
