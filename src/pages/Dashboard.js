@@ -3,46 +3,60 @@ import Header from "../components/common/Header";
 import OverviewCard from '../components/Dashboard/OverviewCard'
 import DashboardList from "../components/Dashboard/DashboardList";
 import SectionLayout from "../components/Dashboard/SectionLayout";
-import { transactionType } from "../components/svgs/OptionList";
-// import TransactionList from "../components/Dashboard/TransactionList";
+import { TransactionContext } from "../context/transactionContext";
+import { WalletContext } from "../context/walletContext";
+import { useContext } from "react";
 
 function Dashboard() {
 
-    const wallets = [
-        {
-            id: 1,
-            name: 'Cash',
-            amount: 569,
-            color: '#FFC0CB',
-            currency: 'VND'
-        },
-        {
-            id: 2,
-            name: 'Credit',
-            amount: 3004,
-            color: '#800080',
-            currency: 'VND'
-        }
-    ];
+    // Fetch transactions
+    const { transactions } = useContext(TransactionContext);
+    const { wallets } = useContext(WalletContext);
 
-    const transactions = [
-        {
-            id: 1,
-            title: 'Dog walking',
-            amount: 569,
-            currency: 'VND',
-            transactionType: 'Expense',
-            date: '11-12-2023'
-        },
-        {
-            id: 2,
-            title: 'Salary',
-            amount: 1200,
-            currency: 'USD',
-            transactionType: 'Income',
-            date: '12-12-2023'
-        }
-    ]
+    // const wallets = [
+    //     {
+    //         id: 1,
+    //         name: 'Cash',
+    //         amount: 569,
+    //         color: '#FFC0CB',
+    //         currency: 'VND'
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'Credit',
+    //         amount: 3004,
+    //         color: '#800080',
+    //         currency: 'VND'
+    //     }
+    // ];
+
+    // const transactions = [
+    //     {
+    //         id: 1,
+    //         title: 'Dog walking',
+    //         amount: 569,
+    //         currency: 'VND',
+    //         transactionType: 'Expense',
+    //         date: new Date('2023-12-28')
+    //     },
+    //     {
+    //         id: 2,
+    //         title: 'Salary',
+    //         amount: 1200,
+    //         currency: 'USD',
+    //         transactionType: 'Income',
+    //         date: new Date('2023-12-29')
+    //     },
+    //     {
+    //         id: 3,
+    //         title: 'Pet',
+    //         amount: 140000,
+    //         currency: 'VND',
+    //         transactionType: 'Expense',
+    //         date: new Date('2023-12-26')
+    //     },
+
+    // ]
 
     return (
         <div>
