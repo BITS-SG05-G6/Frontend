@@ -49,13 +49,9 @@ const CategoryForm = ({ categoryType }) => {
         variant="card"
         className="h-80 w-full"
       >
-        {/* <Box  className="flex justify-center items-center gap-10 flex-col h-80 w-full p-0"
-    color="gray"> */}
         <Text variant="text-md" weight="bold">
           + Add New Category
-        </Text>
-        {/* </Box> */}
-        
+        </Text>        
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
