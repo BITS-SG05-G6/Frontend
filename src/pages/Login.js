@@ -14,12 +14,13 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: "onChange"
+    mode: "onChange",
   });
 
   const { fetchData } = useContext(AuthContext);
 
   const navigate = useNavigate();
+  const [loginError, setLoginError] = React.useState("");
 
   function handleCallbackResponse(res) {
     console.log("Encoded KWT ID token: " + res.credential);
@@ -42,25 +43,26 @@ const Login = () => {
     });
   }, []);
 
-  const onSubmit = async(d) => {
-    await axiosInstance.signin(d.username, d.password)
-    .then((res) => {
-      console.log(res);
-      Cookies.set("token", res.token);
-      fetchData();
-      navigate("/transaction")
-
-    })
-    .catch((err) => {
-      console.log(err)
-      // console.log(err.response.data.error.message);
-    })
+  const onSubmit = async (d) => {
+    await axiosInstance
+      .signin(d.username, d.password)
+      .then((res) => {
+        console.log(res);
+        Cookies.set("token", res.token);
+        fetchData();
+        navigate("/transaction");
+      })
+      .catch((err) => {
+        console.log(err);
+        // console.log(err.response.data.error.message);
+        setLoginError("Wrong password or username, please try again!");
+      });
   };
 
   return (
     <div className="flex justify-between h-screen">
       <div className="w-1/2 flex justify-center items-center">
-      <Text
+        <Text
           className="absolute top-6 left-6 text-[#EF5DA8]"
           variant="text-xl"
           weight="bold"
@@ -81,7 +83,7 @@ const Login = () => {
           </div>
 
           <form className="flex flex-col gap-6 max-w-sm">
-          <Controller
+            <Controller
               name="username"
               control={control}
               defaultValue=""
@@ -134,6 +136,7 @@ const Login = () => {
                 </div>
               )}
             />
+            {loginError && <div className="text-red-500">{loginError}</div>}
 
             <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
               Sign In
