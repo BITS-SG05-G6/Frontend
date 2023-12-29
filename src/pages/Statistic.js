@@ -208,7 +208,7 @@ const StatisticPage = () => {
   return (
     <>
       <SideBar />
-      <div className="pl-56 flex flex-col gap-5 ">
+      <div className="pl-56 flex flex-col gap-5 mb-10">
         {/* NavBar */}
         <div className="sticky top-0 bg-white z-10 ml-4">
           <Header title="Statistic" username="Anh Bui" />
@@ -229,7 +229,7 @@ const StatisticPage = () => {
         </div> */}
         <div className="px-10">
           {/* Trending Income/Expense Statistic */}
-          <div className="shadow-md bg-pink-100">
+          <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
             <div className="flex flex-row justify-between w-full">
               <div className="flex items-center ml-4">
                 <Text children="Trend Statistic" weight="bold" />
@@ -241,7 +241,7 @@ const StatisticPage = () => {
                   value={selectedType}
                   onChange={handleTypeChange}
                   options={typeTrendStatistic}
-                  className="bg-pink-100"
+                  className=""
                 />
               </div>
             </div>
@@ -277,7 +277,7 @@ const StatisticPage = () => {
           {/*  Income/Expense Ratio Statistic */}
 
           <div className="col-span-2">
-            <div className="shadow-md bg-pink-100">
+            <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
               <div className="flex flex-row justify-between w-full">
                 <div className="flex items-center ml-4">
                   <Text children="Income/Expense Ratio" weight="bold" />
@@ -289,7 +289,7 @@ const StatisticPage = () => {
                     value={selectedTypeChart5}
                     onChange={handleTypeChangeChart5}
                     options={type}
-                    className="bg-pink-100 mt-5"
+                    className=" mt-5"
                   />
                 </div>
               </div>
@@ -298,7 +298,7 @@ const StatisticPage = () => {
           </div>
 
           {/* Category Expense */}
-          <div className="shadow-md bg-pink-100">
+          <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
             <div className="flex flex-row justify-between w-full">
               <div className="flex items-center ml-4">
                 <Text children="Category Expense" weight="bold" />
@@ -310,7 +310,7 @@ const StatisticPage = () => {
                   value={selectedTypeChart4}
                   onChange={handleTypeChangeChart4}
                   options={type}
-                  className="bg-pink-100 mt-5"
+                  className="mt-5"
                 />
               </div>
             </div>
@@ -318,7 +318,7 @@ const StatisticPage = () => {
           </div>
 
           {/* Category Income */}
-          <div className="shadow-md bg-pink-100">
+          <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
             <div className="flex flex-row justify-between w-full">
               <div className="flex items-center ml-4">
                 <Text children="Category Income" weight="bold" />
@@ -330,7 +330,7 @@ const StatisticPage = () => {
                   value={selectedTypeChart3}
                   onChange={handleTypeChangeChart3}
                   options={type}
-                  className="bg-pink-100 mt-5"
+                  className=" mt-5"
                 />
               </div>
             </div>
@@ -338,7 +338,7 @@ const StatisticPage = () => {
           </div>
           {/* Wallet Expense */}
           <div className="col-span-2">
-            <div className="shadow-md bg-pink-100">
+            <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
               <div className="flex flex-row justify-between w-full">
                 <div className="flex items-center ml-4">
                   <Text children="Wallet Expense" weight="bold" />
@@ -350,7 +350,7 @@ const StatisticPage = () => {
                     value={selectedTypeChart6}
                     onChange={handleTypeChangeChart6}
                     options={type}
-                    className="bg-pink-100 mt-5"
+                    className=" mt-5"
                   />
                 </div>
               </div>
