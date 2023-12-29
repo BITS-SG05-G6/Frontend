@@ -41,7 +41,7 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, cu
       <WalletForm/>
     ) : ( */}
       <>
-        <Text variant="text-lg" weight="semibold">
+        <Text variant="text-lg" weight="semibold" className="text-center">
           {name}
         </Text>
         <div
