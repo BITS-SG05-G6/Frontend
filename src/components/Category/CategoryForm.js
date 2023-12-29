@@ -27,9 +27,8 @@ const CategoryForm = ({ categoryType }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
-    console.log(d.budget);
     await axiosInstance
-      .createCategory(d.name, d.type, d.color, d.icon, d.description, d.budget)
+      .createCategory(d.name, categoryType, d.color, d.icon, d.description, d.budget)
       .then((res) => {
         console.log(res);
         reset();
