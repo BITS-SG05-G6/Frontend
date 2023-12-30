@@ -12,7 +12,8 @@ function Bills() {
       {/* Page Content */}
       <div className="pl-64 flex flex-col gap-5 w-full">
         <Header title="Bills" username="Tom Vo" />
-        <div className="px-10 grid grid-cols-4">
+        <div className="px-10 grid grid-cols-4 gap-6">
+          <BillForm/>
           <BillCard
             amount={"100"}
             title={"Netflix"}

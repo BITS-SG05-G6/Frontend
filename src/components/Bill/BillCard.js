@@ -32,9 +32,9 @@ function BillCard({ title, amount, dueDate, frequency, status }) {
         </div>
 
         {/* Status */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-row w-full justify-between">
           <span className="text-base font-semibold">Status:</span>
-          <Badge title={status} status={status} />
+          <Badge status={status} variant={status === "Paid" ? "green" : "yellow"}/>
         </div>
       </div>
       {/* Line */}

@@ -15,7 +15,7 @@ function App() {
       <Route path="/" element={<LandingPage />}></Route>
       <Route path="/transaction" element={<Transaction />}></Route>
       <Route path="/transaction/:id" element={<Transaction />}></Route>
-      <Route path="/bills" element={<Bills />}></Route>
+      <Route path="/invoices" element={<Bills />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/wallets" element={<Wallet />}></Route>
 
