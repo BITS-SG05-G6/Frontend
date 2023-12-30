@@ -27,7 +27,7 @@ const Select = ({
   options, disabled, placeholder, none = true}) => {
     return (
       <>
-        <label className="form-control w-full flex flex-row gap-10 justify-around ">
+        <label className="form-control w-full flex flex-row gap-10 justify-between ">
           <div className="label w-12">
             <Text variant="text-sm" weight="semibold" className="label-text w-12">
               {label}
