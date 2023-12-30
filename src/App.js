@@ -8,7 +8,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Category from "./pages/Category";
 import Wallet from "./pages/Wallet";
-
 function App() {
   return (
     <Routes>
