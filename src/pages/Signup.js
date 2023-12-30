@@ -34,15 +34,18 @@ const Signup = () => {
       logo_alignment: "center",
     });
   }, []);
+  const [loginError, setLoginError] = React.useState("");
 
-  const onSubmit = async(d) => {
-    await axiosInstance.signup(d.username, d.password)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err.response.data.error.message);
-    })
+  const onSubmit = async (d) => {
+    await axiosInstance
+      .signup(d.username, d.password)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error.message);
+        setLoginError("Wrong password or username, please try again!");
+      });
   };
 
   return (
@@ -67,6 +70,7 @@ const Signup = () => {
             </Text>
             <Text>Welcome! Please enter your details</Text>
           </div>
+          {loginError && <div className="text-red-500">{loginError}</div>}
 
           <form className="flex flex-col gap-6 max-w-sm">
             <Controller
@@ -129,7 +133,6 @@ const Signup = () => {
                 </div>
               )}
             />
-
             <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
               Sign Up
             </Button>
