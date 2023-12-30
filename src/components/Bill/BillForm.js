@@ -1,67 +1,71 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
-import * as axiosInstance from "../../services/category";
-import ColorPicker from "../common/ColorPicker";
-import IconPicker from "../common/IconPicker";
-import { CategoryContext } from "../../context/categoryContext";
-
-const BillForm = ({ categoryType }) => {
+import * as axiosInstance from "../../services/bill";
+import Select from "../common/Select";
+import { currencyList, frequencyList } from "../svgs/OptionList";
+import Toggle from "../common/Toggle";
+import { BillContext } from "../../context/billContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faReceipt } from "@fortawesome/free-solid-svg-icons";
+const BillForm = () => {
   const {
     control,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      type: categoryType,
+      reminder: false,
     },
   });
 
-  const { handleUpdateCategory } = useContext(CategoryContext);
-
-  const [isHovered, setIsHovered] = useState(false);
+  const reminder = watch("reminder");
+  const { handleUpdateBill } = useContext(BillContext);
 
   const onSubmit = async (d) => {
-    console.log(d.budget);
     await axiosInstance
-      .createCategory(d.name, d.type, d.color, d.icon, d.description, d.budget)
+      .createBill(
+        d.title,
+        d.amount,
+        d.currency,
+        d.reminder,
+        d.date,
+        d.frequency,
+        d.description
+      )
       .then((res) => {
-        console.log(res);
         reset();
         document.getElementById("my_modal_2").close();
-        handleUpdateCategory();
+        // console.log(res);
+        handleUpdateBill();
       })
       .catch((err) => {
-        console.log(err.response.data.error.message);
+        console.log(err);
       });
   };
 
   return (
     <>
       <Button
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onClick={() => document.getElementById("my_modal_2").showModal()}
-        variant="bill"
-        className="h-80 w-72"
+        variant=""
+        className=""
       >
-        {/* <Box  className="flex justify-center items-center gap-10 flex-col h-80 w-full p-0"
-    color="gray"> */}
-        <Text variant="text-md" weight="bold">
-          + Add New Category
+        <FontAwesomeIcon icon={faReceipt} />
+        <Text variant="text-sm" weight="bold">
+          Add New Invoice
         </Text>
-        {/* </Box> */}
-        
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Add New Category
+            Add New Invoice
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">
@@ -70,67 +74,53 @@ const BillForm = ({ categoryType }) => {
               </Button>
 
               <Controller
-                name="name"
+                name="title"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Name is required!" }}
+                rules={{ required: "Title is required!" }}
                 render={({ field }) => (
                   <div>
                     <FormInput
                       type="text"
-                      label="Name"
-                      name="name"
+                      label="Title"
+                      name="title"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
                     />
-                    {errors.name && (
+                    {errors.title && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.name.message}
+                        {errors.title.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
-              {/* Budget field */}
+
               <Controller
-                name="budget"
+                name="amount"
                 control={control}
                 defaultValue=""
-                // rules={{ required: "Budget is required!" }}
+                rules={{
+                  required: "Amount is required!",
+                  pattern: {
+                    value: /^([^.0-]\d+|\d)$/,
+                    message: "It must be a positive number",
+                  },
+                }}
                 render={({ field }) => (
                   <div>
                     <FormInput
-                      type="text"
-                      label="Budget"
-                      name="budget"
+                      type="number"
+                      label="Amount"
+                      name="amount"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
                     />
-
-                  </div>
-                )}
-              />
-              <Controller
-                name="type"
-                control={control}
-                // defaultValue={type}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      label="Type"
-                      name="type"
-                      value={categoryType}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      disabled
-                      // options={types}
-                      labelType="side"
-                    />
-                    {/* <FormInput /> */}
-                    {errors.type && (
+                    {errors.amount && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.type.message}
+                        {errors.amount.message}
                       </Text>
                     )}
                   </div>
@@ -138,19 +128,27 @@ const BillForm = ({ categoryType }) => {
               />
 
               <Controller
-                name="color"
+                name="currency"
                 control={control}
-                defaultValue="#f5d1e4"
+                rules={{
+                  required: "Currency is required!",
+                }}
                 render={({ field }) => (
                   <div>
-                    <ColorPicker
-                      label="Color"
+                    <Select
+                      label="Currency"
+                      name="currency"
                       value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
+                      onChange={(e) => {
+                        field.onChange(e.target.value);
+                      }}
+                      options={currencyList}
+                      placeholder="Please choose a currency"
+                      none={false}
                     />
-                    {errors.type && (
+                    {errors.currency && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.type.message}
+                        {errors.currency.message}
                       </Text>
                     )}
                   </div>
@@ -158,23 +156,84 @@ const BillForm = ({ categoryType }) => {
               />
 
               <Controller
-                name="icon"
+                name="reminder"
                 control={control}
-                defaultValue="file-invoice-dollar"
+                // defaultValue={false}
                 render={({ field }) => (
                   <div>
-                    <IconPicker
+                    {/* <FormInput type="checkbox" className="toggle" label="Reminder" labelType="side"/> */}
+                    <Toggle
+                      label="Reminder"
+                      name="reminder"
                       value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
+                      onChange={(e) => {
+                        field.onChange(e.target.checked);
+                      }}
                     />
-                    {errors.type && (
+                    {errors.reminder && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.type.message}
+                        {errors.reminder.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
+
+              {reminder ? (
+                <>
+                  <Controller
+                    name="date"
+                    control={control}
+                    defaultValue={new Date().toISOString().substr(0, 10)}
+                    rules={{ required: "Date is required!" }}
+                    render={({ field }) => (
+                      <div>
+                        <FormInput
+                          type="date"
+                          label="Start date"
+                          name="date"
+                          value={field.value}
+                          onChange={(e) => field.onChange(e.target.value)}
+                          labelType="side"
+                        />
+                        {errors.date && (
+                          <Text className="text-red-500 px-32 mt-3">
+                            {errors.date.message}
+                          </Text>
+                        )}
+                      </div>
+                    )}
+                  />
+
+                  <Controller
+                    name="frequency"
+                    control={control}
+                    rules={{
+                      required: "Frequency is required!",
+                    }}
+                    render={({ field }) => (
+                      <div>
+                        <Select
+                          label="Frequency"
+                          name="frequency"
+                          value={field.value}
+                          onChange={(e) => {
+                            field.onChange(e.target.value);
+                          }}
+                          options={frequencyList}
+                          placeholder="Please choose a frequency"
+                          none={false}
+                        />
+                        {errors.frequency && (
+                          <Text className="text-red-500 px-32 mt-3">
+                            {errors.frequency.message}
+                          </Text>
+                        )}
+                      </div>
+                    )}
+                  />
+                </>
+              ) : null}
 
               <Controller
                 name="description"
@@ -190,7 +249,7 @@ const BillForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-              
+
               <div className="flex justify-around">
                 <Button
                   size="xl"

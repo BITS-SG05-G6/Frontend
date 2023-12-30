@@ -28,8 +28,8 @@ const Textarea = ({
   return (
     <>
       <label className="form-control w-full flex flex-row gap-10 justify-around">
-        <div className="label w-12">
-          <Text variant="text-sm" weight="semibold" className="label-text w-12">
+        <div className="label w-18">
+          <Text variant="text-sm" weight="semibold" className="label-text w-18">
             {label}
           </Text>
         </div>

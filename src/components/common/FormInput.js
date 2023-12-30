@@ -46,11 +46,11 @@ function FormInput({
       <label className={cn(LabelVariants({ labelType }))}>
         {labelType === "side" ? (
           <>
-            <div className="label w-12">
+            <div className="label w-18">
               <Text
                 variant="text-sm"
                 weight="semibold"
-                className="label-text w-12"
+                className="label-text w-18"
               >
                 {label}
               </Text>
