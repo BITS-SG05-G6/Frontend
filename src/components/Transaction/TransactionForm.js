@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -14,7 +14,6 @@ import { IconList } from "../svgs/IconList";
 import { transactionType, currencyList } from "../svgs/OptionList";
 
 const TransactionForm = ({
-  children,
   category,
   wallet,
   buttonName,
@@ -36,7 +35,6 @@ const TransactionForm = ({
   const selectedCategory = watch("category");
   const selectedWallet = watch("wallet");
   const { wallets, currency, setCurrency } = useContext(WalletContext);
-  const [isHovered, setIsHovered] = useState(false);
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const onSubmit = async (d) => {
     const categoryType = category
@@ -98,8 +96,6 @@ const TransactionForm = ({
   return (
     <>
       <Button
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onClick={() => openModal()}
         variant={variant}
         className={className}
@@ -385,7 +381,7 @@ const TransactionForm = ({
                 )}
               />
 
-              <Controller
+<Controller
                 name="description"
                 control={control}
                 defaultValue=""

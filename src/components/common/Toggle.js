@@ -11,9 +11,9 @@ function Toggle({
 }) {
   return (
     <>
-      <div className="w-full flex flex-row gap-10 justify-around items-center">
+      <div className="w-full flex flex-row gap-10 justify-between items-center">
         <div className="label w-18">
-          <Text variant="text-sm" weight="semibold" className="label-text w-18">
+          <Text variant="text-sm" weight="semibold" className="label-text">
             {label}
           </Text>
         </div>
