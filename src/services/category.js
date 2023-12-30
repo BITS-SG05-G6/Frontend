@@ -1,7 +1,7 @@
 import axiosInstance from './axios';
 
-export const createCategory = async(name, type, color, icon, description) => {
-  const res = await axiosInstance.post("/category/create", {name, type, color, icon, description})
+export const createCategory = async(name, type, color, icon, description,budget) => {
+  const res = await axiosInstance.post("/category/create", {name, type, color, icon, description,budget})
 
   try {
     if (res.status === 200) {

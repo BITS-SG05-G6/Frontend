@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -14,7 +14,6 @@ import { IconList } from "../svgs/IconList";
 import { transactionType, currencyList } from "../svgs/OptionList";
 
 const TransactionForm = ({
-  children,
   category,
   wallet,
   buttonName,
@@ -36,7 +35,6 @@ const TransactionForm = ({
   const selectedCategory = watch("category");
   const selectedWallet = watch("wallet");
   const { wallets, currency, setCurrency } = useContext(WalletContext);
-  const [isHovered, setIsHovered] = useState(false);
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const onSubmit = async (d) => {
     const categoryType = category
@@ -86,11 +84,18 @@ const TransactionForm = ({
       .showModal();
   };
 
+  const closeModal = () => {
+    document
+      .getElementById(
+        category ? category.id : wallet ? wallet.id : "my_modal_1"
+      )
+      .close();
+    // reset();
+  }
+
   return (
     <>
       <Button
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onClick={() => openModal()}
         variant={variant}
         className={className}
@@ -115,7 +120,7 @@ const TransactionForm = ({
           </Text>
           <div className="modal-action mx-0 block w-full">
             <form method="dialog" className="flex flex-col gap-4">
-              <Button variant="close" className="text-black" size="fix">
+              <Button variant="close" onClick={closeModal} className="text-black" size="fix">
                 x
               </Button>
 
@@ -376,7 +381,7 @@ const TransactionForm = ({
                 )}
               />
 
-              <Controller
+<Controller
                 name="description"
                 control={control}
                 defaultValue=""
@@ -400,7 +405,7 @@ const TransactionForm = ({
                   Save
                 </Button>
 
-                <Button size="xl">Cancel</Button>
+                <Button size="xl" onClick={closeModal}>Cancel</Button>
               </div>
             </form>
           </div>

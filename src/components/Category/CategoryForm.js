@@ -1,21 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
-import Select from "../common/Select";
 import Textarea from "../common/Textarea";
-import Icon from "../common/Icon";
-import { CreateTransactionIcon } from "../svgs/sidebarIcons";
 import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
-import { IconList } from "../svgs/IconList";
 import { CategoryContext } from "../../context/categoryContext";
-import Box from "../common/Box";
 
-// import es from 'date-fns/locale/es'
-// registerLocale('es', es);
 const CategoryForm = ({ categoryType }) => {
   const {
     control,
@@ -35,7 +28,7 @@ const CategoryForm = ({ categoryType }) => {
 
   const onSubmit = async (d) => {
     await axiosInstance
-      .createCategory(d.name, d.type, d.color, d.icon, d.description)
+      .createCategory(d.name, categoryType, d.color, d.icon, d.description, d.budget)
       .then((res) => {
         console.log(res);
         reset();
@@ -56,13 +49,9 @@ const CategoryForm = ({ categoryType }) => {
         variant="card"
         className="h-80 w-full"
       >
-        {/* <Box  className="flex justify-center items-center gap-10 flex-col h-80 w-full p-0"
-    color="gray"> */}
         <Text variant="text-md" weight="bold">
           + Add New Category
-        </Text>
-        {/* </Box> */}
-        
+        </Text>        
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
@@ -98,8 +87,27 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
+              {/* Budget field */}
+              <Controller
+                name="budget"
+                control={control}
+                defaultValue=""
+                // rules={{ required: "Budget is required!" }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="text"
+                      label="Budget"
+                      name="budget"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
 
-<Controller
+                  </div>
+                )}
+              />
+              <Controller
                 name="type"
                 control={control}
                 // defaultValue={type}
@@ -177,7 +185,7 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-
+              
               <div className="flex justify-around">
                 <Button
                   size="xl"
