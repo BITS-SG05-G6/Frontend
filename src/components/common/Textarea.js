@@ -24,12 +24,13 @@ const Textarea = ({
   label,
   value,
   onChange,
+  labelClassName
 }) => {
   return (
     <>
-      <label className="form-control w-full flex flex-row gap-10 justify-around">
-        <div className="label w-12">
-          <Text variant="text-sm" weight="semibold" className="label-text w-12">
+      <label className="form-control w-full flex flex-row gap-10 justify-between">
+        <div className="label w-12 p-0">
+          <Text variant="text-sm" weight="semibold" className={cn("label-text", labelClassName ? labelClassName : "w-12")}>
             {label}
           </Text>
         </div>

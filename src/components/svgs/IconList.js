@@ -63,12 +63,18 @@ import {
   faRing,
   faGem,
   faCartShopping,
+  faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const IconList = [
   {
     value: "file-invoice-dollar",
     icon: faFileInvoiceDollar,
+    category: "Lifestyle"
+  },
+  {
+    value: "fa-receipt",
+    icon: faReceipt,
     category: "Lifestyle"
   },
   {
