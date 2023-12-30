@@ -21,6 +21,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const [loginError, setLoginError] = React.useState("");
+  const [isErrorVisible, setIsErrorVisible] = React.useState(false);
 
   function handleCallbackResponse(res) {
     console.log("Encoded KWT ID token: " + res.credential);
@@ -54,13 +55,42 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
-        // console.log(err.response.data.error.message);
         setLoginError("Wrong password or username, please try again!");
+        setIsErrorVisible(true);
+
+        // Hide the error after 3 seconds
+        setTimeout(() => {
+          setIsErrorVisible(false);
+        }, 3000);
       });
   };
 
   return (
-    <div className="flex justify-between h-screen">
+    <div className="flex justify-between h-screen relative">
+      {/* Alert */}
+      {isErrorVisible && (
+        <div
+          role="alert"
+          className="alert alert-error absolute z-50 w-[500px] top-8 right-8"
+        >
+          <button onClick={() => setIsErrorVisible(false)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </button>
+          <span>{loginError}</span>
+        </div>
+      )}
       <div className="w-1/2 flex justify-center items-center">
         <Text
           className="absolute top-6 left-6 text-[#EF5DA8]"
@@ -136,7 +166,7 @@ const Login = () => {
                 </div>
               )}
             />
-            {loginError && <div className="text-red-500">{loginError}</div>}
+            {/* {loginError && <div className="text-red-500">{loginError}</div>} */}
 
             <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
               Sign In
