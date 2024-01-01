@@ -8,19 +8,22 @@ function GoalList({goals}) {
             color: '#EF5DA8',
             startDate: '23-12-2023',
             endDate: '23-01-2024',
-            target: 300
+            target: 300,
+            total: 200
         },
         {
             name: 'Rent a house',
             color: '#EF5DA8',
             startDate: '23-12-2023',
             endDate: '23-01-2024',
-            target: 500
+            target: 500,
+            total: 100
         },
         {
             name: 'Investment',
             color: '#EF5DA8',
-            target: 300
+            target: 300,
+            total: 34
         }
     ]
     return (

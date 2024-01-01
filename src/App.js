@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Category from './pages/Category';
 import Wallet from './pages/Wallet'
+import Saving from './pages/Saving';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
        <Route path="/transaction/:id" element={<Transaction/>}></Route>
        <Route path="/login" element={<Login/>}></Route>
        <Route path="/wallets" element={<Wallet/>}></Route>
+       <Route path="/planning" element={<Saving/>}></Route>
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup/>}></Route>
