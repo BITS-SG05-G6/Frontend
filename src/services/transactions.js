@@ -24,9 +24,9 @@ export const deleteTransaction = async(transactionId) => {
   }
 }
 
-export const getTransactions = async(date, size) => {
+export const getTransactions = async(date) => {
   let res;
-    res = await axiosInstance.get(`transaction/viewall/?date=${date}?size=${size}`);
+    res = await axiosInstance.get(`transaction/viewall/?date=${date}`);
 
   try {
     if (res.status === 200) {

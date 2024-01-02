@@ -11,7 +11,10 @@ function Dashboard() {
 
     // Fetch transactions
     const { transactions } = useContext(TransactionContext);
-    const { wallets } = useContext(WalletContext);
+    console.log(transactions);
+
+    // const recentTransactions = transactions.slice(0, 7);
+    // const { wallets } = useContext(WalletContext);
 
     // const wallets = [
     //     {
@@ -76,14 +79,14 @@ function Dashboard() {
                         {/* Transaction overview */}
                         <div className="px-5">
                             <SectionLayout className='ps-5' title='Recent Transactions' viewList='true'>
-                                <DashboardList listType='transaction' array={transactions} />
+                                {/* <DashboardList listType='transaction' array={transactions} /> */}
                             </SectionLayout>
                         </div>
                     </div>
                     <div>
                         {/* Wallet overview */}
                         <SectionLayout className='ps-5 pr-10' title='My Wallets' viewList='true' >
-                            <DashboardList listType='wallet' array={wallets} />
+                            {/* <DashboardList listType='wallet'/> */}
                         </SectionLayout>
                         {/* Bill overview */}
                         <div></div>

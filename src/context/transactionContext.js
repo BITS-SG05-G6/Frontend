@@ -11,15 +11,16 @@ const TransactionProvider = ({ children }) => {
     setUpdateTransaction(updateTransaction === true ? false : true);
   };
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const [transactions, setTransactions] = useState(null);
 
   useEffect(() => {
     async function fetchData () {
       // Fixed size for dashboard
-      await axiosInstance.getTransactions(selectedDate, 7)
+      await axiosInstance.getTransactions(selectedDate)
       .then((res) => {
+        console.log()
         setTransactions(res.transactions);
       })
       .catch((err) => {

@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Category from "./pages/Category";
 import Wallet from "./pages/Wallet";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/invoices" element={<Bills />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/wallets" element={<Wallet />}></Route>
+      <Route path="/dashboard" element={<Dashboard/>}></Route>
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup />}></Route>
