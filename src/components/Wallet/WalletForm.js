@@ -4,59 +4,54 @@ import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
-import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
-import { CategoryContext } from "../../context/categoryContext";
-
-const CategoryForm = ({ categoryType }) => {
+import * as axiosInstance from "../../services/wallet";
+import { WalletContext } from "../../context/walletContext";
+import Select from "../common/Select";
+import { currencyList } from "../svgs/OptionList";
+const WalletForm = ({ children }) => {
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      type: categoryType,
-    },
-  });
+  } = useForm();
 
-  const { handleUpdateCategory } = useContext(CategoryContext);
-
-  const [isHovered, setIsHovered] = useState(false);
+  const { handleUpdateWallet } = useContext(WalletContext);
 
   const onSubmit = async (d) => {
     await axiosInstance
-      .createCategory(d.name, categoryType, d.color, d.icon, d.description, d.budget)
+      .createWallet(d.name, d.amount, d.color, d.icon, d.description, d.currency)
       .then((res) => {
+        document
+        .getElementById("my_modal_3")
+          .close();
+        handleUpdateWallet();
         console.log(res);
         reset();
-        document.getElementById("my_modal_2").close();
-        handleUpdateCategory();
       })
       .catch((err) => {
-        console.log(err.response.data.error.message);
+        console.log(err);
       });
   };
 
   return (
     <>
       <Button
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={() => document.getElementById("my_modal_2").showModal()}
+        onClick={() => document.getElementById("my_modal_3").showModal()}
         variant="card"
         className="h-80 w-full"
       >
         <Text variant="text-md" weight="bold">
-          + Add New Category
-        </Text>        
+          + Add New Wallet
+        </Text>
       </Button>
-      <dialog id="my_modal_2" className="modal overflow-visible">
+
+      <dialog id="my_modal_3" className="modal">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Add New Category
+            Add New Wallet
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">
@@ -68,7 +63,9 @@ const CategoryForm = ({ categoryType }) => {
                 name="name"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Name is required!" }}
+                rules={{
+                  required: "Name is required!",
+                }}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -87,51 +84,61 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-              {/* Budget field */}
-              <Controller
-                name="budget"
-                control={control}
-                defaultValue=""
-                // rules={{ required: "Budget is required!" }}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      type="text"
-                      label="Budget"
-                      name="budget"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      labelType="side"
-                    />
 
-                  </div>
-                )}
-              />
               <Controller
-                name="type"
+                name="currency"
                 control={control}
-                // defaultValue={type}
+                rules={{
+                  required: "Currency is required!",
+                }}
                 render={({ field }) => (
                   <div>
-                    <FormInput
-                      label="Type"
-                      name="type"
-                      value={categoryType}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      disabled
-                      // options={types}
-                      labelType="side"
-                    />
-                    {/* <FormInput /> */}
-                    {errors.type && (
+                    <Select
+                          label="Currency"
+                          name="currency"
+                          value={field.value}
+                          onChange={(e) => field.onChange(e.target.value)}
+                          options={currencyList}
+                          placeholder="Please choose a currency"
+                          none={false}
+                        />
+                    {errors.currency && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.type.message}
+                        {errors.currency.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
 
+              <Controller
+                name="amount"
+                control={control}
+                rules={{
+                  pattern: {
+                    value: /^([^.0-]\d+|\d)$/,
+                    message: "It must be a positive number",
+                  },
+                }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="number"
+                      label="Balance"
+                      name="amount"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                      placeholder="e.g: 0"
+                    />
+                    {errors.amount && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.amount.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
               <Controller
                 name="color"
                 control={control}
@@ -170,7 +177,6 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-
               <Controller
                 name="description"
                 control={control}
@@ -185,17 +191,14 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-              
+
               <div className="flex justify-around">
-                <Button
-                  size="xl"
-                  variant="roundOutline"
-                  onClick={handleSubmit(onSubmit)}
-                >
+                <Button size="xl" onClick={handleSubmit(onSubmit)}>
                   Save
                 </Button>
-
-                <Button size="xl">Cancel</Button>
+                <Button variant="roundOutline" size="xl">
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>
@@ -205,4 +208,4 @@ const CategoryForm = ({ categoryType }) => {
   );
 };
 
-export default CategoryForm;
+export default WalletForm;

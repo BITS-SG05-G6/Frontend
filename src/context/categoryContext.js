@@ -1,29 +1,36 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import * as axiosInstance from "../services/category";
+import { AuthContext } from "./authContext";
+import { TransactionContext } from "./transactionContext";
 
 export const CategoryContext = createContext(null);
 
 const CategoryProvider = ({ children }) => {
+  const { userInfo } = useContext(AuthContext)
+  // console.log(userInfo);
+
+  const { handleUpdateTransaction } = useContext(TransactionContext)
   const [newCategory, setNewCategory] = useState(false);
 
-  const handleAddCategory = () => {
-    setNewCategory(newCategory === "true" ? "false" : "true");
+  const handleUpdateCategory = () => {
+    setNewCategory(newCategory === true ? false : true);
   };
 
   const [type, setType] = useState("Expense");
   const [categories, setCategories] = useState([
     {
-      id: null,
-      name: null,
-      icon: null,
-      color: null,
+      id: "",
+      name: "",
+      icon: "",
+      color: "",
+      amount: 0
     },
   ]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        await axiosInstance.getCategory(type).then((res) => {
+        await axiosInstance.getCategory().then((res) => {
           setCategories(res);
         });
       } catch (err) {
@@ -31,16 +38,17 @@ const CategoryProvider = ({ children }) => {
           id: "",
           name: "",
           icon: "",
-          color: ""
+          color: "",
+          amount: 0
         }]);
       }
     }
 
     fetchData();
-  }, [type, newCategory]);
+  }, [userInfo?.id, type, newCategory, handleUpdateTransaction]);
 
   const categoryList = {
-    handleAddCategory,
+    handleUpdateCategory,
     type,
     setType,
     categories,

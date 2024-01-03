@@ -21,7 +21,7 @@ const InputVariants = cva(
 const LabelVariants = cva("form-control w-full", {
   variants: {
     labelType: {
-      side: "form-control w-full flex flex-row gap-10 justify-around ",
+      side: "form-control w-full flex flex-row gap-10 justify-between ",
       up: "form-control w-full",
     },
   },
@@ -39,17 +39,18 @@ function FormInput({
   value,
   onChange,
   labelType,
+  disabled
 }) {
   return (
     <>
       <label className={cn(LabelVariants({ labelType }))}>
         {labelType === "side" ? (
           <>
-            <div className="label w-12">
+            <div className="label w-18 p-0">
               <Text
                 variant="text-sm"
                 weight="semibold"
-                className="label-text w-12"
+                className="label-text "
               >
                 {label}
               </Text>
@@ -60,6 +61,7 @@ function FormInput({
               onChange={onChange}
               placeholder={placeholder}
               className={cn(InputVariants({ size, className }))}
+              disabled={disabled}
             />
           </>
         ) : (
@@ -75,6 +77,7 @@ function FormInput({
               onChange={onChange}
               placeholder={placeholder}
               className={cn(InputVariants({ size, className }))}
+              disabled={disabled}
             />
           </>
         )}

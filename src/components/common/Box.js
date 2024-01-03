@@ -13,11 +13,7 @@ const BoxVariants = cva(
         md: 'p-6'
       },
       color: {
-        blue: 'bg-[#EDFCFC]',
-        purple: 'bg-[#EDEEFC]',
-        pink: 'bg-[#FCDDEC]',
         gray: "bg-[#F4F6FA]",
-        yellow: "bg-[#FFFBEB]"
       },
       noBorder: {
         true: 'border-transparent'
@@ -33,9 +29,14 @@ const BoxVariants = cva(
   } 
 ) 
 
-const Box = ({children, spacing, className, color, noBorder = true, size}) => {
+const Box = ({children, spacing, className, color, noBorder = true, size, onMouseEnter, onMouseLeave, style}) => {
   return (
-    <div className={cn(BoxVariants({spacing, className, noBorder, color, size}))}>{children}</div>
+    <div 
+    className={cn(BoxVariants({spacing, className, noBorder, color, size}))}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
+    style={style}
+    >{children}</div>
   )
 }
 

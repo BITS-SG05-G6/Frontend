@@ -6,34 +6,33 @@ import { cn } from "../../utils/cn";
 
 const IconPicker = ({ value, onChange }) => {
   return (
-    <div className="form-control w-full flex items-center flex-row gap-12 justify-around">
-      <Text variant="text-sm" weight="semibold" className="label-text w-">
+    <div className="form-control w-full flex items-center flex-row gap-12 justify-between">
+      <Text variant="text-sm" weight="semibold" className="label-text w-18">
         Icon
       </Text>
 
       <div className="w-full max-w-xs text-sm flex items-center gap-6">
-        <details color="pink" className="dropdown overflow-visible">
-          <summary className="btn input-bordered bg-transparent hover:bg-transparent hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none">
-            {IconList.map((i) => {
-              if (i.value === value) {
-                return <FontAwesomeIcon icon={i.icon} />;
-              }
-            })}
-          </summary>
-          <div className="p-2 menu dropdown-content bg-white rounded-box w-96">
+        <div color="pink" className="dropdown overflow-visible">
+          <div tabIndex={0} className="btn input-bordered bg-transparent hover:bg-transparent hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none">
+            {IconList.map((i) =>
+              (i.value === value) ?
+                <FontAwesomeIcon icon={i.icon} /> :null
+            )}
+          </div>
+          <div tabIndex={0} className="p-2 menu dropdown-content bg-white rounded-box w-96">
             <div className="h-72 overflow-scroll flex flex-col gap-3">
               <div className="flex gap-3 flex-wrap flex-col">
                 <Text variant="text-sm" weight="semibold">
                   Lifestyle
                 </Text>
                 <div className="flex gap-4 flex-wrap">
-                  {IconList.map((i) => {
-                    if (i.category === "Lifestyle") {
-                      return (
+                {IconList.map((i) => (
+                    i.category === "Lifestyle") ?
+                    
                         <label
                           className={cn(
                             value === i.value ? "bg-pink-300" : "bg-gray-200",
-                            "rounded-full w-8 h-8 flex justify-center items-center"
+                            "rounded-full w-8 h-8 flex justify-center items-center", "cursor-pointer"
                           )}
                         >
                           <input
@@ -49,10 +48,9 @@ const IconPicker = ({ value, onChange }) => {
                               color: value === i.value ? "white" : "gray",
                             }}
                           />
-                        </label>
-                      );
+                        </label> : null
+                      )
                     }
-                  })}
                 </div>
               </div>
 
@@ -61,13 +59,13 @@ const IconPicker = ({ value, onChange }) => {
                   Food & Drink
                 </Text>
                 <div className="flex gap-4 flex-wrap">
-                  {IconList.map((i) => {
-                    if (i.category === "Food & Drink") {
-                      return (
+                {IconList.map((i) => (
+                    i.category === "Food & Drink") ?
+                    
                         <label
                           className={cn(
                             value === i.value ? "bg-pink-300" : "bg-gray-200",
-                            "rounded-full w-8 h-8 flex justify-center items-center"
+                            "rounded-full w-8 h-8 flex justify-center items-center", "cursor-pointer"
                           )}
                         >
                           <input
@@ -83,10 +81,9 @@ const IconPicker = ({ value, onChange }) => {
                               color: value === i.value ? "white" : "gray",
                             }}
                           />
-                        </label>
-                      );
+                        </label> : null
+                      )
                     }
-                  })}
                 </div>
               </div>
 
@@ -95,13 +92,13 @@ const IconPicker = ({ value, onChange }) => {
                   Transportation
                 </Text>
                 <div className="flex gap-4 flex-wrap">
-                  {IconList.map((i) => {
-                    if (i.category === "Transportation") {
-                      return (
+                {IconList.map((i) => (
+                    i.category === "Transportation") ?
+                    
                         <label
                           className={cn(
                             value === i.value ? "bg-pink-300" : "bg-gray-200",
-                            "rounded-full w-8 h-8 flex justify-center items-center"
+                            "rounded-full w-8 h-8 flex justify-center items-center", "cursor-pointer"
                           )}
                         >
                           <input
@@ -117,10 +114,9 @@ const IconPicker = ({ value, onChange }) => {
                               color: value === i.value ? "white" : "gray",
                             }}
                           />
-                        </label>
-                      );
+                        </label> : null
+                      )
                     }
-                  })}
                 </div>
               </div>
 
@@ -129,13 +125,13 @@ const IconPicker = ({ value, onChange }) => {
                   Travel
                 </Text>
                 <div className="flex gap-4 flex-wrap">
-                  {IconList.map((i) => {
-                    if (i.category === "Travel") {
-                      return (
+                {IconList.map((i) => (
+                    i.category === "Travel") ?
+                    
                         <label
                           className={cn(
                             value === i.value ? "bg-pink-300" : "bg-gray-200",
-                            "rounded-full w-8 h-8 flex justify-center items-center"
+                            "rounded-full w-8 h-8 flex justify-center items-center", "cursor-pointer"
                           )}
                         >
                           <input
@@ -151,10 +147,9 @@ const IconPicker = ({ value, onChange }) => {
                               color: value === i.value ? "white" : "gray",
                             }}
                           />
-                        </label>
-                      );
+                        </label> : null
+                      )
                     }
-                  })}
                 </div>
               </div>
 
@@ -163,13 +158,13 @@ const IconPicker = ({ value, onChange }) => {
                   Family
                 </Text>
                 <div className="flex gap-4 flex-wrap">
-                  {IconList.map((i) => {
-                    if (i.category === "Family") {
-                      return (
+                  {IconList.map((i) => (
+                    i.category === "Family") ?
+                    
                         <label
                           className={cn(
                             value === i.value ? "bg-pink-300" : "bg-gray-200",
-                            "rounded-full w-8 h-8 flex justify-center items-center"
+                            "rounded-full w-8 h-8 flex justify-center items-center", "cursor-pointer"
                           )}
                         >
                           <input
@@ -185,10 +180,10 @@ const IconPicker = ({ value, onChange }) => {
                               color: value === i.value ? "white" : "gray",
                             }}
                           />
-                        </label>
-                      );
+                        </label> : null
+                      )
                     }
-                  })}
+
                 </div>
               </div>
 
@@ -197,13 +192,13 @@ const IconPicker = ({ value, onChange }) => {
                   Shopping
                 </Text>
                 <div className="flex gap-4 flex-wrap">
-                  {IconList.map((i) => {
-                    if (i.category === "Shopping") {
-                      return (
+                  {IconList.map((i) => (
+                    i.category === "Shopping") ?
+              
                         <label
                           className={cn(
                             value === i.value ? "bg-pink-300" : "bg-gray-200",
-                            "rounded-full w-8 h-8 flex justify-center items-center"
+                            "rounded-full w-8 h-8 flex justify-center items-center", "cursor-pointer"
                           )}
                         >
                           <input
@@ -219,17 +214,16 @@ const IconPicker = ({ value, onChange }) => {
                               color: value === i.value ? "white" : "gray",
                             }}
                           />
-                        </label>
-                      );
+                        </label> : null
+                      )
                     }
-                  })}
                 </div>
               </div>
             </div>
           </div>
 
           {/* <p>Selected option: {value}</p> */}
-        </details>
+        </div>
       </div>
     </div>
   );
