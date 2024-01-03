@@ -9,7 +9,7 @@ function DashboardList({ array, listType }) {
             {listType === 'transaction' && (
                 <>
                     <thead>
-                        <tr className="uppercase">
+                        <tr className="uppercase text-left">
                             <th>Title</th>
                             <th>Type</th>
                             <th>Amount</th>

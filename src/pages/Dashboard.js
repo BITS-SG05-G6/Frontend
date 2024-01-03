@@ -5,16 +5,21 @@ import DashboardList from "../components/Dashboard/DashboardList";
 import SectionLayout from "../components/Dashboard/SectionLayout";
 import { TransactionContext } from "../context/transactionContext";
 import { WalletContext } from "../context/walletContext";
+import { BillContext } from "../context/billContext";
 import { useContext } from "react";
 
 function Dashboard() {
 
     // Fetch transactions
-    const { transactions } = useContext(TransactionContext);
-    console.log(transactions);
-
-    // const recentTransactions = transactions.slice(0, 7);
-    // const { wallets } = useContext(WalletContext);
+    const { setSelectedDate, transactions } = useContext(TransactionContext);
+    // Explicitly remove the selectedDate to fetch all transactions 
+    setSelectedDate(null);
+    const recentTransactions = transactions? transactions.slice(0, 7): [];
+    // Fetch wallets and bills
+    const { wallets } = useContext(WalletContext);
+    const recentWallets = wallets? wallets.slice(0, 3): [];
+    const {bills} = useContext(BillContext);
+    const recentBills = bills? bills.slice(0,5): [];
 
     // const wallets = [
     //     {
@@ -79,17 +84,19 @@ function Dashboard() {
                         {/* Transaction overview */}
                         <div className="px-5">
                             <SectionLayout className='ps-5' title='Recent Transactions' viewList='true'>
-                                {/* <DashboardList listType='transaction' array={transactions} /> */}
+                                <DashboardList listType='transaction' array={recentTransactions} />
                             </SectionLayout>
                         </div>
                     </div>
                     <div>
                         {/* Wallet overview */}
                         <SectionLayout className='ps-5 pr-10' title='My Wallets' viewList='true' >
-                            {/* <DashboardList listType='wallet'/> */}
+                            <DashboardList listType='wallet' array={recentWallets}/>
                         </SectionLayout>
                         {/* Bill overview */}
-                        <div></div>
+                        <SectionLayout className='ps-5 pr-10' title='My Bills' viewList='true'>
+                            <DashboardList listType='bill' array={recentBills}/>
+                        </SectionLayout>
                     </div>
 
 

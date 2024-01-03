@@ -17,15 +17,19 @@ const TransactionProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchData () {
-      // Fixed size for dashboard
-      await axiosInstance.getTransactions(selectedDate)
-      .then((res) => {
-        console.log()
-        setTransactions(res.transactions);
-      })
-      .catch((err) => {
+      try {
+        let res;
+        if (selectedDate) {
+          res = await axiosInstance.getTransactions(selectedDate);
+        }
+        else {
+          res = await axiosInstance.getTransactions();
+        }
+        setTransactions(res.transactions);  
+      }
+      catch (err) {
         setTransactions(null);
-      })
+      }
     }
 
     fetchData();

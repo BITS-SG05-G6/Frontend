@@ -1,18 +1,18 @@
-import axiosInstance  from "./axios";
+import axiosInstance from "./axios";
 
-export const createTransaction = async(amount, description, date, transactionType, type, title, category, wallet, currency) => {
-  const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, title, category, wallet, currency})
+export const createTransaction = async (amount, description, date, transactionType, type, title, category, wallet, currency) => {
+  const res = await axiosInstance.post("transaction/create", { amount, description, date, transactionType, type, title, category, wallet, currency })
 
   try {
     if (res.status === 200) {
       return res.data;
-    } 
+    }
   } catch (err) {
     return err;
   }
 }
 
-export const deleteTransaction = async(transactionId) => {
+export const deleteTransaction = async (transactionId) => {
   const res = await axiosInstance.delete(`transaction/delete/${transactionId}`)
 
   try {
@@ -24,11 +24,15 @@ export const deleteTransaction = async(transactionId) => {
   }
 }
 
-export const getTransactions = async(date) => {
-  let res;
-    res = await axiosInstance.get(`transaction/viewall/?date=${date}`);
-
+export const getTransactions = async (date) => {
   try {
+    let res;
+    if (date) {
+      res = await axiosInstance.get(`transaction/viewall/?date=${date}`);
+    }
+    else {
+      res = await axiosInstance.get(`transaction/viewall`)
+    }
     if (res.status === 200) {
       return res.data;
     }
@@ -37,7 +41,7 @@ export const getTransactions = async(date) => {
   }
 }
 
-export const getTransactionDetail = async(transactionId) => {
+export const getTransactionDetail = async (transactionId) => {
   const res = await axiosInstance.get(`transaction/${transactionId}`)
 
   try {
