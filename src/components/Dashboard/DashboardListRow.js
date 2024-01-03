@@ -34,7 +34,7 @@ function DashboardListRow({ obj, list }) {
             {list === 'transaction' && (
                 <>
                     <td>
-                        <Text variant='text-sm' weight='semibold'>{obj.title}</Text>
+                        <Text variant='text-sm' weight='semibold' className='hover:text-purple-300' href={`/transaction/${obj.id}`}>{obj.title}</Text>
                     </td>
                     <td>
                         <Text variant='text-sm' weight='semibold' className={`badge badge-outline ${obj.type.toLowerCase() === 'expense'? 'text-red-200': 'text-green-200'}`}>{obj.type}</Text>

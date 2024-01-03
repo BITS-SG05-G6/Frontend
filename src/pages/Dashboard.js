@@ -6,65 +6,22 @@ import SectionLayout from "../components/Dashboard/SectionLayout";
 import { TransactionContext } from "../context/transactionContext";
 import { WalletContext } from "../context/walletContext";
 import { BillContext } from "../context/billContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 function Dashboard() {
 
     // Fetch transactions
-    const { setSelectedDate, transactions } = useContext(TransactionContext);
-    // Explicitly remove the selectedDate to fetch all transactions 
+    const { transactions, setPage, setSelectedDate } = useContext(TransactionContext);
+    // Explicitly set the page type and the selectedDate to handle displaying fetching all transactions
+    setPage('dashboard');
     setSelectedDate(null);
-    const recentTransactions = transactions? transactions.slice(0, 7): [];
+    // Explicitly remove the selectedDate to fetch all transactions
+    const recentTransactions = transactions ? transactions.slice(0, 7) : [];
     // Fetch wallets and bills
     const { wallets } = useContext(WalletContext);
-    const recentWallets = wallets? wallets.slice(0, 3): [];
-    const {bills} = useContext(BillContext);
-    const recentBills = bills? bills.slice(0,5): [];
-
-    // const wallets = [
-    //     {
-    //         id: 1,
-    //         name: 'Cash',
-    //         amount: 569,
-    //         color: '#FFC0CB',
-    //         currency: 'VND'
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'Credit',
-    //         amount: 3004,
-    //         color: '#800080',
-    //         currency: 'VND'
-    //     }
-    // ];
-
-    // const transactions = [
-    //     {
-    //         id: 1,
-    //         title: 'Dog walking',
-    //         amount: 569,
-    //         currency: 'VND',
-    //         transactionType: 'Expense',
-    //         date: new Date('2023-12-28')
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'Salary',
-    //         amount: 1200,
-    //         currency: 'USD',
-    //         transactionType: 'Income',
-    //         date: new Date('2023-12-29')
-    //     },
-    //     {
-    //         id: 3,
-    //         title: 'Pet',
-    //         amount: 140000,
-    //         currency: 'VND',
-    //         transactionType: 'Expense',
-    //         date: new Date('2023-12-26')
-    //     },
-
-    // ]
+    const recentWallets = wallets ? wallets.slice(0, 3) : [];
+    const { bills } = useContext(BillContext);
+    const recentBills = bills ? bills.slice(0, 5) : [];
 
     return (
         <div>
@@ -83,19 +40,19 @@ function Dashboard() {
                         <div></div>
                         {/* Transaction overview */}
                         <div className="px-5">
-                            <SectionLayout className='ps-5' title='Recent Transactions' viewList='true'>
+                            <SectionLayout className='ps-5' title='Recent Transactions' viewList='true' href='/transaction'>
                                 <DashboardList listType='transaction' array={recentTransactions} />
                             </SectionLayout>
                         </div>
                     </div>
                     <div>
                         {/* Wallet overview */}
-                        <SectionLayout className='ps-5 pr-10' title='My Wallets' viewList='true' >
-                            <DashboardList listType='wallet' array={recentWallets}/>
+                        <SectionLayout className='ps-5 pr-10' title='My Wallets' viewList='true' href='/wallets' >
+                            <DashboardList listType='wallet' array={recentWallets} />
                         </SectionLayout>
                         {/* Bill overview */}
-                        <SectionLayout className='ps-5 pr-10' title='My Bills' viewList='true'>
-                            <DashboardList listType='bill' array={recentBills}/>
+                        <SectionLayout className='ps-5 pr-10' title='My Invoices' viewList='true' href='/invoices'>
+                            <DashboardList listType='bill' array={recentBills} />
                         </SectionLayout>
                     </div>
 
