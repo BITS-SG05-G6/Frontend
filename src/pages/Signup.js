@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Button from "../components/common/Button";
 import FormInput from "../components/common/FormInput";
 import Text from "../components/common/Text";
@@ -13,6 +14,8 @@ const Signup = () => {
   } = useForm({
     mode: "onChange",
   });
+
+  const navigate = useNavigate();
 
   function handleCallbackResponse(res) {
     console.log("Encoded KWT ID token: " + res.credential);
@@ -41,11 +44,13 @@ const Signup = () => {
       .signup(d.username, d.password)
       .then((res) => {
         console.log(res);
+        navigate('/login')
       })
       .catch((err) => {
         console.log(err.response.data.error.message);
         setLoginError("Wrong password or username, please try again!");
       });
+
   };
 
   return (
