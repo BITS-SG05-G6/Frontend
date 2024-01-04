@@ -39,7 +39,7 @@ const Select = ({
             className={cn(SelectVariant({ size, className }))}
             disabled={disabled}
             >
-              <option disabled selected>{placeholder}</option>
+              <option disabled selected={value === undefined}>{placeholder}</option>
               {none === true ? <option key="none" value="none">None</option> : null}
               {
                 options.length > 1 && options.map((option) => {
