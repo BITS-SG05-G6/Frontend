@@ -34,15 +34,21 @@ const TransactionForm = ({
   const { type, setType, categories } = useContext(CategoryContext);
   const selectedCategory = watch("category");
   const selectedWallet = watch("wallet");
+  const selectedType = watch("type")
   const { wallets, currency, setCurrency } = useContext(WalletContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
+  const categoryType = category
+  ? category.type
+  : selectedCategory === "none" || selectedCategory === undefined
+  ? selectedType
+  : type;
   const onSubmit = async (d) => {
-    const categoryType = category
-      ? category.type
-      : selectedCategory === "none" || selectedCategory === undefined
-      ? d.type
-      : type;
-      const walletCurrency = wallet
+    // const categoryType = category
+    //   ? category.type
+    //   : selectedCategory === "none" || selectedCategory === undefined
+    //   ? d.type
+    //   : type;
+    const walletCurrency = wallet
       ? wallet.type
       : selectedWallet === "none" || selectedWallet === undefined
       ? d.currency
@@ -90,8 +96,18 @@ const TransactionForm = ({
         category ? category.id : wallet ? wallet.id : "my_modal_1"
       )
       .close();
-    // reset();
-  }
+    reset();
+  };
+
+  const validateAmount = (value) => {
+    const walletValue = wallets.find((wallet) => wallet.id === selectedWallet);
+
+    if (walletValue && selectedType === "Expense") {
+      return value > walletValue.amount ? "Your wallet is not enough" : true;
+    }
+
+    return true;
+  };
 
   return (
     <>
@@ -120,7 +136,12 @@ const TransactionForm = ({
           </Text>
           <div className="modal-action mx-0 block w-full">
             <form method="dialog" className="flex flex-col gap-4">
-              <Button variant="close" onClick={closeModal} className="text-black" size="fix">
+              <Button
+                variant="close"
+                onClick={closeModal}
+                className="text-black"
+                size="fix"
+              >
                 x
               </Button>
 
@@ -140,38 +161,8 @@ const TransactionForm = ({
                       labelType="side"
                     />
                     {errors.title && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 px-36 mt-3">
                         {errors.title.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              />
-
-              <Controller
-                name="amount"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Amount is required!",
-                  pattern: {
-                    value: /^([^.0-]\d+|\d)$/,
-                    message: "It must be a positive number",
-                  },
-                }}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      type="number"
-                      label="Amount"
-                      name="amount"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      labelType="side"
-                    />
-                    {errors.amount && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.amount.message}
                       </Text>
                     )}
                   </div>
@@ -207,6 +198,7 @@ const TransactionForm = ({
                           }}
                           options={wallets}
                           placeholder="Please choose a wallet"
+                          
                         />
                         {errors.wallet && (
                           <Text className="text-red-500 px-32 mt-3">
@@ -218,6 +210,37 @@ const TransactionForm = ({
                   />
                 )
               )}
+
+              <Controller
+                name="amount"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Amount is required!",
+                  pattern: {
+                    value: /^([^.0-]\d+|\d)$/,
+                    message: "It must be a positive number",
+                  },
+                  validate: validateAmount,
+                }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="number"
+                      label="Amount"
+                      name="amount"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
+                    {errors.amount && (
+                      <Text className="text-red-500 pl-36 mt-3">
+                        {errors.amount.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
 
               {wallet ? (
                 <FormInput
@@ -248,7 +271,7 @@ const TransactionForm = ({
                         none={false}
                       />
                       {errors.currency && (
-                        <Text className="text-red-500 px-32 mt-3">
+                        <Text className="text-red-500 px-36 mt-3">
                           {errors.currency.message}
                         </Text>
                       )}
@@ -296,7 +319,7 @@ const TransactionForm = ({
                           placeholder="Please choose a category"
                         />
                         {errors.category && (
-                          <Text className="text-red-500 px-32 mt-3">
+                          <Text className="text-red-500 px-36 mt-3">
                             {errors.category.message}
                           </Text>
                         )}
@@ -340,7 +363,7 @@ const TransactionForm = ({
                         none={false}
                       />
                       {errors.type && (
-                        <Text className="text-red-500 px-32 mt-3">
+                        <Text className="text-red-500 px-36 mt-3">
                           {errors.type.message}
                         </Text>
                       )}
@@ -373,7 +396,7 @@ const TransactionForm = ({
                       labelType="side"
                     />
                     {errors.date && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 px-36 mt-3">
                         {errors.date.message}
                       </Text>
                     )}
@@ -381,7 +404,7 @@ const TransactionForm = ({
                 )}
               />
 
-<Controller
+              <Controller
                 name="description"
                 control={control}
                 defaultValue=""
@@ -405,7 +428,9 @@ const TransactionForm = ({
                   Save
                 </Button>
 
-                <Button size="xl" onClick={closeModal}>Cancel</Button>
+                <Button size="xl" onClick={closeModal}>
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>
