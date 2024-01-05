@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Category from './pages/Category';
 import Wallet from './pages/Wallet'
 import Saving from './pages/Saving';
+import Bills from './pages/Bills'
 import StatisticPage from './pages/Statistic';
 
 function App() {

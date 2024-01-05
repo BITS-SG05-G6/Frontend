@@ -13,11 +13,11 @@ function Saving() {
                 <div className="flex justify-end px-6">
                     {/* <TransactionForm buttonName="Create Transaction" icon="file-invoice-dollar" /> */}
                 </div>
-                <div className="flex justify-between gap-5 px-10">
+                <div className="px-10">
                     <div className="flex flex-col flex-1 gap-10 pr-5">
                         <GoalList />
                     </div>
-                    <GoalDetails status='in-progress' />
+                    {/* <GoalDetails status='in-progress' /> */}
                 </div>
             </div>
         </div>

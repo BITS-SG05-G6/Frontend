@@ -1,7 +1,9 @@
 import Text from '../common/Text';
 import Button from '../common/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconList } from '../svgs/IconList';
 
-function GoalRow({goal}) {
+function GoalRow({ goal }) {
 
     const progress = Math.floor((goal.total / goal.target) * 100);
     return (
@@ -9,8 +11,12 @@ function GoalRow({goal}) {
             {/* Progress and Content */}
             <div className='px-5 py-3 flex justify-center items-center gap-10'>
                 {/*Progress */}
-                <div className={`radial-progress text-[${goal.color}]`} style={{"--value": progress}} role='progressbar'>
-                    {progress}%
+                <div className={`radial-progress text-[${goal.color}]`} style={{ "--value": progress }} role='progressbar'>
+                    {IconList.map((i) =>
+                        i.value === goal.icon ? (
+                            <FontAwesomeIcon icon={i.icon} size="2xl" color={goal.color} />
+                        ) : <Text>{progress}%</Text>
+                    )}
                 </div>
                 {/*Content */}
                 <div className='flex flex-col justify-center gap-1 items-start'>

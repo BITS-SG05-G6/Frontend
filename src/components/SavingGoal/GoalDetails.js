@@ -14,9 +14,6 @@ function GoalDetails({ goal, status }) {
                         </div>
                     </div>
                 </div>
-                {/* <div className={`w-25 h-25 radial-progress text-[${goal.color}]`} style={{"--value": progress}} role='progressbar'>
-                    {progress}%
-                </div> */}
                 <div className="flex flex-col gap-2">
                     {/*Progress section */}
                     <div className="flex justify-between">
