@@ -27,7 +27,7 @@ const Select = ({
   options, disabled, placeholder, none = true}) => {
     return (
       <>
-        <label className="form-control w-full flex flex-row gap-10 justify-around ">
+        <label className="form-control w-full flex flex-row gap-10 justify-between ">
           <div className="label w-12">
             <Text variant="text-sm" weight="semibold" className="label-text w-12">
               {label}
@@ -39,7 +39,7 @@ const Select = ({
             className={cn(SelectVariant({ size, className }))}
             disabled={disabled}
             >
-              <option disabled selected>{placeholder}</option>
+              <option disabled selected={value === undefined}>{placeholder}</option>
               {none === true ? <option key="none" value="none">None</option> : null}
               {
                 options.length > 1 && options.map((option) => {
