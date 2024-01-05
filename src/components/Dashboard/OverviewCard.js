@@ -11,9 +11,9 @@ function OverviewCard({ isPrimary, type, amount }) {
             </div>
             <div className="flex-col justify-start items-start gap-2.5 inline-flex">
                 <Text className=" text-gray-400 font-normal font-['Kumbh Sans']" variant='text-sm'>
-                    {type === 'balance' ? 'Total balance' : (type === 'spending' ? 'Total spending' : 'Total savings')}
+                    {type === 'balance' ? 'Monthly balance' : (type === 'spending' ? 'Monthly spending' : 'Monthly savings')}
                 </Text>
-                <Text className={`${isPrimary ? 'text-white' : 'text-black'} font-['Kumbh Sans]`} variant='text-xl' weight='bold'>$5240.21</Text>
+                <Text className={`${isPrimary ? 'text-white' : 'text-black'} font-['Kumbh Sans]`} variant='text-xl' weight='bold'>{amount}</Text>
             </div>
         </div>
     );

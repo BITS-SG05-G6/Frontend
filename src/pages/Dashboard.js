@@ -6,9 +6,31 @@ import SectionLayout from "../components/Dashboard/SectionLayout";
 import { TransactionContext } from "../context/transactionContext";
 import { WalletContext } from "../context/walletContext";
 import { BillContext } from "../context/billContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import * as axiosInstance from "../services/statistics";
+import TrendStatistic from "../components/Statistics/TrendStatistic";
 
 function Dashboard() {
+
+    // Fetch overview of monthly income and expense
+    const [overview, setOverview] = useState({});
+    
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await axiosInstance.compareExpenseIncomeByMonth();
+                console.log(res);
+                setOverview(res);
+            }
+            catch (err) {
+                setOverview({
+                    Income: 0,
+                    Expense: 0
+                });
+            }
+        }
+        fetchData();
+    }, []);
 
     // Fetch transactions
     const { transactions, setPage, setSelectedDate } = useContext(TransactionContext);
@@ -32,12 +54,14 @@ function Dashboard() {
                     <div className="col-span-2 flex flex-col">
                         {/*Balance overview */}
                         <div className="px-5 py-5 flex justify-evenly gap-5">
-                            <OverviewCard type='balance' isPrimary />
-                            <OverviewCard type='spending' />
+                            <OverviewCard type='balance' isPrimary amount={overview.Income}/>
+                            <OverviewCard type='spending' amount={overview.Expense} />
                             <OverviewCard type='savings' />
                         </div>
                         {/* Statistic */}
-                        <div></div>
+                        <div className='px-6'>
+                            <TrendStatistic typeOfData='Monthly' title='Monthly expense habit'/>
+                        </div>
                         {/* Transaction overview */}
                         <div className="px-5">
                             <SectionLayout className='ps-5' title='Recent Transactions' viewList='true' href='/transaction'>
@@ -55,8 +79,6 @@ function Dashboard() {
                             <DashboardList listType='bill' array={recentBills} />
                         </SectionLayout>
                     </div>
-
-
                 </div>
             </div>
         </div>

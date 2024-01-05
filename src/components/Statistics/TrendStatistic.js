@@ -12,7 +12,7 @@ import { jwtDecode } from "jwt-decode";
 import { statisticExpensesWeekly, statisticExpensesMonthly } from '../../services/statistics';
 
 // Define the TrendStatistic component
-export default function TrendStatistic({ typeOfData }) {
+export default function TrendStatistic({ typeOfData, title }) {
   // State to hold fetched expense data
   const [expenseData, setExpenseData] = useState([]);
 
@@ -69,7 +69,7 @@ export default function TrendStatistic({ typeOfData }) {
         },
       },
       title: {
-        text: "Transaction Trend",
+        text: title,
         align: "middle",
       },
       dataLabels: {
