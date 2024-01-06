@@ -34,16 +34,16 @@ function UserProfile() {
               </div>
               {/* Form Details */}
               <div className="flex flex-col gap-5">
-                <div className="grid grid-cols-2">
-                  <FormInput label={"First Name"} />
-                  <FormInput label={"Last Name"} />
-                  <FormInput label={"Date of Birth"} />
-                  <FormInput label={"Mobile Number"} />
+                <div className="grid grid-cols-2 gap-7">
+                  <FormInput label={"First Name"} size={"noMaxWidth"} />
+                  <FormInput label={"Last Name"} size={"noMaxWidth"} />
+                  <FormInput label={"Date of Birth"} size={"noMaxWidth"} />
+                  <FormInput label={"Mobile Number"} size={"noMaxWidth"} />
                 </div>
-                <FormInput label={"Email"} />
-                <div className="grid grid-cols-2">
-                  <FormInput label={"New Password"} />
-                  <FormInput label={"Confirm Password"} />
+                <FormInput label={"Email"} size={"noMaxWidth"} />
+                <div className="grid grid-cols-2 gap-7">
+                  <FormInput label={"New Password"} size={"noMaxWidth"} />
+                  <FormInput label={"Confirm Password"} size={"noMaxWidth"} />
                 </div>
               </div>
               <Button className="mt-10" size={"xl"}>

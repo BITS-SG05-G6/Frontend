@@ -10,6 +10,7 @@ const InputVariants = cva(
       size: {
         default: "w-full max-w-xs text-sm",
         small: "w-full max-w-sm text-sm",
+        noMaxWidth: "w-full text-sm pr-5",
       },
     },
     defaultVariants: {
