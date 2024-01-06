@@ -2,6 +2,7 @@ import SideBar from "../components/common/SideBar";
 import Header from "../components/common/Header";
 import GoalList from "../components/SavingGoal/GoalList";
 import GoalDetails from "../components/SavingGoal/GoalDetails";
+import GoalForm from "../components/SavingGoal/GoalForm";
 
 function Saving() {
     return (
@@ -11,7 +12,7 @@ function Saving() {
             <div className="pl-64 flex flex-col gap-5">
                 <Header title="My Planning" username="Tom Vo" />
                 <div className="flex justify-end px-6">
-                    {/* <TransactionForm buttonName="Create Transaction" icon="file-invoice-dollar" /> */}
+                    <GoalForm buttonName="New Goal" icon="file-invoice-dollar" />
                 </div>
                 <div className="px-10">
                     <div className="flex flex-col flex-1 gap-10 pr-5">

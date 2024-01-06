@@ -11,6 +11,7 @@ const BadgeVariants = cva(
       variant: {
         "green": "text-[#07A104] bg-[#E1FFDC] border-[#07A104]",
         "yellow": "text-[#E2B102] bg-[#FFF5DC] border-[#E2B102]",
+        "blue": "text-[#003B73] bg-[#BFD7ED] border-[#003B73]"
       }
     },
     defaultVariants: {

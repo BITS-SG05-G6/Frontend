@@ -9,7 +9,8 @@ function GoalList({goals}) {
             startDate: '23-12-2023',
             endDate: '23-01-2024',
             target: 300,
-            total: 200
+            total: 200,
+            status: 'On-going'
         },
         {
             name: 'Rent a house',
@@ -17,13 +18,15 @@ function GoalList({goals}) {
             startDate: '23-12-2023',
             endDate: '23-01-2024',
             target: 500,
-            total: 100
+            total: 100,
+            status: 'On-going'
         },
         {
             name: 'Investment',
             color: '#EF5DA8',
             target: 300,
-            total: 34
+            total: 34,
+            status: 'On-going'
         }
     ]
     return (
