@@ -39,7 +39,7 @@ function FormInput({
   value,
   onChange,
   labelType,
-  disabled
+  disabled,
 }) {
   return (
     <>
@@ -47,11 +47,7 @@ function FormInput({
         {labelType === "side" ? (
           <>
             <div className="label w-18 p-0">
-              <Text
-                variant="text-sm"
-                weight="semibold"
-                className="label-text "
-              >
+              <Text variant="text-sm" weight="semibold" className="label-text ">
                 {label}
               </Text>
             </div>

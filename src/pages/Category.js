@@ -7,20 +7,21 @@ import { CategoryContext } from "../context/categoryContext";
 import * as axiosInstance from "../services/category";
 
 const Category = () => {
-  const { type, setType, categories, handleUpdateCategory } = useContext(CategoryContext);
+  const { type, setType, categories, handleUpdateCategory } =
+    useContext(CategoryContext);
 
+  const handleDel = async (id) => {
+    await axiosInstance
+      .deleteCategory(id)
+      .then((res) => {
+        console.log(res);
+        handleUpdateCategory();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-
-  const handleDel = async(id) => {
-    await axiosInstance.deleteCategory(id)
-    .then((res) => {
-      console.log(res);
-      handleUpdateCategory();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
   return (
     <div>
       <SideBar />
@@ -44,19 +45,21 @@ const Category = () => {
         </div>
 
         <div className="grid gap-10 grid-cols-4 px-10">
-        <Card add="category" type={type} />
-          {categories.map((category) => (
-           category.type === type ?  <Card
-           id={category.id}
-           icon={category.icon}
-           color={category.color}
-           name={category.name}
-           amount={category.amount}
-           handleDel={() => handleDel(category.id)}
-           type={category.type}
-           variety="Category"
-         /> : null
-          ))}
+          <Card add="category" type={type} />
+          {categories.map((category) =>
+            category.type === type ? (
+              <Card
+                id={category.id}
+                icon={category.icon}
+                color={category.color}
+                name={category.name}
+                amount={category.amount}
+                handleDel={() => handleDel(category.id)}
+                type={category.type}
+                variety="Category"
+              />
+            ) : null
+          )}
         </div>
       </div>
     </div>
