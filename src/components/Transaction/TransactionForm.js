@@ -93,7 +93,7 @@ const TransactionForm = ({
       selectedCurrency !== baseCurrency ? baseCurrency : otherCurrency;
     const exchangeCurrency =
       selectedCurrency !== baseCurrency ? otherCurrency : baseCurrency;
-    const key = "913c18bd9f50deb0a7eab5c6c4fb75f811282b57";
+    const key = "50850783a6e088d72dbdb69c3805a415ddd351cf";
     const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${historicalDate}?api_key=${key}&from=${exchangeCurrency}&to=${base_currency_code}&amount=${value}&format=json`;
 
     const response = await fetch(apiUrl);
