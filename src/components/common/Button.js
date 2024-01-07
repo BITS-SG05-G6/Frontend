@@ -24,14 +24,10 @@ const ButtonVariants = cva(
           "btn bg-pink-300 hover:bg-transparent hover:border-pink-300 text-white hover:text-[#7879F1] rounded-[10px]",
         close:
           "btn btn-sm btn-circle bg-transparent border-transparent hover:bg-transparent hover:border-transparent",
-        none:
-          "btn bg-transparent hover:bg-transparent text-[#5D5FEF] border-none shadow-none",
-        gray: 
-          "btn bg-gray-200",
-        card: 
-          "btn text-[#5D5FEF] hover:bg-[#F4F6FA] border-none shadow-none bg-[#F4F6FA]",
-        bill: 
-          "btn bg-transparent rounded-lg px-6 py-6 flex flex-col gap-4 w-72 border-solid border-2 border-gray-200 text-black"
+        none: "btn bg-transparent hover:bg-transparent text-[#5D5FEF] border-none shadow-none",
+        gray: "btn bg-gray-200",
+        card: "btn text-[#5D5FEF] hover:bg-[#F4F6FA] border-none shadow-none bg-[#F4F6FA]",
+        bill: "btn bg-transparent rounded-lg px-6 py-6 flex flex-col gap-4 w-72 border-solid border-2 border-gray-200 text-black",
       },
       size: {
         default: "h-10 py-2 px-4 text-sm",

@@ -11,12 +11,14 @@ import Category from "./pages/Category";
 import Wallet from "./pages/Wallet";
 import Error from "./pages/404";
 import StatisticPage from "./pages/Statistic";
+import { FAQ } from "./pages/faq";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />}></Route>
       <Route path="/aboutus" element={<AboutUs />}></Route>
+      <Route path="/faq" element={<FAQ />}></Route>
       {/* <Route path="/transaction" element={<Transaction />}></Route>
       <Route path="/transaction/:id" element={<Transaction />}></Route>
       <Route path="/invoices" element={<Bills />}></Route>

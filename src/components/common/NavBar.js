@@ -3,7 +3,7 @@ import Down from "../svgs/Down";
 import English from "../svgs/English";
 import Button from "./Button";
 import Text from "./Text";
-
+import { Link } from "react-scroll";
 const NavBar = () => {
   return (
     <div className="flex justify-between my-4 mx-6 items-center">
@@ -23,9 +23,44 @@ const NavBar = () => {
       </div>
 
       <div className="flex flex-1 justify-end items-center gap-4">
-        <Text weight="semibold">Feautures</Text>
+        <ul className="flex flex-row justify-between space-x-4">
+          <li className="font-semibold">
+            <Link
+              to="/aboutus"
+              spy={true}
+              smooth={true}
+              offset={-50}
+              duration={500}
+            >
+              About Us
+            </Link>
+          </li>
+          <li className="font-semibold">
+            <Link
+              to="feature"
+              spy={true}
+              smooth={true}
+              offset={-100}
+              duration={500}
+            >
+              Feautures
+            </Link>
+          </li>
+          <li className="font-semibold">
+            <Link
+              to="review"
+              spy={true}
+              smooth={true}
+              offset={-50}
+              duration={500}
+            >
+              Reviews
+            </Link>
+          </li>
+        </ul>
+        {/* <Text weight="semibold">Feautures</Text>
         <Text weight="semibold">Why Us</Text>
-        <Text weight="semibold">Reviews</Text>
+        <Text weight="semibold">Reviews</Text> */}
         <details className="dropdown border-transparent">
           <summary className="btn btn-ghost hover:bg-transparent p-0">
             <English />
