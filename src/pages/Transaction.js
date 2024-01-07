@@ -13,7 +13,7 @@ const Transaction = () => {
   const { selectedDate, setSelectedDate, transactions } = useContext(TransactionContext);
   const { id } = useParams();
   const [transaction, setTransaction] = useState(null);
-
+// console.log(transactions);
   function handleDateChange(date) {
     setSelectedDate(date);
   }

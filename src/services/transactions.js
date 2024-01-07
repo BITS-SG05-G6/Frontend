@@ -1,7 +1,7 @@
 import axiosInstance  from "./axios";
 
-export const createTransaction = async(amount, description, date, transactionType, type, title, category, wallet, currency) => {
-  const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, title, category, wallet, currency})
+export const createTransaction = async(amount, description, date, transactionType, type, title, category, wallet, currency, exchangeAmount) => {
+  const res = await axiosInstance.post("transaction/create", {amount, description, date, transactionType, type, title, category, wallet, currency, exchangeAmount})
 
   try {
     if (res.status === 200) {

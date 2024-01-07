@@ -1,7 +1,7 @@
 import axiosInstance  from "./axios";
 
-export const createWallet = async(name, amount, color, icon, description, currency) => {
-  const res = await axiosInstance.post("/wallet", {name, amount, color, icon, description, currency})
+export const createWallet = async(name, amount, color, icon, description) => {
+  const res = await axiosInstance.post("/wallet", {name, amount, color, icon, description})
 
   try {
     if (res.status === 200) {
