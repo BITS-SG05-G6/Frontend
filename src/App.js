@@ -1,3 +1,4 @@
+
 import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
@@ -8,6 +9,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Category from "./pages/Category";
 import Wallet from "./pages/Wallet";
+import Dashboard from "./pages/Dashboard";
+import Saving from './pages/Saving';
 import StatisticPage from './pages/Statistic';
 
 function App() {
@@ -19,7 +22,9 @@ function App() {
       <Route path="/invoices" element={<Bills />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/wallets" element={<Wallet />}></Route>
+      <Route path="/dashboard" element={<Dashboard/>}></Route>
       <Route path="/statistics" element={<StatisticPage/>}></Route>
+      <Route path="/planning" element={<Saving/>}></Route>
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup />}></Route>
