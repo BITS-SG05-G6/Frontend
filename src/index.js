@@ -10,6 +10,7 @@ import CategoryProvider from "./context/categoryContext";
 import WalletProvider from "./context/walletContext";
 import TransactionProvider from "./context/transactionContext";
 import BillProvider from "./context/billContext";
+import SavingProvider from "./context/savingContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,9 +20,11 @@ root.render(
         <CategoryProvider>
           <WalletProvider>
             <BillProvider>
-              <Router>
-                <App />
-              </Router>
+              <SavingProvider>
+                <Router>
+                  <App />
+                </Router>
+              </SavingProvider>
             </BillProvider>
           </WalletProvider>
         </CategoryProvider>

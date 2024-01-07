@@ -3,16 +3,18 @@ import Button from '../common/Button';
 import Badge from '../common/Badge'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconList } from '../svgs/IconList';
+import { format } from 'date-fns';
+import TransactionForm from '../Transaction/TransactionForm';
 
-function GoalRow({ goal }) {
+function GoalRow({ goal, onDelete }) {
 
     const progress = Math.floor((goal.total / goal.target) * 100);
+    console.log(goal.total);
+    console.log(progress)
     return (
-        <div className="w-full px-5 py-3 h-1/3 rounded-[10px] bg-white border border-gray-400 grid grid-cols-12">
-            {/* Progress and Content */}
-
+        <div className="w-full px-5 py-3 h-1/3 rounded-lg bg-white border border-gray-400 grid grid-cols-12 hover:border-[3px] hover:border-[#A5A6F6] transition ease-linear duration-75">
             {/*Progress */}
-            <div className={`radial-progress text-[${goal.color}] col-span-2`} style={{ "--value": progress, "--size": "7rem", background: `${goal.color}20` }} role='progressbar'>
+            <div className={`radial-progress col-span-2`} style={{ "--value": progress, "--size": "7rem", background: `${goal.color}20`, color: `${goal.color}` }} role='progressbar'>
                 {goal.icon ? (IconList.map((i) =>
                     i.value === goal.icon ? (
                         <FontAwesomeIcon icon={i.icon} size="2xl" color={goal.color} />
@@ -26,8 +28,8 @@ function GoalRow({ goal }) {
 
             </div>
             <div className='px-5 flex flex-col gap-1 items-start justify-center col-span-3'>
-                {goal.startDate && <Text className='text-gray-500'><span className='text-black'>Start: </span>{goal.startDate}</Text>}
-                {goal.endDate && <Text className='text-gray-500'><span className='text-black'>End: </span>{goal.endDate}</Text>}
+                {goal.startDate && <Text className='text-gray-500'><span className='text-black'>Start: </span>{format(new Date(goal.startDate), "dd-MM-yyyy")} </Text>}
+                {goal.endDate && <Text className='text-gray-500'><span className='text-black'>End: </span>{format(new Date(goal.endDate), "dd-MM-yyyy")} </Text>}
             </div>
             {/*Status and action buttons */}
             <div className='flex justify-between gap-20 col-span-5'>
@@ -36,9 +38,9 @@ function GoalRow({ goal }) {
                 </div>
                 {/*Buttons */}
                 <div className='py-3 px-5 flex flex-wrap justify-center items-center gap-1'>
-                    <Button variant='blueButton' size='sm'>Add</Button>
-                    <Button variant='lightPrimary' size='sm'>Edit</Button>
-                    <Button variant='redButton' size='sm'>Delete</Button>
+                    <TransactionForm buttonName='Add' variant='blueButton'/>
+                    <Button variant='lightPrimary'>Edit</Button>
+                    <Button variant='redButton'onClick={() => onDelete(goal._id)}>Delete</Button>
                 </div>
             </div>
 

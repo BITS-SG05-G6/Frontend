@@ -2,9 +2,9 @@ import axiosInstance from "./axios";
 
 
 // Create saving goal 
-export const createSavingGoal = async (name, color, icon, description, target, startDate, endDate, status) => {
+export const createSavingGoal = async (name, target,  color, icon, startDate, endDate, description, status) => {
     try {
-        const res = await axiosInstance.post("/saving/create", { name, color, icon, description, target, startDate, endDate, status });
+        const res = await axiosInstance.post("/saving/create", { name, target,  color, icon, startDate, endDate, description, status });
         if (res.status === 200) {
             return res.data;
         }
@@ -54,9 +54,22 @@ export const deleteSavingGoal = async(id) => {
 }
 
 // Update a saving goal
-export const updateSavingGoal = async(id) => {
+export const updateSavingGoal = async(id, newData) => {
     try {
-        const res = await axiosInstance.put(`/saving/${id}/update`);
+        const res = await axiosInstance.put(`/saving/${id}/update`, {data: newData});
+        if (res.status === 200) {
+            return res.data;
+        }
+    }
+    catch (err) {
+        return err;
+    }
+}
+
+// Update a saving goal status
+export const updateStatus = async(id, newStatus) => {
+    try {
+        const res = await axiosInstance.put(`/saving/${id}/status`, {status: newStatus});
         if (res.status === 200) {
             return res.data;
         }

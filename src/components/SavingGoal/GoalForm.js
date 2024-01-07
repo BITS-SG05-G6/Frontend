@@ -6,13 +6,13 @@ import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
-import Select from "../common/Select";
-import { currencyList } from "../svgs/OptionList";
 import { IconList } from "../svgs/IconList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as axiosInstance from '../../services/savingGoal'
+import { SavingContext } from "../../context/savingContext";
 
-const GoalForm = ({ buttonName, icon }) => {
+function GoalForm ({ buttonName, icon })  {
+    const {handleUpdateGoal} = useContext(SavingContext);
 
     const {
         control,
@@ -24,12 +24,12 @@ const GoalForm = ({ buttonName, icon }) => {
     const onSubmit = async (d) => {
 
         await axiosInstance
-            .createSavingGoal(d.name, d.target, d.color, d.icon, d.description, d.startDate, d.endDate)
+            .createSavingGoal(d.name, d.target, d.color, d.icon, d.startDate, d.endDate,  d.description)
             .then((res) => {
                 document
                     .getElementById("my_modal_4")
                     .close();
-                // handleUpdateWallet();
+                handleUpdateGoal();
                 console.log(res);
                 reset();
             })
