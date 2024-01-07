@@ -54,20 +54,21 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-between h-screen">
-      <div className="w-1/2 flex justify-center items-center">
-        <Text
-          className="absolute top-6 left-6 text-[#EF5DA8]"
-          variant="text-xl"
-          weight="bold"
-          noLink={false}
-          href="/"
-        >
-          Wise
-          <Text className="text-black" variant="text-xl" weight="bold">
-            Wallet
-          </Text>
-        </Text>
+    // <div className="flex justify-between h-screen relative">
+    //   <div className="w-1/2 flex justify-center items-center">
+    //     <Text
+    //       className="absolute top-6 left-6 text-[#EF5DA8]"
+    //       variant="text-xl"
+    //       weight="bold"
+    //       noLink={false}
+    //       href="/"
+    //     >
+    //       Wise
+    //       <Text className="text-black" variant="text-xl" weight="bold">
+    //         Wallet
+    //       </Text>
+    //     </Text>
+    <>
         <div className="flex flex-col w-1/2">
           <div className="flex flex-col gap-3 mb-12">
             <Text variant="text-2xl" weight="bold">
@@ -159,16 +160,17 @@ const Signup = () => {
             </Text>
           </div>
         </div>
-      </div>
+      {/* </div> */}
+      </>
 
-      <div className="w-1/2 object-cover">
-        <img
-          className="w-full h-full object-cover"
-          src={require("../assets/loginside.png")}
-          alt="login"
-        />
-      </div>
-    </div>
+      // <div className="w-1/2 object-cover">
+      //   <img
+      //     className="w-full h-full object-cover"
+      //     src={require("../assets/loginside.png")}
+      //     alt="login"
+      //   />
+      // </div>
+    // </div>
   );
 };
 

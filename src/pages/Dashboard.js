@@ -2,7 +2,7 @@ import SideBar from "../components/common/SideBar";
 import Header from "../components/common/Header";
 import OverviewCard from '../components/Dashboard/OverviewCard'
 import DashboardList from "../components/Dashboard/DashboardList";
-import SectionLayout from "../components/Dashboard/SectionLayout";
+import SectionLayout from "../components/layout/SectionLayout";
 import { TransactionContext } from "../context/transactionContext";
 import { WalletContext } from "../context/walletContext";
 import { BillContext } from "../context/billContext";
