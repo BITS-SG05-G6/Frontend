@@ -14,7 +14,7 @@ const Transaction = () => {
   setPage('transaction');
   const { id } = useParams();
   const [transaction, setTransaction] = useState(null);
-
+// console.log(transactions);
   function handleDateChange(date) {
     setSelectedDate(date);
   }

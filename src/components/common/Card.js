@@ -35,13 +35,8 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, cu
       transition: 'transform 0.5s'
     }}
   >
-    {/* {add === "category" ? (
-      <CategoryForm categoryType={type} />
-    ) : add === "wallet" ? (
-      <WalletForm/>
-    ) : ( */}
       <>
-        <Text variant="text-lg" weight="semibold" className="text-center">
+        <Text key={id} variant="text-lg" weight="semibold" className="text-center">
           {name}
         </Text>
         <div

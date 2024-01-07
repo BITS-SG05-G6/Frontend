@@ -1,9 +1,11 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import * as axiosInstance from "../services/transactions";
+import { AuthContext } from "./authContext";
 
 export const TransactionContext = createContext(null);
 
 const TransactionProvider = ({ children }) => {
+  const { userInfo } = useContext(AuthContext)
 
   const [updateTransaction, setUpdateTransaction] = useState(false);
 
@@ -39,7 +41,7 @@ const TransactionProvider = ({ children }) => {
     }
 
     fetchData();
-  }, [selectedDate, updateTransaction, page])
+  }, [selectedDate, updateTransaction, page, userInfo])
 
   const transactionList = {
     handleUpdateTransaction,
