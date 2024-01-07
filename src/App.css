@@ -157,12 +157,12 @@
   background: #a9d4ff;
 }
 .react-calendar__tile--active {
-  background: #EF5DA8;
+  background: #F472B6;
   color: white;
 }
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #EF5DA8;
+  background: #F472B6;
 }
 
 input[type="color"]::-webkit-color-swatch {
