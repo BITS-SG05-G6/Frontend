@@ -54,8 +54,9 @@ const Login = () => {
         navigate("/transaction");
       })
       .catch((err) => {
-        console.log(err);
-        setLoginError("Wrong password or username, please try again!");
+        console.log(err.response.data.error);
+        
+        setLoginError(err.response.data.error.message);
         setIsErrorVisible(true);
 
         // Hide the error after 3 seconds
