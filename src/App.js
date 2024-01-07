@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Category from "./pages/Category";
 import Wallet from "./pages/Wallet";
 import StatisticPage from './pages/Statistic';
+import CategoryDetailPage from "./pages/CategoryDetailPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/login" element={<Login />}></Route>
       <Route path="/wallets" element={<Wallet />}></Route>
       <Route path="/statistics" element={<StatisticPage/>}></Route>
+      <Route path="/statistics/category" element={<CategoryDetailPage/>}></Route>
 
       {/* <Route path="/login" element={<Login />}></Route> */}
       <Route path="/signup" element={<Signup />}></Route>

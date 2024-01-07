@@ -7,15 +7,13 @@ import Text from "../components/common/Text";
 import Header from "../components/common/Header";
 import PieChart from "../components/Statistics/PieChart";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+
 import LineChart from "../components/Statistics/LineChart";
 import BarChart from "../components/Statistics/BarChart";
 import StatisticCard from "../components/Statistics/StatisticCard";
 
 const StatisticPage = () => {
-  const token = Cookies.get("token");
-  const decodedToken = jwtDecode(token);
-  const userId = decodedToken.id;
+
   const type = ["This Week", "Last Month", "Total"];
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
   //Chart  - Trend Statistic Chart
@@ -70,11 +68,11 @@ const StatisticPage = () => {
       try {
         let response = [];
         if (selectedType === "This Week") {
-          response = await axiosInstance.statisticExpensesWeekly(userId);
+          response = await axiosInstance.statisticExpensesWeekly();
         } else if (selectedType === "This Month") {
-          response = await axiosInstance.statisticExpensesMonthly(userId);
+          response = await axiosInstance.statisticExpensesMonthly();
         } else if (selectedType === "Last Month") {
-          response = await axiosInstance.statisticExpensesLastMonth(userId);
+          response = await axiosInstance.statisticExpensesLastMonth();
         }
         setExpenseData(response || []);
       } catch (error) {
@@ -82,7 +80,7 @@ const StatisticPage = () => {
       }
     };
     fetchData();
-  }, [selectedType, userId]);
+  }, [selectedType]);
   const categories = Object.keys(expenseData).sort();
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);
@@ -94,11 +92,11 @@ const StatisticPage = () => {
       try {
         let response = [];
         if (selectedTypeChart2 === "This Week") {
-          response = await axiosInstance.ExpensesDistributionLastWeek(userId);
+          response = await axiosInstance.ExpensesDistributionLastWeek();
         } else if (selectedTypeChart2 === "Last Month") {
-          response = await axiosInstance.ExpensesDistributionLastMonth(userId);
+          response = await axiosInstance.ExpensesDistributionLastMonth();
         } else if (selectedTypeChart2 === "Total") {
-          response = await axiosInstance.ExpensesDistribution(userId);
+          response = await axiosInstance.ExpensesDistribution();
         }
 
         setDistributionData(response || []);
@@ -107,7 +105,7 @@ const StatisticPage = () => {
       }
     };
     fetchData();
-  }, [selectedTypeChart2, userId]);
+  }, [selectedTypeChart2]);
   const distributionVal = Object.values(distributionData);
   const distributionKey = Object.keys(distributionData);
 
@@ -118,11 +116,11 @@ const StatisticPage = () => {
       try {
         let response = [];
         if (selectedTypeChart3 === "This Week") {
-          response = await axiosInstance.categoryIncomeLastWeek(userId);
+          response = await axiosInstance.categoryIncomeLastWeek();
         } else if (selectedTypeChart3 === "Last Month") {
-          response = await axiosInstance.categoryIncomeLastMonth(userId);
+          response = await axiosInstance.categoryIncomeLastMonth();
         } else if (selectedTypeChart3 === "Total") {
-          response = await axiosInstance.categoryIncomeTotal(userId);
+          response = await axiosInstance.categoryIncomeTotal();
         }
         setInCatData(response.incomeByCategory || []);
       } catch (error) {
@@ -130,7 +128,7 @@ const StatisticPage = () => {
       }
     };
     fetchData();
-  }, [selectedTypeChart3, userId]);
+  }, [selectedTypeChart3]);
   const IncomeAmount = inCatData.map((category) => category.totalIncome);
   const CategoryIncome = inCatData.map((category) => category.categoryName);
 
@@ -141,13 +139,13 @@ const StatisticPage = () => {
       try {
         let response = [];
         if (selectedTypeChart4 === "Total") {
-          response = await axiosInstance.categoryExenseTotal(userId);
+          response = await axiosInstance.categoryExenseTotal();
           console.log(response);
         } else if (selectedTypeChart4 === "This Week") {
-          response = await axiosInstance.categoryExenseLastWeek(userId);
+          response = await axiosInstance.categoryExenseLastWeek();
           console.log(response);
         } else if (selectedTypeChart4 === "Last Month") {
-          response = await axiosInstance.categoryExenseLastMonth(userId);
+          response = await axiosInstance.categoryExenseLastMonth();
         }
         setExCatData(response.expensesByCategory || []);
       } catch (error) {
@@ -155,7 +153,7 @@ const StatisticPage = () => {
       }
     };
     fetchData();
-  }, [selectedTypeChart4, userId]);
+  }, [selectedTypeChart4]);
   const ExpenseAmount = exCatData.map((category) => category.totalExpense);
   const Category = exCatData.map((category) => category.categoryName);
 
@@ -166,11 +164,11 @@ const StatisticPage = () => {
       try {
         let response = [];
         if (selectedTypeChart5 === "This Week") {
-          response = await axiosInstance.compareExpenseIncomeByWeek(userId);
+          response = await axiosInstance.compareExpenseIncomeByWeek();
         } else if (selectedTypeChart5 === "Last Month") {
-          response = await axiosInstance.compareExpenseIncomeByMonth(userId);
+          response = await axiosInstance.compareExpenseIncomeByMonth();
         } else if (selectedTypeChart5 === "Total") {
-          response = await axiosInstance.compareExpenseIncomeTotal(userId);
+          response = await axiosInstance.compareExpenseIncomeTotal();
         }
         setInExData(response || []);
       } catch (error) {
@@ -178,7 +176,7 @@ const StatisticPage = () => {
       }
     };
     fetchData();
-  }, [selectedTypeChart5, userId]);
+  }, [selectedTypeChart5]);
   const InExVal = Object.values(InExData);
   const InExKey = Object.keys(InExData);
 
@@ -189,11 +187,11 @@ const StatisticPage = () => {
       try {
         let response = [];
         if (selectedTypeChart6 === "This Week") {
-          response = await axiosInstance.walletExenseWeek(userId);
+          response = await axiosInstance.walletExenseWeek();
         } else if (selectedTypeChart6 === "Last Month") {
-          response = await axiosInstance.walletExenseMonth(userId);
+          response = await axiosInstance.walletExenseMonth();
         } else if (selectedTypeChart6 === "Total") {
-          response = await axiosInstance.walletExenseTotal(userId);
+          response = await axiosInstance.walletExenseTotal();
         }
         setWalletData(response.expenseByWallet || []);
       } catch (error) {
@@ -201,7 +199,7 @@ const StatisticPage = () => {
       }
     };
     fetchData();
-  }, [selectedTypeChart6, userId]);
+  }, [selectedTypeChart6]);
 
   const walletAmount = walletData.map((category) => category.totalExpense);
   const categoryWallet = walletData.map((category) => category.walletName);
