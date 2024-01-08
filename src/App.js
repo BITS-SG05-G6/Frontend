@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Category from "./pages/Category";
 import Wallet from "./pages/Wallet";
+import Dashboard from "./pages/Dashboard";
 import StatisticPage from './pages/Statistic';
 import CategoryDetailPage from "./pages/CategoryDetailPage";
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/invoices" element={<Bills />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/wallets" element={<Wallet />}></Route>
+      <Route path="/dashboard" element={<Dashboard/>}></Route>
       <Route path="/statistics" element={<StatisticPage/>}></Route>
       <Route path="/statistics/category" element={<CategoryDetailPage/>}></Route>
 

@@ -10,7 +10,8 @@ import { TransactionContext } from "../context/transactionContext";
 import * as axiosInstance from "../services/transactions";
 
 const Transaction = () => {
-  const { selectedDate, setSelectedDate, transactions } = useContext(TransactionContext);
+  const { setPage, selectedDate, setSelectedDate, transactions } = useContext(TransactionContext);
+  setPage('transaction');
   const { id } = useParams();
   const [transaction, setTransaction] = useState(null);
 

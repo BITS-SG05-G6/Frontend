@@ -21,8 +21,8 @@ const DetailChartCategory = ({categoryID, currency}) => {
         let response = [];
         if (selectedType === "This Week") {
           response = await axiosInstance.getCategoryStatisticsWeek(
-            categoryID,
-            currency
+            currency,
+            categoryID
           );
         }
         // else if (selectedType === "This Month") {

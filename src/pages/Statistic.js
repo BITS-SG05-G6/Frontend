@@ -19,15 +19,15 @@ const StatisticPage = () => {
   //Chart  - Trend Statistic Chart
   const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
   //Chart  - Distribution chart
-  const [selectedTypeChart2, setSelectedTypeChart2] = useState(type[0]);
+  const [selectedTypeChart2, setSelectedTypeChart2] = useState(type[2]);
   //Chart  - Category Income
-  const [selectedTypeChart3, setSelectedTypeChart3] = useState(type[0]);
+  const [selectedTypeChart3, setSelectedTypeChart3] = useState(type[2]);
   //Chart  - Category Expense
-  const [selectedTypeChart4, setSelectedTypeChart4] = useState(type[0]);
+  const [selectedTypeChart4, setSelectedTypeChart4] = useState(type[2]);
   //Chart  - Income/Expense Ratio Chart
-  const [selectedTypeChart5, setSelectedTypeChart5] = useState(type[0]);
+  const [selectedTypeChart5, setSelectedTypeChart5] = useState(type[2]);
   //Chart  - Wallet Expense
-  const [selectedTypeChart6, setSelectedTypeChart6] = useState(type[0]);
+  const [selectedTypeChart6, setSelectedTypeChart6] = useState(type[2]);
 
   //Handle change data of chart
   //Chart  - Trend Statistic Chart
