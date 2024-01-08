@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/common/Button";
-import FormInput from "../components/common/FormInput";
-import Text from "../components/common/Text";
-import * as axiosInstance from "../services/auth";
+import Button from "../../components/common/Button";
+import FormInput from "../../components/common/FormInput";
+import Text from "../../components/common/Text";
+import * as axiosInstance from "../../services/auth";
 
 const Signup = () => {
   const {

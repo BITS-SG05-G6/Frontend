@@ -1,18 +1,18 @@
 // Import public pages
-import LandingPage from "../pages/LandingPage";
+import LandingPage from "../pages/public/LandingPage";
 
 // Import private pages
-import Dashboard from "../pages/Dashboard";
-import Transaction from "../pages/Transaction";
-import Category from "../pages/Category";
-import Bills from "../pages/Bills";
-import Saving from "../pages/Saving";
-import Wallet from "../pages/Wallet";
-import StatisticPage from "../pages/Statistic";
+import Dashboard from "../pages/private/Dashboard";
+import Transaction from "../pages/private/Transaction";
+import Category from "../pages/private/Category";
+import Bills from "../pages/private/Bills";
+import Saving from "../pages/private/Saving";
+import Wallet from "../pages/private/Wallet";
+import StatisticPage from "../pages/private/Statistic";
 
 // Import Authorization pages
-import Login from '../pages/Login';
-import Signup from "../pages/Signup";
+import Login from '../pages/public/Login';
+import Signup from "../pages/public/Signup";
 
 // Import Layout
 import PublicPageLayout from "../components/layout/PublicPageLayout";
@@ -42,37 +42,44 @@ export const privateRoutes = [
     {
         path: "/transaction",
         component: Transaction,
-        layout: PrivatePageLayout
+        layout: PrivatePageLayout,
+        header: 'My Transactions'
     },
     {
         path: "/category",
         component: Category,
-        layout: PrivatePageLayout
+        layout: PrivatePageLayout,
+        header: 'My Categories'
     },
     {
         path: "/invoices",
         component: Bills,
-        layout: PrivatePageLayout
+        layout: PrivatePageLayout,
+        header: 'My Invoices'
     },
     {
         path: "/planning",
         component: Saving,
-        layout: PrivatePageLayout
+        layout: PrivatePageLayout,
+        header: 'My Planning'
     },
     {
         path: "/dashboard",
         component: Dashboard,
-        layout: PrivatePageLayout
+        layout: PrivatePageLayout,
+        header: 'My Dashboard'
     },
     {
         path: "/wallets",
         component: Wallet,
-        layout: PrivatePageLayout
+        layout: PrivatePageLayout,
+        header: 'My Wallets'
     },
     {
         path: "/statistics",
         component: StatisticPage,
-        layout: PrivatePageLayout
+        layout: PrivatePageLayout,
+        header: 'My Statistics'
     }
 ]
 

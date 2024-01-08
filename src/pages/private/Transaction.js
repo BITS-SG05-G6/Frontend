@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import TransactionCalendar from "../components/Transaction/TransactionCalendar";
-import TransactionDetails from "../components/Transaction/TransactionDetails";
-import TransactionForm from "../components/Transaction/TransactionForm";
-import TransactionList from "../components/Transaction/TransactionList";
-import { TransactionContext } from "../context/transactionContext";
-import * as axiosInstance from "../services/transactions";
+import TransactionCalendar from "../../components/Transaction/TransactionCalendar";
+import TransactionDetails from "../../components/Transaction/TransactionDetails";
+import TransactionForm from "../../components/Transaction/TransactionForm";
+import TransactionList from "../../components/Transaction/TransactionList";
+import { TransactionContext } from "../../context/transactionContext";
+import * as axiosInstance from "../../services/transactions";
 
 const Transaction = () => {
   const { setPage, selectedDate, setSelectedDate, transactions } = useContext(TransactionContext);

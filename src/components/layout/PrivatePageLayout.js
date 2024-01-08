@@ -1,12 +1,12 @@
 import Header from '../common/Header';
 import SideBar from '../common/SideBar'
 
-function PageLayout({header, children}) {
+function PrivatePageLayout({header, children, username}) {
     return (
         <div>
             <SideBar />
             <div className="pl-64 flex flex-col gap-5">
-                <Header title={header} username="Tom Vo" />
+                <Header title={header} username={username} />
                 {children}
             </div>
         </div>
@@ -14,4 +14,4 @@ function PageLayout({header, children}) {
 
 }
 
-export default PageLayout;
+export default PrivatePageLayout;

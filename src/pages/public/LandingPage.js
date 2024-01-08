@@ -1,24 +1,24 @@
 import React from "react";
-import Bill from "../components/svgs/Bill";
-import Document from "../components/svgs/Document";
-import Financial from "../components/svgs/Financial";
-import IDCard from "../components/svgs/IDCard";
-import Multiple from "../components/svgs/Multiple";
-import Receipt from "../components/svgs/Receipt";
-import Graph from "../components/svgs/Graph";
-import NavBar from "../components/common/NavBar";
-import Text from "../components/common/Text";
-import Button from "../components/common/Button";
-import Box from "../components/common/Box";
-import Caroursel from "../components/common/Carousel";
-import Footer from "../components/common/Footer";
+import Bill from "../../components/svgs/Bill";
+import Document from "../../components/svgs/Document";
+import Financial from "../../components/svgs/Financial";
+import IDCard from "../../components/svgs/IDCard";
+import Multiple from "../../components/svgs/Multiple";
+import Receipt from "../../components/svgs/Receipt";
+import Graph from "../../components/svgs/Graph";
+import NavBar from "../../components/common/NavBar";
+import Text from "../../components/common/Text";
+import Button from "../../components/common/Button";
+import Box from "../../components/common/Box";
+import Caroursel from "../../components/common/Carousel";
+import Footer from "../../components/common/Footer";
 
 export default function LandingPage() {
   return (
     <>
       <div className="flex flex-col justify-center items-center gap-10">
         <div className="flex">
-          <img src={require("../assets/dashboard.png")} alt="dashboard"></img>
+          <img src={require("../../assets/dashboard.png")} alt="dashboard"></img>
         </div>
         <div className="flex flex-col justify-center items-center">
 
@@ -79,7 +79,7 @@ export default function LandingPage() {
           </div>
 
           <div className="flex-1">
-            <img src={require("../assets/balance.png")} alt="pic1"></img>
+            <img src={require("../../assets/balance.png")} alt="pic1"></img>
           </div>
         </Box>
 
@@ -88,7 +88,7 @@ export default function LandingPage() {
           color="purple"
         >
           <div className="flex-1 flex justify-center bottom-[-10px]">
-            <img src={require("../assets/phone.png")} alt="pic2"></img>
+            <img src={require("../../assets/phone.png")} alt="pic2"></img>
           </div>
           <div className="flex flex-col flex-1 gap-8 py-16 justify-center">
             <Graph color="#A6A5E1" bg="#D3D6F1" />
@@ -122,7 +122,7 @@ export default function LandingPage() {
           color="pink"
         >
           <div className="flex-1">
-            <img src={require("../assets/invoice.png")} alt="pic3"></img>
+            <img src={require("../../assets/invoice.png")} alt="pic3"></img>
           </div>
           <div className="flex flex-col flex-1 gap-8 py-16 justify-center">
             <Bill color="#EF5DA8" bg="#F178B6" />

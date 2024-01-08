@@ -2,16 +2,16 @@
 import React, { Fragment, useContext } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import { LandingPage } from "./pages/LandingPage";
-import Transaction from "./pages/Transaction";
-import Bills from "./pages/Bills";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Category from "./pages/Category";
-import Wallet from "./pages/Wallet";
-import Dashboard from "./pages/Dashboard";
-import Saving from './pages/Saving';
-import StatisticPage from './pages/Statistic';
+import { LandingPage } from "./pages/public/LandingPage";
+import Transaction from "./pages/private/Transaction";
+import Bills from "./pages/private/Bills";
+import Login from "./pages/public/Login";
+import Signup from "./pages/public/Signup";
+import Category from "./pages/private/Category";
+import Wallet from "./pages/private/Wallet";
+import Dashboard from "./pages/private/Dashboard";
+import Saving from './pages/private/Saving';
+import StatisticPage from './pages/private/Statistic';
 
 import { publicRoutes, privateRoutes } from "./routes/routes";
 import { AuthContext } from "./context/authContext";
@@ -53,7 +53,7 @@ function App() {
                 path={route.path}
                 element={
                   userInfo ? 
-                  <Layout>
+                  <Layout header={route.header} username={userInfo.username}>
                     <Page />
                   </Layout> : 
                   <Navigate to="/login" replace />
