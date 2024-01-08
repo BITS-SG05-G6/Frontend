@@ -51,7 +51,7 @@ const Login = () => {
         console.log(res);
         Cookies.set("token", res.token);
         fetchData();
-        navigate("/transaction");
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.log(err.response.data.error);
