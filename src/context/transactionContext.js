@@ -1,9 +1,11 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import * as axiosInstance from "../services/transactions";
+import { AuthContext } from "./authContext";
 
 export const TransactionContext = createContext(null);
 
 const TransactionProvider = ({ children }) => {
+  const { userInfo } = useContext(AuthContext)
 
   const [updateTransaction, setUpdateTransaction] = useState(false);
 
@@ -11,7 +13,7 @@ const TransactionProvider = ({ children }) => {
     setUpdateTransaction(updateTransaction === true ? false : true);
   };
 
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   // Page useState for rendering transaction list
   const [page, setPage] = useState('transaction');
   const [transactions, setTransactions] = useState(null);
@@ -39,7 +41,7 @@ const TransactionProvider = ({ children }) => {
     }
 
     fetchData();
-  }, [selectedDate, updateTransaction, page])
+  }, [selectedDate, updateTransaction, page, userInfo])
 
   const transactionList = {
     handleUpdateTransaction,
