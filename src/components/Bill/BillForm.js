@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -11,6 +11,9 @@ import Toggle from "../common/Toggle";
 import { BillContext } from "../../context/billContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
+import { format } from "date-fns";
+import { AuthContext } from "../../context/authContext";
+
 const BillForm = () => {
   const {
     control,
@@ -18,14 +21,19 @@ const BillForm = () => {
     reset,
     watch,
     formState: { errors },
+    setValue,
   } = useForm({
     mode: "onChange",
     defaultValues: {
       reminder: false,
     },
   });
-
+  const { userInfo } = useContext(AuthContext);
   const reminder = watch("reminder");
+  const selectedAmount = watch("amount");
+  const selectedCurrency = watch("currency");
+  const selectedDate = watch("date");
+  const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
   const { handleUpdateBill } = useContext(BillContext);
 
   const onSubmit = async (d) => {
@@ -37,7 +45,8 @@ const BillForm = () => {
         d.reminder,
         d.date,
         d.frequency,
-        d.description
+        d.description,
+        d.exchangeAmount
       )
       .then((res) => {
         reset();
@@ -49,6 +58,48 @@ const BillForm = () => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    async function fetchExchange() {
+      const historicalDate = selectedDate
+      ? format(new Date(selectedDate), "yyyy-MM-dd")
+      : format(new Date(), "yyyy-MM-dd");      
+      const base_currency_code =
+        selectedCurrency !== userInfo.baseCurrency
+          ? userInfo.baseCurrency
+          : otherCurrency;
+      const exchangeCurrency =
+        selectedCurrency !== userInfo.baseCurrency
+          ? otherCurrency
+          : userInfo.baseCurrency;
+      const key = "6cbb753baefa5ca0583ef5b5b602866c03de9354";
+      const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${historicalDate}?api_key=${key}&from=${exchangeCurrency}&to=${base_currency_code}&amount=${selectedAmount}&format=json`;
+
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      // console.log(data);
+      if (data.status === "failed") {
+        console.log(data);
+      } else {
+        let exchangeAmount;
+        if (base_currency_code === "VND") {
+          exchangeAmount = Math.floor(data.rates.VND.rate_for_amount);
+        } else {
+          exchangeAmount = data.rates.USD.rate_for_amount;
+        }
+
+        setValue("exchangeAmount", exchangeAmount);
+      }
+    }
+    fetchExchange();
+  }, [
+    selectedAmount,
+    setValue,
+    otherCurrency,
+    userInfo.baseCurrency,
+    selectedCurrency,
+    selectedDate
+  ]);
 
   return (
     <>
@@ -98,29 +149,23 @@ const BillForm = () => {
               />
 
               <Controller
-                name="amount"
+                name="date"
                 control={control}
-                defaultValue=""
-                rules={{
-                  required: "Amount is required!",
-                  pattern: {
-                    value: /^([^.0-]\d+|\d)$/,
-                    message: "It must be a positive number",
-                  },
-                }}
+                defaultValue={new Date().toISOString().substr(0, 10)}
+                rules={{ required: "Date is required!" }}
                 render={({ field }) => (
                   <div>
                     <FormInput
-                      type="number"
-                      label="Amount"
-                      name="amount"
+                      type="date"
+                      label="Start date"
+                      name="date"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
                     />
-                    {errors.amount && (
+                    {errors.date && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.amount.message}
+                        {errors.date.message}
                       </Text>
                     )}
                   </div>
@@ -156,6 +201,69 @@ const BillForm = () => {
               />
 
               <Controller
+                name="amount"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Amount is required!",
+                  pattern: {
+                    value: /^([^.0-]\d+|\d)$/,
+                    message: "It must be a positive number",
+                  },
+                }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="number"
+                      label="Amount"
+                      name="amount"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
+                    {errors.amount && (
+                      <Text className="text-red-500 px-32 mt-3">
+                        {errors.amount.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
+
+              {selectedCurrency && selectedCurrency !== userInfo.baseCurrency ? (
+                <Controller
+                  name="exchangeAmount"
+                  control={control}
+                  rules={{
+                    required: "Currency is required!",
+                  }}
+                  render={({ field }) => (
+                    <div>
+                      <FormInput
+                        label="Exchange"
+                        name="exchangeAmount"
+                        type="number"
+                        // value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        placeholder={
+                          new Intl.NumberFormat("vi-VN").format(field.value) +
+                          " VND"
+                        }
+                        // placeholder={field.value}
+                        disabled
+                        labelType="side"
+                      />
+                      {errors.exchangeAmount && (
+                        <Text className="text-red-500 px-36 mt-3">
+                          {errors.exchangeAmount.message}
+                        </Text>
+                      )}
+                    </div>
+                  )}
+                />
+              ) : null}
+
+              <Controller
                 name="reminder"
                 control={control}
                 // defaultValue={false}
@@ -181,30 +289,6 @@ const BillForm = () => {
 
               {reminder ? (
                 <>
-                  <Controller
-                    name="date"
-                    control={control}
-                    defaultValue={new Date().toISOString().substr(0, 10)}
-                    rules={{ required: "Date is required!" }}
-                    render={({ field }) => (
-                      <div>
-                        <FormInput
-                          type="date"
-                          label="Start date"
-                          name="date"
-                          value={field.value}
-                          onChange={(e) => field.onChange(e.target.value)}
-                          labelType="side"
-                        />
-                        {errors.date && (
-                          <Text className="text-red-500 px-32 mt-3">
-                            {errors.date.message}
-                          </Text>
-                        )}
-                      </div>
-                    )}
-                  />
-
                   <Controller
                     name="frequency"
                     control={control}

@@ -83,23 +83,26 @@ const TransactionForm = ({
   };
 
   const baseCurrency = "VND";
-  const otherCurrency = baseCurrency === "VND" ? "USD" : "VND";
+  const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
 
   async function fetchExchange(value) {
     const historicalDate = selectedDate
       ? format(new Date(selectedDate), "yyyy-MM-dd")
       : format(new Date(), "yyyy-MM-dd");
     const base_currency_code =
-      selectedCurrency !== baseCurrency ? baseCurrency : otherCurrency;
+      selectedCurrency !== userInfo.baseCurrency ? userInfo.baseCurrency : otherCurrency;
     const exchangeCurrency =
-      selectedCurrency !== baseCurrency ? otherCurrency : baseCurrency;
-    const key = "50850783a6e088d72dbdb69c3805a415ddd351cf";
+      selectedCurrency !== userInfo.baseCurrency ? otherCurrency : userInfo.baseCurrency;
+    const key = "6cbb753baefa5ca0583ef5b5b602866c03de9354";
     const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${historicalDate}?api_key=${key}&from=${exchangeCurrency}&to=${base_currency_code}&amount=${value}&format=json`;
 
     const response = await fetch(apiUrl);
     const data = await response.json();
-
-    let exchangeAmount;
+    // console.log(data);
+    if (data.status === "failed") {
+      console.log(data);
+    } else {
+      let exchangeAmount;
     if (base_currency_code === "VND") {
       exchangeAmount = Math.floor(data.rates.VND.rate_for_amount);
     } else {
@@ -108,6 +111,8 @@ const TransactionForm = ({
 
     setValue("exchangeAmount", exchangeAmount);
     return exchangeAmount;
+    }
+    
   }
   useEffect(() => {
     fetchExchange(selectedAmount);
@@ -140,14 +145,17 @@ const TransactionForm = ({
   };
 
   const validateAmount = async (value) => {
+    // console.log(value);
     const exchangeValue = await fetchExchange(value);
-    const walletValue = wallets.find((wallet) => wallet.id === selectedWallet);
+    const walletValue = wallet ? wallet : wallets.find((wallet) => wallet.id === selectedWallet);
     if (walletValue && selectedType === "Expense") {
       if (selectedCurrency === userInfo.baseCurrency) {
         return value > walletValue.amount ? "Your wallet is not enough" : true;
       } else {
         return exchangeValue > walletValue.amount
-          ? "Your wallet is not enough"
+          ? 
+          `Your wallet is not enough.`
+        // `Your wallet has ${walletValue.amount} ${userInfo.baseCurrency}`
           : true;
       }
     }
@@ -420,6 +428,9 @@ const TransactionForm = ({
                       <Text className="text-red-500 pl-36 mt-3">
                         {errors.amount.message}
                       </Text>
+                      // <div className="pl-36">
+                      //   {errors.amount.message}
+                      // </div>
                     )}
                   </div>
                 )}
