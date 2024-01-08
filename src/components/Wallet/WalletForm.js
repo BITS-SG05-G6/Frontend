@@ -9,7 +9,7 @@ import IconPicker from "../common/IconPicker";
 import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
 import Select from "../common/Select";
-import { currencyList } from "../svgs/OptionList";
+
 const WalletForm = ({ children }) => {
   const {
     control,
@@ -22,7 +22,7 @@ const WalletForm = ({ children }) => {
 
   const onSubmit = async (d) => {
     await axiosInstance
-      .createWallet(d.name, d.amount, d.color, d.icon, d.description, d.currency)
+      .createWallet(d.name, d.amount, d.color, d.icon, d.description)
       .then((res) => {
         document
         .getElementById("my_modal_3")
@@ -85,31 +85,7 @@ const WalletForm = ({ children }) => {
                 )}
               />
 
-              <Controller
-                name="currency"
-                control={control}
-                rules={{
-                  required: "Currency is required!",
-                }}
-                render={({ field }) => (
-                  <div>
-                    <Select
-                          label="Currency"
-                          name="currency"
-                          value={field.value}
-                          onChange={(e) => field.onChange(e.target.value)}
-                          options={currencyList}
-                          placeholder="Please choose a currency"
-                          none={false}
-                        />
-                    {errors.currency && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.currency.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              />
+        
 
               <Controller
                 name="amount"
