@@ -16,7 +16,7 @@ function Bills() {
         <div className="flex justify-end px-6">
             <BillForm/>
           </div>
-        <div className="px-10 grid grid-cols-4 gap-6">
+        <div className="px-10 grid grid-cols-2 gap-6">
           
           {bills.map((bill) => (
             <BillCard
