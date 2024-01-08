@@ -21,9 +21,7 @@ root.render(
           <WalletProvider>
             <BillProvider>
               <SavingProvider>
-                <Router>
                   <App />
-                </Router>
               </SavingProvider>
             </BillProvider>
           </WalletProvider>

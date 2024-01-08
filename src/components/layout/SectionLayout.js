@@ -2,6 +2,7 @@ import Text from "../common/Text";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
+// Section layout for Dashboard content
 function SectionLayout({ title, children, className, viewList, href }) {
 
     return (
