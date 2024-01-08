@@ -5,9 +5,9 @@ import LineChart from "./LineChart";
 import Text from "../common/Text";
 import Select from "../common/Select";
 
-const DetailChartCategory = ({categoryId}) => {
+const DetailChartWallet = ({walletID}) => {
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
-  console.log(categoryId);
+  console.log(walletID);
   const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
 
   //Line chart data
@@ -20,15 +20,15 @@ const DetailChartCategory = ({categoryId}) => {
       try {
         let response = [];
         if (selectedType === "This Week") {
-          response = await axiosInstance.getCategoryStatisticsWeek(
-            categoryId
+          response = await axiosInstance.getWalletStatisticsWeek(
+            walletID
           );
         }
         else if (selectedType === "This Month") {
-          response = await axiosInstance.getCategoryStatisticsThisMonth(categoryId);
-          console.log("category detail", response);
+          response = await axiosInstance.getWalletStatisticsThisMonth(walletID);
+          console.log(response);
         } else if (selectedType === "Last Month") {
-          response = await axiosInstance.getCategoryStatisticsLastMonth(categoryId);
+          response = await axiosInstance.getWalletStatisticsLastMonth(walletID);
         }
         setExpenseData(response || []);
       } catch (error) {
@@ -38,13 +38,13 @@ const DetailChartCategory = ({categoryId}) => {
     fetchData();
   }, [selectedType]);
   const categories = Object.keys(expenseData).sort();
-  const expenses = categories.map((date) => expenseData[date].expense || 0);
-  const incomes = categories.map((date) => expenseData[date].income || 0);
+  const expenses = categories.map((date) => expenseData[date].Expense || 0);
+  const incomes = categories.map((date) => expenseData[date].Income || 0);
   return (
     <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
       <div className="flex flex-row justify-between w-full">
         <div className="flex items-center ml-4">
-          <Text children="Category Detail" weight="bold" />
+          <Text children="Wallet Detail" weight="bold" />
         </div>
         <div className="flex items-center mr-10 mt-5">
           <Select
@@ -66,4 +66,4 @@ const DetailChartCategory = ({categoryId}) => {
   );
 };
 
-export default DetailChartCategory;
+export default DetailChartWallet;
