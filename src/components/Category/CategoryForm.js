@@ -27,9 +27,15 @@ const CategoryForm = ({ categoryType }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
-    console.log(d.budget);
     await axiosInstance
-      .createCategory(d.name, d.type, d.color, d.icon, d.description, d.budget)
+      .createCategory(
+        d.name,
+        categoryType,
+        d.color,
+        d.icon,
+        d.description,
+        d.budget
+      )
       .then((res) => {
         console.log(res);
         reset();
@@ -50,13 +56,9 @@ const CategoryForm = ({ categoryType }) => {
         variant="card"
         className="h-80 w-full"
       >
-        {/* <Box  className="flex justify-center items-center gap-10 flex-col h-80 w-full p-0"
-    color="gray"> */}
         <Text variant="text-md" weight="bold">
           + Add New Category
         </Text>
-        {/* </Box> */}
-        
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
@@ -93,25 +95,26 @@ const CategoryForm = ({ categoryType }) => {
                 )}
               />
               {/* Budget field */}
-              <Controller
-                name="budget"
-                control={control}
-                defaultValue=""
-                // rules={{ required: "Budget is required!" }}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      type="text"
-                      label="Budget"
-                      name="budget"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      labelType="side"
-                    />
-
-                  </div>
-                )}
-              />
+              {categoryType === "Income" ? null : (
+                <Controller
+                  name="budget"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "Budget is required!" }}
+                  render={({ field }) => (
+                    <div>
+                      <FormInput
+                        type="text"
+                        label="Budget"
+                        name="budget"
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        labelType="side"
+                      />
+                    </div>
+                  )}
+                />
+              )}
               <Controller
                 name="type"
                 control={control}
@@ -190,7 +193,7 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-              
+
               <div className="flex justify-around">
                 <Button
                   size="xl"

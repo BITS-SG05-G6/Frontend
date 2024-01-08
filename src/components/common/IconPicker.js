@@ -6,8 +6,8 @@ import { cn } from "../../utils/cn";
 
 const IconPicker = ({ value, onChange }) => {
   return (
-    <div className="form-control w-full flex items-center flex-row gap-12 justify-around">
-      <Text variant="text-sm" weight="semibold" className="label-text w-">
+    <div className="form-control w-full flex items-center flex-row gap-12 justify-between">
+      <Text variant="text-sm" weight="semibold" className="label-text w-18">
         Icon
       </Text>
 

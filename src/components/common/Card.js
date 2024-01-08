@@ -52,6 +52,7 @@ const Card = ({
     ) : add === "wallet" ? (
       <WalletForm/>
     ) : ( */}
+<<<<<<< HEAD
           <>
             <Text variant="text-lg" weight="semibold">
               {name}
@@ -85,6 +86,34 @@ const Card = ({
                   wallet={{ id: id, name: name, currency: currency }}
                 />
               )}
+=======
+      <>
+        <Text variant="text-lg" weight="semibold" className="text-center">
+          {name}
+        </Text>
+        <div
+          className="p-4 rounded-xl"
+          style={{
+            backgroundColor: `${color}30`
+          }}
+        >
+          {IconList.map((i) =>
+            i.value === icon ? (
+              <FontAwesomeIcon icon={i.icon} size="2xl" color={color} />
+            ) : null
+          )}
+        </div>
+        <Text weight="bold">{amount} {currency}</Text>
+        <div className="flex justify-around w-full">
+          {
+            variety === "Category" ?
+            <TransactionForm buttonName="Add" variant="blueButton" category={{id: id, name: name, type: type}}/>
+            :
+            <TransactionForm buttonName="Add" variant="blueButton" wallet={{id: id, name: name, currency: currency}}/>
+          }
+   
+        
+>>>>>>> main
 
               {/* <Button
                 // size="xl"

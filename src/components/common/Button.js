@@ -30,6 +30,8 @@ const ButtonVariants = cva(
           "btn bg-gray-200",
         card: 
           "btn text-[#5D5FEF] hover:bg-[#F4F6FA] border-none shadow-none bg-[#F4F6FA]",
+        bill: 
+          "btn bg-transparent rounded-lg px-6 py-6 flex flex-col gap-4 w-72 border-solid border-2 border-gray-200 text-black"
       },
       size: {
         default: "h-10 py-2 px-4 text-sm",

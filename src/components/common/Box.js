@@ -14,6 +14,10 @@ const BoxVariants = cva(
       },
       color: {
         gray: "bg-[#F4F6FA]",
+        blue: "bg-[#EDFCFC]",
+        purple: "bg-[#EDEEFC]",
+        pink: "bg-[#FCDDEC]",
+        yellow: "bg-[#FFFBEB]"
       },
       noBorder: {
         true: 'border-transparent'

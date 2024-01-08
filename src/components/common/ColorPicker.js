@@ -9,8 +9,8 @@ function ColorPicker({
 
   return (
     <>
-      <label className="form-control w-full flex items-center flex-row gap-10 justify-around">
-        <Text variant="text-sm" weight="semibold" className="label-text w-">
+      <label className="form-control w-full flex items-center flex-row gap-10 justify-between">
+        <Text variant="text-sm" weight="semibold" className="label-text w-16">
           {label}
         </Text>
         <div className="w-full max-w-xs text-sm flex items-center gap-6">
