@@ -44,13 +44,12 @@ const Signup = () => {
       .signup(d.username, d.password)
       .then((res) => {
         console.log(res);
-        navigate('/login')
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err.response.data.error.message);
         setLoginError("Wrong password or username, please try again!");
       });
-
   };
 
   return (
@@ -69,107 +68,107 @@ const Signup = () => {
     //       </Text>
     //     </Text>
     <>
-        <div className="flex flex-col w-1/2">
-          <div className="flex flex-col gap-3 mb-12">
-            <Text variant="text-2xl" weight="bold">
-              Create new account
-            </Text>
-            <Text>Welcome! Please enter your details</Text>
-          </div>
-          {loginError && <div className="text-red-500">{loginError}</div>}
-
-          <form className="flex flex-col gap-6 max-w-sm">
-            <Controller
-              name="username"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "Username is required!",
-                minLength: {
-                  value: 2,
-                  message: "Username should be at least 2 characters long.",
-                },
-              }}
-              render={({ field }) => (
-                <div>
-                  <FormInput
-                    type="text"
-                    label="Username"
-                    name="username"
-                    size="small"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                  {errors.username && (
-                    <Text className="text-red-500 mt-3">
-                      {errors.username.message}
-                    </Text>
-                  )}
-                </div>
-              )}
-            />
-
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "Password is required!",
-                pattern: {
-                  value: /^(?=.*[A-Z]).{8,}$/,
-                  message:
-                    "At least one uppercase letter and be at least 8 characters long",
-                },
-              }}
-              render={({ field }) => (
-                <div>
-                  <FormInput
-                    type="password"
-                    label="Password"
-                    name="password"
-                    size="small"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                  {errors.password && (
-                    <Text className="text-red-500 mt-3">
-                      {errors.password.message}
-                    </Text>
-                  )}
-                </div>
-              )}
-            />
-            <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
-              Sign Up
-            </Button>
-            <div id="signUpDiv" className="object-cover"></div>
-          </form>
-
-          <div className="mt-6 text-center max-w-sm">
-            <Text variant="text-sm" className="text-gray-300">
-              Already have an account?
-            </Text>
-            <Text
-              variant="text-sm"
-              className="text-[#EF5DA8]"
-              noLink={false}
-              href="/login"
-            >
-              {" "}
-              Sign in
-            </Text>
-          </div>
+      <div className="flex flex-col w-1/2">
+        <div className="flex flex-col gap-3 mb-12">
+          <Text variant="text-2xl" weight="bold">
+            Create new account
+          </Text>
+          <Text>Welcome! Please enter your details</Text>
         </div>
-      {/* </div> */}
-      </>
+        {loginError && <div className="text-red-500">{loginError}</div>}
 
-      // <div className="w-1/2 object-cover">
-      //   <img
-      //     className="w-full h-full object-cover"
-      //     src={require("../assets/loginside.png")}
-      //     alt="login"
-      //   />
-      // </div>
+        <form className="flex flex-col gap-6 max-w-sm">
+          <Controller
+            name="username"
+            control={control}
+            defaultValue=""
+            rules={{
+              required: "Username is required!",
+              minLength: {
+                value: 2,
+                message: "Username should be at least 2 characters long.",
+              },
+            }}
+            render={({ field }) => (
+              <div>
+                <FormInput
+                  type="text"
+                  label="Username"
+                  name="username"
+                  size="small"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+                {errors.username && (
+                  <Text className="text-red-500 mt-3">
+                    {errors.username.message}
+                  </Text>
+                )}
+              </div>
+            )}
+          />
+
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            rules={{
+              required: "Password is required!",
+              pattern: {
+                value: /^(?=.*[A-Z]).{8,}$/,
+                message:
+                  "At least one uppercase letter and be at least 8 characters long",
+              },
+            }}
+            render={({ field }) => (
+              <div>
+                <FormInput
+                  type="password"
+                  label="Password"
+                  name="password"
+                  size="small"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+                {errors.password && (
+                  <Text className="text-red-500 mt-3">
+                    {errors.password.message}
+                  </Text>
+                )}
+              </div>
+            )}
+          />
+          <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
+            Sign Up
+          </Button>
+          <div id="signUpDiv" className="object-cover"></div>
+        </form>
+
+        <div className="mt-6 text-center max-w-sm">
+          <Text variant="text-sm" className="text-gray-300">
+            Already have an account?
+          </Text>
+          <Text
+            variant="text-sm"
+            className="text-[#EF5DA8]"
+            noLink={false}
+            href="/login"
+          >
+            {" "}
+            Sign in
+          </Text>
+        </div>
+      </div>
+      {/* </div> */}
+    </>
+
+    // <div className="w-1/2 object-cover">
+    //   <img
+    //     className="w-full h-full object-cover"
+    //     src={require("../assets/loginside.png")}
+    //     alt="login"
+    //   />
+    // </div>
     // </div>
   );
 };
