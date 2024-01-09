@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({
     id: "",
     name: "",
+    baseCurrency: ""
   });
 
   async function fetchData() {

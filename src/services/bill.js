@@ -1,7 +1,7 @@
 import axiosInstance from './axios';
 
-export const createBill = async(title, amount, currency, reminder, startDate, frequency, description) => {
-  const res = await axiosInstance.post("bill/", {title, amount, currency, reminder, startDate, frequency, description})
+export const createBill = async(title, amount, currency, reminder, startDate, frequency, description, exchangeAmount) => {
+  const res = await axiosInstance.post("bill/", {title, amount, currency, reminder, startDate, frequency, description, exchangeAmount})
 
   try {
     if (res.status === 200) {

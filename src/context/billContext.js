@@ -6,7 +6,6 @@ export const BillContext = createContext(null);
 
 const BillProvider = ({ children }) => {
   const { userInfo } = useContext(AuthContext)
-  // console.log(userInfo);
 
   const [newBill, setNewBill] = useState(false);
 
@@ -24,11 +23,11 @@ const BillProvider = ({ children }) => {
           setBills(res);
         })
         .catch((err) => {
-          console.log(err);
+          setBills(null);
         })
         
       } catch (err) {
-        
+        setBills(null);
       }
     }
 

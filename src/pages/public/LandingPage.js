@@ -1,28 +1,27 @@
 import React from "react";
-import Bill from "../components/svgs/Bill";
-import Document from "../components/svgs/Document";
-import Financial from "../components/svgs/Financial";
-import IDCard from "../components/svgs/IDCard";
-import Multiple from "../components/svgs/Multiple";
-import Receipt from "../components/svgs/Receipt";
-import Graph from "../components/svgs/Graph";
-import NavBar from "../components/common/NavBar";
-import Text from "../components/common/Text";
-import Button from "../components/common/Button";
-import Box from "../components/common/Box";
-import Caroursel from "../components/common/Carousel";
-import Footer from "../components/common/Footer";
+import Bill from "../../components/svgs/Bill";
+import Document from "../../components/svgs/Document";
+import Financial from "../../components/svgs/Financial";
+import IDCard from "../../components/svgs/IDCard";
+import Multiple from "../../components/svgs/Multiple";
+import Receipt from "../../components/svgs/Receipt";
+import Graph from "../../components/svgs/Graph";
+import NavBar from "../../components/common/NavBar";
+import Text from "../../components/common/Text";
+import Button from "../../components/common/Button";
+import Box from "../../components/common/Box";
+import Caroursel from "../../components/common/Carousel";
+import Footer from "../../components/common/Footer";
 
-export function LandingPage() {
+export default function LandingPage() {
   return (
-    <div className="gap-10 flex flex-col">
-      {/* <NavBar /> */}
-      <NavBar />
+    <>
       <div className="flex flex-col justify-center items-center gap-10">
         <div className="flex">
-          <img src={require("../assets/dashboard.png")} alt="dashboard"></img>
+          <img src={require("../../assets/dashboard.png")} alt="dashboard"></img>
         </div>
         <div className="flex flex-col justify-center items-center">
+
           <Text
             className="w-2/3 text-center"
             weight="semibold"
@@ -39,7 +38,7 @@ export function LandingPage() {
             <Text
               variant="text-sm"
               weight="semibold"
-              className="text-[#EF5DA8] bg-[#FCDDEC] border  pt-1.5 leading-10"
+              className="text-[#EF5DA8] bg-[#FCDDEC] pt-1.5 leading-10"
             >
               Never worry about your taxes again!
             </Text>
@@ -51,10 +50,8 @@ export function LandingPage() {
         </div>
       </div>
 
-      <div
-        id="feature"
-        className="flex justify-center items-center px-20 gap-10 flex-col"
-      >
+      <div className="flex justify-center items-center px-20 gap-10 flex-col">
+
         <Box className="flex justify-around max-w-screen-xl">
           <div className="flex flex-col flex-1 gap-8 pl-10 py-16">
             <Financial color="#A2CBCB" bg="#CFE9E9" />
@@ -67,9 +64,9 @@ export function LandingPage() {
             </Text>
             <Text variant="text-xs" className="text-[#24365E] w-2/3">
               Spending only what you have is not a sustainable way to get by.
-              Put money aside for emergencies, building up your savings account
-              and taking advantage of opportunities for rewards are all steps
-              that
+              Put money aside for emergencies, building up your savings
+              account and taking advantage of opportunities for rewards are
+              all steps that
             </Text>
             <Text
               noLink={false}
@@ -82,7 +79,7 @@ export function LandingPage() {
           </div>
 
           <div className="flex-1">
-            <img src={require("../assets/balance.png")} alt="pic1"></img>
+            <img src={require("../../assets/balance.png")} alt="pic1"></img>
           </div>
         </Box>
 
@@ -91,7 +88,7 @@ export function LandingPage() {
           color="purple"
         >
           <div className="flex-1 flex justify-center bottom-[-10px]">
-            <img src={require("../assets/phone.png")} alt="pic2"></img>
+            <img src={require("../../assets/phone.png")} alt="pic2"></img>
           </div>
           <div className="flex flex-col flex-1 gap-8 py-16 justify-center">
             <Graph color="#A6A5E1" bg="#D3D6F1" />
@@ -104,9 +101,9 @@ export function LandingPage() {
               Your digital financial assistance
             </Text>
             <Text variant="text-xs" className="text-[#24365E] w-2/3">
-              Your digital accountant is always at hand, wherever you are. Just
-              install the application on your phone to experience a new money
-              management experience.
+              Your digital accountant is always at hand, wherever you are.
+              Just install the application on your phone to experience a new
+              money management experience.
             </Text>
 
             <Text
@@ -117,9 +114,6 @@ export function LandingPage() {
             >
               Get Started
             </Text>
-            {/* <Button variant="cirTrans" size="sm">
-              Get Started
-            </Button> */}
           </div>
         </Box>
 
@@ -128,7 +122,7 @@ export function LandingPage() {
           color="pink"
         >
           <div className="flex-1">
-            <img src={require("../assets/invoice.png")} alt="pic3"></img>
+            <img src={require("../../assets/invoice.png")} alt="pic3"></img>
           </div>
           <div className="flex flex-col flex-1 gap-8 py-16 justify-center">
             <Bill color="#EF5DA8" bg="#F178B6" />
@@ -211,10 +205,7 @@ export function LandingPage() {
         </div>
       </div>
 
-      <div
-        id="review"
-        className="flex flex-nowrap flex-col justify-center items-center gap-10"
-      >
+      <div className="flex flex-nowrap flex-col justify-center items-center gap-10">
         <div className="flex flex-col justify-center items-center">
           <Text variant="text-xs" className="text-[#ACCCCC]">
             TESTIMONIALS
@@ -225,11 +216,10 @@ export function LandingPage() {
         </div>
 
         <div className="w-full m-auto">
+
           <Caroursel />
         </div>
       </div>
-
-      <Footer />
-    </div>
+    </>
   );
 }

@@ -4,7 +4,7 @@ import { cn } from "../../utils/cn";
 import { Link } from "react-router-dom";
 
 const TextVariants = cva(
-  "",
+  "font-['Kumbh Sans']",
   {
     variants: {
       variant: {
