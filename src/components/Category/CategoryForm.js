@@ -8,6 +8,7 @@ import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import { CategoryContext } from "../../context/categoryContext";
+import { NotificationContext } from "../../context/notificationContext";
 
 const CategoryForm = ({ categoryType }) => {
   const {
@@ -23,10 +24,12 @@ const CategoryForm = ({ categoryType }) => {
   });
 
   const { handleUpdateCategory } = useContext(CategoryContext);
+  const { setIsMessageVisible, isMessageVisible, message, setMessage, setNotiType } = useContext(NotificationContext);
 
   const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
+    console.log(d);
     await axiosInstance
       .createCategory(
         d.name,
@@ -41,6 +44,14 @@ const CategoryForm = ({ categoryType }) => {
         reset();
         document.getElementById("my_modal_2").close();
         handleUpdateCategory();
+        setNotiType("success")
+        setMessage(res);
+        setIsMessageVisible(true);
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
       })
       .catch((err) => {
         console.log(err.response.data.error.message);
@@ -100,7 +111,6 @@ const CategoryForm = ({ categoryType }) => {
                   name="budget"
                   control={control}
                   defaultValue=""
-                  rules={{ required: "Budget is required!" }}
                   render={({ field }) => (
                     <div>
                       <FormInput

@@ -3,10 +3,12 @@ import { Controller, useForm } from "react-hook-form";
 import Button from "../../components/common/Button";
 import FormInput from "../../components/common/FormInput";
 import Text from "../../components/common/Text";
+import Alert from "../../components/common/Alert";
 import Cookies from "js-cookie";
 import * as axiosInstance from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
+import { NotificationContext } from "../../context/notificationContext";
 
 const Login = () => {
   const {
@@ -20,8 +22,7 @@ const Login = () => {
   const { fetchData } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  const [loginError, setLoginError] = React.useState("");
-  const [isErrorVisible, setIsErrorVisible] = React.useState(false);
+  const { setIsMessageVisible, isMessageVisible, message, setMessage } = useContext(NotificationContext);
 
   function handleCallbackResponse(res) {
     console.log("Encoded KWT ID token: " + res.credential);
@@ -54,14 +55,13 @@ const Login = () => {
         fetchData();
       })
       .catch((err) => {
-        console.log(err.response.data.error);
-
-        setLoginError(err.response.data.error.message);
-        setIsErrorVisible(true);
-
+        // console.log(err.response.data.error);
+        setMessage(err.response.data.error.message);
+        setIsMessageVisible(true);
         // Hide the error after 3 seconds
         setTimeout(() => {
-          setIsErrorVisible(false);
+          setMessage(null);
+          setIsMessageVisible(false);
         }, 3000);
       });
   };
@@ -77,28 +77,29 @@ const Login = () => {
           <Text>Welcome back! Please enter your details</Text>
         </div>
         {/* Alert */}
-        {isErrorVisible && (
-          <div
-            role="alert"
-            className="alert alert-error absolute z-50 w-[500px] top-8 right-8"
-          >
-            <button onClick={() => setIsErrorVisible(false)}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="stroke-current shrink-0 h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </button>
-            <span>{loginError}</span>
-          </div>
+        {isMessageVisible && (
+          <Alert message={message} type="Error"/>
+          // <div
+          //   role="alert"
+          //   className="alert alert-error absolute z-50 w-[500px] top-8 right-8"
+          // >
+          //   <button onClick={() => setIsErrorVisible(false)}>
+          //     <svg
+          //       xmlns="http://www.w3.org/2000/svg"
+          //       className="stroke-current shrink-0 h-6 w-6"
+          //       fill="none"
+          //       viewBox="0 0 24 24"
+          //     >
+          //       <path
+          //         strokeLinecap="round"
+          //         strokeLinejoin="round"
+          //         strokeWidth="2"
+          //         d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          //       />
+          //     </svg>
+          //   </button>
+          //   <span>{loginError}</span>
+          // </div>
         )}
         <form className="flex flex-col gap-6 max-w-sm">
           <Controller

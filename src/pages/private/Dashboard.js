@@ -19,7 +19,7 @@ function Dashboard() {
         async function fetchData() {
             try {
                 const res = await axiosInstance.compareExpenseIncomeByMonth();
-                console.log(res);
+                // console.log(res);
                 setOverview(res);
             }
             catch (err) {
