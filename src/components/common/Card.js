@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Box from "./Box";
 import Button from "./Button";
 import Text from "./Text";
@@ -7,9 +7,12 @@ import { IconList } from "../svgs/IconList";
 import CategoryForm from "../Category/CategoryForm";
 import WalletForm from "../Wallet/WalletForm";
 import TransactionForm from "../Transaction/TransactionForm";
+import { AuthContext } from "../../context/authContext";
 
-const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, currency}) => {
+const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety}) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { userInfo } = useContext(AuthContext);
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   }
@@ -51,26 +54,16 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, cu
             ) : null
           )}
         </div>
-        <Text weight="bold">{amount} {currency}</Text>
+        <Text weight="bold">{amount} {userInfo.baseCurrency}</Text>
         <div className="flex justify-around w-full">
           {
             variety === "Category" ?
-            <TransactionForm buttonName="Add" variant="blueButton" category={{id: id, name: name, type: type}}/>
+            <TransactionForm buttonName="Add" variant="blueButton" category={{id: id, name: name, type: type, amount: amount}}/>
             :
-            <TransactionForm buttonName="Add" variant="blueButton" wallet={{id: id, name: name, currency: currency}}/>
+            <TransactionForm buttonName="Add" variant="blueButton" wallet={{id: id, name: name, currency: userInfo.baseCurrency, amount: amount}}/>
           }
    
-        
-
-       
-              {/* <Button
-                // size="xl"
-                size=""
-                variant="blueButton"
-                // onClick={handleSubmit(onSubmit)}
-              >
-                Add
-              </Button> */}
+      
 
               <Button
               size=""

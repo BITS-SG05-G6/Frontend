@@ -47,3 +47,15 @@ export const getProfile = async () => {
     return err;
   }
 };
+
+export const updateProfile = async (userData) => {
+  try {
+    const res = await axiosInstance.put("/updateprofile", userData);
+
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (err) {
+    return err;
+  }
+};
