@@ -16,11 +16,13 @@ const Transaction = () => {
   function handleDateChange(date) {
     setSelectedDate(date);
   }
+  console.log(id);
 
   useEffect(() => {
     async function fetchTransaction() {
       await axiosInstance.getTransactionDetail(id)
         .then((res) => {
+          console.log(res);
           setTransaction(res);
         })
         .catch((err) => {
