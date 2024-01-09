@@ -4,23 +4,23 @@ import Card from "../components/common/Card";
 import Header from "../components/common/Header";
 import SideBar from "../components/common/SideBar";
 import { CategoryContext } from "../context/categoryContext";
+import CategoryEditForm from "../components/Category/CategoryEditForm";
 import * as axiosInstance from "../services/category";
 
 const Category = () => {
-  const { type, setType, categories, handleUpdateCategory } = useContext(CategoryContext);
-
-
-
-  const handleDel = async(id) => {
-    await axiosInstance.deleteCategory(id)
-    .then((res) => {
-      console.log(res);
-      handleUpdateCategory();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
+  const { type, setType, categories, handleUpdateCategory } =
+    useContext(CategoryContext);
+  const handleDel = async (id) => {
+    await axiosInstance
+      .deleteCategory(id)
+      .then((res) => {
+        console.log(res);
+        handleUpdateCategory();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       <SideBar />
@@ -44,19 +44,31 @@ const Category = () => {
         </div>
 
         <div className="grid gap-10 grid-cols-4 px-10">
-        <Card add="category" type={type} />
-          {categories.map((category) => (
-           category.type === type ?  <Card
-           id={category.id}
-           icon={category.icon}
-           color={category.color}
-           name={category.name}
-           amount={category.amount}
-           handleDel={() => handleDel(category.id)}
-           type={category.type}
-           variety="Category"
-         /> : null
-          ))}
+          <Card add="category" type={type} />
+          {categories.map((category) =>
+            category.type === type ? (
+              <CategoryEditForm
+                id={category.id}
+                icon={category.icon}
+                color={category.color}
+                name={category.name}
+                amount={category.amount}
+                type={category.type}
+              >
+                <Card
+                  id={category.id}
+                  icon={category.icon}
+                  color={category.color}
+                  name={category.name}
+                  amount={category.amount}
+                  handleDel={() => handleDel(category.id)}
+                  type={category.type}
+                  variety="Category"
+                />
+              </CategoryEditForm>
+            ) : // </CategoryEditForm>
+            null
+          )}
         </div>
       </div>
     </div>
