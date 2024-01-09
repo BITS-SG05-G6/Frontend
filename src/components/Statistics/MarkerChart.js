@@ -1,46 +1,64 @@
-import React from 'react';
-import ReactApexChart from 'react-apexcharts';
+import React, { useState, useEffect } from "react";
 
-const MarkerChart = () => {
+import * as axiosInstance from "../../services/detailStatistic";
+import ReactApexChart from "react-apexcharts";
+import Text from "../common/Text";
+import Select from "../common/Select";
+const MarkerChart = ({ savingID }) => {
+  const typeTrendStatistic = ["This Month", "Last Month", "Total"];
+  const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
+
+  //Line chart data
+  const handleTypeChange = (event) => {
+    setSelectedType(event.target.value); // Update selectedType state on option change
+  };
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let response = [];
+        if (selectedType === "Total") {
+          response = await axiosInstance.savingGoalStatistic(savingID);
+        }
+        else if (selectedType === "This Month") {
+          response = await axiosInstance.savingGoalThisMonthStatistic(savingID);
+          // console.log(response);
+        } else if (selectedType === "Last Month") {
+          response = await axiosInstance.savingGoalLastMonthStatistic(savingID);
+        }
+        console.log("Target list: ", response.targetsList);
+        setData(response.targetsList || []);
+      } catch (error) {
+        console.error("Error fetching expenses:", error);
+      }
+    };
+    fetchData();
+  }, [selectedType, savingID]);
+  console.log(data);
+
   const chartData = {
     series: [
       {
-        name: 'Actual',
-        data: [
-          {
-            x: '2011',
-            y: 12,
-            goals: [
-                {
-                    name: 'Target',
-                    value: 54,
-                    strokeWidth: 5,
-                    strokeHeight: 40,
-                    strokeColor: '#775DD0',
-                  },
-            ],
-          },
-          {
-            x: '2012',
-            y: 44,
-            goals: [
-              {
-                name: 'Target',
-                value: 54,
-                strokeWidth: 5,
-                strokeHeight: 40,
-                strokeColor: '#775DD0',
-              },
-            ],
-          },
-          // ... (rest of the data)
-        ],
+        name: "Actual",
+        data: data.map((item) => ({
+          x: item.date,
+          y: item.total,
+          goals: [
+            {
+              name: "Target",
+              value: item.target,
+              strokeWidth: 8,
+              strokeHeight: 80,
+              strokeColor: "#F472B6",
+            },
+          ],
+        })),
       },
     ],
     options: {
       chart: {
         height: 350,
-        type: 'bar',
+        type: "bar",
         toolbar: {
           show: false,
         },
@@ -50,7 +68,7 @@ const MarkerChart = () => {
           horizontal: true,
         },
       },
-      colors: ['#00E396'],
+      colors: ["#00E396"],
       dataLabels: {
         formatter: function (val, opt) {
           const goals =
@@ -65,9 +83,9 @@ const MarkerChart = () => {
       legend: {
         show: true,
         showForSingleSeries: true,
-        customLegendItems: ['Actual', 'Expected'],
+        customLegendItems: ["Total", "Target"],
         markers: {
-          fillColors: ['#00E396', '#775DD0'],
+          fillColors: ["#00E396", "#F472B6"],
         },
       },
     },
@@ -75,7 +93,24 @@ const MarkerChart = () => {
 
   return (
     <div id="chart">
-      <ReactApexChart {...chartData} type="bar" height={350} />
+      <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
+        <div className="flex flex-row justify-between w-full">
+          <div className="flex items-center ml-4">
+            <Text children="Wallet Detail" weight="bold" />
+          </div>
+          <div className="flex items-center mr-10 mt-5">
+            <Select
+              name="type"
+              size="small"
+              value={selectedType}
+              onChange={handleTypeChange}
+              options={typeTrendStatistic}
+              className=""
+            />
+          </div>
+        </div>
+        <ReactApexChart {...chartData} type="bar" height={350} />
+      </div>
     </div>
   );
 };

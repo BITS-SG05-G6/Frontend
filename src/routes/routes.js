@@ -47,6 +47,12 @@ export const privateRoutes = [
     header: "My Transactions",
   },
   {
+    path: "/transaction/:id",
+    component: Transaction,
+    layout: PrivatePageLayout,
+    header: "My Transactions",
+  },
+  {
     path: "/category",
     component: Category,
     layout: PrivatePageLayout,

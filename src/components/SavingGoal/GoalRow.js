@@ -9,8 +9,6 @@ import TransactionForm from '../Transaction/TransactionForm';
 function GoalRow({ goal, onDelete }) {
 
     const progress = Math.floor((goal.total / goal.target) * 100);
-    console.log(goal.total);
-    console.log(progress)
     return (
         <div className="w-full px-5 py-3 h-1/3 rounded-lg bg-white border border-gray-400 grid grid-cols-12 hover:border-[3px] hover:border-[#A5A6F6] transition ease-linear duration-75">
             {/*Progress */}

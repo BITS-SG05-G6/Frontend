@@ -11,22 +11,25 @@ import WalletProvider from "./context/walletContext";
 import TransactionProvider from "./context/transactionContext";
 import BillProvider from "./context/billContext";
 import SavingProvider from "./context/savingContext";
+import ExchangeProvider from "./context/exchangeContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <TransactionProvider>
-        <CategoryProvider>
-          <WalletProvider>
-            <BillProvider>
-              <SavingProvider>
+      <ExchangeProvider>
+        <TransactionProvider>
+          <CategoryProvider>
+            <WalletProvider>
+              <BillProvider>
+                <SavingProvider>
                   <App />
-              </SavingProvider>
-            </BillProvider>
-          </WalletProvider>
-        </CategoryProvider>
-      </TransactionProvider>
+                </SavingProvider>
+              </BillProvider>
+            </WalletProvider>
+          </CategoryProvider>
+        </TransactionProvider>
+      </ExchangeProvider>
     </AuthProvider>
   </React.StrictMode>
 );
