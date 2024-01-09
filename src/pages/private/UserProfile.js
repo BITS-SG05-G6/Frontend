@@ -8,9 +8,15 @@ import Button from "../../components/common/Button";
 import * as axiosInstance from "../../services/auth";
 
 function UserProfile() {
-  const { handleSubmit, control, getValues } = useForm();
-  // const password = useWatch({ control, name: "password" });
-  const confirmPassword = useWatch({ control, name: "confirmPassword" });
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+  });
+  const password = useWatch({ control, name: "password" });
+  // const confirmPassword = useWatch({ control, name: "confirmPassword" });
   const currency = [
     { value: "VND", label: "VND" },
     { value: "USD", label: "USD" },
@@ -200,7 +206,10 @@ function UserProfile() {
                 name="confirmPassword"
                 control={control}
                 defaultValue={""}
-                // rules={{ validate: passwordMatchValidator }}
+                rules={{
+                  validate: (value) =>
+                    value === password || "Passwords do not match",
+                }}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -209,11 +218,11 @@ function UserProfile() {
                       label={"Confirm Password"}
                       size={"noMaxWidth"}
                     />
-                    {/* {passwordMatchValidator(confirmPassword, { getValues }) && (
+                    {errors.confirmPassword && (
                       <Text className="text-red-500 mt-3">
-                        {passwordMatchValidator(confirmPassword, { getValues })}
+                        {errors.confirmPassword.message}
                       </Text>
-                    )} */}
+                    )}
                   </div>
                 )}
               />
