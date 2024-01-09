@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-import Header from "../../components/common/Header";
-import SideBar from "../../components/common/SideBar";
 import Card from "../../components/common/Card";
 import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
@@ -28,9 +26,9 @@ const Wallet = () => {
             name={wallet.name}
             amount={wallet.amount}
             variety="Wallet"
-            id={wallet.id}
+            id={wallet._id}
             currency={wallet.currency}
-            handleDel={() => handleDel(wallet.id)}
+            handleDel={() => handleDel(wallet._id)}
           />
         ))}
       </div>

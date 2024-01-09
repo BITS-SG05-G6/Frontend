@@ -11,8 +11,8 @@ import Toggle from "../common/Toggle";
 import { BillContext } from "../../context/billContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
-import { format } from "date-fns";
 import { AuthContext } from "../../context/authContext";
+import { ExchangeContext } from "../../context/exchangeContext";
 
 const BillForm = () => {
   const {
@@ -29,14 +29,15 @@ const BillForm = () => {
     },
   });
   const { userInfo } = useContext(AuthContext);
+  const { rate, setDate, setBaseCurrency, setExchangeCurrency} = useContext(ExchangeContext);
   const reminder = watch("reminder");
-  const selectedAmount = watch("amount");
   const selectedCurrency = watch("currency");
   const selectedDate = watch("date");
   const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
   const { handleUpdateBill } = useContext(BillContext);
 
   const onSubmit = async (d) => {
+    console.log(d);
     await axiosInstance
       .createBill(
         d.title,
@@ -60,46 +61,23 @@ const BillForm = () => {
   };
 
   useEffect(() => {
-    async function fetchExchange() {
-      const historicalDate = selectedDate
-      ? format(new Date(selectedDate), "yyyy-MM-dd")
-      : format(new Date(), "yyyy-MM-dd");      
-      const base_currency_code =
-        selectedCurrency !== userInfo.baseCurrency
-          ? userInfo.baseCurrency
-          : otherCurrency;
-      const exchangeCurrency =
-        selectedCurrency !== userInfo.baseCurrency
-          ? otherCurrency
-          : userInfo.baseCurrency;
-      const key = "6cbb753baefa5ca0583ef5b5b602866c03de9354";
-      const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${historicalDate}?api_key=${key}&from=${exchangeCurrency}&to=${base_currency_code}&amount=${selectedAmount}&format=json`;
+    setBaseCurrency(selectedCurrency !== userInfo.baseCurrency ? userInfo.baseCurrency : otherCurrency);
+    setExchangeCurrency(selectedCurrency !== userInfo.baseCurrency ? otherCurrency : userInfo.baseCurrency);
 
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      // console.log(data);
-      if (data.status === "failed") {
-        console.log(data);
-      } else {
-        let exchangeAmount;
-        if (base_currency_code === "VND") {
-          exchangeAmount = Math.floor(data.rates.VND.rate_for_amount);
-        } else {
-          exchangeAmount = data.rates.USD.rate_for_amount;
-        }
+  }, [selectedCurrency, setValue, selectedDate, otherCurrency, userInfo.baseCurrency, setBaseCurrency, setDate, setExchangeCurrency, rate])
 
-        setValue("exchangeAmount", exchangeAmount);
-      }
+  // console.log(rate);
+  const handleOnChange = (value) => {
+    console.log(rate);
+    let exchangeValue;
+    if (selectedCurrency === "VND") {
+      exchangeValue = parseFloat((value/rate).toFixed(2));
+    } else {
+      exchangeValue = value * rate;
     }
-    fetchExchange();
-  }, [
-    selectedAmount,
-    setValue,
-    otherCurrency,
-    userInfo.baseCurrency,
-    selectedCurrency,
-    selectedDate
-  ]);
+    setValue("exchangeAmount", exchangeValue)
+    return true;
+  }
 
   return (
     <>
@@ -210,6 +188,7 @@ const BillForm = () => {
                     value: /^([^.0-]\d+|\d)$/,
                     message: "It must be a positive number",
                   },
+                  validate: handleOnChange,
                 }}
                 render={({ field }) => (
                   <div>
@@ -244,10 +223,12 @@ const BillForm = () => {
                         name="exchangeAmount"
                         type="number"
                         // value={field.value}
-                        onChange={(e) => field.onChange(e.target.value)}
-                        placeholder={
+                        placeholder={userInfo.baseCurrency === "VND" ?
                           new Intl.NumberFormat("vi-VN").format(field.value) +
-                          " VND"
+                          " VND" : new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "USD"
+                          }).format(field.value)
                         }
                         // placeholder={field.value}
                         disabled
