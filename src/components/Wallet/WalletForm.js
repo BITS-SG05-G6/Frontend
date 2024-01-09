@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -8,8 +8,6 @@ import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
-import { format } from "date-fns";
-import { AuthContext } from "../../context/authContext";
 
 const WalletForm = ({ children }) => {
   const {
@@ -17,12 +15,9 @@ const WalletForm = ({ children }) => {
     handleSubmit,
     reset,
     formState: { errors },
-    setValue,
-    watch
   } = useForm();
 
   const { handleUpdateWallet } = useContext(WalletContext);
-  const { userInfo } = useContext(AuthContext);
 
   const onSubmit = async (d) => {
     // console.log(d);
@@ -40,37 +35,6 @@ const WalletForm = ({ children }) => {
         console.log(err);
       });
   };
-
-  const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
-  const selectedAmount = watch("amount");
-
-  useEffect(() => {
-    async function fetchExchange() {
-      const historicalDate = format(new Date(), "yyyy-MM-dd");
-
-    const key = "6cbb753baefa5ca0583ef5b5b602866c03de9354";
-    const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${historicalDate}?api_key=${key}&from=${userInfo.baseCurrency}&to=${otherCurrency}&amount=${selectedAmount}&format=json`;
-
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    console.log(data);
-    let exchangeAmount;
-    if (data.status === "failed") {
-      console.log(data)
-    } else {
-      if (otherCurrency === "VND") {
-        exchangeAmount = Math.floor(data.rates.VND.rate_for_amount);
-      } else {
-        exchangeAmount = data.rates.USD.rate_for_amount;
-      }
-  
-  
-      setValue("exchangeAmount", exchangeAmount);
-    }
-   
-    }
-    fetchExchange();
-  }, [selectedAmount, userInfo.baseCurrency, otherCurrency, setValue])
 
   return (
     <>
