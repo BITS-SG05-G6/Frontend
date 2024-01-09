@@ -6,6 +6,7 @@ import Text from "../common/Text";
 // Define the TrendStatistic component
 export default function LineChart({ title, expenses, categories, incomes }) {
   // Configuration for the line chart using ApexCharts
+  
   const chartConfig = {
     type: "line",
     height: 340,
