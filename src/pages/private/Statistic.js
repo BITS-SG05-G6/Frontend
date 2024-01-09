@@ -13,6 +13,7 @@ import BarChart from "../../components/Statistics/BarChart";
 import StatisticCard from "../../components/Statistics/StatisticCard";
 import DetailChartCategory from "../../components/Statistics/DetailChartCategory";
 import DetailChartWallet from "../../components/Statistics/DetailChartWallet";
+import MarkerChart from "../../components/Statistics/MarkerChart";
 
 const StatisticPage = () => {
 
@@ -337,8 +338,9 @@ const StatisticPage = () => {
             <BarChart data={walletAmount} categories={categoryWallet} />
           </div>
         </div>
-        <DetailChartCategory categoryId="658e99463f4a2d1d811e398d"/>
-        <DetailChartWallet walletID = "659befee71c3f3fcc72281e1"/>
+        {/* <DetailChartCategory categoryId="658e99463f4a2d1d811e398d"/>
+        <DetailChartWallet walletID = "659befee71c3f3fcc72281e1"/> */}
+        <MarkerChart/>
       </div>
     </>
   );
