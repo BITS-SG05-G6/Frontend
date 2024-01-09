@@ -10,6 +10,7 @@ import Saving from "../pages/private/Saving";
 import Wallet from "../pages/private/Wallet";
 import StatisticPage from "../pages/private/Statistic";
 import UserProfile from "../pages/private/UserProfile";
+import Details from "../pages/private/Details";
 
 // Import Authorization pages
 import Login from "../pages/public/Login";
@@ -67,6 +68,12 @@ export const privateRoutes = [
   {
     path: "/planning",
     component: Saving,
+    layout: PrivatePageLayout,
+    header: "My Planning",
+  },
+  {
+    path: "/planning/:id",
+    component: Details,
     layout: PrivatePageLayout,
     header: "My Planning",
   },
