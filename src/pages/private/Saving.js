@@ -3,7 +3,8 @@ import Header from "../../components/common/Header";
 import GoalList from "../../components/SavingGoal/GoalList";
 import GoalDetails from "../../components/SavingGoal/GoalDetails";
 import GoalForm from "../../components/SavingGoal/GoalForm";
-import { useEffect } from "react";
+import { useContext } from "react";
+import { SavingContext } from "../../context/savingContext";
 import * as axiosInstance from '../../services/savingGoal'
 
 function Saving() {
