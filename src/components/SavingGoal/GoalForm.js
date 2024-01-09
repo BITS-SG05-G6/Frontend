@@ -5,9 +5,8 @@ import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
 import ColorPicker from "../common/ColorPicker";
-import IconPicker from "../common/IconPicker";
-import { IconList } from "../svgs/IconList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {IconList} from '../svgs/IconList'
 import * as axiosInstance from '../../services/savingGoal'
 import { SavingContext } from "../../context/savingContext";
 
@@ -24,7 +23,7 @@ function GoalForm ({ buttonName, icon })  {
     const onSubmit = async (d) => {
 
         await axiosInstance
-            .createSavingGoal(d.name, d.target, d.color, d.icon, d.startDate, d.endDate,  d.description)
+            .createSavingGoal(d.name, d.target, d.color, d.startDate, d.endDate,  d.description)
             .then((res) => {
                 document
                     .getElementById("my_modal_4")
@@ -139,24 +138,6 @@ function GoalForm ({ buttonName, icon })  {
                                 )}
                             />
 
-                            <Controller
-                                name="icon"
-                                control={control}
-                                defaultValue="file-invoice-dollar"
-                                render={({ field }) => (
-                                    <div>
-                                        <IconPicker
-                                            value={field.value}
-                                            onChange={(e) => field.onChange(e.target.value)}
-                                        />
-                                        {errors.type && (
-                                            <Text className="text-red-500 px-32 mt-3">
-                                                {errors.type.message}
-                                            </Text>
-                                        )}
-                                    </div>
-                                )}
-                            />
                             <Controller
                                 name="startDate"
                                 control={control}
