@@ -48,10 +48,10 @@ const Login = () => {
     await axiosInstance
       .signin(d.username, d.password)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         Cookies.set("token", res.token);
-        fetchData();
         navigate("/dashboard");
+        fetchData();
       })
       .catch((err) => {
         console.log(err.response.data.error);
