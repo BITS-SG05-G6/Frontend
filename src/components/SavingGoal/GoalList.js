@@ -1,7 +1,6 @@
 import GoalRow from "./GoalRow";
 
 function GoalList({goals, onDelete}) {
-    console.log(goals);
     // goals = [
     //     {
     //         name: 'Buy a car',

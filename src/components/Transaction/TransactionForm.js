@@ -14,6 +14,8 @@ import { IconList } from "../svgs/IconList";
 import { transactionType, currencyList } from "../svgs/OptionList";
 import { format } from "date-fns";
 import { AuthContext } from "../../context/authContext";
+import { SavingContext } from "../../context/savingContext";
+import { ExchangeContext } from "../../context/exchangeContext";
 
 const TransactionForm = ({
   category,
@@ -40,9 +42,9 @@ const TransactionForm = ({
   const selectedType = watch("type");
   const selectedDate = watch("date");
   const selectedCurrency = watch("currency");
-  const selectedAmount = watch("amount");
-  const selectedExchangeAmount = watch("exchangeAmount");
   const { wallets } = useContext(WalletContext);
+  const { goals } = useContext(SavingContext);
+  const { rate, setDate, setBaseCurrency, setExchangeCurrency} = useContext(ExchangeContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const categoryType = category
     ? category.type
@@ -65,7 +67,8 @@ const TransactionForm = ({
         categoryValue,
         walletValue,
         d.currency,
-        d.exchangeAmount
+        d.exchangeAmount,
+        d.goal
       )
       .then((res) => {
         document
@@ -74,7 +77,7 @@ const TransactionForm = ({
           )
           .close();
         handleUpdateTransaction();
-        console.log(res);
+        // console.log(res);
         reset();
       })
       .catch((err) => {
@@ -82,50 +85,20 @@ const TransactionForm = ({
       });
   };
 
-  const baseCurrency = "VND";
+  // console.log(goals)
+
   const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
 
-  async function fetchExchange(value) {
-    const historicalDate = selectedDate
-      ? format(new Date(selectedDate), "yyyy-MM-dd")
-      : format(new Date(), "yyyy-MM-dd");
-    const base_currency_code =
-      selectedCurrency !== userInfo.baseCurrency ? userInfo.baseCurrency : otherCurrency;
-    const exchangeCurrency =
-      selectedCurrency !== userInfo.baseCurrency ? otherCurrency : userInfo.baseCurrency;
-    const key = "6cbb753baefa5ca0583ef5b5b602866c03de9354";
-    const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${historicalDate}?api_key=${key}&from=${exchangeCurrency}&to=${base_currency_code}&amount=${value}&format=json`;
-
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    // console.log(data);
-    if (data.status === "failed") {
-      console.log(data);
-    } else {
-      let exchangeAmount;
-    if (base_currency_code === "VND") {
-      exchangeAmount = Math.floor(data.rates.VND.rate_for_amount);
-    } else {
-      exchangeAmount = data.rates.USD.rate_for_amount;
-    }
-
-    setValue("exchangeAmount", exchangeAmount);
-    return exchangeAmount;
-    }
-    
-  }
   useEffect(() => {
-    fetchExchange(selectedAmount);
-  }, [
-    selectedCurrency,
-    setValue,
-    selectedDate,
-    selectedAmount,
-    otherCurrency,
-    selectedExchangeAmount,
-    selectedWallet,
-    selectedType,
-  ]);
+    setDate(selectedDate
+          ? format(new Date(selectedDate), "yyyy-MM-dd")
+          : format(new Date(), "yyyy-MM-dd"))
+    setBaseCurrency(selectedCurrency !== userInfo.baseCurrency ? userInfo.baseCurrency : otherCurrency);
+    setExchangeCurrency(selectedCurrency !== userInfo.baseCurrency ? otherCurrency : userInfo.baseCurrency);
+    if (selectedType === "Saving") {
+      setValue("currency", userInfo.baseCurrency);
+    }
+  }, [selectedCurrency, setValue, selectedDate, otherCurrency, userInfo.baseCurrency, setBaseCurrency, setDate, setExchangeCurrency, rate, selectedType, reset])
 
   const openModal = () => {
     document
@@ -145,17 +118,24 @@ const TransactionForm = ({
   };
 
   const validateAmount = async (value) => {
-    // console.log(value);
-    const exchangeValue = await fetchExchange(value);
+    let exchangeValue;
+    console.log(rate);
+    if (selectedCurrency === "VND") {
+      exchangeValue = parseFloat((value/rate).toFixed(2));
+    } else {
+      exchangeValue = value * rate;
+    }
+    setValue("exchangeAmount", exchangeValue)
+
+    // console.log(exchangeValue);
     const walletValue = wallet ? wallet : wallets.find((wallet) => wallet.id === selectedWallet);
     if (walletValue && selectedType === "Expense") {
       if (selectedCurrency === userInfo.baseCurrency) {
-        return value > walletValue.amount ? "Your wallet is not enough" : true;
+        return value > walletValue.amount ? `Your wallet is not enough. Balance: ${walletValue.amount} ${userInfo.baseCurrency}` : true;
       } else {
         return exchangeValue > walletValue.amount
           ? 
-          `Your wallet is not enough.`
-        // `Your wallet has ${walletValue.amount} ${userInfo.baseCurrency}`
+          `Your wallet is not enough. Balance: ${walletValue.amount} ${userInfo.baseCurrency}`
           : true;
       }
     }
@@ -183,12 +163,12 @@ const TransactionForm = ({
         id={category ? category.id : wallet ? wallet.id : "my_modal_1"}
         className="modal"
       >
-        <div className="modal-box flex flex-col justify-center w-full overflow-hidden">
+        <div className="modal-box flex flex-col justify-center w-full">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add Transaction
           </Text>
-          <div className="modal-action mx-0 block w-full">
-            <form method="dialog" className="flex flex-col gap-4">
+          <div className="modal-action mx-0 block w-full overflow-scroll no-scrollbar">
+            <form method="dialog" className="flex flex-col gap-4 justify-start text-end">
               <Button
                 variant="close"
                 onClick={closeModal}
@@ -214,7 +194,7 @@ const TransactionForm = ({
                       labelType="side"
                     />
                     {errors.title && (
-                      <Text className="text-red-500 px-36 mt-3">
+                      <Text className="text-red-500 mt-3 text-start">
                         {errors.title.message}
                       </Text>
                     )}
@@ -238,7 +218,7 @@ const TransactionForm = ({
                       labelType="side"
                     />
                     {errors.date && (
-                      <Text className="text-red-500 px-36 mt-3">
+                      <Text className="text-red-500 mt-3 text-start">
                         {errors.date.message}
                       </Text>
                     )}
@@ -246,7 +226,9 @@ const TransactionForm = ({
                 )}
               />
 
-              {category ? (
+              {
+                selectedType === "Saving" ? null :
+                category ? (
                 <FormInput
                   label="Category"
                   name="category"
@@ -276,18 +258,17 @@ const TransactionForm = ({
                           options={categories}
                           placeholder="Please choose a category"
                         />
-                        {errors.category && (
-                          <Text className="text-red-500 px-36 mt-3">
-                            {errors.category.message}
-                          </Text>
-                        )}
+                    
                       </div>
                     )}
                   />
                 )
-              )}
+              )
+              }
+          
 
-              {category ? (
+              {
+              category ? (
                 <FormInput
                   label="Type"
                   name="categoryType"
@@ -321,7 +302,7 @@ const TransactionForm = ({
                         none={false}
                       />
                       {errors.type && (
-                        <Text className="text-red-500 px-36 mt-3">
+                        <Text className="text-red-500 text-start mt-3">
                           {errors.type.message}
                         </Text>
                       )}
@@ -338,7 +319,7 @@ const TransactionForm = ({
                 />
               )}
 
-              {wallet ? (
+              { wallet ? (
                 <FormInput
                   label="Wallet"
                   name="wallet"
@@ -364,7 +345,7 @@ const TransactionForm = ({
                           placeholder="Please choose a wallet"
                         />
                         {errors.wallet && (
-                          <Text className="text-red-500 px-32 mt-3">
+                          <Text className="text-red-500 px-36 mt-3">
                             {errors.wallet.message}
                           </Text>
                         )}
@@ -374,7 +355,49 @@ const TransactionForm = ({
                 )
               )}
 
-              <Controller
+              {
+                selectedType === "Saving" ?
+                wallet ? (
+                  // <FormInput
+                  //   label="Wallet"
+                  //   name="wallet"
+                  //   value={wallet.name}
+                  //   disabled
+                  //   labelType="side"
+                  // />
+                  null
+                ) : (
+                  goals && (
+                    <Controller
+                      name="goal"
+                      control={control}
+                      rules={{ required: "Goals is required!" }}
+                      render={({ field }) => (
+                        <div>
+                          <Select
+                            label="Goal"
+                            name="goal"
+                            value={field.value}
+                            onChange={(e) => {
+                              field.onChange(e.target.value);
+                            }}
+                            options={goals}
+                            placeholder="Please choose a goal"
+                            none={false}
+                          />
+                          {errors.goal && (
+                            <Text className="text-end text-red-500 mt-3">
+                              {errors.goal.message}
+                            </Text>
+                          )}
+                        </div>
+                      )}
+                    />
+                  )) : null
+              }
+              {
+                selectedType === "Saving" ? null :
+                <Controller
                 name="currency"
                 control={control}
                 rules={{
@@ -394,13 +417,15 @@ const TransactionForm = ({
                       none={false}
                     />
                     {errors.currency && (
-                      <Text className="text-red-500 px-36 mt-3">
+                      <Text className="text-red-500 mt-3">
                         {errors.currency.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
+              }
+              
 
               <Controller
                 name="amount"
@@ -425,7 +450,7 @@ const TransactionForm = ({
                       labelType="side"
                     />
                     {errors.amount && (
-                      <Text className="text-red-500 pl-36 mt-3">
+                      <Text className="text-red-500 mt-3">
                         {errors.amount.message}
                       </Text>
                       // <div className="pl-36">
@@ -436,7 +461,7 @@ const TransactionForm = ({
                 )}
               />
 
-              {selectedCurrency && selectedCurrency !== baseCurrency ? (
+              {selectedCurrency && selectedCurrency !== userInfo.baseCurrency ? (
                 <Controller
                   name="exchangeAmount"
                   control={control}
@@ -449,21 +474,18 @@ const TransactionForm = ({
                         label="Exchange"
                         name="exchangeAmount"
                         type="number"
-                        value={field.value}
-                        onChange={(e) => field.onChange(e.target.value)}
-                        // placeholder={
-                        //   new Intl.NumberFormat("vi-VN").format(field.value) +
-                        //   " VND"
-                        // }
-                        // placeholder={field.value}
+                        // value={field.value}
+                        // onChange={(e) => field.on/Change(e.target.value)}
+                        placeholder={userInfo.baseCurrency === "VND" ?
+                          new Intl.NumberFormat("vi-VN").format(field.value) +
+                          " VND" : new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "USD"
+                          }).format(field.value)
+                        }
                         disabled
                         labelType="side"
                       />
-                      {errors.exchangeAmount && (
-                        <Text className="text-red-500 px-36 mt-3">
-                          {errors.exchangeAmount.message}
-                        </Text>
-                      )}
                     </div>
                   )}
                 />
@@ -487,13 +509,12 @@ const TransactionForm = ({
               <div className="flex justify-around">
                 <Button
                   size="xl"
-                  variant="roundOutline"
                   onClick={handleSubmit(onSubmit)}
                 >
                   Save
                 </Button>
 
-                <Button size="xl" onClick={closeModal}>
+                <Button size="xl" onClick={closeModal} variant="roundOutline">
                   Cancel
                 </Button>
               </div>

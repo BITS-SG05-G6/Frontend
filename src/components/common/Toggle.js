@@ -17,7 +17,7 @@ function Toggle({
             {label}
           </Text>
         </div>
-        <div className="w-full max-w-xs text-sm">
+        <div className="w-full max-w-xs text-sm flex">
           <input
             type="checkbox"
             className={cn("toggle cursor-pointer bg-transparent border-none hover:bg-transparent", value === true ? "[--tglbg:#EF5DA8]" : "[--tglbg:gray]")}
