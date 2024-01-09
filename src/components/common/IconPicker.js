@@ -14,9 +14,9 @@ const IconPicker = ({ value, onChange }) => {
       <div className="w-full max-w-xs text-sm flex items-center gap-6">
         <div color="pink" className="dropdown overflow-visible">
           <div tabIndex={0} className="btn input-bordered bg-transparent hover:bg-transparent hover:border-[#7879F1] focus:border-[#7879F1] focus:outline-none">
-            {IconList.map((i) =>
+            {IconList.map((i, index) =>
               (i.value === value) ?
-                <FontAwesomeIcon icon={i.icon} /> :null
+                <FontAwesomeIcon key={index} icon={i.icon} /> :null
             )}
           </div>
           <div tabIndex={0} className="p-2 menu dropdown-content bg-white rounded-box w-96">
