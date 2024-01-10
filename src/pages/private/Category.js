@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import Button from "../../components/common/Button";
 import Card from "../../components/common/Card";
-import Header from "../../components/common/Header";
-import SideBar from "../../components/common/SideBar";
 import { CategoryContext } from "../../context/categoryContext";
 import * as axiosInstance from "../../services/category";
 
@@ -52,6 +50,7 @@ const Category = () => {
               amount={category.amount}
               handleDel={() => handleDel(category.id)}
               type={category.type}
+              href={`/category/${category.id}`}
               variety="Category"
             />
           ) : null

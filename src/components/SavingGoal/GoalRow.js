@@ -4,7 +4,7 @@ import Badge from '../common/Badge'
 import { format } from 'date-fns';
 import TransactionForm from '../Transaction/TransactionForm';
 
-function GoalRow({ goal, onDelete }) {
+function GoalRow({ goal, onDelete, href }) {
 
     const progress = Math.floor((goal.total / goal.target) * 100);
     return (
@@ -15,7 +15,7 @@ function GoalRow({ goal, onDelete }) {
             </div>
             {/*Content */}
             <div className='flex flex-col justify-center gap-1 items-start col-span-2'>
-                <Text weight='semibold' variant='text-lg' className=''>{goal.name}</Text>
+                <Text weight='semibold' variant='text-lg' href={href}>{goal.name}</Text>
                 <Text weight='semibold' className='text-primary'>{goal.target} VND</Text>
                 <Text weight="semibold" className='text-info'>Progress: {goal.total}</Text>
             </div>
@@ -34,7 +34,8 @@ function GoalRow({ goal, onDelete }) {
                     <Button variant='lightPrimary'>Edit</Button>
                     <Button variant='redButton' 
                             onClick={(e) => {
-                        
+                                e.stopPropagation();
+                                e.preventDefault();
                                 onDelete(goal._id)}}
                     >
                             Delete

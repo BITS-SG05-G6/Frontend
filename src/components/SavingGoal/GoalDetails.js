@@ -44,7 +44,7 @@ function GoalDetails({ goal }) {
                     {/*Status*/}
                     <div className="flex justify-between">
                         <Text className="text-gray-400" weight='semibold'>Status</Text>
-                        <Badge status={goal.status} variant={goal.status.toLowerCase() === 'pending' ? "yellow" : goal.status.toLowerCase() === 'on-going' ? "blue" : "green"}></Badge>
+                        <Badge status={goal.status} variant={goal.status === 'On-going' ? "blue" : "green"}></Badge>
                     </div>
                     {/*Description section */}
                     <div className="flex flex-col gap-2 justify-start">

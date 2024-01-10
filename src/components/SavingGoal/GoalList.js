@@ -8,10 +8,7 @@ function GoalList({ goals, onDelete }) {
         <div className="px-3 py-3 flex flex-col gap-2">
             {goals && (
                 goals.map((goal) => (
-                    <Link to={`/planning/${goal._id}`} key={goal._id}>
-                        <GoalRow goal={goal} onDelete={onDelete} />
-                    </Link>
-
+                    <GoalRow goal={goal} onDelete={onDelete} href={`/planning/${goal._id}`} />
                 ))
             )}
         </div>

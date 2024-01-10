@@ -24,7 +24,7 @@ export const deleteCategory = async(id) => {
   }
 }
 
-export const getCategory = async() => {
+export const getCategories = async() => {
   const res = await axiosInstance.get(`/category/view`)
 
   try {
@@ -35,3 +35,16 @@ export const getCategory = async() => {
     return err
   }
 }
+
+export const getCategory = async(id) => {
+  const res = await axiosInstance.get(`/category/view/${id}`)
+
+  try {
+    if (res.status === 200) {
+      return res.data
+    }
+  } catch(err) {
+    return err
+  }
+}
+

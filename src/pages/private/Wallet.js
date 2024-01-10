@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import Card from "../../components/common/Card";
 import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
-import { Link } from "react-router-dom";
 
 const Wallet = () => {
   const { wallets, handleUpdateWallet } = useContext(WalletContext);
@@ -21,7 +20,6 @@ const Wallet = () => {
       <div className="grid gap-10 grid-cols-4 px-10">
         <Card add="wallet" />
         {wallets.map((wallet) => (
-          <Link to={`/wallets/${wallet._id}`}>
             <Card
               key={wallet._id}
               icon={wallet.icon}
@@ -31,12 +29,11 @@ const Wallet = () => {
               variety="Wallet"
               id={wallet._id}
               currency={wallet.currency}
-              handleDel={(e) => {
-            
+              handleDel={() => {
                 handleDel(wallet._id)
               }}
+              href={`/wallets/${wallet._id}`}
             />
-          </Link>
         ))}
       </div>
     </>

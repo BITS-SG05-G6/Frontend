@@ -25,8 +25,9 @@ export const getWallets = async () => {
 }
 
 export const getWallet = async (id) => {
+  const res = await axiosInstance.get(`/wallet/view/${id}`);
   try {
-    const res = await axiosInstance.get(`/wallet/view/${id}`);
+    
     if (res.status === 200) {
       return res.data;
     }

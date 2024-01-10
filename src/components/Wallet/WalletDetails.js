@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../common/Button";
 
 function WalletDetails({ wallet }) {
+    console.log(wallet);
     return (
         <div className="w-96">
             <div className=" bg-white rounded-[10px] border border-gray-300 flex flex-col gap-5 p-6">
@@ -11,18 +12,21 @@ function WalletDetails({ wallet }) {
                     <Text weight='bold' variant='text-xl'>{wallet.name}</Text>
                     <Text variant="text-md" weight="semibold" className='text-primary'>{wallet.amount}</Text>
                     {/* Icon */}
-                    <div
-                        className="p-4 rounded-xl"
-                        style={{
-                            backgroundColor: `${wallet.color}30`
-                        }}
-                    >
-                        {IconList.map((i) =>
-                            i.value === wallet.icon ? (
-                                <FontAwesomeIcon icon={i.icon} size="2xl" color={wallet.color} />
-                            ) : null
-                        )}
+                    <div className="flex justify-center">
+                        <div
+                            className="p-4 rounded-xl w-40 h-40 flex justify-center items-center"
+                            style={{
+                                backgroundColor: `${wallet.color}30`
+                            }}
+                        >
+                            {IconList.map((i) =>
+                                i.value === wallet.icon ? (
+                                    <FontAwesomeIcon icon={i.icon} size="4x" color={wallet.color} />
+                                ) : null
+                            )}
+                        </div>
                     </div>
+
                 </div>
                 {/*Description section */}
                 <div className="flex flex-col gap-2 justify-start">
