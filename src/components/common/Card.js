@@ -9,7 +9,7 @@ import WalletForm from "../Wallet/WalletForm";
 import TransactionForm from "../Transaction/TransactionForm";
 import { AuthContext } from "../../context/authContext";
 
-const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety}) => {
+const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, href}) => {
   const [isHovered, setIsHovered] = useState(false);
   const { userInfo } = useContext(AuthContext);
 
@@ -39,7 +39,7 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety}) =
     }}
   >
       <>
-        <Text key={id} variant="text-lg" weight="semibold" className="text-center">
+        <Text key={id} href={href} variant="text-lg" weight="semibold" className="text-center">
           {name}
         </Text>
         <div

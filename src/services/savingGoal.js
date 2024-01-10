@@ -2,9 +2,9 @@ import axiosInstance from "./axios";
 
 
 // Create saving goal 
-export const createSavingGoal = async (name, target,  color, icon, startDate, endDate, description, status) => {
+export const createSavingGoal = async (name, target,  color, startDate, endDate, description, status) => {
     try {
-        const res = await axiosInstance.post("/saving/create", { name, target,  color, icon, startDate, endDate, description, status });
+        const res = await axiosInstance.post("/saving/create", { name, target,  color, startDate, endDate, description, status });
         if (res.status === 200) {
             return res.data;
         }

@@ -10,6 +10,10 @@ import Saving from "../pages/private/Saving";
 import Wallet from "../pages/private/Wallet";
 import StatisticPage from "../pages/private/Statistic";
 import UserProfile from "../pages/private/UserProfile";
+// import SavingDetail from "../pages/private/SavingDetail";
+import WalletDetail from "../pages/private/WalletDetail";
+import SavingDetail from "../pages/private/SavingDetail";
+import CategoryDetail from "../pages/private/CategoryDetail";
 
 // Import Authorization pages
 import Login from "../pages/public/Login";
@@ -59,6 +63,12 @@ export const privateRoutes = [
     header: "My Categories",
   },
   {
+    path: "/category/:id",
+    component: CategoryDetail,
+    layout: PrivatePageLayout,
+    header: "My Categories"
+  },
+  {
     path: "/invoices",
     component: Bills,
     layout: PrivatePageLayout,
@@ -71,6 +81,12 @@ export const privateRoutes = [
     header: "My Planning",
   },
   {
+    path: "/planning/:id",
+    component: SavingDetail,
+    layout: PrivatePageLayout,
+    header: "My Planning",
+  },
+  {
     path: "/dashboard",
     component: Dashboard,
     layout: PrivatePageLayout,
@@ -79,6 +95,12 @@ export const privateRoutes = [
   {
     path: "/wallets",
     component: Wallet,
+    layout: PrivatePageLayout,
+    header: "My Wallets",
+  },
+  {
+    path: "/wallets/:id",
+    component: WalletDetail,
     layout: PrivatePageLayout,
     header: "My Wallets",
   },
