@@ -11,18 +11,18 @@ function Header({ title, username }) {
         {title}
       </Text>
       <div className="items-center gap-6 flex">
-        <Icon svg={<BellIcon />} fillColor="#929EAE" />
+        {/* <Icon svg={<BellIcon />} fillColor="#929EAE" /> */}
 
-        <div className="w-10">
+        {/* <div className="w-10">
           <img
             className="rounded-full"
             src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
             alt="avatar"
           />
-        </div>
-        <Text variant="text-lg" weight="semibold">
+        </div> */}
+        {/* <Text variant="text-lg" weight="semibold">
           {username}
-        </Text>
+        </Text> */}
       </div>
     </div>
   );

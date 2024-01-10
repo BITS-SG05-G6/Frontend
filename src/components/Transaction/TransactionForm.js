@@ -17,6 +17,7 @@ import { AuthContext } from "../../context/authContext";
 import { SavingContext } from "../../context/savingContext";
 import { ExchangeContext } from "../../context/exchangeContext";
 import { NotificationContext } from "../../context/notificationContext";
+import { formatMoney } from "../../utils/formatMoney";
 
 const TransactionForm = ({
   category,
@@ -209,7 +210,7 @@ const TransactionForm = ({
                       labelType="side"
                     />
                     {errors.title && (
-                      <Text className="text-red-500 mt-3 text-start">
+                      <Text className="text-red-500 mt-3">
                         {errors.title.message}
                       </Text>
                     )}
@@ -492,15 +493,7 @@ const TransactionForm = ({
                         label="Exchange"
                         name="exchangeAmount"
                         type="number"
-                        // value={field.value}
-                        // onChange={(e) => field.on/Change(e.target.value)}
-                        placeholder={userInfo.baseCurrency === "VND" ?
-                          new Intl.NumberFormat("vi-VN").format(field.value) +
-                          " VND" : new Intl.NumberFormat("vi-VN", {
-                            style: "currency",
-                            currency: "USD"
-                          }).format(field.value)
-                        }
+                        placeholder={formatMoney(field.value, userInfo.baseCurrency)}
                         disabled
                         labelType="side"
                       />
