@@ -20,7 +20,7 @@ const ExchangeProvider = ({ children }) => {
     setBaseCurrency(userInfo ? userInfo.baseCurrency : 'VND');
     setExchangeCurrency(userInfo.baseCurrency === "VND" ? "USD" : "VND")
   }
-    const key = "dd9772cb61ace78c3427e95aae9423c000789e77";
+    const key = "984effa68765ad37cbec7fc2430eefaa439035a9";
     const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${date}?api_key=${key}&from=${exchangeCurrency}&to=${baseCurrency}&amount=1&format=json`;
 
     fetch(apiUrl)

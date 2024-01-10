@@ -14,6 +14,7 @@ import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/authContext";
 import { ExchangeContext } from "../../context/exchangeContext";
 import { NotificationContext } from "../../context/notificationContext";
+import { formatMoney } from "../../utils/formatMoney";
 
 const BillForm = () => {
   const {
@@ -105,7 +106,7 @@ const BillForm = () => {
             Add New Invoice
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
-            <form method="dialog" className="flex flex-col gap-4">
+            <form method="dialog" className="flex flex-col gap-4 justify-start text-end">
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
@@ -126,7 +127,7 @@ const BillForm = () => {
                       labelType="side"
                     />
                     {errors.title && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 mt-3">
                         {errors.title.message}
                       </Text>
                     )}
@@ -150,7 +151,7 @@ const BillForm = () => {
                       labelType="side"
                     />
                     {errors.date && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 mt-3">
                         {errors.date.message}
                       </Text>
                     )}
@@ -178,7 +179,7 @@ const BillForm = () => {
                       none={false}
                     />
                     {errors.currency && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 mt-3">
                         {errors.currency.message}
                       </Text>
                     )}
@@ -209,7 +210,7 @@ const BillForm = () => {
                       labelType="side"
                     />
                     {errors.amount && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 mt-3">
                         {errors.amount.message}
                       </Text>
                     )}
@@ -231,12 +232,7 @@ const BillForm = () => {
                         name="exchangeAmount"
                         type="number"
                         // value={field.value}
-                        placeholder={userInfo.baseCurrency === "VND" ?
-                          new Intl.NumberFormat("vi-VN").format(field.value) +
-                          " VND" : new Intl.NumberFormat("vi-VN", {
-                            style: "currency",
-                            currency: "USD"
-                          }).format(field.value)
+                        placeholder={formatMoney(field.value, userInfo.baseCurrency)
                         }
                         // placeholder={field.value}
                         disabled
