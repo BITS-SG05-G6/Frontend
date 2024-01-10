@@ -145,7 +145,11 @@ const TransactionForm = ({
   return (
     <>
       <Button
-        onClick={() => openModal()}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openModal()}
+        }
         variant={variant}
         className={className}
       >

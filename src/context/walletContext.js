@@ -28,7 +28,7 @@ const WalletProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        await axiosInstance.getWallet().then((res) => {
+        await axiosInstance.getWallets().then((res) => {
           setWallets(res);
         });
       } catch (err) {

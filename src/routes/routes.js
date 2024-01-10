@@ -90,6 +90,12 @@ export const privateRoutes = [
     header: "My Wallets",
   },
   {
+    path: "/wallets/:id",
+    component: Details,
+    layout: PrivatePageLayout,
+    header: "My Wallets",
+  },
+  {
     path: "/statistics",
     component: StatisticPage,
     layout: PrivatePageLayout,
