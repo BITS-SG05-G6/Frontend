@@ -21,7 +21,9 @@ function ColorPicker({ label, value, onChange }) {
           />
           <input
             type="text"
-            value={value.toUpperCase()}
+            value={value
+              .toUpperCase()
+            }
             disabled
             onChange={onChange}
             className="input input-bordered"

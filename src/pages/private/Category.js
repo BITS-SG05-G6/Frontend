@@ -50,14 +50,14 @@ const Category = () => {
         {categories.map((category) =>
           category.type === type ? (
             <Card
-              id={category.id}
+              id={category._id}
               icon={category.icon}
               color={category.color}
               name={category.name}
               amount={category.budget}
               handleDel={() => handleDel(category.id)}
               type={category.type}
-              href={`/category/${category.id}`}
+              href={`/category/${category._id}`}
               variety="Category"
             />
           ) : null

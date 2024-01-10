@@ -18,12 +18,13 @@ const WalletEditForm = ({
   //   amount = 0,
   wallet,
 }) => {
-  console.log(wallet);
-  const { name, color, icon, description, amount } = wallet;
+  // console.log(wallet);
+  // const { name, color, icon, description, amount } = wallet;
   const {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -32,52 +33,62 @@ const WalletEditForm = ({
     useContext(NotificationContext);
 
   const onSubmit = async (d) => {
-    // console.log(d);
-    await axiosInstance
-      .createWallet(
-        d.name,
-        d.amount,
-        d.color,
-        d.icon,
-        d.description,
-        d.exchangeAmount
-      )
-      .then((res) => {
-        document.getElementById("my_modal_3").close();
-        handleUpdateWallet();
-        console.log(res);
-        setMessage(res);
-        setIsMessageVisible(true);
-        setNotiType("success");
+    console.log(d);
+    // await axiosInstance
+    //   .createWallet(
+    //     d.name,
+    //     d.amount,
+    //     d.color,
+    //     d.icon,
+    //     d.description,
+    //     d.exchangeAmount
+    //   )
+    //   .then((res) => {
+    //     document.getElementById("my_modal_3").close();
+    //     handleUpdateWallet();
+    //     console.log(res);
+    //     setMessage(res);
+    //     setIsMessageVisible(true);
+    //     setNotiType("success");
 
-        setTimeout(() => {
-          setMessage(null);
-          setIsMessageVisible(false);
-        }, 3000);
-        reset();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    //     setTimeout(() => {
+    //       setMessage(null);
+    //       setIsMessageVisible(false);
+    //     }, 3000);
+    //     reset();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
+
+  const openModal = () => {
+    document.getElementById(`${wallet._id}edit`).showModal();
+    // console.log(`${wallet._id}edit`);
+    setValue("name", wallet.name);
+    setValue("amount", wallet.amount);
+    setValue("color", wallet.color);
+    setValue("icon", wallet.icon);
+    setValue("description", wallet.description);
+  }
 
   return (
     <>
       <Button
-        onClick={() => {
-          document.getElementById("wallet_edit_form").showModal();
-          console.log(color);
-        }}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openModal()}}
         variant="blueButton"
         size="lg"
       >
         Edit
       </Button>
 
-      <dialog id="wallet_edit_form" className="modal">
+      <dialog id={`${wallet._id}edit`} className="modal">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Edit {name}
+            Edit {wallet.name}
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">
@@ -88,14 +99,14 @@ const WalletEditForm = ({
               <Controller
                 name="name"
                 control={control}
-                defaultValue={name}
+                defaultValue={wallet.name}
                 render={({ field }) => (
                   <div>
                     <FormInput
                       type="text"
                       label="Name"
                       name="name"
-                      placeholder={name}
+                      placeholder={wallet.name}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
@@ -112,7 +123,7 @@ const WalletEditForm = ({
               <Controller
                 name="amount"
                 control={control}
-                defaultValue={amount}
+                // defaultValue={wallet.amount}
                 rules={{
                   pattern: {
                     value: /^([^.0-]\d+|\d)$/,
@@ -125,7 +136,7 @@ const WalletEditForm = ({
                       type="number"
                       label="Balance"
                       name="amount"
-                      placeholder={amount}
+                      placeholder={wallet.amount}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
@@ -141,7 +152,7 @@ const WalletEditForm = ({
               <Controller
                 name="color"
                 control={control}
-                defaultValue={wallet && wallet.color}
+                // defaultValue={wallet && wallet.color}
                 render={({ field }) => (
                   <div>
                     <ColorPicker
@@ -161,7 +172,7 @@ const WalletEditForm = ({
               <Controller
                 name="icon"
                 control={control}
-                defaultValue={icon}
+                // defaultValue={wallet.icon}
                 render={({ field }) => (
                   <div>
                     <IconPicker
@@ -179,7 +190,7 @@ const WalletEditForm = ({
               <Controller
                 name="description"
                 control={control}
-                defaultValue={description ? description : "Write description"}
+                // defaultValue={wallet.description ? wallet.description : "Write description"}
                 render={({ field }) => (
                   <div>
                     <Textarea
@@ -192,7 +203,9 @@ const WalletEditForm = ({
               />
 
               <div className="flex justify-around">
-                <Button size="xl" onClick={handleSubmit(onSubmit)}>
+                <Button size="xl" 
+                onClick={handleSubmit(onSubmit)}
+                >
                   Save
                 </Button>
                 <Button variant="roundOutline" size="xl">
