@@ -14,11 +14,12 @@ function Dashboard() {
 
     // Fetch overview of monthly income and expense
     const [overview, setOverview] = useState({});
-
+    const [totalSaving,setTotalSaving] = useState(0);
     useEffect(() => {
         async function fetchData() {
             try {
                 const res = await axiosInstance.compareExpenseIncomeByMonth();
+
                 // console.log(res);
                 setOverview(res);
             }
@@ -29,9 +30,18 @@ function Dashboard() {
                 });
             }
         }
-        fetchData();
-    }, []);
 
+        async function totalSavingMonthly() {
+            try {
+                const res = await axiosInstance.totalSavingMonthly();
+                setTotalSaving(res);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetchData();
+        totalSavingMonthly()
+    }, []);
     // Fetch transactions
     const { transactions, setPage, setSelectedDate } = useContext(TransactionContext);
     // Explicitly set the page type and the selectedDate to handle displaying fetching all transactions
@@ -54,7 +64,7 @@ function Dashboard() {
                     <div className="px-5 py-5 flex justify-evenly gap-5">
                         <OverviewCard type='balance' isPrimary amount={overview.Income} />
                         <OverviewCard type='spending' amount={overview.Expense} />
-                        <OverviewCard type='savings' />
+                        <OverviewCard type='savings' amount={totalSaving.totalMonthlySaving}/>
                     </div>
                     {/* Statistic */}
                     <div className='px-6'>
