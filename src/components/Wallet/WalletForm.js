@@ -8,6 +8,7 @@ import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
+import { NotificationContext } from "../../context/notificationContext";
 
 const WalletForm = ({ children }) => {
   const {
@@ -18,6 +19,8 @@ const WalletForm = ({ children }) => {
   } = useForm();
 
   const { handleUpdateWallet } = useContext(WalletContext);
+  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
+
 
   const onSubmit = async (d) => {
     // console.log(d);
@@ -29,6 +32,14 @@ const WalletForm = ({ children }) => {
           .close();
         handleUpdateWallet();
         console.log(res);
+        setMessage(res);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
         reset();
       })
       .catch((err) => {
