@@ -8,6 +8,7 @@ function ConfirmationModal({
   btnType,
   onSubmit,
   message,
+  variant,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -16,6 +17,7 @@ function ConfirmationModal({
       <Button
         type={"button"}
         size={btnSize}
+        variant={variant}
         onClick={() => document.getElementById(idModal).showModal()}
       >
         {btnName}
