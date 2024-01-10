@@ -2,7 +2,6 @@
 import React, { Fragment, useContext } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import { LandingPage } from "./pages/public/LandingPage";
 import Transaction from "./pages/private/Transaction";
 import Bills from "./pages/private/Bills";
 import Login from "./pages/public/Login";
@@ -12,6 +11,9 @@ import Wallet from "./pages/private/Wallet";
 import Dashboard from "./pages/private/Dashboard";
 import Saving from './pages/private/Saving';
 import StatisticPage from './pages/private/Statistic';
+import LandingPage from "./pages/public/LandingPage";
+import { AboutUs } from "./pages/public/AboutUs";
+import FAQ from "./pages/public/faq"
 
 import { publicRoutes, privateRoutes } from "./routes/routes";
 import { AuthContext } from "./context/authContext";
@@ -74,8 +76,8 @@ function App() {
     //   <Route path="/login" element={<Login />}></Route>
     //   <Route path="/wallets" element={<Wallet />}></Route>
     //   <Route path="/dashboard" element={<Dashboard/>}></Route>
-    //   <Route path="/statistics" element={<StatisticPage/>}></Route>
-    //   <Route path="/planning" element={<Saving/>}></Route>
+    //   <Route path="/aboutus" element={<AboutUs/>}></Route>
+
 
     //   {/* <Route path="/login" element={<Login />}></Route> */}
     //   <Route path="/signup" element={<Signup />}></Route>

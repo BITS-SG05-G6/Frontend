@@ -25,15 +25,9 @@ const NavBar = () => {
       <div className="flex flex-1 justify-end items-center gap-4">
         <ul className="flex flex-row justify-between space-x-4">
           <li className="font-semibold">
-            <Link
-              to="/aboutus"
-              spy={true}
-              smooth={true}
-              offset={-50}
-              duration={500}
-            >
+            <a href="/aboutus">
               About Us
-            </Link>
+            </a>
           </li>
           <li className="font-semibold">
             <Link
