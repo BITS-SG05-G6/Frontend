@@ -39,7 +39,6 @@ const BillForm = () => {
   const { handleUpdateBill } = useContext(BillContext);
 
   const onSubmit = async (d) => {
-    console.log(d);
     await axiosInstance
       .createBill(
         d.title,
@@ -78,7 +77,6 @@ const BillForm = () => {
 
   // console.log(rate);
   const handleOnChange = (value) => {
-    console.log(rate);
     let exchangeValue;
     if (selectedCurrency === "VND") {
       exchangeValue = parseFloat((value/rate).toFixed(2));

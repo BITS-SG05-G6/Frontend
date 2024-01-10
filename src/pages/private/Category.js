@@ -50,7 +50,7 @@ const Category = () => {
         {categories.map((category) =>
           category.type === type ? (
             <Card
-              id={category.id}
+              id={category._id}
               icon={category.icon}
               color={category.color}
               name={category.name}

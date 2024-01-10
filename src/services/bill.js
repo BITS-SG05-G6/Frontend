@@ -35,3 +35,14 @@ export const deleteBill = async(id) => {
     return err;
   }
 }
+
+export const payBill = async(id) => {
+  const res = await axiosInstance.put(`bill/pay/${id}`)
+  try {
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch(err) {
+    return err;
+  }
+}

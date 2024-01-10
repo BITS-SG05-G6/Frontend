@@ -1,8 +1,12 @@
 import Text from "../common/Text";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWallet, faScaleBalanced, faSackDollar } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
+import { formatMoney } from "../../utils/formatMoney";
 
 function OverviewCard({ isPrimary, type, amount }) {
+    const { userInfo } = useContext(AuthContext);
     return (
         <div className={`w-56 h-28 px-5 py-6 rounded-[10px] justify-start items-center gap-4 inline-flex ${isPrimary ? 'bg-neutral-700' : 'bg-[#F8F8F8]'}`}>
             <div className="w-11 h-11 relative">
@@ -13,7 +17,7 @@ function OverviewCard({ isPrimary, type, amount }) {
                 <Text className=" text-gray-400 font-normal font-['Kumbh Sans']" variant='text-sm'>
                     {type === 'balance' ? 'Monthly balance' : (type === 'spending' ? 'Monthly spending' : 'Monthly savings')}
                 </Text>
-                <Text className={`${isPrimary ? 'text-white' : 'text-black'} font-['Kumbh Sans]`} variant='text-xl' weight='bold'>{amount}</Text>
+                <Text className={`${isPrimary ? 'text-white' : 'text-black'} font-['Kumbh Sans]`} variant='text-xl' weight='bold'>{formatMoney(amount, userInfo.baseCurrency)}</Text>
             </div>
         </div>
     );

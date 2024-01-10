@@ -8,6 +8,7 @@ import CategoryForm from "../Category/CategoryForm";
 import WalletForm from "../Wallet/WalletForm";
 import TransactionForm from "../Transaction/TransactionForm";
 import { AuthContext } from "../../context/authContext";
+import { formatMoney } from "../../utils/formatMoney";
 
 const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, href}) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -54,7 +55,7 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, hr
             ) : null
           )}
         </div>
-        <Text weight="bold">{amount} {userInfo.baseCurrency}</Text>
+        <Text weight="bold">{formatMoney(amount, userInfo.baseCurrency)}</Text>
         <div className="flex justify-around w-full">
           {
             variety === "Category" ?

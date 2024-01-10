@@ -56,6 +56,7 @@ const Button = ({
   id,
   value,
   type,
+  disabled
 }) => {
   return href ? (
     <Link
@@ -77,6 +78,7 @@ const Button = ({
       id={id}
       value={value}
       type={type}
+      disabled={disabled}
     >
       {children}
     </button>

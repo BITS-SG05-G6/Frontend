@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
       await axiosInstance
       .getProfile()
       .then((res) => {
+        console.log(res);
         setUserInfo(res);
       })
       .catch((err) => {
