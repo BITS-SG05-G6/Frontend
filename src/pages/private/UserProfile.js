@@ -5,6 +5,7 @@ import Text from "../../components/common/Text";
 import { AuthContext } from "../../context/authContext";
 import FormInput from "../../components/common/FormInput";
 import Button from "../../components/common/Button";
+import ConfirmationModal from "../../components/common/ConfirmationModal";
 import * as axiosInstance from "../../services/auth";
 
 function UserProfile() {
@@ -16,25 +17,15 @@ function UserProfile() {
     mode: "onChange",
   });
   const password = useWatch({ control, name: "password" });
-  // const confirmPassword = useWatch({ control, name: "confirmPassword" });
   const currency = [
     { value: "VND", label: "VND" },
     { value: "USD", label: "USD" },
   ];
   const { userInfo } = useContext(AuthContext);
-  // console.log(userInfo);
 
-  // const passwordMatchValidator = (value, { getValues }) => {
-  //   const passwordValue = getValues("password");
-  //   return value === passwordValue || "Passwords do not match";
-  // };
-
-  // console.log(passwordMatchValidator);
-
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
     const { username, password, baseCurrency } = data;
 
-    console.log(userInfo);
     // Compare each field in data with the corresponding field in userInfo
     const updatedData = Object.keys({
       username,
@@ -62,15 +53,14 @@ function UserProfile() {
     console.log(updatedData);
 
     // Handle the form submission logic with updatedData
-    await axiosInstance
-      .updateProfile(updatedData)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(updatedData);
+    // await axiosInstance
+    //   .updateProfile(updatedData)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -85,7 +75,7 @@ function UserProfile() {
 
       {/* Form */}
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
           {/* Title & Edit Button */}
           <div className="flex flex-row justify-between mb-9">
             <span className="text-lg font-semibold">Personal Information</span>
@@ -228,9 +218,16 @@ function UserProfile() {
               />
             </div>
           </div>
-          <Button className="mt-10" size={"xl"} type="submit">
-            Update
-          </Button>
+          <div className="mt-10">
+            <ConfirmationModal
+              idModal="test"
+              btnName={"Update"}
+              btnSize={"xl"}
+              btnType={"submit"}
+              onSubmit={handleSubmit(onSubmit)}
+              message={"Are you sure to update your personal information ?"}
+            />
+          </div>
         </form>
       </div>
     </div>
