@@ -8,6 +8,8 @@ import CategoryForm from "../Category/CategoryForm";
 import WalletForm from "../Wallet/WalletForm";
 import TransactionForm from "../Transaction/TransactionForm";
 import { AuthContext } from "../../context/authContext";
+import { formatMoney } from "../../utils/formatMoney";
+import ConfirmationModal from './ConfirmationModal';
 
 const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, href}) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -54,7 +56,7 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, hr
             ) : null
           )}
         </div>
-        <Text weight="bold">{amount} {userInfo.baseCurrency}</Text>
+        <Text weight="bold">{formatMoney(amount, userInfo.baseCurrency)}</Text>
         <div className="flex justify-around w-full">
           {
             variety === "Category" ?
@@ -63,13 +65,16 @@ const Card = ({ id, icon, color, add, type, name, amount, handleDel, variety, hr
             <TransactionForm buttonName="Add" variant="blueButton" wallet={{id: id, name: name, currency: userInfo.baseCurrency, amount: amount}}/>
           }
    
-      
-
-              <Button
-              size=""
-              variant="redButton"
-              onClick={handleDel}
-              >Delete</Button>
+              
+              <ConfirmationModal
+            idModal={`deleteConfirmation-${id}`} 
+            btnName="Delete"
+            btnSize="small"
+            btnType="button"
+            onSubmit={handleDel} 
+            message={`Are you sure you want to delete this "${name}"?`}
+            variant="redButton"
+          />
             </div>
       </>
     {/* )} */}

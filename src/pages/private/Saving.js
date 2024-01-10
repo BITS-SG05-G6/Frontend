@@ -6,12 +6,15 @@ import GoalForm from "../../components/SavingGoal/GoalForm";
 import { useContext } from "react";
 import { SavingContext } from "../../context/savingContext";
 import * as axiosInstance from '../../services/savingGoal'
+import { NotificationContext } from "../../context/notificationContext";
+import Alert from "../../components/common/Alert";
 
 function Saving() {
     const {goals, handleUpdateGoal} = useContext(SavingContext);
+    const { setIsMessageVisible, isMessageVisible, message, setMessage, notiType } = useContext(NotificationContext);
 
     // Delete a goal
-    async function handleDelete(id) {
+    async function handleDel(id) {
         try {
             const res = await axiosInstance.deleteSavingGoal(id);
             console.log(res);
@@ -23,12 +26,19 @@ function Saving() {
     }
     return (
         <>
+        {
+      isMessageVisible && (
+        <Alert message={message} type={notiType}/>
+      )
+    }
             <div className="flex justify-end px-6">
                 <GoalForm buttonName="New Goal" icon="file-invoice-dollar" />
             </div>
             <div className="px-10">
+                
                 <div className="flex flex-col flex-1 gap-10 pr-5">
-                    <GoalList goals={goals} onDelete={handleDelete} />
+                    
+                <GoalList goals={goals} onDelete={handleDel} />
                 </div>
             </div>
         </>

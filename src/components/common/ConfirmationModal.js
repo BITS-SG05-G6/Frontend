@@ -24,15 +24,17 @@ function ConfirmationModal({
         {btnName}
       </Button>
       <dialog id={`${idModal}`} className="modal">
-        <div className="modal-box flex flex-col gap-8">
-          <h3 className="font-bold text-red-500 text-2xl">Confirmation</h3>
+        <div className="modal-box flex flex-col gap-8 py-14">
+          <Text variant="text-2xl" weight="bold" className="text-[#EF5DA8]">Are you sure?</Text>
           {/* <p className="py-4">{message}</p> */}
-          <Text weight="semibold">{message}</Text>
+          <Text weight="medium">{message}</Text>
           <div className="">
-            <form method="dialog" className="flex flex-row  gap-3 justify-center ">
+            <form method="dialog" className="flex flex-row  gap-10 justify-center ">
               {/* if there is a button in form, it will close the modal */}
+              <button class="hover:text-[#EF5DA8] text-sm outline-none btn btn-sm btn-circle bg-transparent border-transparent hover:bg-transparent hover:border-transparent absolute right-2 top-2 text-black">x</button>
+
               <Button
-               
+                size="xl"
                 type={btnType}
                 onClick={() => {
                   onSubmit();
@@ -41,7 +43,7 @@ function ConfirmationModal({
               >
                 Confirm
               </Button>
-              <Button  variant={"roundOutline"}>Cancel</Button>
+              <Button size="xl"  variant={"roundOutline"}>Cancel</Button>
             </form>
           </div>
         </div>

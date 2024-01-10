@@ -5,32 +5,32 @@ import {
   CardHeader,
 } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as axiosInstance from "../../services/statistics";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import { statisticExpensesWeekly, statisticExpensesMonthly } from '../../services/statistics';
+import { AuthContext } from "../../context/authContext";
 
 // Define the TrendStatistic component
 export default function TrendStatistic({ typeOfData, title }) {
   // State to hold fetched expense data
   const [expenseData, setExpenseData] = useState([]);
-
+  const { userInfo } = useContext(AuthContext)
   // Fetch expense data based on typeOfData when component mounts or typeOfData changes
   useEffect(() => {
     // Retrieve user ID from the JWT token stored in cookies
-    const token = Cookies.get("token");
-    const decodedToken = jwtDecode(token);
-    const userId = decodedToken.id;
+    // const token = Cookies.get("token");
+    // const decodedToken = jwtDecode(token);
+    // const userId = decodedToken.id;
 
     // Fetch data based on the type provided (Weekly or Monthly)
     const fetchData = async () => {
       try {
         let response = [];
         if (typeOfData === "Weekly") {
-          response = await statisticExpensesWeekly(userId);
+          response = await statisticExpensesWeekly(userInfo._id);
         } else if (typeOfData === "Monthly") {
-          response = await statisticExpensesMonthly(userId);
+          response = await statisticExpensesMonthly(userInfo._id);
         }
 
         // Update the expenseData state with the fetched response (or an empty array if no response)

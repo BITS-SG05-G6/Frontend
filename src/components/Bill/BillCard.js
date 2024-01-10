@@ -4,8 +4,14 @@ import Badge from "../common/Badge";
 import Button from "../common/Button";
 import * as axiosInstance from "../../services/bill";
 import { BillContext } from "../../context/billContext";
+import { formatMoney } from "../../utils/formatMoney";
+import { NotificationContext } from "../../context/notificationContext";
+import ConfirmationModal from '../common/ConfirmationModal';
 
 function BillCard({ bill }) {
+  const { setIsMessageVisible, setMessage, setNotiType } =
+    useContext(NotificationContext);
+
   // const status =
   const { handleUpdateBill } = useContext(BillContext);
 
@@ -15,6 +21,25 @@ function BillCard({ bill }) {
     .then((res) => {
       // console.log(res);
       handleUpdateBill();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  const handlePay = async() => {
+    await axiosInstance.payBill(bill._id)
+    .then((res) => {
+      // console.log(res);
+      handleUpdateBill();
+      setMessage(res);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
     })
     .catch((err) => {
       console.log(err);
@@ -31,7 +56,7 @@ function BillCard({ bill }) {
         {/* Next Due Date */}
         <div className="flex flex-row w-full justify-between">
           <span className="text-base font-semibold">Amount:</span>
-          <span className="text-base font-normal">{bill.amount} {bill.currency}</span>
+          <span className="text-base font-normal">{formatMoney(bill.amount, bill.currency)}</span>
         </div>
 
         <div className="flex flex-row w-full justify-between">
@@ -64,15 +89,26 @@ function BillCard({ bill }) {
       <div className="w-full h-[1px] bg-gray-400"></div>
 
       {/* Buttons */}
-      <div className="flex flex-row w-full gap-2">
-        <Button
+      <div className="flex flex-row w-full gap-2 justify-end">
+        {/* <Button
           className={"ml-auto"}
           variant={"redButton"}
           children={"Cancel"}
           size={"sm"}
           onClick={handleDel}
-        />
-        <Button variant={"blueButton"} children={"Pay"} size={"sm"} />
+        /> */}
+        
+        <ConfirmationModal
+            idModal={`deleteConfirmation${bill._id}`} 
+            btnName="Cancel"
+            btnSize="small"
+            btnType="button"
+            onSubmit={handleDel} 
+            message={`Are you sure you want to cancel this "${bill.title}" invoice?`}
+            variant="redButton"
+            
+          />
+        <Button variant={"blueButton"} children={"Pay"} size={"sm"} onClick={handlePay} disabled={bill.status === "Paid"}/>
       </div>
     </div>
   );
