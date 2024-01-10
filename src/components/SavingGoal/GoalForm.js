@@ -59,7 +59,7 @@ function GoalForm ({ buttonName, icon })  {
                         New Goal
                     </Text>
                     <div className="modal-action mx-0 block w-full overflow-visible">
-                        <form method="dialog" className="flex flex-col gap-4">
+                        <form method="dialog" className="flex flex-col gap-4 justify-start text-end">
                             <Button variant="close" className="text-black" size="fix">
                                 x
                             </Button>
@@ -82,7 +82,7 @@ function GoalForm ({ buttonName, icon })  {
                                             labelType="side"
                                         />
                                         {errors.name && (
-                                            <Text className="text-red-500 px-32 mt-3">
+                                            <Text className="text-red-500 text-end mt-3">
                                                 {errors.name.message}
                                             </Text>
                                         )}
@@ -94,11 +94,12 @@ function GoalForm ({ buttonName, icon })  {
                                 name="target"
                                 control={control}
                                 rules={{
+                                    required: "Target is required!",
                                     pattern: {
-                                        value: /^([^.0-]\d+|\d)$/,
-                                        message: "It must be a positive number",
+                                      value: /^([^.0-]\d+|\d)$/,
+                                      message: "It must be a positive number",
                                     },
-                                }}
+                                  }}
                                 render={({ field }) => (
                                     <div>
                                         <FormInput
@@ -110,9 +111,9 @@ function GoalForm ({ buttonName, icon })  {
                                             labelType="side"
                                             placeholder="e.g: 0"
                                         />
-                                        {errors.amount && (
-                                            <Text className="text-red-500 px-32 mt-3">
-                                                {errors.amount.message}
+                                        {errors.target && (
+                                            <Text className="text-red-500 mt-3">
+                                                {errors.target.message}
                                             </Text>
                                         )}
                                     </div>
