@@ -36,7 +36,7 @@ function GoalRow({ goal, onDelete }) {
                 </div>
                 {/*Buttons */}
                 <div className='py-3 px-5 flex flex-wrap justify-center items-center gap-1'>
-                    <TransactionForm buttonName='Add' variant='blueButton'/>
+                    <TransactionForm buttonName='Add' variant='blueButton' goal={{id: goal._id, name: goal.name, type: "Saving"}}/>
                     <Button variant='lightPrimary'>Edit</Button>
                     <Button variant='redButton'onClick={() => onDelete(goal._id)}>Delete</Button>
                 </div>

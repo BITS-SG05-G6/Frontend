@@ -21,6 +21,7 @@ import { NotificationContext } from "../../context/notificationContext";
 const TransactionForm = ({
   category,
   wallet,
+  goal,
   buttonName,
   className,
   variant,
@@ -111,9 +112,12 @@ const TransactionForm = ({
   }, [selectedCurrency, setValue, selectedDate, otherCurrency, userInfo.baseCurrency, setBaseCurrency, setDate, setExchangeCurrency, rate, selectedType, reset])
 
   const openModal = () => {
+    console.log(        category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
+    );
+
     document
       .getElementById(
-        category ? category.id : wallet ? wallet.id : "my_modal_1"
+        category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
       )
       .showModal();
   };
@@ -121,7 +125,7 @@ const TransactionForm = ({
   const closeModal = () => {
     document
       .getElementById(
-        category ? category.id : wallet ? wallet.id : "my_modal_1"
+        category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
       )
       .close();
     reset();
@@ -129,7 +133,7 @@ const TransactionForm = ({
 
   const validateAmount = async (value) => {
     let exchangeValue;
-    console.log(rate);
+    // console.log(rate);
     if (selectedCurrency === "VND") {
       exchangeValue = parseFloat((value/rate).toFixed(2));
     } else {
@@ -170,7 +174,7 @@ const TransactionForm = ({
         </Text>
       </Button>
       <dialog
-        id={category ? category.id : wallet ? wallet.id : "my_modal_1"}
+        id={category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"}
         className="modal"
       >
         <div className="modal-box flex flex-col justify-center w-full">
@@ -237,7 +241,7 @@ const TransactionForm = ({
               />
 
               {
-                selectedType === "Saving" ? null :
+                selectedType === "Saving" || goal ? null :
                 category ? (
                 <FormInput
                   label="Category"
@@ -278,6 +282,13 @@ const TransactionForm = ({
           
 
               {
+                goal ? <FormInput
+                label="Type"
+                name="categoryType"
+                value={goal.type}
+                disabled
+                labelType="side"
+              /> :
               category ? (
                 <FormInput
                   label="Type"
@@ -366,16 +377,16 @@ const TransactionForm = ({
               )}
 
               {
-                selectedType === "Saving" ?
-                wallet ? (
-                  // <FormInput
-                  //   label="Wallet"
-                  //   name="wallet"
-                  //   value={wallet.name}
-                  //   disabled
-                  //   labelType="side"
-                  // />
-                  null
+                selectedType === "Saving" ||
+                goal ? (
+                  <FormInput
+                    label="Goal"
+                    name="goal"
+                    value={goal.name}
+                    disabled
+                    labelType="side"
+                  />
+        
                 ) : (
                   goals && (
                     <Controller
@@ -403,8 +414,8 @@ const TransactionForm = ({
                         </div>
                       )}
                     />
-                  )) : null
-              }
+                  )) 
+                          }
               {
                 selectedType === "Saving" ? null :
                 <Controller
