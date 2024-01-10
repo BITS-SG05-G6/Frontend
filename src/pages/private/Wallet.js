@@ -2,9 +2,13 @@ import React, { useContext } from "react";
 import Card from "../../components/common/Card";
 import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
+import { NotificationContext } from "../../context/notificationContext";
+import Alert from "../../components/common/Alert";
 
 const Wallet = () => {
   const { wallets, handleUpdateWallet } = useContext(WalletContext);
+  const { isMessageVisible, message, notiType} = useContext(NotificationContext);
+
   const handleDel = async (id) => {
     await axiosInstance.deleteWallet(id)
       .then((res) => {
@@ -17,6 +21,11 @@ const Wallet = () => {
   }
   return (
     <>
+    {
+      isMessageVisible && (
+        <Alert message={message} type={notiType}/>
+      )
+    }
       <div className="grid gap-10 grid-cols-4 px-10">
         <Card add="wallet" />
         {wallets.map((wallet) => (

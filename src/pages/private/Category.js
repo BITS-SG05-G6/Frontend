@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
+import Alert from "../../components/common/Alert";
 import Button from "../../components/common/Button";
 import Card from "../../components/common/Card";
-import Header from "../../components/common/Header";
-import SideBar from "../../components/common/SideBar";
 import { CategoryContext } from "../../context/categoryContext";
+import { NotificationContext } from "../../context/notificationContext";
 import * as axiosInstance from "../../services/category";
 
 const Category = () => {
   const { type, setType, categories, handleUpdateCategory } =
     useContext(CategoryContext);
+    const { isMessageVisible, message, notiType} = useContext(NotificationContext);
 
   const handleDel = async (id) => {
     await axiosInstance
@@ -24,7 +25,11 @@ const Category = () => {
 
   return (
     <>
-
+{
+      isMessageVisible && (
+        <Alert message={message} type={notiType}/>
+      )
+    }
       <div className="flex justify-end px-6 gap-4">
         <Button
           variant={type === "Expense" ? "" : "roundOutline"}
@@ -49,7 +54,7 @@ const Category = () => {
               icon={category.icon}
               color={category.color}
               name={category.name}
-              amount={category.amount}
+              amount={category.budget}
               handleDel={() => handleDel(category.id)}
               type={category.type}
               variety="Category"

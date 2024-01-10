@@ -6,16 +6,6 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import { LandingPage } from "./pages/public/LandingPage";
-import Transaction from "./pages/private/Transaction";
-import Bills from "./pages/private/Bills";
-import Login from "./pages/public/Login";
-import Signup from "./pages/public/Signup";
-import Category from "./pages/private/Category";
-import Wallet from "./pages/private/Wallet";
-import Dashboard from "./pages/private/Dashboard";
-import Saving from "./pages/private/Saving";
-import StatisticPage from "./pages/private/Statistic";
 
 import { publicRoutes, privateRoutes } from "./routes/routes";
 import { AuthContext } from "./context/authContext";
@@ -29,9 +19,9 @@ function App() {
         <Routes>
           {/*Create public routes */}
           {publicRoutes.map((route, index) => {
-            {
+            
               /*Set up routes for public pages */
-            }
+            
             const Page = route.component;
             const Layout = route.layout === null ? Fragment : route.layout;
             return (

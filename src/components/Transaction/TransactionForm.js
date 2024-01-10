@@ -16,6 +16,7 @@ import { format } from "date-fns";
 import { AuthContext } from "../../context/authContext";
 import { SavingContext } from "../../context/savingContext";
 import { ExchangeContext } from "../../context/exchangeContext";
+import { NotificationContext } from "../../context/notificationContext";
 
 const TransactionForm = ({
   category,
@@ -36,6 +37,7 @@ const TransactionForm = ({
     mode: "onChange",
   });
   const { type, setType, categories } = useContext(CategoryContext);
+  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
   const { userInfo } = useContext(AuthContext);
   const selectedCategory = watch("category");
   const selectedWallet = watch("wallet");
@@ -77,7 +79,15 @@ const TransactionForm = ({
           )
           .close();
         handleUpdateTransaction();
-        // console.log(res);
+        setMessage(res.message);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
+        console.log(res);
         reset();
       })
       .catch((err) => {
