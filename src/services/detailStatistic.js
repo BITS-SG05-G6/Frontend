@@ -71,3 +71,42 @@ export const getWalletStatisticsLastMonth = async(walletID) => {
     }
 
 }
+
+//Saving goal
+//Saving goal statistic
+
+export const savingGoalStatistic = async(savingID) => {
+  const res = await axiosInstance.get(`/statisticdetail/savinggoal/${savingID}`);
+    try {
+        if (res.status === 200) {
+          return res.data;
+        }
+      } catch (err) {
+        return err;
+      }
+
+}
+
+export const savingGoalThisMonthStatistic = async(savingID) => {
+  const res = await axiosInstance.get(`/statisticdetail/savinggoal/thismonth/${savingID}`);
+    try {
+        if (res.status === 200) {
+          return res.data;
+        }
+      } catch (err) {
+        return err;
+      }
+
+}
+
+export const savingGoalLastMonthStatistic = async(savingID) => {
+  const res = await axiosInstance.get(`/statisticdetail/savinggoal/lastmonth/${savingID}`);
+    try {
+        if (res.status === 200) {
+          return res.data;
+        }
+      } catch (err) {
+        return err;
+      }
+
+}
