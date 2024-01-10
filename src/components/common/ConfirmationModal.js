@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import Text from './Text';
 
 function ConfirmationModal({
   idModal,
@@ -23,14 +24,15 @@ function ConfirmationModal({
         {btnName}
       </Button>
       <dialog id={`${idModal}`} className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Confirmation</h3>
-          <p className="py-4">{message}</p>
-          <div className="modal-action">
-            <form method="dialog" className="flex flex-row gap-3">
+        <div className="modal-box flex flex-col gap-8">
+          <h3 className="font-bold text-red-500 text-2xl">Confirmation</h3>
+          {/* <p className="py-4">{message}</p> */}
+          <Text weight="semibold">{message}</Text>
+          <div className="">
+            <form method="dialog" className="flex flex-row  gap-3 justify-center ">
               {/* if there is a button in form, it will close the modal */}
               <Button
-                variant={"roundOutline"}
+               
                 type={btnType}
                 onClick={() => {
                   onSubmit();
@@ -39,7 +41,7 @@ function ConfirmationModal({
               >
                 Confirm
               </Button>
-              <Button>Cancel</Button>
+              <Button  variant={"roundOutline"}>Cancel</Button>
             </form>
           </div>
         </div>

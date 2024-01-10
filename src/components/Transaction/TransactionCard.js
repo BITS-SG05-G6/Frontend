@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from 'react';
 import { cn } from "../../utils/cn";
 import Button from "../common/Button";
 import Text from "../common/Text";
+import ConfirmationModal from '../common/ConfirmationModal';
 
 function TransactionCard({ title, amount, category, id, color, handleDel, type, currency}) {
+
   return (
     <tr className="w-full">
       {/* The user can click on a transaction row to view the details */}
@@ -31,7 +33,16 @@ function TransactionCard({ title, amount, category, id, color, handleDel, type, 
       <td className={cn(type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center font-bold")}>{amount} {currency}</td>
       <td className="flex gap-1 justify-center">
         <Button variant="blueButton">Edit</Button>
-        <Button href="/transaction" variant="redButton" onClick={handleDel}>Delete</Button>
+        {/* <Button href="/transaction" variant="redButton" onClick={openConfirmationDelete}>Delete</Button> */}
+        <ConfirmationModal
+            idModal={`deleteConfirmation-${id}`} 
+            btnName="Delete"
+            btnSize="small"
+            btnType="button"
+            onSubmit={handleDel} 
+            message={`Are you sure you want to delete this transaction?`}
+            variant="redButton"
+          />
       </td>
     </tr>
   );
