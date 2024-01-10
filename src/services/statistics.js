@@ -198,3 +198,15 @@ export const walletExenseTotal = async() => {
       }
 }
 
+export const totalSavingMonthly = async() => {
+  const res = await axiosInstance.get(`/statisticdetail/totalsaving`);
+    try {
+        if (res.status === 200) {
+          return res.data;
+        }
+      } catch (err) {
+        return err;
+      }
+}
+
+
