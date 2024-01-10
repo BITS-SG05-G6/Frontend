@@ -22,7 +22,7 @@ const Login = () => {
   const { fetchData } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  const { setIsMessageVisible, isMessageVisible, message, setMessage } = useContext(NotificationContext);
+  const { setIsMessageVisible, isMessageVisible, message, setMessage, setNotiType, notiType } = useContext(NotificationContext);
 
   function handleCallbackResponse(res) {
     console.log("Encoded KWT ID token: " + res.credential);
@@ -58,6 +58,7 @@ const Login = () => {
         // console.log(err.response.data.error);
         setMessage(err.response.data.error.message);
         setIsMessageVisible(true);
+        setNotiType("error")
         // Hide the error after 3 seconds
         setTimeout(() => {
           setMessage(null);
@@ -78,7 +79,7 @@ const Login = () => {
         </div>
         {/* Alert */}
         {isMessageVisible && (
-          <Alert message={message} type="Error"/>
+          <Alert message={message} type={notiType}/>
           // <div
           //   role="alert"
           //   className="alert alert-error absolute z-50 w-[500px] top-8 right-8"

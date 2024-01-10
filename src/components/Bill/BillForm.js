@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/authContext";
 import { ExchangeContext } from "../../context/exchangeContext";
+import { NotificationContext } from "../../context/notificationContext";
 
 const BillForm = () => {
   const {
@@ -30,6 +31,7 @@ const BillForm = () => {
   });
   const { userInfo } = useContext(AuthContext);
   const { rate, setDate, setBaseCurrency, setExchangeCurrency} = useContext(ExchangeContext);
+  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
   const reminder = watch("reminder");
   const selectedCurrency = watch("currency");
   const selectedDate = watch("date");
@@ -54,6 +56,14 @@ const BillForm = () => {
         document.getElementById("my_modal_2").close();
         // console.log(res);
         handleUpdateBill();
+        setMessage(res.message);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
