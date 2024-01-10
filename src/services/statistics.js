@@ -1,8 +1,8 @@
 import axiosInstance  from "./axios";
 
 //Chart 1
-export const statisticExpensesWeekly = async(userId) => {
-    const res = await axiosInstance.get(`/statistic/trend/week/${userId}`);
+export const statisticExpensesWeekly = async() => {
+    const res = await axiosInstance.get(`/statistic/trend/week`);
     try {
         if (res.status === 200) {
           return res.data.totalsByDay;
@@ -13,8 +13,8 @@ export const statisticExpensesWeekly = async(userId) => {
 
 }
 
-export const statisticExpensesMonthly = async(userId) => {
-    const res = await axiosInstance.get(`/statistic/trend/thismonth/${userId}`);
+export const statisticExpensesMonthly = async() => {
+    const res = await axiosInstance.get(`/statistic/trend/thismonth`);
     try {
         if (res.status === 200) {
           return res.data.totalsByWeek;
@@ -25,8 +25,8 @@ export const statisticExpensesMonthly = async(userId) => {
 
 }
 
-export const statisticExpensesLastMonth = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/trend/lastmonth/${userId}`);
+export const statisticExpensesLastMonth = async() => {
+  const res = await axiosInstance.get(`/statistic/trend/lastmonth`);
   try {
       if (res.status === 200) {
         return res.data.totalsByWeek;
@@ -38,8 +38,8 @@ export const statisticExpensesLastMonth = async(userId) => {
 }
 
 //Chart 2
-export const ExpensesDistribution = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/distribution/total/${userId}`);
+export const ExpensesDistribution = async() => {
+  const res = await axiosInstance.get(`/statistic/distribution/total`);
     try {
         if (res.status === 200) {
           return res.data.distribution;
@@ -48,8 +48,8 @@ export const ExpensesDistribution = async(userId) => {
         return err;
       }
 }
-export const ExpensesDistributionLastWeek = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/distribution/week/${userId}`);
+export const ExpensesDistributionLastWeek = async() => {
+  const res = await axiosInstance.get(`/statistic/distribution/week/`);
     try {
         if (res.status === 200) {
           return res.data.distribution;
@@ -58,8 +58,8 @@ export const ExpensesDistributionLastWeek = async(userId) => {
         return err;
       }
 }
-export const ExpensesDistributionLastMonth = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/distribution/month/${userId}`);
+export const ExpensesDistributionLastMonth = async() => {
+  const res = await axiosInstance.get(`/statistic/distribution/month`);
     try {
         if (res.status === 200) {
           return res.data.distribution;
@@ -70,8 +70,8 @@ export const ExpensesDistributionLastMonth = async(userId) => {
 }
 
 //Chart 3
-export const categoryIncomeLastWeek = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/catin/lastweek/${userId}`);
+export const categoryIncomeLastWeek = async() => {
+  const res = await axiosInstance.get(`/statistic/catin/lastweek`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -80,8 +80,8 @@ export const categoryIncomeLastWeek = async(userId) => {
         return err;
       }
 }
-export const categoryIncomeLastMonth = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/catin/lastmonth/${userId}`);
+export const categoryIncomeLastMonth = async() => {
+  const res = await axiosInstance.get(`/statistic/catin/lastmonth`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -90,8 +90,8 @@ export const categoryIncomeLastMonth = async(userId) => {
         return err;
       }
 }
-export const categoryIncomeTotal = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/catin/total/${userId}`);
+export const categoryIncomeTotal = async() => {
+  const res = await axiosInstance.get(`/statistic/catin/total`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -102,8 +102,8 @@ export const categoryIncomeTotal = async(userId) => {
 }
 
 //Chart 4
-export const categoryExenseLastWeek = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/catex/lastweek/${userId}`);
+export const categoryExenseLastWeek = async() => {
+  const res = await axiosInstance.get(`/statistic/catex/lastweek`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -112,8 +112,8 @@ export const categoryExenseLastWeek = async(userId) => {
         return err;
       }
 }
-export const categoryExenseLastMonth = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/catex/lastmonth/${userId}`);
+export const categoryExenseLastMonth = async() => {
+  const res = await axiosInstance.get(`/statistic/catex/lastmonth`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -122,8 +122,8 @@ export const categoryExenseLastMonth = async(userId) => {
         return err;
       }
 }
-export const categoryExenseTotal = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/catex/total/${userId}`);
+export const categoryExenseTotal = async() => {
+  const res = await axiosInstance.get(`/statistic/catex/total`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -134,8 +134,19 @@ export const categoryExenseTotal = async(userId) => {
 }
 
 //Chart 5
-export const compareExpenseIncomeByMonth = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/exin/month/${userId}`);
+export const compareExpenseIncomeByMonth = async() => {
+  const res = await axiosInstance.get(`/statistic/exin/month`);
+    try {
+        if (res.status === 200) {
+          console.log(res.data);
+          return res.data;
+        }
+      } catch (err) {
+        return err;
+      }
+}
+export const compareExpenseIncomeByWeek = async() => {
+  const res = await axiosInstance.get(`/statistic/exin/week`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -144,18 +155,8 @@ export const compareExpenseIncomeByMonth = async(userId) => {
         return err;
       }
 }
-export const compareExpenseIncomeByWeek = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/exin/week/${userId}`);
-    try {
-        if (res.status === 200) {
-          return res.data;
-        }
-      } catch (err) {
-        return err;
-      }
-}
-export const compareExpenseIncomeTotal = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/exin/total/${userId}`);
+export const compareExpenseIncomeTotal = async() => {
+  const res = await axiosInstance.get(`/statistic/exin/total`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -166,8 +167,8 @@ export const compareExpenseIncomeTotal = async(userId) => {
 }
 
 //Chart 6
-export const walletExenseWeek = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/walletex/week/${userId}`);
+export const walletExenseWeek = async() => {
+  const res = await axiosInstance.get(`/statistic/walletex/week`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -176,8 +177,8 @@ export const walletExenseWeek = async(userId) => {
         return err;
       }
 }
-export const walletExenseMonth = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/walletex/month/${userId}`);
+export const walletExenseMonth = async() => {
+  const res = await axiosInstance.get(`/statistic/walletex/month`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -186,8 +187,8 @@ export const walletExenseMonth = async(userId) => {
         return err;
       }
 }
-export const walletExenseTotal = async(userId) => {
-  const res = await axiosInstance.get(`/statistic/walletex/total/${userId}`);
+export const walletExenseTotal = async() => {
+  const res = await axiosInstance.get(`/statistic/walletex/total`);
     try {
         if (res.status === 200) {
           return res.data;
@@ -196,3 +197,4 @@ export const walletExenseTotal = async(userId) => {
         return err;
       }
 }
+

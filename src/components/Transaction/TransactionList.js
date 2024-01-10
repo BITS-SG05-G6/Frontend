@@ -47,7 +47,7 @@ function TransactionList({ transactions }) {
           <div className="flex flex-col justify-center items-center">
             <img src={require("../../assets/notransaction.png")} width='15%' height='15%' alt="no transaction" className=""></img>
             <div>
-              <Text className='text-slate-400' variant='text-sm'>No transaction for today!</Text>
+              <Text className='text-slate-400' variant='text-sm'>No transaction so far!</Text>
             </div>
           </div>
         )}

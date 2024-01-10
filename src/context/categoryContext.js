@@ -30,7 +30,7 @@ const CategoryProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        await axiosInstance.getCategory().then((res) => {
+        await axiosInstance.getCategories().then((res) => {
           setCategories(res);
         });
       } catch (err) {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -8,8 +8,8 @@ import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
-import Select from "../common/Select";
-import { currencyList } from "../svgs/OptionList";
+import { NotificationContext } from "../../context/notificationContext";
+
 const WalletForm = ({ children }) => {
   const {
     control,
@@ -19,16 +19,27 @@ const WalletForm = ({ children }) => {
   } = useForm();
 
   const { handleUpdateWallet } = useContext(WalletContext);
+  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
+
 
   const onSubmit = async (d) => {
+    // console.log(d);
     await axiosInstance
-      .createWallet(d.name, d.amount, d.color, d.icon, d.description, d.currency)
+      .createWallet(d.name, d.amount, d.color, d.icon, d.description, d.exchangeAmount)
       .then((res) => {
         document
         .getElementById("my_modal_3")
           .close();
         handleUpdateWallet();
         console.log(res);
+        setMessage(res);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
         reset();
       })
       .catch((err) => {
@@ -85,31 +96,7 @@ const WalletForm = ({ children }) => {
                 )}
               />
 
-              <Controller
-                name="currency"
-                control={control}
-                rules={{
-                  required: "Currency is required!",
-                }}
-                render={({ field }) => (
-                  <div>
-                    <Select
-                          label="Currency"
-                          name="currency"
-                          value={field.value}
-                          onChange={(e) => field.onChange(e.target.value)}
-                          options={currencyList}
-                          placeholder="Please choose a currency"
-                          none={false}
-                        />
-                    {errors.currency && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.currency.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              />
+        
 
               <Controller
                 name="amount"

@@ -11,7 +11,6 @@ const WalletProvider = ({ children }) => {
   const { handleUpdateTransaction } = useContext(TransactionContext)
 
   const [newWallet, setNewWallet] = useState(false);
-  const [currency, setCurrency] = useState("");
   const handleUpdateWallet = () => {
     setNewWallet(newWallet === "true" ? "false" : "true");
   };
@@ -23,14 +22,13 @@ const WalletProvider = ({ children }) => {
       icon: "",
       color: "",
       amount: 0,
-      currency: ""
     },
   ]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        await axiosInstance.getWallet().then((res) => {
+        await axiosInstance.getWallets().then((res) => {
           setWallets(res);
         });
       } catch (err) {
@@ -39,7 +37,6 @@ const WalletProvider = ({ children }) => {
           name: "",
           icon: "",
           color: "",
-          currency: ""
         }]);
       }
     }
@@ -50,8 +47,6 @@ const WalletProvider = ({ children }) => {
   const walletList = {
     handleUpdateWallet,
     wallets,
-    currency,
-    setCurrency
   };
 
   return (

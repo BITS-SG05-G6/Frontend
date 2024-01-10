@@ -76,13 +76,40 @@ function TransactionDetails({ transaction }) {
             </div>
 
             <div className="flex justify-between">
+              <Text className="text-gray-400">Goal</Text>
+              {transaction.saving ? (
+
+                  <Text
+                    variant="text-sm"
+                    className="rounded-2xl px-3 py-1"
+                    style={{
+                      backgroundColor: `${transaction.savingColor}40`,
+                      color: transaction.savingColor,
+                    }}
+                  >
+                    {transaction.saving}
+                  </Text>
+        
+              ) : (
+          
+                  <Text
+                    variant="text-sm"
+                    className="bg-[#FCDDEC] rounded-2xl px-3 py-1 text-[#EF5CA8]"
+                  >
+                    None
+                  </Text>
+              
+              )}
+            </div>
+
+            <div className="flex justify-between">
               <Text className="text-gray-400">Date</Text>
               <Text weight="semibold">
                 {format(new Date(transaction.date), "dd/MM/yyyy")}
               </Text>
             </div>
 
-            <div className="flex flex-col gap-2 justify-start">
+            <div className="flex flex-col gap-2 justify- text-start">
               <Text className="text-gray-400">Description</Text>
              
               <textarea

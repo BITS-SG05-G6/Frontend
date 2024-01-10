@@ -8,6 +8,7 @@ import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
 import { CategoryContext } from "../../context/categoryContext";
+import { NotificationContext } from "../../context/notificationContext";
 
 const CategoryForm = ({ categoryType }) => {
   const {
@@ -23,17 +24,34 @@ const CategoryForm = ({ categoryType }) => {
   });
 
   const { handleUpdateCategory } = useContext(CategoryContext);
+  const { setIsMessageVisible, isMessageVisible, message, setMessage, setNotiType } = useContext(NotificationContext);
 
   const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
+    console.log(d);
     await axiosInstance
-      .createCategory(d.name, categoryType, d.color, d.icon, d.description, d.budget)
+      .createCategory(
+        d.name,
+        categoryType,
+        d.color,
+        d.icon,
+        d.description,
+        d.budget
+      )
       .then((res) => {
         console.log(res);
         reset();
         document.getElementById("my_modal_2").close();
         handleUpdateCategory();
+        setNotiType("success")
+        setMessage(res);
+        setIsMessageVisible(true);
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
       })
       .catch((err) => {
         console.log(err.response.data.error.message);
@@ -51,7 +69,7 @@ const CategoryForm = ({ categoryType }) => {
       >
         <Text variant="text-md" weight="bold">
           + Add New Category
-        </Text>        
+        </Text>
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
@@ -88,25 +106,25 @@ const CategoryForm = ({ categoryType }) => {
                 )}
               />
               {/* Budget field */}
-              <Controller
-                name="budget"
-                control={control}
-                defaultValue=""
-                // rules={{ required: "Budget is required!" }}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      type="text"
-                      label="Budget"
-                      name="budget"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      labelType="side"
-                    />
-
-                  </div>
-                )}
-              />
+              {categoryType === "Income" ? null : (
+                <Controller
+                  name="budget"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <div>
+                      <FormInput
+                        type="text"
+                        label="Budget"
+                        name="budget"
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        labelType="side"
+                      />
+                    </div>
+                  )}
+                />
+              )}
               <Controller
                 name="type"
                 control={control}
@@ -185,7 +203,7 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
-              
+
               <div className="flex justify-around">
                 <Button
                   size="xl"

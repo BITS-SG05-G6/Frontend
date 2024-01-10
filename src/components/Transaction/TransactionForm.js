@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -12,10 +12,16 @@ import { TransactionContext } from "../../context/transactionContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconList } from "../svgs/IconList";
 import { transactionType, currencyList } from "../svgs/OptionList";
+import { format } from "date-fns";
+import { AuthContext } from "../../context/authContext";
+import { SavingContext } from "../../context/savingContext";
+import { ExchangeContext } from "../../context/exchangeContext";
+import { NotificationContext } from "../../context/notificationContext";
 
 const TransactionForm = ({
   category,
   wallet,
+  goal,
   buttonName,
   className,
   variant,
@@ -27,26 +33,30 @@ const TransactionForm = ({
     reset,
     formState: { errors },
     watch,
+    setValue,
   } = useForm({
     mode: "onChange",
   });
-  // const { currency, setCurrency } = useState("123");
   const { type, setType, categories } = useContext(CategoryContext);
+  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
+  const { userInfo } = useContext(AuthContext);
   const selectedCategory = watch("category");
   const selectedWallet = watch("wallet");
-  const { wallets, currency, setCurrency } = useContext(WalletContext);
+  const selectedType = watch("type");
+  const selectedDate = watch("date");
+  const selectedCurrency = watch("currency");
+  const { wallets } = useContext(WalletContext);
+  const { goals } = useContext(SavingContext);
+  const { rate, setDate, setBaseCurrency, setExchangeCurrency} = useContext(ExchangeContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
+  const categoryType = category
+    ? category.type
+    : selectedCategory === "none" || selectedCategory === undefined
+    ? selectedType
+    : type;
+
   const onSubmit = async (d) => {
-    const categoryType = category
-      ? category.type
-      : selectedCategory === "none" || selectedCategory === undefined
-      ? d.type
-      : type;
-      const walletCurrency = wallet
-      ? wallet.type
-      : selectedWallet === "none" || selectedWallet === undefined
-      ? d.currency
-      : currency;
+    console.log(d);
     const categoryValue = category ? category.id : d.category;
     const walletValue = wallet ? wallet.id : d.wallet;
     await axiosInstance
@@ -59,7 +69,9 @@ const TransactionForm = ({
         d.title,
         categoryValue,
         walletValue,
-        walletCurrency
+        d.currency,
+        d.exchangeAmount,
+        d.goal
       )
       .then((res) => {
         document
@@ -68,6 +80,14 @@ const TransactionForm = ({
           )
           .close();
         handleUpdateTransaction();
+        setMessage(res.message);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
         console.log(res);
         reset();
       })
@@ -76,10 +96,28 @@ const TransactionForm = ({
       });
   };
 
+  // console.log(goals)
+
+  const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
+
+  useEffect(() => {
+    setDate(selectedDate
+          ? format(new Date(selectedDate), "yyyy-MM-dd")
+          : format(new Date(), "yyyy-MM-dd"))
+    setBaseCurrency(selectedCurrency !== userInfo.baseCurrency ? userInfo.baseCurrency : otherCurrency);
+    setExchangeCurrency(selectedCurrency !== userInfo.baseCurrency ? otherCurrency : userInfo.baseCurrency);
+    if (selectedType === "Saving") {
+      setValue("currency", userInfo.baseCurrency);
+    }
+  }, [selectedCurrency, setValue, selectedDate, otherCurrency, userInfo.baseCurrency, setBaseCurrency, setDate, setExchangeCurrency, rate, selectedType, reset])
+
   const openModal = () => {
+    console.log(        category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
+    );
+
     document
       .getElementById(
-        category ? category.id : wallet ? wallet.id : "my_modal_1"
+        category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
       )
       .showModal();
   };
@@ -87,16 +125,45 @@ const TransactionForm = ({
   const closeModal = () => {
     document
       .getElementById(
-        category ? category.id : wallet ? wallet.id : "my_modal_1"
+        category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
       )
       .close();
-    // reset();
-  }
+    reset();
+  };
+
+  const validateAmount = async (value) => {
+    let exchangeValue;
+    // console.log(rate);
+    if (selectedCurrency === "VND") {
+      exchangeValue = parseFloat((value/rate).toFixed(2));
+    } else {
+      exchangeValue = value * rate;
+    }
+    setValue("exchangeAmount", exchangeValue)
+
+    // console.log(exchangeValue);
+    const walletValue = wallet ? wallet : wallets.find((wallet) => wallet.id === selectedWallet);
+    if (walletValue && selectedType === "Expense") {
+      if (selectedCurrency === userInfo.baseCurrency) {
+        return value > walletValue.amount ? `Your wallet is not enough. Balance: ${walletValue.amount} ${userInfo.baseCurrency}` : true;
+      } else {
+        return exchangeValue > walletValue.amount
+          ? 
+          `Your wallet is not enough. Balance: ${walletValue.amount} ${userInfo.baseCurrency}`
+          : true;
+      }
+    }
+    return true;
+  };
 
   return (
     <>
       <Button
-        onClick={() => openModal()}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openModal()}
+        }
         variant={variant}
         className={className}
       >
@@ -111,16 +178,21 @@ const TransactionForm = ({
         </Text>
       </Button>
       <dialog
-        id={category ? category.id : wallet ? wallet.id : "my_modal_1"}
+        id={category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"}
         className="modal"
       >
         <div className="modal-box flex flex-col justify-center w-full">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add Transaction
           </Text>
-          <div className="modal-action mx-0 block w-full">
-            <form method="dialog" className="flex flex-col gap-4">
-              <Button variant="close" onClick={closeModal} className="text-black" size="fix">
+          <div className="modal-action mx-0 block w-full overflow-scroll no-scrollbar">
+            <form method="dialog" className="flex flex-col gap-4 justify-start text-end">
+              <Button
+                variant="close"
+                onClick={closeModal}
+                className="text-black"
+                size="fix"
+              >
                 x
               </Button>
 
@@ -140,7 +212,7 @@ const TransactionForm = ({
                       labelType="side"
                     />
                     {errors.title && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 mt-3 text-start">
                         {errors.title.message}
                       </Text>
                     )}
@@ -149,123 +221,32 @@ const TransactionForm = ({
               />
 
               <Controller
-                name="amount"
+                name="date"
                 control={control}
-                defaultValue=""
-                rules={{
-                  required: "Amount is required!",
-                  pattern: {
-                    value: /^([^.0-]\d+|\d)$/,
-                    message: "It must be a positive number",
-                  },
-                }}
+                defaultValue={new Date().toISOString().substr(0, 10)}
+                rules={{ required: "Date is required!" }}
                 render={({ field }) => (
                   <div>
                     <FormInput
-                      type="number"
-                      label="Amount"
-                      name="amount"
+                      type="date"
+                      label="Date"
+                      name="date"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
                     />
-                    {errors.amount && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.amount.message}
+                    {errors.date && (
+                      <Text className="text-red-500 mt-3 text-start">
+                        {errors.date.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
 
-              {wallet ? (
-                <FormInput
-                  label="Wallet"
-                  name="wallet"
-                  value={wallet.name}
-                  disabled
-                  labelType="side"
-                />
-              ) : (
-                wallets && (
-                  <Controller
-                    name="wallet"
-                    control={control}
-                    render={({ field }) => (
-                      <div>
-                        <Select
-                          label="Wallet"
-                          name="wallet"
-                          value={field.value}
-                          onChange={(e) => {
-                            field.onChange(e.target.value);
-                            wallets.map((wallet) =>
-                              wallet.id === e.target.value
-                                ? setCurrency(wallet.currency)
-                                : null
-                            );
-                          }}
-                          options={wallets}
-                          placeholder="Please choose a wallet"
-                        />
-                        {errors.wallet && (
-                          <Text className="text-red-500 px-32 mt-3">
-                            {errors.wallet.message}
-                          </Text>
-                        )}
-                      </div>
-                    )}
-                  />
-                )
-              )}
-
-              {wallet ? (
-                <FormInput
-                  label="Currency"
-                  name="currency"
-                  value={wallet.currency}
-                  disabled
-                  labelType="side"
-                />
-              ) : selectedWallet === undefined || selectedWallet === "none" ? (
-                <Controller
-                  name="currency"
-                  control={control}
-                  rules={{
-                    required: "Currency is required!",
-                  }}
-                  render={({ field }) => (
-                    <div>
-                      <Select
-                        label="Currency"
-                        name="currency"
-                        value={field.value}
-                        onChange={(e) => {
-                          field.onChange(e.target.value);
-                        }}
-                        options={currencyList}
-                        placeholder="Please choose a currency"
-                        none={false}
-                      />
-                      {errors.currency && (
-                        <Text className="text-red-500 px-32 mt-3">
-                          {errors.currency.message}
-                        </Text>
-                      )}
-                    </div>
-                  )}
-                />
-              ) : (
-                <FormInput
-                  label="Currency"
-                  name="currency"
-                  value={currency}
-                  disabled
-                  labelType="side"
-                />
-              )}
-
-              {category ? (
+              {
+                selectedType === "Saving" || goal ? null :
+                category ? (
                 <FormInput
                   label="Category"
                   name="category"
@@ -295,18 +276,24 @@ const TransactionForm = ({
                           options={categories}
                           placeholder="Please choose a category"
                         />
-                        {errors.category && (
-                          <Text className="text-red-500 px-32 mt-3">
-                            {errors.category.message}
-                          </Text>
-                        )}
+                    
                       </div>
                     )}
                   />
                 )
-              )}
+              )
+              }
+          
 
-              {category ? (
+              {
+                goal ? <FormInput
+                label="Type"
+                name="categoryType"
+                value={goal.type}
+                disabled
+                labelType="side"
+              /> :
+              category ? (
                 <FormInput
                   label="Type"
                   name="categoryType"
@@ -340,7 +327,7 @@ const TransactionForm = ({
                         none={false}
                       />
                       {errors.type && (
-                        <Text className="text-red-500 px-32 mt-3">
+                        <Text className="text-red-500 text-start mt-3">
                           {errors.type.message}
                         </Text>
                       )}
@@ -357,31 +344,179 @@ const TransactionForm = ({
                 />
               )}
 
-              <Controller
-                name="date"
+              { wallet ? (
+                <FormInput
+                  label="Wallet"
+                  name="wallet"
+                  value={wallet.name}
+                  disabled
+                  labelType="side"
+                />
+              ) : (
+                wallets && (
+                  <Controller
+                    name="wallet"
+                    control={control}
+                    render={({ field }) => (
+                      <div>
+                        <Select
+                          label="Wallet"
+                          name="wallet"
+                          value={field.value}
+                          onChange={(e) => {
+                            field.onChange(e.target.value);
+                          }}
+                          options={wallets}
+                          placeholder="Please choose a wallet"
+                        />
+                        {errors.wallet && (
+                          <Text className="text-red-500 px-36 mt-3">
+                            {errors.wallet.message}
+                          </Text>
+                        )}
+                      </div>
+                    )}
+                  />
+                )
+              )}
+
+              {
+                selectedType === "Saving" ||
+                goal ? (
+                  <FormInput
+                    label="Goal"
+                    name="goal"
+                    value={goal.name}
+                    disabled
+                    labelType="side"
+                  />
+        
+                ) : (
+                  goals && (
+                    <Controller
+                      name="goal"
+                      control={control}
+                      rules={{ required: "Goals is required!" }}
+                      render={({ field }) => (
+                        <div>
+                          <Select
+                            label="Goal"
+                            name="goal"
+                            value={field.value}
+                            onChange={(e) => {
+                              field.onChange(e.target.value);
+                            }}
+                            options={goals}
+                            placeholder="Please choose a goal"
+                            none={false}
+                          />
+                          {errors.goal && (
+                            <Text className="text-end text-red-500 mt-3">
+                              {errors.goal.message}
+                            </Text>
+                          )}
+                        </div>
+                      )}
+                    />
+                  )) 
+                          }
+              {
+                selectedType === "Saving" ? null :
+                <Controller
+                name="currency"
                 control={control}
-                defaultValue={new Date().toISOString().substr(0, 10)}
-                rules={{ required: "Date is required!" }}
+                rules={{
+                  required: "Currency is required!",
+                }}
                 render={({ field }) => (
                   <div>
-                    <FormInput
-                      type="date"
-                      label="Date"
-                      name="date"
+                    <Select
+                      label="Currency"
+                      name="currency"
                       value={field.value}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      labelType="side"
+                      onChange={(e) => {
+                        field.onChange(e.target.value);
+                      }}
+                      options={currencyList}
+                      placeholder="Please choose a currency"
+                      none={false}
                     />
-                    {errors.date && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.date.message}
+                    {errors.currency && (
+                      <Text className="text-red-500 mt-3">
+                        {errors.currency.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
+              }
+              
 
-<Controller
+              <Controller
+                name="amount"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Amount is required!",
+                  pattern: {
+                    value: /^([^.0-]\d+|\d)$/,
+                    message: "It must be a positive number",
+                  },
+                  validate: validateAmount,
+                }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="number"
+                      label="Amount"
+                      name="amount"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
+                    {errors.amount && (
+                      <Text className="text-red-500 mt-3">
+                        {errors.amount.message}
+                      </Text>
+                      // <div className="pl-36">
+                      //   {errors.amount.message}
+                      // </div>
+                    )}
+                  </div>
+                )}
+              />
+
+              {selectedCurrency && selectedCurrency !== userInfo.baseCurrency ? (
+                <Controller
+                  name="exchangeAmount"
+                  control={control}
+                  rules={{
+                    required: "Currency is required!",
+                  }}
+                  render={({ field }) => (
+                    <div>
+                      <FormInput
+                        label="Exchange"
+                        name="exchangeAmount"
+                        type="number"
+                        // value={field.value}
+                        // onChange={(e) => field.on/Change(e.target.value)}
+                        placeholder={userInfo.baseCurrency === "VND" ?
+                          new Intl.NumberFormat("vi-VN").format(field.value) +
+                          " VND" : new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "USD"
+                          }).format(field.value)
+                        }
+                        disabled
+                        labelType="side"
+                      />
+                    </div>
+                  )}
+                />
+              ) : null}
+
+              <Controller
                 name="description"
                 control={control}
                 defaultValue=""
@@ -399,13 +534,14 @@ const TransactionForm = ({
               <div className="flex justify-around">
                 <Button
                   size="xl"
-                  variant="roundOutline"
                   onClick={handleSubmit(onSubmit)}
                 >
                   Save
                 </Button>
 
-                <Button size="xl" onClick={closeModal}>Cancel</Button>
+                <Button size="xl" onClick={closeModal} variant="roundOutline">
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>
