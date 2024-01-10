@@ -13,15 +13,15 @@ import { AuthContext } from "./context/authContext";
 function App() {
   // Authenticate user for private routes
   const { userInfo } = useContext(AuthContext);
+  console.log(userInfo);
   return (
     <Router>
       <div className="App">
         <Routes>
           {/*Create public routes */}
           {publicRoutes.map((route, index) => {
-            
-              /*Set up routes for public pages */
-            
+            /*Set up routes for public pages */
+
             const Page = route.component;
             const Layout = route.layout === null ? Fragment : route.layout;
             return (
@@ -29,18 +29,22 @@ function App() {
                 key={index}
                 path={route.path}
                 element={
-                  <Layout>
-                    <Page />
-                  </Layout>
+                  userInfo ? (
+                    <Navigate to="/dashboard" replace />
+                  ) : (
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  )
                 }
               ></Route>
             );
           })}
           {/*Create private routes */}
           {privateRoutes.map((route, index) => {
-            {
-              /*Set up routes for public pages */
-            }
+            // {
+            //   /*Set up routes for public pages */
+            // }
             const Page = route.component;
             const Layout = route.layout === null ? Fragment : route.layout;
             return (

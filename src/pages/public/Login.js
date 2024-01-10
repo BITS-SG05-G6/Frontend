@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Button from "../../components/common/Button";
 import FormInput from "../../components/common/FormInput";
@@ -21,38 +21,17 @@ const Login = () => {
 
   const { fetchData } = useContext(AuthContext);
 
-  const navigate = useNavigate();
   const { setIsMessageVisible, isMessageVisible, message, setMessage, setNotiType, notiType } = useContext(NotificationContext);
 
-  function handleCallbackResponse(res) {
-    console.log("Encoded KWT ID token: " + res.credential);
-  }
-
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: "635121721005",
-      callback: handleCallbackResponse,
-    });
-
-    // google.accounts.id.render()
-    google.accounts.id.renderButton(document.getElementById("signUpDiv"), {
-      theme: "outline",
-      size: "large",
-      shape: "square",
-      text: "Sign in with Google",
-      logo_alignment: "center",
-    });
-  }, []);
-
   const onSubmit = async (d) => {
+    // navigate("/");
     await axiosInstance
       .signin(d.username, d.password)
-      .then((res) => {
-        // console.log(res);
-        Cookies.set("token", res.token);
-        navigate("/dashboard");
+      .then(async(res) => {
+        console.log(res);
         fetchData();
+        Cookies.set("token", res.token);
+       
       })
       .catch((err) => {
         // console.log(err.response.data.error);
@@ -67,6 +46,7 @@ const Login = () => {
       });
   };
 
+
   return (
     // 
     <>
@@ -80,27 +60,6 @@ const Login = () => {
         {/* Alert */}
         {isMessageVisible && (
           <Alert message={message} type={notiType}/>
-          // <div
-          //   role="alert"
-          //   className="alert alert-error absolute z-50 w-[500px] top-8 right-8"
-          // >
-          //   <button onClick={() => setIsErrorVisible(false)}>
-          //     <svg
-          //       xmlns="http://www.w3.org/2000/svg"
-          //       className="stroke-current shrink-0 h-6 w-6"
-          //       fill="none"
-          //       viewBox="0 0 24 24"
-          //     >
-          //       <path
-          //         strokeLinecap="round"
-          //         strokeLinejoin="round"
-          //         strokeWidth="2"
-          //         d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-          //       />
-          //     </svg>
-          //   </button>
-          //   <span>{loginError}</span>
-          // </div>
         )}
         <form className="flex flex-col gap-6 max-w-sm">
           <Controller
@@ -161,7 +120,6 @@ const Login = () => {
           <Button className="max-w-sm" onClick={handleSubmit(onSubmit)}>
             Sign In
           </Button>
-          <div id="signUpDiv" className="object-cover"></div>
         </form>
 
         <div className="mt-6 text-center max-w-sm">

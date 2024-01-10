@@ -7,7 +7,7 @@ import Text from "../../components/common/Text";
 import Header from "../../components/common/Header";
 import PieChart from "../../components/Statistics/PieChart";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 import LineChart from "../../components/Statistics/LineChart";
 import BarChart from "../../components/Statistics/BarChart";
 import StatisticCard from "../../components/Statistics/StatisticCard";
@@ -143,10 +143,10 @@ const StatisticPage = () => {
         let response = [];
         if (selectedTypeChart4 === "Total") {
           response = await axiosInstance.categoryExenseTotal();
-          console.log(response);
+          // console.log(response);
         } else if (selectedTypeChart4 === "This Week") {
           response = await axiosInstance.categoryExenseLastWeek();
-          console.log(response);
+          // console.log(response);
         } else if (selectedTypeChart4 === "Last Month") {
           response = await axiosInstance.categoryExenseLastMonth();
         }

@@ -4,8 +4,13 @@ import Badge from "../common/Badge";
 import Button from "../common/Button";
 import * as axiosInstance from "../../services/bill";
 import { BillContext } from "../../context/billContext";
+import { formatMoney } from "../../utils/formatMoney";
+import { NotificationContext } from "../../context/notificationContext";
 
 function BillCard({ bill }) {
+  const { setIsMessageVisible, setMessage, setNotiType } =
+    useContext(NotificationContext);
+
   // const status =
   const { handleUpdateBill } = useContext(BillContext);
 
@@ -15,6 +20,25 @@ function BillCard({ bill }) {
     .then((res) => {
       // console.log(res);
       handleUpdateBill();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  const handlePay = async() => {
+    await axiosInstance.payBill(bill._id)
+    .then((res) => {
+      // console.log(res);
+      handleUpdateBill();
+      setMessage(res);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
     })
     .catch((err) => {
       console.log(err);
@@ -31,7 +55,7 @@ function BillCard({ bill }) {
         {/* Next Due Date */}
         <div className="flex flex-row w-full justify-between">
           <span className="text-base font-semibold">Amount:</span>
-          <span className="text-base font-normal">{bill.amount} {bill.currency}</span>
+          <span className="text-base font-normal">{formatMoney(bill.amount, bill.currency)}</span>
         </div>
 
         <div className="flex flex-row w-full justify-between">
@@ -72,7 +96,7 @@ function BillCard({ bill }) {
           size={"sm"}
           onClick={handleDel}
         />
-        <Button variant={"blueButton"} children={"Pay"} size={"sm"} />
+        <Button variant={"blueButton"} children={"Pay"} size={"sm"} onClick={handlePay} disabled={bill.status === "Paid"}/>
       </div>
     </div>
   );

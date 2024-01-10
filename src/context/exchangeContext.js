@@ -36,7 +36,6 @@ const ExchangeProvider = ({ children }) => {
     .catch((error) => console.error('Error fetching exchange rates:', error));
  }, [baseCurrency, exchangeCurrency, date, userInfo])
 
-//  console.log(rate);
  const exchangeList = {
    setDate,
    setBaseCurrency,
