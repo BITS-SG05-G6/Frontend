@@ -22,6 +22,9 @@ import Signup from "../pages/public/Signup";
 import PublicPageLayout from "../components/layout/PublicPageLayout";
 import PrivatePageLayout from "../components/layout/PrivatePageLayout";
 import AuthLayout from "../components/layout/AuthLayout";
+import { AboutUs } from "../pages/public/AboutUs";
+import { FAQ } from "../pages/public/faq";
+import { TAP } from "../pages/public/termsandservice";
 
 // Public routes
 export const publicRoutes = [
@@ -40,6 +43,21 @@ export const publicRoutes = [
     component: Login,
     layout: AuthLayout,
   },
+    {
+        path: "/aboutus",
+        component: AboutUs,
+        layout: PublicPageLayout
+    },
+    {
+        path: "/faq",
+        component: FAQ,
+        layout: PublicPageLayout
+    },
+    {
+        path: "/policy",
+        component: TAP,
+        layout: PublicPageLayout
+    },
 ];
 
 export const privateRoutes = [

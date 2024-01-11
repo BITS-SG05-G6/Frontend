@@ -2,73 +2,23 @@ import Text from "./Text";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col bg-[#EF5DA8] p-10 gap-10">
-      <div className="flex justify-around">
-        <div>
-          <Text
-            variant="text-lg"
-            className="text-white flex items-center"
-            weight="bold"
-          >
-            Wise{""}
-            <Text
-              variant="text-lg"
-              className="text-black flex items-center"
-              weight="bold"
-            >
-              Wallet
-            </Text>
-          </Text>
+    <div className=" bg-white m-4 class= lg:py-6 lg:m-0 mt-10 border-t ">
+      <section className="container grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-8 lg:mx-auto">
+        <p className="flex items-center mt-6 lg:mt-0 lg:col-span-6 text-16 leading-24 text-dark-brown">
+          © 2023 WiseWallet Technology Co., Ltd. All rights reserved.
+        </p>
+        <div className="flex flex-col lg:flex-row justify-center gap-y-4 lg:col-span-5 lg:gap-x-4">
+          <a class="flex items-center leading-24 text-16 font-medium text-dark-brown hover:underline">
+            About Us
+          </a>
+          <a className="flex items-center leading-24 text-16 font-medium text-dark-brown hover:underline">
+            Why Us?
+          </a>
+          <a className="flex items-center leading-24 text-16 font-medium text-dark-brown hover:underline">
+            Term and Service
+          </a>
         </div>
-
-        <div className="flex flex-col text-[#FCDDEC]">
-          <Text variant="text-md" weight="semibold" className="text-white">
-            Products
-          </Text>
-          <Text variant="text-xs">Invoicing</Text>
-          <Text variant="text-xs">Recepies</Text>
-          <Text variant="text-xs">Reports</Text>
-          <Text variant="text-xs">Accountants</Text>
-        </div>
-
-        <div className="flex flex-col text-[#FCDDEC]">
-          <Text variant="text-md" weight="semibold" className="text-white">
-            Tools
-          </Text>
-          <Text variant="text-xs">Revenue Simlator</Text>
-          <Text variant="text-xs">Tax Calculator</Text>
-          <Text variant="text-xs">Quote Tempalte</Text>
-        </div>
-
-        <div className="flex flex-col text-[#FCDDEC]">
-          <Text variant="text-md" weight="semibold" className="text-white">
-            Help
-          </Text>
-          <Text variant="text-xs">FAQ</Text>
-          <Text variant="text-xs">Contact Us</Text>
-          <Text variant="text-xs">Legal Document</Text>
-          <Text variant="text-xs">Help Center</Text>
-        </div>
-
-        <div className="flex flex-col text-[#FCDDEC]">
-          <Text variant="text-md" weight="semibold" className="text-white">
-            Company
-          </Text>
-          <Text variant="text-xs">About us</Text>
-          <Text variant="text-xs">Press</Text>
-          <Text variant="text-xs">Security</Text>
-          <Text variant="text-xs">Research</Text>
-        </div>
-      </div>
-
-      <div className="flex justify-between px-20 text-[#FCDDEC]">
-        <div className="gap-6 flex ">
-          <Text variant="text-sm">Terms of Service</Text>
-          <Text variant="text-sm">Privacy Policy</Text>
-        </div>
-
-        <Text variant="text-sm">© 2023,WiseWallet, Inc. All Rights Reserved.</Text>
-      </div>
+      </section>
     </div>
   );
 };

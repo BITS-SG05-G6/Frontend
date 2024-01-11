@@ -50,7 +50,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      <div className="flex justify-center items-center px-20 gap-10 flex-col">
+      <div className=" feature flex justify-center items-center px-20 gap-10 flex-col">
 
         <Box className="flex justify-around max-w-screen-xl">
           <div className="flex flex-col flex-1 gap-8 pl-10 py-16">
@@ -88,7 +88,7 @@ export default function LandingPage() {
           color="purple"
         >
           <div className="flex-1 flex justify-center bottom-[-10px]">
-            <img src={require("../../assets/phone.png")} alt="pic2"></img>
+            <img src={require("../../assets/Calendar.png")} alt="pic2"></img>
           </div>
           <div className="flex flex-col flex-1 gap-8 py-16 justify-center">
             <Graph color="#A6A5E1" bg="#D3D6F1" />
@@ -205,7 +205,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      <div className="flex flex-nowrap flex-col justify-center items-center gap-10">
+      <div id="review" className="flex flex-nowrap flex-col justify-center items-center gap-10">
         <div className="flex flex-col justify-center items-center">
           <Text variant="text-xs" className="text-[#ACCCCC]">
             TESTIMONIALS

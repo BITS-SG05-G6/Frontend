@@ -7,6 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 
+
 import { publicRoutes, privateRoutes } from "./routes/routes";
 import Error from './pages/public/Error';
 import { AuthContext } from "./context/authContext";
@@ -68,6 +69,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+
   );
 }
 
