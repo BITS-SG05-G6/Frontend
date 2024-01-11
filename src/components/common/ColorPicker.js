@@ -1,16 +1,15 @@
 import React from "react";
 import Text from "./Text";
 
-function ColorPicker({
-  label,
-  value,
-  onChange,
-}) {
-
+function ColorPicker({ label, value, onChange }) {
   return (
     <>
       <label className="form-control w-full flex items-center flex-row gap-10 justify-between">
-        <Text variant="text-sm" weight="semibold" className="label-text w-16 text-start">
+        <Text
+          variant="text-sm"
+          weight="semibold"
+          className="label-text w-16 text-start"
+        >
           {label}
         </Text>
         <div className="w-full max-w-xs text-sm flex items-center gap-6">
@@ -22,15 +21,16 @@ function ColorPicker({
           />
           <input
             type="text"
-            value={value.toUpperCase()}
+            value={value
+              .toUpperCase()
+            }
             disabled
             onChange={onChange}
             className="input input-bordered"
-
             style={{
               backgroundColor: `${value}40`,
-              color: value,}}
-
+              color: value,
+            }}
           />
         </div>
       </label>

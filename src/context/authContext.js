@@ -4,11 +4,7 @@ import * as axiosInstance from "../services/auth";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState({
-    id: "",
-    name: "",
-    baseCurrency: ""
-  });
+  const [userInfo, setUserInfo] = useState(null);
 
   async function fetchData() {
     try {

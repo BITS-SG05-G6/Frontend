@@ -6,11 +6,10 @@ import { TransactionContext } from "./transactionContext";
 export const CategoryContext = createContext(null);
 
 const CategoryProvider = ({ children }) => {
-  const { userInfo } = useContext(AuthContext)
-  // console.log(userInfo);
-
-  const { handleUpdateTransaction } = useContext(TransactionContext)
+  const { userInfo } = useContext(AuthContext);
+  const { handleUpdateTransaction } = useContext(TransactionContext);
   const [newCategory, setNewCategory] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   const handleUpdateCategory = () => {
     setNewCategory(newCategory === true ? false : true);
@@ -23,7 +22,7 @@ const CategoryProvider = ({ children }) => {
       name: "",
       icon: "",
       color: "",
-      amount: 0
+      amount: 0,
     },
   ]);
 
@@ -34,13 +33,15 @@ const CategoryProvider = ({ children }) => {
           setCategories(res);
         });
       } catch (err) {
-        setCategories([{
-          id: "",
-          name: "",
-          icon: "",
-          color: "",
-          amount: 0
-        }]);
+        setCategories([
+          {
+            id: "",
+            name: "",
+            icon: "",
+            color: "",
+            amount: 0,
+          },
+        ]);
       }
     }
 
@@ -52,6 +53,8 @@ const CategoryProvider = ({ children }) => {
     type,
     setType,
     categories,
+    isUpdate,
+    setIsUpdate,
   };
 
   return (
