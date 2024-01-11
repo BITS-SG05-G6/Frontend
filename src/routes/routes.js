@@ -43,21 +43,21 @@ export const publicRoutes = [
     component: Login,
     layout: AuthLayout,
   },
-    {
-        path: "/aboutus",
-        component: AboutUs,
-        layout: PublicPageLayout
-    },
-    {
-        path: "/faq",
-        component: FAQ,
-        layout: PublicPageLayout
-    },
-    {
-        path: "/policy",
-        component: TAP,
-        layout: PublicPageLayout
-    },
+  {
+    path: "/aboutus",
+    component: AboutUs,
+    layout: PublicPageLayout,
+  },
+  {
+    path: "/faq",
+    component: FAQ,
+    layout: PublicPageLayout,
+  },
+  {
+    path: "/policy",
+    component: TAP,
+    layout: PublicPageLayout,
+  },
 ];
 
 export const privateRoutes = [
@@ -83,7 +83,7 @@ export const privateRoutes = [
     path: "/category/:id",
     component: CategoryDetail,
     layout: PrivatePageLayout,
-    header: "My Categories"
+    header: "My Categories",
   },
   {
     path: "/invoices",

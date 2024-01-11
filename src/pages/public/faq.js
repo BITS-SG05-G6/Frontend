@@ -11,7 +11,7 @@ export function FAQ() {
     <div>
       <div>
         <img
-          src={require(".../assets/backgroundcolor.png")}
+          src={require("../../assets/backgroundcolor.png")}
           alt="blue pattern background"
           class="absolute w-full h-64 md:h-96 object-center object-fit z-0"
         />
