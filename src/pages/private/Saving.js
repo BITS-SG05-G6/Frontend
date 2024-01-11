@@ -5,13 +5,19 @@ import GoalDetails from "../../components/SavingGoal/GoalDetails";
 import GoalForm from "../../components/SavingGoal/GoalForm";
 import { useContext } from "react";
 import { SavingContext } from "../../context/savingContext";
-import * as axiosInstance from '../../services/savingGoal'
+import * as axiosInstance from "../../services/savingGoal";
 import { NotificationContext } from "../../context/notificationContext";
 import Alert from "../../components/common/Alert";
 
 function Saving() {
-    const {goals, handleUpdateGoal} = useContext(SavingContext);
-    const { setIsMessageVisible, isMessageVisible, message, setMessage, notiType } = useContext(NotificationContext);
+  const { goals, handleUpdateGoal } = useContext(SavingContext);
+  const {
+    setIsMessageVisible,
+    isMessageVisible,
+    message,
+    setMessage,
+    notiType,
+  } = useContext(NotificationContext);
   // Delete a goal
   async function handleDelete(id) {
     try {
@@ -21,24 +27,20 @@ function Saving() {
     } catch (err) {
       console.log(err);
     }
-    return (
-        <>
-        {
-      isMessageVisible && (
-        <Alert message={message} type={notiType}/>
-      )
-    }
-            <div className="flex justify-end px-6">
-                <GoalForm buttonName="New Goal" icon="file-invoice-dollar" />
-            </div>
-            <div className="px-10">
-                <div className="flex flex-col flex-1 gap-10 pr-5">
-                    <GoalList goals={goals} onDelete={handleDelete} />
-                </div>
-            </div>
-        </>
-    );
-
+  }
+  return (
+    <>
+      {isMessageVisible && <Alert message={message} type={notiType} />}
+      <div className="flex justify-end px-6">
+        <GoalForm buttonName="New Goal" icon="file-invoice-dollar" />
+      </div>
+      <div className="px-10">
+        <div className="flex flex-col flex-1 gap-10 pr-5">
+          <GoalList goals={goals} onDelete={handleDelete} />
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Saving;
