@@ -10,11 +10,11 @@ export function FAQ() {
   return (
     <div>
       <div>
-        <img
+        {/* <img
           // src={require("../assets/backgroundcolor.png")}
           alt="blue pattern background"
           class="absolute w-full h-64 md:h-96 object-center object-fit z-0"
-        />
+        /> */}
         <div class="relative flex flex-col items-center justify-center sm:px-0 px-6 z-20 pb-32">
           <div class="md:py-36 py-20">
             <h1
