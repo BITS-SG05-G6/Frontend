@@ -6,6 +6,7 @@ import * as axiosInstance from "../../services/bill";
 import { BillContext } from "../../context/billContext";
 import { formatMoney } from "../../utils/formatMoney";
 import { NotificationContext } from "../../context/notificationContext";
+import ConfirmationModal from '../common/ConfirmationModal';
 
 function BillCard({ bill }) {
   const { setIsMessageVisible, setMessage, setNotiType } =
@@ -88,14 +89,25 @@ function BillCard({ bill }) {
       <div className="w-full h-[1px] bg-gray-400"></div>
 
       {/* Buttons */}
-      <div className="flex flex-row w-full gap-2">
-        <Button
+      <div className="flex flex-row w-full gap-2 justify-end">
+        {/* <Button
           className={"ml-auto"}
           variant={"redButton"}
           children={"Cancel"}
           size={"sm"}
           onClick={handleDel}
-        />
+        /> */}
+        
+        <ConfirmationModal
+            idModal={`deleteConfirmation${bill._id}`} 
+            btnName="Cancel"
+            btnSize="small"
+            btnType="button"
+            onSubmit={handleDel} 
+            message={`Are you sure you want to cancel this "${bill.title}" invoice?`}
+            variant="redButton"
+            
+          />
         <Button variant={"blueButton"} children={"Pay"} size={"sm"} onClick={handlePay} disabled={bill.status === "Paid"}/>
       </div>
     </div>

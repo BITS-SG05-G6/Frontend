@@ -12,6 +12,7 @@ const Category = () => {
     const { isMessageVisible, message, notiType} = useContext(NotificationContext);
 
   const handleDel = async (id) => {
+    
     await axiosInstance
       .deleteCategory(id)
       .then((res) => {
@@ -55,7 +56,7 @@ const Category = () => {
               color={category.color}
               name={category.name}
               amount={category.budget}
-              handleDel={() => handleDel(category.id)}
+              handleDel={() => handleDel(category._id)}
               type={category.type}
               href={`/category/${category._id}`}
               variety="Category"
