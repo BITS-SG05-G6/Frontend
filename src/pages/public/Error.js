@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../../components/common/Button";
-import Image from "../assets/Error404.svg";
+import Image from "../../assets/Error404.svg";
 const Error = () => {
   return (
     <div className="flex justify-center items-center w-screen h-screen">
