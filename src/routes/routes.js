@@ -10,7 +10,6 @@ import Saving from "../pages/private/Saving";
 import Wallet from "../pages/private/Wallet";
 import StatisticPage from "../pages/private/Statistic";
 import UserProfile from "../pages/private/UserProfile";
-// import SavingDetail from "../pages/private/SavingDetail";
 import WalletDetail from "../pages/private/WalletDetail";
 import SavingDetail from "../pages/private/SavingDetail";
 import CategoryDetail from "../pages/private/CategoryDetail";

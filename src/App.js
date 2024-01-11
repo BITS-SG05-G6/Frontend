@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import { publicRoutes, privateRoutes } from "./routes/routes";
+import Error from './pages/public/Error';
 import { AuthContext } from "./context/authContext";
 
 function App() {
@@ -29,12 +30,12 @@ function App() {
                 key={index}
                 path={route.path}
                 element={
-                  userInfo ? (
-                    <Navigate to="/dashboard" replace />
-                  ) : (
+                  !userInfo ? (
                     <Layout>
                       <Page />
                     </Layout>
+                  ) : (
+                    <Navigate to='/dashboard' replace />
                   )
                 }
               ></Route>
@@ -63,24 +64,10 @@ function App() {
               ></Route>
             );
           })}
+          <Route path="*" element={<Error />}></Route>
         </Routes>
       </div>
     </Router>
-    // <Routes>
-    //   <Route path="/" element={<LandingPage />}></Route>
-    //   <Route path="/transaction" element={<Transaction />}></Route>
-    //   <Route path="/transaction/:id" element={<Transaction />}></Route>
-    //   <Route path="/invoices" element={<Bills />}></Route>
-    //   <Route path="/login" element={<Login />}></Route>
-    //   <Route path="/wallets" element={<Wallet />}></Route>
-    //   <Route path="/dashboard" element={<Dashboard/>}></Route>
-    //   <Route path="/statistics" element={<StatisticPage/>}></Route>
-    //   <Route path="/planning" element={<Saving/>}></Route>
-
-    //   {/* <Route path="/login" element={<Login />}></Route> */}
-    //   <Route path="/signup" element={<Signup />}></Route>
-    //   <Route path="/category" element={<Category />}></Route>
-    // </Routes>
   );
 }
 
