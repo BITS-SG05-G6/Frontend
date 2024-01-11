@@ -12,18 +12,14 @@ import Alert from "../../components/common/Alert";
 function Saving() {
     const {goals, handleUpdateGoal} = useContext(SavingContext);
     const { setIsMessageVisible, isMessageVisible, message, setMessage, notiType } = useContext(NotificationContext);
-
-
-    // Delete a goal
-    async function handleDelete(id) {
-        try {
-            const res = await axiosInstance.deleteSavingGoal(id);
-            console.log(res);
-            handleUpdateGoal();
-        }
-        catch (err) {
-            console.log(err);
-        }
+  // Delete a goal
+  async function handleDelete(id) {
+    try {
+      const res = await axiosInstance.deleteSavingGoal(id);
+      console.log(res);
+      handleUpdateGoal();
+    } catch (err) {
+      console.log(err);
     }
     return (
         <>
@@ -42,6 +38,7 @@ function Saving() {
             </div>
         </>
     );
+
 }
 
 export default Saving;

@@ -6,13 +6,16 @@ import { TransactionContext } from "./transactionContext";
 export const SavingContext = createContext(null);
 
 const SavingProvider = ({ children }) => {
-  const { userInfo } = useContext(AuthContext)
-  // console.log(userInfo);
-  const { handleUpdateTransaction } = useContext(TransactionContext)
+  const { userInfo } = useContext(AuthContext);
+  const { handleUpdateTransaction } = useContext(TransactionContext);
 
   const [newGoal, setNewGoal] = useState(false);
+  const [goalEditSuccess, setGoalEditSuccess] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+
   const handleUpdateGoal = () => {
     setNewGoal(!newGoal);
+    setGoalEditSuccess(false);
   };
 
   const [goals, setGoals] = useState([]);
@@ -29,17 +32,18 @@ const SavingProvider = ({ children }) => {
     }
 
     fetchData();
-  }, [userInfo?.id, newGoal, handleUpdateTransaction]);
+  }, [userInfo?.id, newGoal, handleUpdateTransaction, goalEditSuccess]);
 
   const goalList = {
     handleUpdateGoal,
     goals,
+    setGoalEditSuccess,
+    isUpdate,
+    setIsUpdate,
   };
 
   return (
-    <SavingContext.Provider value={goalList}>
-      {children}
-    </SavingContext.Provider>
+    <SavingContext.Provider value={goalList}>{children}</SavingContext.Provider>
   );
 };
 

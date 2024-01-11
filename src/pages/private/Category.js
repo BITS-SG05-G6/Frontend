@@ -57,7 +57,7 @@ const Category = () => {
               amount={category.budget}
               handleDel={() => handleDel(category.id)}
               type={category.type}
-              href={`/category/${category.id}`}
+              href={`/category/${category._id}`}
               variety="Category"
             />
           ) : null

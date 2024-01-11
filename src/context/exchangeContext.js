@@ -5,25 +5,29 @@ import { AuthContext } from "./authContext";
 export const ExchangeContext = createContext(null);
 
 const ExchangeProvider = ({ children }) => {
-  const { userInfo } = useContext(AuthContext)
+  const { userInfo } = useContext(AuthContext);
 
- const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"))
+  const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
 
- const [baseCurrency, setBaseCurrency] = useState('VND');
+  const [baseCurrency, setBaseCurrency] = useState("VND");
 
- const [exchangeCurrency, setExchangeCurrency] = useState(baseCurrency === "VND" ? "USD" : "VND");
+  const [exchangeCurrency, setExchangeCurrency] = useState(
+    baseCurrency === "VND" ? "USD" : "VND"
+  );
 
- const [rate, setRate] = useState();
+  const [rate, setRate] = useState();
 
  useEffect(() => {
    if (userInfo) {
     setBaseCurrency(userInfo ? userInfo.baseCurrency : 'VND');
     setExchangeCurrency(userInfo.baseCurrency === "VND" ? "USD" : "VND")
   }
+
     const key = "984effa68765ad37cbec7fc2430eefaa439035a9";
     const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${date}?api_key=${key}&from=${exchangeCurrency}&to=${baseCurrency}&amount=1&format=json`;
 
     fetch(apiUrl)
+
     .then((response) => response.json())
     .then((data) => {
       // console.log(data)
@@ -42,7 +46,6 @@ const ExchangeProvider = ({ children }) => {
    setExchangeCurrency,
    rate
  }
-
   return (
     <ExchangeContext.Provider value={exchangeList}>
       {children}

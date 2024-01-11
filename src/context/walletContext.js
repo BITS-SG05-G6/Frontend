@@ -6,10 +6,9 @@ import { TransactionContext } from "./transactionContext";
 export const WalletContext = createContext(null);
 
 const WalletProvider = ({ children }) => {
-  const { userInfo } = useContext(AuthContext)
-  // console.log(userInfo);
-  const { handleUpdateTransaction } = useContext(TransactionContext)
-
+  const { userInfo } = useContext(AuthContext);
+  const { handleUpdateTransaction } = useContext(TransactionContext);
+  const [isUpdate, setIsUpdate] = useState(false);
   const [newWallet, setNewWallet] = useState(false);
   const handleUpdateWallet = () => {
     setNewWallet(newWallet === "true" ? "false" : "true");
@@ -32,12 +31,14 @@ const WalletProvider = ({ children }) => {
           setWallets(res);
         });
       } catch (err) {
-        setWallets([{
-          id: "",
-          name: "",
-          icon: "",
-          color: "",
-        }]);
+        setWallets([
+          {
+            id: "",
+            name: "",
+            icon: "",
+            color: "",
+          },
+        ]);
       }
     }
 
@@ -47,6 +48,8 @@ const WalletProvider = ({ children }) => {
   const walletList = {
     handleUpdateWallet,
     wallets,
+    isUpdate,
+    setIsUpdate,
   };
 
   return (
