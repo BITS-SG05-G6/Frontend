@@ -8,8 +8,8 @@ import ColorPicker from "../common/ColorPicker";
 import * as axiosInstance from "../../services/savingGoal";
 import { SavingContext } from "../../context/savingContext";
 
-function GoalEditForm({ goal, updateGoalDetails }) {
-  const { handleUpdateGoal } = useContext(SavingContext);
+function GoalEditForm({ goal }) {
+  const { isUpdate, setIsUpdate } = useContext(SavingContext);
 
   const {
     control,
@@ -29,8 +29,9 @@ function GoalEditForm({ goal, updateGoalDetails }) {
       .then((res) => {
         document.getElementById(`${goal._id}edit`).close();
         // handleUpdateGoal();
+        setIsUpdate(!isUpdate);
         console.log(res);
-        updateGoalDetails();
+        // setGoalEditSuccess();
         reset();
       })
       .catch((err) => {

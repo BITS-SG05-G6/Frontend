@@ -7,10 +7,11 @@ import Textarea from "../common/Textarea";
 import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
-import { CategoryContext } from "../../context/categoryContext";
 import { NotificationContext } from "../../context/notificationContext";
+import { CategoryContext } from "../../context/categoryContext";
 
 const CategoryEditForm = ({ category }) => {
+  const { isUpdate, setIsUpdate } = useContext(CategoryContext);
   const {
     control,
     handleSubmit,
@@ -21,7 +22,6 @@ const CategoryEditForm = ({ category }) => {
     mode: "onChange",
   });
 
-  const { handleUpdateCategory } = useContext(CategoryContext);
   const {
     setIsMessageVisible,
     isMessageVisible,
@@ -48,7 +48,7 @@ const CategoryEditForm = ({ category }) => {
         console.log(res);
         reset();
         document.getElementById(`${category.id}edit`).close();
-        handleUpdateCategory();
+        setIsUpdate(!isUpdate);
         setNotiType("success");
         setMessage(res);
         setIsMessageVisible(true);

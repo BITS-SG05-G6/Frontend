@@ -11,6 +11,7 @@ import { WalletContext } from "../../context/walletContext";
 import { NotificationContext } from "../../context/notificationContext";
 
 const WalletEditForm = ({ wallet }) => {
+  const { isUpdate, setIsUpdate } = useContext(WalletContext);
   const {
     control,
     handleSubmit,
@@ -38,12 +39,11 @@ const WalletEditForm = ({ wallet }) => {
       )
       .then((res) => {
         document.getElementById(`${wallet._id}edit`).close();
-        handleUpdateWallet();
+        setIsUpdate(!isUpdate);
         console.log(res);
         setMessage(res);
         setIsMessageVisible(true);
         setNotiType("success");
-
         setTimeout(() => {
           setMessage(null);
           setIsMessageVisible(false);

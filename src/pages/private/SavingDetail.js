@@ -11,7 +11,7 @@ function Details() {
   const { id } = useParams();
   const [goal, setGoal] = useState({});
   const [goalTransactions, setGoalTransactions] = useState([]);
-  const { handleUpdateGoal } = useContext(SavingContext);
+  const { handleUpdateGoal, isUpdate } = useContext(SavingContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -27,19 +27,7 @@ function Details() {
       } catch (err) {}
     }
     fetchData();
-  }, [id]);
-
-  const updateGoalDetails = async () => {
-    try {
-      const goalData = await savingGoal.viewSavingGoal(id);
-      if (goalData) {
-        setGoal(goalData.savingGoal);
-        setGoalTransactions(goalData.transactions);
-      }
-    } catch (err) {
-      console.error("Error updating goal details:", err);
-    }
-  };
+  }, [id, isUpdate]);
 
   return (
     <DetailPageLayout>
@@ -48,7 +36,7 @@ function Details() {
         <TransactionList transactions={goalTransactions} />
       </div>
       {/* render the components based on the data fetching */}
-      <GoalDetails goal={goal} updateGoalDetails={updateGoalDetails} />
+      <GoalDetails goal={goal} />
     </DetailPageLayout>
   );
 }
