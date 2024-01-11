@@ -50,13 +50,6 @@ function WalletDetails({ wallet }) {
         </div>
         <div>
           <WalletEditForm wallet={wallet} />
-          {/* <Button
-            variant="blueButton"
-            size="lg"
-            onClick={() => console.log(wallet)}
-          >
-            Edit
-          </Button> */}
         </div>
       </div>
     </div>

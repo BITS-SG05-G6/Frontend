@@ -1,76 +1,80 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
+import * as axiosInstance from "../../services/category";
 import ColorPicker from "../common/ColorPicker";
 import IconPicker from "../common/IconPicker";
-import * as axiosInstance from "../../services/wallet";
-import { WalletContext } from "../../context/walletContext";
+import { CategoryContext } from "../../context/categoryContext";
 import { NotificationContext } from "../../context/notificationContext";
 
-const WalletEditForm = ({
-  //   name = "Default Name",
-  //   color = "#f5d1e4",
-  //   icon = "sack-dollar",
-  //   description = "Description",
-  //   amount = 0,
-  wallet,
-}) => {
-  // console.log(wallet);
-  // const { name, color, icon, description, amount } = wallet;
+const CategoryEditForm = ({ category, categoryType }) => {
   const {
     control,
     handleSubmit,
     reset,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      type: categoryType,
+    },
+  });
 
-  const { handleUpdateWallet } = useContext(WalletContext);
-  const { setIsMessageVisible, setMessage, setNotiType } =
-    useContext(NotificationContext);
+  const { handleUpdateCategory } = useContext(CategoryContext);
+  const {
+    setIsMessageVisible,
+    isMessageVisible,
+    message,
+    setMessage,
+    setNotiType,
+  } = useContext(NotificationContext);
+
+  const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
     console.log(d);
-    // Axios Update Not Create
     // await axiosInstance
-    //   .createWallet(
+    //   .createCategory(
     //     d.name,
-    //     d.amount,
+    //     categoryType,
     //     d.color,
     //     d.icon,
     //     d.description,
-    //     d.exchangeAmount
+    //     d.budget
     //   )
     //   .then((res) => {
-    //     document.getElementById(`${wallet._id}edit`).close();
-    //     handleUpdateWallet();
     //     console.log(res);
+    //     reset();
+    //     document.getElementById(`${category.id}edit`).close();
+    //     handleUpdateCategory();
+    //     setNotiType("success");
     //     setMessage(res);
     //     setIsMessageVisible(true);
-    //     setNotiType("success");
 
     //     setTimeout(() => {
     //       setMessage(null);
     //       setIsMessageVisible(false);
     //     }, 3000);
-    //     reset();
     //   })
     //   .catch((err) => {
-    //     console.log(err);
+    //     console.log(err.response.data.error.message);
     //   });
   };
 
   const openModal = () => {
-    document.getElementById(`${wallet._id}edit`).showModal();
-    // console.log(`${wallet._id}edit`);
-    setValue("name", wallet.name);
-    setValue("amount", wallet.amount);
-    setValue("color", wallet.color);
-    setValue("icon", wallet.icon);
-    setValue("description", wallet.description);
+    document.getElementById(`${category.id}edit`).showModal();
+
+    // Set value for form
+    setValue("amount", category.amount);
+    setValue("budget", category.budget);
+    setValue("color", category.color);
+    setValue("icon", category.icon);
+    setValue("name", category.name);
+    setValue("type", category.type);
   };
 
   return (
@@ -86,11 +90,10 @@ const WalletEditForm = ({
       >
         Edit
       </Button>
-
-      <dialog id={`${wallet._id}edit`} className="modal">
+      <dialog id={`${category.id}edit`} className="modal overflow-visible">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Edit {wallet && wallet.name}
+            Edit {category && category.name}
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
             <form method="dialog" className="flex flex-col gap-4">
@@ -101,14 +104,13 @@ const WalletEditForm = ({
               <Controller
                 name="name"
                 control={control}
-                // defaultValue={wallet.name}
+                defaultValue=""
                 render={({ field }) => (
                   <div>
                     <FormInput
                       type="text"
                       label="Name"
                       name="name"
-                      //   placeholder={wallet.name}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
@@ -121,40 +123,55 @@ const WalletEditForm = ({
                   </div>
                 )}
               />
-
+              {/* Budget field */}
+              {categoryType === "Income" ? null : (
+                <Controller
+                  name="budget"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <div>
+                      <FormInput
+                        type="text"
+                        label="Budget"
+                        name="budget"
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        labelType="side"
+                      />
+                    </div>
+                  )}
+                />
+              )}
               <Controller
-                name="amount"
+                name="type"
                 control={control}
-                // defaultValue={wallet.amount}
-                rules={{
-                  pattern: {
-                    value: /^([^.0-]\d+|\d)$/,
-                    message: "It must be a positive number",
-                  },
-                }}
+                defaultValue=""
                 render={({ field }) => (
                   <div>
                     <FormInput
-                      type="number"
-                      label="Balance"
-                      name="amount"
-                      //   placeholder={wallet.amount}
-                      value={field.value}
+                      label="Type"
+                      name="type"
+                      value={category && category.type}
                       onChange={(e) => field.onChange(e.target.value)}
+                      disabled
+                      // options={types}
                       labelType="side"
                     />
-                    {errors.amount && (
+                    {/* <FormInput /> */}
+                    {errors.type && (
                       <Text className="text-red-500 px-32 mt-3">
-                        {errors.amount.message}
+                        {errors.type.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
+
               <Controller
                 name="color"
                 control={control}
-                defaultValue={""}
+                defaultValue=""
                 render={({ field }) => (
                   <div>
                     <ColorPicker
@@ -174,7 +191,7 @@ const WalletEditForm = ({
               <Controller
                 name="icon"
                 control={control}
-                // defaultValue={wallet.icon}
+                defaultValue="file-invoice-dollar"
                 render={({ field }) => (
                   <div>
                     <IconPicker
@@ -189,10 +206,11 @@ const WalletEditForm = ({
                   </div>
                 )}
               />
+
               <Controller
                 name="description"
                 control={control}
-                // defaultValue={wallet.description ? wallet.description : "Write description"}
+                defaultValue=""
                 render={({ field }) => (
                   <div>
                     <Textarea
@@ -205,12 +223,15 @@ const WalletEditForm = ({
               />
 
               <div className="flex justify-around">
-                <Button size="xl" onClick={handleSubmit(onSubmit)}>
+                <Button
+                  size="xl"
+                  variant="roundOutline"
+                  onClick={handleSubmit(onSubmit)}
+                >
                   Save
                 </Button>
-                <Button variant="roundOutline" size="xl">
-                  Cancel
-                </Button>
+
+                <Button size="xl">Cancel</Button>
               </div>
             </form>
           </div>
@@ -220,4 +241,4 @@ const WalletEditForm = ({
   );
 };
 
-export default WalletEditForm;
+export default CategoryEditForm;

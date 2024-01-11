@@ -1,25 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
 import ColorPicker from "../common/ColorPicker";
-import IconPicker from "../common/IconPicker";
-import * as axiosInstance from "../../services/wallet";
-import { WalletContext } from "../../context/walletContext";
-import { NotificationContext } from "../../context/notificationContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconList } from "../svgs/IconList";
+import * as axiosInstance from "../../services/savingGoal";
+import { SavingContext } from "../../context/savingContext";
 
-const WalletEditForm = ({
-  //   name = "Default Name",
-  //   color = "#f5d1e4",
-  //   icon = "sack-dollar",
-  //   description = "Description",
-  //   amount = 0,
-  wallet,
-}) => {
-  // console.log(wallet);
-  // const { name, color, icon, description, amount } = wallet;
+function GoalEditForm({ buttonName, icon, goal }) {
+  const { handleUpdateGoal } = useContext(SavingContext);
+
   const {
     control,
     handleSubmit,
@@ -28,34 +21,22 @@ const WalletEditForm = ({
     formState: { errors },
   } = useForm();
 
-  const { handleUpdateWallet } = useContext(WalletContext);
-  const { setIsMessageVisible, setMessage, setNotiType } =
-    useContext(NotificationContext);
-
   const onSubmit = async (d) => {
     console.log(d);
-    // Axios Update Not Create
+
     // await axiosInstance
-    //   .createWallet(
+    //   .createSavingGoal(
     //     d.name,
-    //     d.amount,
+    //     d.target,
     //     d.color,
-    //     d.icon,
-    //     d.description,
-    //     d.exchangeAmount
+    //     d.startDate,
+    //     d.endDate,
+    //     d.description
     //   )
     //   .then((res) => {
-    //     document.getElementById(`${wallet._id}edit`).close();
-    //     handleUpdateWallet();
+    //     document.getElementById(`${goal._id}edit`).close();
+    //     handleUpdateGoal();
     //     console.log(res);
-    //     setMessage(res);
-    //     setIsMessageVisible(true);
-    //     setNotiType("success");
-
-    //     setTimeout(() => {
-    //       setMessage(null);
-    //       setIsMessageVisible(false);
-    //     }, 3000);
     //     reset();
     //   })
     //   .catch((err) => {
@@ -64,13 +45,17 @@ const WalletEditForm = ({
   };
 
   const openModal = () => {
-    document.getElementById(`${wallet._id}edit`).showModal();
-    // console.log(`${wallet._id}edit`);
-    setValue("name", wallet.name);
-    setValue("amount", wallet.amount);
-    setValue("color", wallet.color);
-    setValue("icon", wallet.icon);
-    setValue("description", wallet.description);
+    document.getElementById(`${goal._id}edit`).showModal();
+
+    // Set Value for form
+    setValue("name", goal.name);
+    setValue("description", goal.description);
+    setValue("color", goal.color);
+    setValue("target", goal.target);
+    setValue("startDate", goal.startDate.substring(0, 10));
+    if (goal.endDate !== undefined) {
+      setValue("endDate", goal.endDate);
+    }
   };
 
   return (
@@ -87,13 +72,16 @@ const WalletEditForm = ({
         Edit
       </Button>
 
-      <dialog id={`${wallet._id}edit`} className="modal">
+      <dialog id={`${goal._id}edit`} className="modal">
         <div className="modal-box flex flex-col justify-center w-full overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
-            Edit {wallet && wallet.name}
+            Edit {goal && goal.name} Goal
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
-            <form method="dialog" className="flex flex-col gap-4">
+            <form
+              method="dialog"
+              className="flex flex-col gap-4 justify-start text-end"
+            >
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
@@ -101,20 +89,22 @@ const WalletEditForm = ({
               <Controller
                 name="name"
                 control={control}
-                // defaultValue={wallet.name}
+                defaultValue=""
+                // rules={{
+                //   required: "Name is required!",
+                // }}
                 render={({ field }) => (
                   <div>
                     <FormInput
                       type="text"
                       label="Name"
                       name="name"
-                      //   placeholder={wallet.name}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
                     />
                     {errors.name && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 text-end mt-3">
                         {errors.name.message}
                       </Text>
                     )}
@@ -123,10 +113,10 @@ const WalletEditForm = ({
               />
 
               <Controller
-                name="amount"
+                name="target"
                 control={control}
-                // defaultValue={wallet.amount}
                 rules={{
+                  //   required: "Target is required!",
                   pattern: {
                     value: /^([^.0-]\d+|\d)$/,
                     message: "It must be a positive number",
@@ -136,16 +126,16 @@ const WalletEditForm = ({
                   <div>
                     <FormInput
                       type="number"
-                      label="Balance"
-                      name="amount"
-                      //   placeholder={wallet.amount}
+                      label="Target"
+                      name="target"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
+                      placeholder="e.g: 0"
                     />
-                    {errors.amount && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.amount.message}
+                    {errors.target && (
+                      <Text className="text-red-500 mt-3">
+                        {errors.target.message}
                       </Text>
                     )}
                   </div>
@@ -154,7 +144,7 @@ const WalletEditForm = ({
               <Controller
                 name="color"
                 control={control}
-                defaultValue={""}
+                defaultValue=""
                 render={({ field }) => (
                   <div>
                     <ColorPicker
@@ -172,18 +162,47 @@ const WalletEditForm = ({
               />
 
               <Controller
-                name="icon"
+                name="startDate"
                 control={control}
-                // defaultValue={wallet.icon}
+                defaultValue={new Date(goal.startDate)}
+                // rules={{ required: "Date is required!" }}
                 render={({ field }) => (
                   <div>
-                    <IconPicker
+                    <FormInput
+                      type="date"
+                      label="Start Date"
+                      name="startDate"
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
                     />
-                    {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
-                        {errors.type.message}
+                    {errors.date && (
+                      <Text className="text-red-500 px-36 mt-3">
+                        {errors.date.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
+              />
+
+              <Controller
+                name="endDate"
+                control={control}
+                defaultValue={new Date().toISOString()}
+                rules={{ required: "Date is required!" }}
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="date"
+                      label="End Date"
+                      name="endDate"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
+                    {errors.date && (
+                      <Text className="text-red-500 px-36 mt-3">
+                        {errors.date.message}
                       </Text>
                     )}
                   </div>
@@ -192,7 +211,7 @@ const WalletEditForm = ({
               <Controller
                 name="description"
                 control={control}
-                // defaultValue={wallet.description ? wallet.description : "Write description"}
+                defaultValue=""
                 render={({ field }) => (
                   <div>
                     <Textarea
@@ -218,6 +237,6 @@ const WalletEditForm = ({
       </dialog>
     </>
   );
-};
+}
 
-export default WalletEditForm;
+export default GoalEditForm;
