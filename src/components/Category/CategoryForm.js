@@ -77,7 +77,7 @@ const CategoryForm = ({ categoryType }) => {
             Add New Category
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
-            <form method="dialog" className="flex flex-col gap-4">
+            <form method="dialog" className="flex flex-col gap-4 justify-start text-end">
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
@@ -98,7 +98,7 @@ const CategoryForm = ({ categoryType }) => {
                       labelType="side"
                     />
                     {errors.name && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="text-red-500 mt-3">
                         {errors.name.message}
                       </Text>
                     )}

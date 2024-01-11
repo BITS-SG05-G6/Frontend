@@ -21,7 +21,6 @@ function GoalForm({ buttonName, icon }) {
     handleSubmit,
     reset,
     formState: { errors },
-    setValue
   } = useForm();
 
   const onSubmit = async (d) => {
@@ -154,9 +153,9 @@ function GoalForm({ buttonName, icon }) {
                         labelType="side"
                         placeholder="e.g: 0"
                       />
-                      {errors.amount && (
+                      {errors.target && (
                         <Text className="text-red-500 mt-3">
-                          {errors.amount.message}
+                          {errors.target.message}
                         </Text>
                       )}
                     </div>
