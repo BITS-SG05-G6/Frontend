@@ -17,6 +17,7 @@ import { AuthContext } from "../../context/authContext";
 import { SavingContext } from "../../context/savingContext";
 import { ExchangeContext } from "../../context/exchangeContext";
 import { NotificationContext } from "../../context/notificationContext";
+import { formatMoney } from "../../utils/formatMoney";
 
 const TransactionForm = ({
   category,
@@ -51,14 +52,16 @@ const TransactionForm = ({
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const categoryType = category
     ? category.type
+    : goal ? goal.type 
     : selectedCategory === "none" || selectedCategory === undefined
-    ? selectedType
+    ? selectedType 
     : type;
-
+    
   const onSubmit = async (d) => {
-    console.log(d);
+    // console.log(d);
     const categoryValue = category ? category.id : d.category;
     const walletValue = wallet ? wallet.id : d.wallet;
+    const goalValue = goal ? goal.id : d.goal;
     await axiosInstance
       .createTransaction(
         d.amount,
@@ -71,12 +74,12 @@ const TransactionForm = ({
         walletValue,
         d.currency,
         d.exchangeAmount,
-        d.goal
+        goalValue
       )
       .then((res) => {
         document
           .getElementById(
-            category ? category.id : wallet ? wallet.id : "my_modal_1"
+            category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
           )
           .close();
         handleUpdateTransaction();
@@ -88,15 +91,13 @@ const TransactionForm = ({
           setMessage(null);
           setIsMessageVisible(false);
         }, 3000);
-        console.log(res);
+        // console.log(res);
         reset();
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  // console.log(goals)
 
   const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
 
@@ -112,9 +113,6 @@ const TransactionForm = ({
   }, [selectedCurrency, setValue, selectedDate, otherCurrency, userInfo.baseCurrency, setBaseCurrency, setDate, setExchangeCurrency, rate, selectedType, reset])
 
   const openModal = () => {
-    console.log(        category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
-    );
-
     document
       .getElementById(
         category ? category.id : wallet ? wallet.id : goal ? goal.id : "my_modal_1"
@@ -212,7 +210,7 @@ const TransactionForm = ({
                       labelType="side"
                     />
                     {errors.title && (
-                      <Text className="text-red-500 mt-3 text-start">
+                      <Text className="text-red-500 mt-3">
                         {errors.title.message}
                       </Text>
                     )}
@@ -381,7 +379,7 @@ const TransactionForm = ({
               )}
 
               {
-                selectedType === "Saving" ||
+            
                 goal ? (
                   <FormInput
                     label="Goal"
@@ -390,9 +388,8 @@ const TransactionForm = ({
                     disabled
                     labelType="side"
                   />
-        
                 ) : (
-                  goals && (
+                  goals && selectedType === "Saving" ? (
                     <Controller
                       name="goal"
                       control={control}
@@ -418,7 +415,7 @@ const TransactionForm = ({
                         </div>
                       )}
                     />
-                  )) 
+                  ) : null )
                           }
               {
                 selectedType === "Saving" ? null :
@@ -478,9 +475,6 @@ const TransactionForm = ({
                       <Text className="text-red-500 mt-3">
                         {errors.amount.message}
                       </Text>
-                      // <div className="pl-36">
-                      //   {errors.amount.message}
-                      // </div>
                     )}
                   </div>
                 )}
@@ -499,15 +493,7 @@ const TransactionForm = ({
                         label="Exchange"
                         name="exchangeAmount"
                         type="number"
-                        // value={field.value}
-                        // onChange={(e) => field.on/Change(e.target.value)}
-                        placeholder={userInfo.baseCurrency === "VND" ?
-                          new Intl.NumberFormat("vi-VN").format(field.value) +
-                          " VND" : new Intl.NumberFormat("vi-VN", {
-                            style: "currency",
-                            currency: "USD"
-                          }).format(field.value)
-                        }
+                        placeholder={formatMoney(field.value, userInfo.baseCurrency)}
                         disabled
                         labelType="side"
                       />

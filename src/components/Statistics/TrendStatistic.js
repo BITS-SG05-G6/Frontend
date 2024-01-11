@@ -8,7 +8,6 @@ import Chart from "react-apexcharts";
 import { useContext, useEffect, useState } from "react";
 import * as axiosInstance from "../../services/statistics";
 import Cookies from "js-cookie";
-// import { jwtDecode } from "jwt-decode";
 import { statisticExpensesWeekly, statisticExpensesMonthly } from '../../services/statistics';
 import { AuthContext } from "../../context/authContext";
 

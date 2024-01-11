@@ -18,11 +18,11 @@ function ConfirmationModal({
         type={"button"}
         size={btnSize}
         variant={variant}
-        onClick={() => document.getElementById(idModal).showModal()}
+        onClick={() => document.getElementById(`${idModal}confirm`).showModal()}
       >
         {btnName}
       </Button>
-      <dialog id={`${idModal}`} className="modal">
+      <dialog id={`${idModal}confirm`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Confirmation</h3>
           <p className="py-4">{message}</p>

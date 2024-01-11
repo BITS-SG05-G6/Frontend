@@ -17,35 +17,35 @@ const ExchangeProvider = ({ children }) => {
 
   const [rate, setRate] = useState();
 
-  useEffect(() => {
-    if (userInfo) {
-      setBaseCurrency(userInfo ? userInfo.baseCurrency : "VND");
-      setExchangeCurrency(userInfo.baseCurrency === "VND" ? "USD" : "VND");
-    }
+ useEffect(() => {
+   if (userInfo) {
+    setBaseCurrency(userInfo ? userInfo.baseCurrency : 'VND');
+    setExchangeCurrency(userInfo.baseCurrency === "VND" ? "USD" : "VND")
+  }
+
     const key = "984effa68765ad37cbec7fc2430eefaa439035a9";
     const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${date}?api_key=${key}&from=${exchangeCurrency}&to=${baseCurrency}&amount=1&format=json`;
 
     fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data)
-        if (baseCurrency === "VND") {
-          setRate(Math.floor(data.rates.VND.rate_for_amount));
-        } else {
-          setRate(data.rates.USD.rate_for_amount);
-        }
-      })
-      .catch((error) => console.error("Error fetching exchange rates:", error));
-  }, [baseCurrency, exchangeCurrency, date, userInfo]);
 
-  //  console.log(rate);
-  const exchangeList = {
-    setDate,
-    setBaseCurrency,
-    setExchangeCurrency,
-    rate,
-  };
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data)
+      if (baseCurrency === "VND") {
+        setRate(Math.floor(data.rates.VND.rate_for_amount));
+      } else {
+        setRate(data.rates.USD.rate_for_amount);
+      }
+    })
+    .catch((error) => console.error('Error fetching exchange rates:', error));
+ }, [baseCurrency, exchangeCurrency, date, userInfo])
 
+ const exchangeList = {
+   setDate,
+   setBaseCurrency,
+   setExchangeCurrency,
+   rate
+ }
   return (
     <ExchangeContext.Provider value={exchangeList}>
       {children}
