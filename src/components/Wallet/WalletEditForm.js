@@ -10,16 +10,7 @@ import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
 import { NotificationContext } from "../../context/notificationContext";
 
-const WalletEditForm = ({
-  //   name = "Default Name",
-  //   color = "#f5d1e4",
-  //   icon = "sack-dollar",
-  //   description = "Description",
-  //   amount = 0,
-  wallet,
-}) => {
-  // console.log(wallet);
-  // const { name, color, icon, description, amount } = wallet;
+const WalletEditForm = ({ wallet }) => {
   const {
     control,
     handleSubmit,
@@ -35,32 +26,33 @@ const WalletEditForm = ({
   const onSubmit = async (d) => {
     console.log(d);
     // Axios Update Not Create
-    // await axiosInstance
-    //   .createWallet(
-    //     d.name,
-    //     d.amount,
-    //     d.color,
-    //     d.icon,
-    //     d.description,
-    //     d.exchangeAmount
-    //   )
-    //   .then((res) => {
-    //     document.getElementById(`${wallet._id}edit`).close();
-    //     handleUpdateWallet();
-    //     console.log(res);
-    //     setMessage(res);
-    //     setIsMessageVisible(true);
-    //     setNotiType("success");
+    await axiosInstance
+      .updateWallet(
+        wallet._id,
+        d.name,
+        d.amount,
+        d.color,
+        d.icon,
+        d.description,
+        d.exchangeAmount
+      )
+      .then((res) => {
+        document.getElementById(`${wallet._id}edit`).close();
+        handleUpdateWallet();
+        console.log(res);
+        setMessage(res);
+        setIsMessageVisible(true);
+        setNotiType("success");
 
-    //     setTimeout(() => {
-    //       setMessage(null);
-    //       setIsMessageVisible(false);
-    //     }, 3000);
-    //     reset();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const openModal = () => {

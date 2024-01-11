@@ -1,16 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
 import { Controller, useForm } from "react-hook-form";
 import Textarea from "../common/Textarea";
 import ColorPicker from "../common/ColorPicker";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconList } from "../svgs/IconList";
 import * as axiosInstance from "../../services/savingGoal";
 import { SavingContext } from "../../context/savingContext";
 
-function GoalEditForm({ buttonName, icon, goal }) {
+function GoalEditForm({ goal, updateGoalDetails }) {
   const { handleUpdateGoal } = useContext(SavingContext);
 
   const {
@@ -22,26 +20,22 @@ function GoalEditForm({ buttonName, icon, goal }) {
   } = useForm();
 
   const onSubmit = async (d) => {
-    console.log(d);
+    // console.log(d);
+    // console.log(goal._id);
+    const updatedData = d;
 
-    // await axiosInstance
-    //   .createSavingGoal(
-    //     d.name,
-    //     d.target,
-    //     d.color,
-    //     d.startDate,
-    //     d.endDate,
-    //     d.description
-    //   )
-    //   .then((res) => {
-    //     document.getElementById(`${goal._id}edit`).close();
-    //     handleUpdateGoal();
-    //     console.log(res);
-    //     reset();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    await axiosInstance
+      .updateSavingGoal(goal._id, updatedData)
+      .then((res) => {
+        document.getElementById(`${goal._id}edit`).close();
+        // handleUpdateGoal();
+        console.log(res);
+        updateGoalDetails();
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const openModal = () => {
@@ -54,7 +48,7 @@ function GoalEditForm({ buttonName, icon, goal }) {
     setValue("target", goal.target);
     setValue("startDate", goal.startDate.substring(0, 10));
     if (goal.endDate !== undefined) {
-      setValue("endDate", goal.endDate);
+      setValue("endDate", goal.endDate.substring(0, 10));
     }
   };
 
@@ -90,9 +84,6 @@ function GoalEditForm({ buttonName, icon, goal }) {
                 name="name"
                 control={control}
                 defaultValue=""
-                // rules={{
-                //   required: "Name is required!",
-                // }}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -188,8 +179,8 @@ function GoalEditForm({ buttonName, icon, goal }) {
               <Controller
                 name="endDate"
                 control={control}
-                defaultValue={new Date().toISOString()}
-                rules={{ required: "Date is required!" }}
+                defaultValue=""
+                // rules={{ required: "Date is required!" }}
                 render={({ field }) => (
                   <div>
                     <FormInput

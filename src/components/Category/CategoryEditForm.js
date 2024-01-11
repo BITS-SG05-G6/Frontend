@@ -10,7 +10,7 @@ import IconPicker from "../common/IconPicker";
 import { CategoryContext } from "../../context/categoryContext";
 import { NotificationContext } from "../../context/notificationContext";
 
-const CategoryEditForm = ({ category, categoryType }) => {
+const CategoryEditForm = ({ category }) => {
   const {
     control,
     handleSubmit,
@@ -19,9 +19,6 @@ const CategoryEditForm = ({ category, categoryType }) => {
     formState: { errors },
   } = useForm({
     mode: "onChange",
-    defaultValues: {
-      type: categoryType,
-    },
   });
 
   const { handleUpdateCategory } = useContext(CategoryContext);
@@ -37,32 +34,33 @@ const CategoryEditForm = ({ category, categoryType }) => {
 
   const onSubmit = async (d) => {
     console.log(d);
-    // await axiosInstance
-    //   .createCategory(
-    //     d.name,
-    //     categoryType,
-    //     d.color,
-    //     d.icon,
-    //     d.description,
-    //     d.budget
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     reset();
-    //     document.getElementById(`${category.id}edit`).close();
-    //     handleUpdateCategory();
-    //     setNotiType("success");
-    //     setMessage(res);
-    //     setIsMessageVisible(true);
+    await axiosInstance
+      .updateCategory(
+        category.id,
+        d.name,
+        d.type,
+        d.color,
+        d.icon,
+        d.description,
+        d.budget
+      )
+      .then((res) => {
+        console.log(res);
+        reset();
+        document.getElementById(`${category.id}edit`).close();
+        handleUpdateCategory();
+        setNotiType("success");
+        setMessage(res);
+        setIsMessageVisible(true);
 
-    //     setTimeout(() => {
-    //       setMessage(null);
-    //       setIsMessageVisible(false);
-    //     }, 3000);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.response.data.error.message);
-    //   });
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error.message);
+      });
   };
 
   const openModal = () => {
@@ -124,25 +122,25 @@ const CategoryEditForm = ({ category, categoryType }) => {
                 )}
               />
               {/* Budget field */}
-              {categoryType === "Income" ? null : (
-                <Controller
-                  name="budget"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <div>
-                      <FormInput
-                        type="text"
-                        label="Budget"
-                        name="budget"
-                        value={field.value}
-                        onChange={(e) => field.onChange(e.target.value)}
-                        labelType="side"
-                      />
-                    </div>
-                  )}
-                />
-              )}
+              {/* {categoryType === "Income" ? null : ( */}
+              <Controller
+                name="budget"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <div>
+                    <FormInput
+                      type="text"
+                      label="Budget"
+                      name="budget"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                    />
+                  </div>
+                )}
+              />
+              {/* )} */}
               <Controller
                 name="type"
                 control={control}

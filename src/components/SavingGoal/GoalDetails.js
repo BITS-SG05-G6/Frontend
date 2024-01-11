@@ -3,7 +3,7 @@ import Badge from "../common/Badge";
 import { format } from "date-fns";
 import GoalEditForm from "./GoalEditForm";
 
-function GoalDetails({ goal }) {
+function GoalDetails({ goal, updateGoalDetails }) {
   const progress = Math.floor((goal.total / goal.target) * 100);
   return (
     <div className="w-96">
@@ -87,7 +87,7 @@ function GoalDetails({ goal }) {
           </div>
           {/* Edit Button Form */}
           <div>
-            <GoalEditForm goal={goal} />
+            <GoalEditForm goal={goal} updateGoalDetails={updateGoalDetails} />
           </div>
         </div>
       </div>
