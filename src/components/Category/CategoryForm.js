@@ -24,12 +24,11 @@ const CategoryForm = ({ categoryType }) => {
   });
 
   const { handleUpdateCategory } = useContext(CategoryContext);
-  const { setIsMessageVisible, isMessageVisible, message, setMessage, setNotiType } = useContext(NotificationContext);
+  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
 
   const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
-    console.log(d);
     await axiosInstance
       .createCategory(
         d.name,
@@ -40,7 +39,7 @@ const CategoryForm = ({ categoryType }) => {
         d.budget
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         reset();
         document.getElementById("my_modal_2").close();
         handleUpdateCategory();

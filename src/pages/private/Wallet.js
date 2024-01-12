@@ -7,14 +7,21 @@ import Alert from "../../components/common/Alert";
 
 const Wallet = () => {
   const { wallets, handleUpdateWallet } = useContext(WalletContext);
-  const { isMessageVisible, message, notiType } =
+  const { setMessage, setIsMessageVisible, setNotiType, isMessageVisible, message, notiType } =
     useContext(NotificationContext);
 
   const handleDel = async (id) => {
     await axiosInstance
       .deleteWallet(id)
       .then((res) => {
-        console.log(res);
+        setMessage(res);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
         handleUpdateWallet();
       })
       .catch((err) => {

@@ -4,9 +4,9 @@ import { formatMoney } from "../../utils/formatMoney";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import ConfirmationModal from '../common/ConfirmationModal';
+import TransactionEditForm from './TransactionEditForm';
 
-function TransactionCard({ title, amount, category, id, color, handleDel, type, currency}) {
-
+function TransactionCard({ transaction, handleDel }) {
   return (
     <tr className="w-full">
       {/* The user can click on a transaction row to view the details */}
@@ -14,34 +14,35 @@ function TransactionCard({ title, amount, category, id, color, handleDel, type, 
         <Text
           variant="text-sm"
           className="text-[#EF5DA8]"
-          href={`/transaction/${id}`}
+          href={`/transaction/${transaction._id}`}
         >
-          {title}
+          {transaction.title}
         </Text>
       </td>
-      {category ? (
+      {transaction.category ? (
         <td>
             <Text variant="text-sm" className="rounded-xl px-3 py-1" style={{
-                backgroundColor: `${color}40`,
-                color: color,
-              }}>{category}</Text>
+                backgroundColor: `${transaction.color}40`,
+                color: transaction.color,
+              }}>{transaction.category}</Text>
         </td>
       ) : (
         <td>
             <Text variant="text-sm" className="bg-[#FCDDEC] rounded-xl px-3 py-1 text-[#EF5CA8]">None</Text>
         </td>
       )}
-      <td className={cn(type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center font-bold")}>{formatMoney(amount, currency)}</td>
+      <td className={cn(transaction.type === "Expense" ? "text-red-400" : "text-green-400" ,"text-center font-bold")}>{formatMoney(transaction.amount, transaction.currency)}</td>
       <td className="flex gap-1 justify-center">
-        <Button variant="blueButton">Edit</Button>
+        {/* <Button variant="blueButton">Edit</Button> */}
+        <TransactionEditForm transaction={transaction}/>
         {/* <Button href="/transaction" variant="redButton" onClick={openConfirmationDelete}>Delete</Button> */}
         <ConfirmationModal
-            idModal={`deleteConfirmation-${id}`} 
+            idModal={`deleteConfirmation-${transaction._id}`} 
             btnName="Delete"
             btnSize="small"
             btnType="button"
             onSubmit={handleDel} 
-            message={`Are you sure you want to delete transaction "${title}"?`}
+            message={`Are you sure you want to delete transaction "${transaction.title}"?`}
             variant="redButton"
           />
       </td>
