@@ -53,3 +53,14 @@ export const getTransactionDetail = async (transactionId) => {
   }
 }
 
+export const updateTransaction = async(id, title, date, category, type, wallet, currency, amount, exchangeAmount, description, goal) => {
+  const res = await axiosInstance.put(`transaction/update/${id}`, {title, date, category, type, wallet, currency, amount, exchangeAmount, description, goal})
+
+  try {
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (err) {
+    return err;
+  }
+}

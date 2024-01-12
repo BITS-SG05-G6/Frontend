@@ -138,7 +138,6 @@ export const compareExpenseIncomeByMonth = async() => {
   const res = await axiosInstance.get(`/statistic/exin/month`);
     try {
         if (res.status === 200) {
-          console.log(res.data);
           return res.data;
         }
       } catch (err) {
