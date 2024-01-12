@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import DetailPageLayout from "../../components/layout/DetailPageLayout";
 import CategoryDetails from "../../components/Category/CategoryDetails";
 import DetailChartCategory from "../../components/Statistics/DetailChartCategory";
 import * as categoryService from "../../services/category";
@@ -29,14 +28,14 @@ function CategoryDetail() {
   }, [id, isUpdate]);
 
   return (
-    <DetailPageLayout>
+    <>
       <div className="flex flex-col flex-1 gap-10 pr-5">
         <DetailChartCategory categoryId={id} />
         <TransactionList transactions={transactions} />
       </div>
       {/* render the components based on the data fetching */}
       <CategoryDetails category={category} />
-    </DetailPageLayout>
+    </>
   );
 }
 

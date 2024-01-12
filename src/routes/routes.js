@@ -21,6 +21,7 @@ import Signup from "../pages/public/Signup";
 // Import Layout
 import PublicPageLayout from "../components/layout/PublicPageLayout";
 import PrivatePageLayout from "../components/layout/PrivatePageLayout";
+import DetailPageLayout from "../components/layout/DetailPageLayout";
 import AuthLayout from "../components/layout/AuthLayout";
 import { AboutUs } from "../pages/public/AboutUs";
 import { FAQ } from "../pages/public/faq";
@@ -82,7 +83,7 @@ export const privateRoutes = [
   {
     path: "/category/:id",
     component: CategoryDetail,
-    layout: PrivatePageLayout,
+    layout: DetailPageLayout,
     header: "My Categories",
   },
   {
@@ -100,7 +101,7 @@ export const privateRoutes = [
   {
     path: "/planning/:id",
     component: SavingDetail,
-    layout: PrivatePageLayout,
+    layout: DetailPageLayout,
     header: "My Planning",
   },
   {
@@ -118,7 +119,7 @@ export const privateRoutes = [
   {
     path: "/wallets/:id",
     component: WalletDetail,
-    layout: PrivatePageLayout,
+    layout: DetailPageLayout,
     header: "My Wallets",
   },
   {

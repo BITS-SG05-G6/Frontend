@@ -73,16 +73,6 @@ function GoalRow({ goal, onDelete, href }) {
             variant="blueButton"
             goal={{ id: goal._id, name: goal.name, type: "Saving" }}
           />
-          <Button variant="lightPrimary">Edit</Button>
-          {/* <Button variant='redButton' 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                onDelete(goal._id)}}
-                    >
-                            Delete
-                    </Button> */}
-
           <ConfirmationModal
             idModal={`eleteConfirmation-${goal._id}}`}
             btnName="Delete"

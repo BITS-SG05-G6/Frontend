@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import DetailPageLayout from "../../components/layout/DetailPageLayout";
 import GoalDetails from "../../components/SavingGoal/GoalDetails";
 import * as savingGoal from "../../services/savingGoal";
 import TransactionList from "../../components/Transaction/TransactionList";
@@ -24,20 +23,21 @@ function Details() {
           setGoalTransactions(goalData.transactions);
         }
         handleUpdateGoal();
-      } catch (err) {}
+      } catch (err) { }
     }
     fetchData();
   }, [id, isUpdate]);
 
   return (
-    <DetailPageLayout>
+    <>
       <div className="flex flex-col flex-1 gap-10 pr-5">
+        {/* <BackToPrev className='text-left' /> */}
         <MarkerChart savingID={id} />
         <TransactionList transactions={goalTransactions} />
       </div>
       {/* render the components based on the data fetching */}
       <GoalDetails goal={goal} />
-    </DetailPageLayout>
+    </>
   );
 }
 
