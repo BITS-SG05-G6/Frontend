@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Alert from "../../components/common/Alert";
 import TransactionCalendar from "../../components/Transaction/TransactionCalendar";
 import TransactionDetails from "../../components/Transaction/TransactionDetails";
@@ -10,6 +10,7 @@ import { TransactionContext } from "../../context/transactionContext";
 import * as axiosInstance from "../../services/transactions";
 
 const Transaction = () => {
+  const navigate = useNavigate();
   const { setPage, selectedDate, setSelectedDate, transactions } = useContext(TransactionContext);
   const { setIsMessageVisible, isMessageVisible, message, setMessage, notiType } = useContext(NotificationContext);
 
@@ -23,6 +24,12 @@ const Transaction = () => {
 
   if (selectedDate === null) {
     setSelectedDate(new Date())
+  }
+
+  function handleTransactionChange() {
+    setTransaction(null);
+    navigate('/transaction');
+    
   }
   // console.log(id);
 
@@ -60,7 +67,7 @@ const Transaction = () => {
           <TransactionList transactions={transactions} />
         </div>
 
-        <TransactionDetails transaction={transaction} />
+        <TransactionDetails transaction={transaction} onClose={handleTransactionChange} />
       </div>
     </>
   );
