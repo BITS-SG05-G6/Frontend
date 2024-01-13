@@ -62,10 +62,11 @@ export function FAQ() {
               )}
             </div>
             {box1 && (
-              <p className="text-base leading-normal text-gray-600 mt-4 lg:w-96 text-justify">
-                If you want to choose Pro or Business plan the you can use all
-                payments. You can pay from Paypal, Payoneer, Master Card, Debit
-                Card.
+              <p className="text-base leading-normal text-gray-600 mt-4  text-left">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio
+                quae quidem facilis corporis deserunt vero pariatur dolor
+                nostrum laborum autem id quasi veritatis, perferendis,
+                repudiandae, ullam eveniet molestias molestiae sed!
               </p>
             )}
           </div>
@@ -120,10 +121,12 @@ export function FAQ() {
             {box2 && (
               <ul>
                 <li>
-                  <p className="text-base leading-normal text-gray-600 mt-4 lg:w-96 text-justify">
-                    If you want to choose Pro or Business plan the you can use
-                    all payments. You can pay from Paypal, Payoneer, Master
-                    Card, Debit Card.
+                  <p className="text-base leading-normal text-gray-600 mt-4  text-left">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Quisquam iusto quibusdam vitae. Soluta quis cupiditate, vero
+                    quisquam molestiae quo beatae dignissimos incidunt corporis
+                    repellat laboriosam pariatur sequi architecto placeat
+                    reprehenderit?
                   </p>
                 </li>
               </ul>
@@ -179,7 +182,7 @@ export function FAQ() {
             {box3 && (
               <ul>
                 <li>
-                  <p className="text-base leading-normal text-gray-600 mt-4 lg:w-96 text-justify">
+                  <p className="text-base leading-normal text-gray-600 mt-4  text-left">
                     If you want to choose Pro or Business plan the you can use
                     all payments. You can pay from Paypal, Payoneer, Master
                     Card, Debit Card.
@@ -238,10 +241,11 @@ export function FAQ() {
             {box4 && (
               <ul>
                 <li>
-                  <p className="text-base leading-normal text-gray-600 mt-4 lg:w-96 text-justify">
-                    If you want to choose Pro or Business plan the you can use
-                    all payments. You can pay from Paypal, Payoneer, Master
-                    Card, Debit Card.
+                  <p className="text-base leading-normal text-gray-600 mt-4  text-left">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Voluptatem, cupiditate voluptate animi repellat accusantium
+                    ullam quo vitae nihil voluptatum ad sapiente quibusdam iure
+                    vel! Temporibus adipisci libero incidunt officia eos!
                   </p>
                 </li>
               </ul>
