@@ -1,134 +1,68 @@
 import React from "react";
-import NavBar from "../../components/common/NavBar";
-import Footer from "../../components/common/Footer";
+import MemberCard from "../../components/AboutUs/MemberCard";
+
+import imageThong from "../../assets/thanhthong.jpeg";
+import imageHaAnh from "../../assets/haanh.jpeg";
+import imageXian from "../../assets/xian.png";
+import imageQuynhAnh from "../../assets/quynhanh.jpeg";
+import imageTuanAnh from "../../assets/tuananh.jpeg";
 
 export function AboutUs() {
   return (
-    <div className="">
-      {/* <NavBar /> */}
-      <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
-        <div className="flex flex-col lg:flex-row justify-between gap-5">
-          <div className="w-full lg:w-5/12 flex flex-col justify-center">
-            <h1 className="text-3xl text-[#EF5DA8] lg:text-4xl font-bold leading-9 text-gray-800 pb-4">
-              Why Us?
-            </h1>
-            <p className="font-normal text-base leading-6 text-gray-600 ">
-              Discover the simplicity of managing your finances with our
-              user-friendly budget app. Designed for real-time tracking, it
-              keeps you in constant control of your spending, ensuring you're
-              always on top of your budget. Our customizable features allow you
-              to tailor your budgeting experience to your unique financial goals
-              and lifestyle, offering a truly personalized approach. We take the
-              security of your financial data seriously, implementing top-tier
-              security measures for your peace of mind. Beyond just tracking,
-              our app provides insightful analytics, giving you a deeper
-              understanding of your spending habits and helping you make
-              informed financial decisions. And should you need any assistance,
-              our dedicated customer support team is always at your service.
-              Choose our budget app for a streamlined, secure, and insightful
-              approach to managing your finances.
-            </p>
-          </div>
-          <div className="w-full lg:w-8/12 ">
-            <img
-              className="w-full h-full"
-              src="https://i.ibb.co/FhgPJt8/Rectangle-116.png"
-              alt="A group of People"
-            />
-          </div>
-        </div>
+    <div className="mx-20">
+      {/* Meet Our Team Members */}
+      <div className="bg-[#EF5DA8] rounded-xl px-20 py-20 flex flex-col items-center justify-center mb-10">
+        {/* Logo */}
+        <img
+          src="https://picsum.photos/200"
+          alt=""
+          className="w-16 h-16 rounded-xl mb-16"
+        />
 
-        <div className="flex lg:flex-row flex-col justify-between gap-8 pt-12">
-          <div className="w-full lg:w-5/12 flex flex-col justify-center">
-            <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">
-              Our Story
-            </h1>
-            <p className="font-normal text-base leading-6 text-gray-600 ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-          <div className="w-full lg:w-8/12 lg:pt-8">
-            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-md">
-              <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                <img
-                  className="md:block hidden"
-                  src="https://i.ibb.co/FYTKDG6/Rectangle-118-2.png"
-                  alt="Alexa featured Img"
-                />
-                <img
-                  className="md:hidden block"
-                  src="https://i.ibb.co/zHjXqg4/Rectangle-118.png"
-                  alt="Alexa featured Img"
-                />
-                <p className="font-medium text-xl leading-5 text-gray-800 mt-4">
-                  Xian
-                </p>
-              </div>
-              <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                <img
-                  className="md:block hidden"
-                  src="https://i.ibb.co/fGmxhVy/Rectangle-119.png"
-                  alt="Olivia featured Img"
-                />
-                <img
-                  className="md:hidden block"
-                  src="https://i.ibb.co/NrWKJ1M/Rectangle-119.png"
-                  alt="Olivia featured Img"
-                />
-                <p className="font-medium text-xl leading-5 text-gray-800 mt-4">
-                  Nana
-                </p>
-              </div>
-              <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                <img
-                  className="md:block hidden"
-                  src="https://i.ibb.co/Pc6XVVC/Rectangle-120.png"
-                  alt="Liam featued Img"
-                />
-                <img
-                  className="md:hidden block"
-                  src="https://i.ibb.co/C5MMBcs/Rectangle-120.png"
-                  alt="Liam featued Img"
-                />
-                <p className="font-medium text-xl leading-5 text-gray-800 mt-4">
-                  Thong Vu
-                </p>
-              </div>
-              <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                <img
-                  className="md:block hidden"
-                  src="https://i.ibb.co/7nSJPXQ/Rectangle-121.png"
-                  alt="Elijah featured img"
-                />
-                <img
-                  className="md:hidden block"
-                  src="https://i.ibb.co/ThZBWxH/Rectangle-121.png"
-                  alt="Elijah featured img"
-                />
-                <p className="font-medium text-xl leading-5 text-gray-800 mt-4">
-                  Tuan Anh
-                </p>
-              </div>
-              <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                <img
-                  className="md:block hidden"
-                  src="https://i.ibb.co/7nSJPXQ/Rectangle-121.png"
-                  alt="Elijah featured img"
-                />
-                <img
-                  className="md:hidden block"
-                  src="https://i.ibb.co/ThZBWxH/Rectangle-121.png"
-                  alt="Elijah featured img"
-                />
-                <p className="font-medium text-xl leading-5 text-gray-800 mt-4">
-                  Quynh Anh
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Title */}
+        <span className="mb-3 font-semibold text-4xl text-white">
+          Meet Our Team Members
+        </span>
+
+        <p className="text-base font-medium text-white">
+          Our team at Nutritionist is composed of highly skilled professionals
+          who are passionate about helping you achieve your health and wellness
+          goals. With a diverse range of expertise in nutrition, coaching, and
+          support, our team is dedicated to providing you with the guidance and
+          personalized care you need. Get to know the experts behind our success
+          and discover how they can make a positive impact on your journey to
+          better health.
+        </p>
       </div>
-      {/* <Footer /> */}
+
+      {/* Team Member Card */}
+      <div className="grid grid-cols-5 gap-5">
+        <MemberCard
+          imgSrc={imageHaAnh}
+          name={"Ha Anh"}
+          role={"BE Developer, Tester & Technical Writer"}
+        />
+        <MemberCard
+          imgSrc={imageXian}
+          name={"Hong Van"}
+          role={"Project Leader, FE Developer & Technical Writer"}
+        />
+        <MemberCard
+          imgSrc={imageThong}
+          name={"Thanh Thong"}
+          role={"UI/UX Designer, FE & BE Developer"}
+        />
+        <MemberCard
+          imgSrc={imageTuanAnh}
+          name={"Tuan Anh"}
+          role={"BE Developer & Technical Writer"}
+        />
+        <MemberCard
+          imgSrc={imageQuynhAnh}
+          name={"Quyanh Anh"}
+          role={"FE Developer"}
+        />
+      </div>
     </div>
   );
 }

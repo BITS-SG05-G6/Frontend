@@ -25,11 +25,9 @@ const NavBar = () => {
       <div className="flex flex-1 justify-end items-center gap-4">
         <ul className="flex flex-row justify-between space-x-4">
           <li className="font-semibold">
-            <a href="/aboutus">
-              About Us
-            </a>
+            <a href="/aboutus">About Us</a>
           </li>
-          <li className="font-semibold">
+          {/* <li className="font-semibold">
             <Link
               to="feature"
               spy={true}
@@ -50,12 +48,12 @@ const NavBar = () => {
             >
               Reviews
             </Link>
-          </li>
+          </li> */}
         </ul>
         {/* <Text weight="semibold">Feautures</Text>
         <Text weight="semibold">Why Us</Text>
         <Text weight="semibold">Reviews</Text> */}
-        <details className="dropdown border-transparent">
+        {/* <details className="dropdown border-transparent">
           <summary className="btn btn-ghost hover:bg-transparent p-0">
             <English />
             EN
@@ -69,7 +67,7 @@ const NavBar = () => {
               <Text>Item 2</Text>
             </li>
           </ul>
-        </details>
+        </details> */}
         <Button href="/login">Log In</Button>
       </div>
     </div>
