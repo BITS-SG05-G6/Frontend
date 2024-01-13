@@ -1,24 +1,48 @@
 import Text from "./Text";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className=" bg-white m-4 class= lg:py-6 lg:m-0 mt-10 border-t ">
-      <section className="container grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-8 lg:mx-auto">
-        <p className="flex items-center mt-6 lg:mt-0 lg:col-span-6 text-16 leading-24 text-dark-brown">
-          © 2023 WiseWallet Technology Co., Ltd. All rights reserved.
-        </p>
-        <div className="flex flex-col lg:flex-row justify-center gap-y-4 lg:col-span-5 lg:gap-x-4">
-          <a class="flex items-center leading-24 text-16 font-medium text-dark-brown hover:underline">
-            About Us
-          </a>
-          <a className="flex items-center leading-24 text-16 font-medium text-dark-brown hover:underline">
-            Why Us?
-          </a>
-          <a className="flex items-center leading-24 text-16 font-medium text-dark-brown hover:underline">
-            Term and Service
-          </a>
+    <div className="flex flex-col bg-[#EF5DA8] p-10 gap-10">
+      <div className="flex justify-around">
+        <div className="flex justify-center items-center">
+          <Text
+            variant="text-lg"
+            className="text-white flex items-center"
+            weight="bold"
+          >
+            Wise{""}
+            <Text
+              variant="text-lg"
+              className="text-black flex items-center"
+              weight="bold"
+            >
+              Wallet
+            </Text>
+          </Text>
         </div>
-      </section>
+
+        <div className="flex flex-col text-[#FCDDEC] items-start">
+          <Text variant="text-md" weight="semibold" className="text-white">
+            More Information
+          </Text>
+          <Link to={"/aboutus"}>
+            <Text variant="text-xs">About Us</Text>
+          </Link>
+          <Link to={"/faq"}>
+            <Text variant="text-xs">FAQ</Text>
+          </Link>
+          <Link to={"/policy"}>
+            <Text variant="text-xs">Privacy Policy</Text>
+          </Link>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center px-20 text-[#FCDDEC]">
+        <Text variant="text-sm">
+          © 2023,WiseWallet, Inc. All Rights Reserved.
+        </Text>
+      </div>
     </div>
   );
 };
