@@ -12,8 +12,14 @@ const SavingProvider = ({ children }) => {
   const [newGoal, setNewGoal] = useState(false);
   const [goalEditSuccess, setGoalEditSuccess] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  function handleLoading() {
+    setIsLoading(!isLoading);
+  }
 
   const handleUpdateGoal = () => {
+    setIsLoading(true);
     setNewGoal(!newGoal);
     setGoalEditSuccess(false);
   };
@@ -25,9 +31,12 @@ const SavingProvider = ({ children }) => {
       try {
         await axiosInstance.viewSavingGoals().then((res) => {
           setGoals(res);
+          setTimeout(handleLoading, 1000);
         });
       } catch (err) {
         setGoals([]);
+      } finally {
+        setIsLoading(true);
       }
     }
 
@@ -40,6 +49,9 @@ const SavingProvider = ({ children }) => {
     setGoalEditSuccess,
     isUpdate,
     setIsUpdate,
+    isLoading,
+    handleLoading,
+    setIsLoading
   };
 
   return (

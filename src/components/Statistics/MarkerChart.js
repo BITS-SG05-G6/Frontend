@@ -96,7 +96,7 @@ const MarkerChart = ({ savingID }) => {
       <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
         <div className="flex flex-row justify-between w-full">
           <div className="flex items-center ml-4">
-            <Text children="Wallet Detail" weight="bold" />
+            <Text children="Saving goal" weight="bold" />
           </div>
           <div className="flex items-center mr-10 mt-5">
             <Select
