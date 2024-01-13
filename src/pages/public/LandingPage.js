@@ -16,7 +16,7 @@ export default function LandingPage() {
     <>
       <div className="flex flex-col justify-center items-center gap-10">
         <div className="flex max-w-5xl">
-          <img src={require("../../assets/Dashboard.png")} alt="dashboard" />
+          <img src={require("../../assets/dashboard.png")} alt="dashboard" />
         </div>
         <div className="flex flex-col justify-center items-center">
           <Text
