@@ -12,7 +12,7 @@ import Loading from "../../components/common/Loading";
 
 const Transaction = () => {
   const navigate = useNavigate();
-  const { setPage, selectedDate, setSelectedDate, transactions, isLoading, setIsLoading } = useContext(TransactionContext);
+  const { setPage, selectedDate, setSelectedDate, transactions } = useContext(TransactionContext);
   const { setIsMessageVisible, isMessageVisible, message, setMessage, notiType } = useContext(NotificationContext);
 
   setPage('transaction');
@@ -32,12 +32,10 @@ const Transaction = () => {
     navigate('/transaction');
 
   }
-  // console.log(id);
 
   useEffect(() => {
     async function fetchTransaction() {
       try {
-        setIsLoading(true);
         await axiosInstance.getTransactionDetail(id)
           .then((res) => {
             setTransaction(res);
@@ -49,20 +47,13 @@ const Transaction = () => {
       catch (err) {
 
       }
-      finally {
-        setTimeout(() => setIsLoading(false), 1000);
-      }
-
     }
     fetchTransaction();
   }, [id])
 
   return (
     <>
-      {isLoading ? (
-        <Loading isLoading={isLoading} />
-      ) : (
-        <>
+ 
           {
             isMessageVisible && (
               <Alert message={message} type={notiType} />
@@ -83,7 +74,7 @@ const Transaction = () => {
 
             <TransactionDetails transaction={transaction} onClose={handleTransactionChange} />
           </div>
-        </>)}
+     
     </>
   );
 };
