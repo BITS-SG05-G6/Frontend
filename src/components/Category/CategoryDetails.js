@@ -3,9 +3,12 @@ import { IconList } from "../svgs/IconList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CategoryEditForm from "./CategoryEditForm";
 import Button from "../common/Button";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
+import { formatMoney } from "../../utils/formatMoney";
 
 function CategoryDetails({ category }) {
-  console.log(category);
+  const { userInfo } = useContext(AuthContext);
   return (
     <div className="mb-10 w-full lg:col-span-1 lg:w-96">
       <div className=" flex w-full flex-col gap-5 rounded-[10px] border border-gray-300 bg-white p-6">
@@ -14,7 +17,7 @@ function CategoryDetails({ category }) {
             {category.name}
           </Text>
           <Text variant="text-md" weight="semibold" className="text-primary">
-            {category.amount}
+            {/* {category.amount} */}
           </Text>
           {/* Icon */}
           <div className="flex justify-center">
@@ -44,9 +47,11 @@ function CategoryDetails({ category }) {
         </div>
         <div className="flex justify-between">
           <Text className="text-gray-400">Budget</Text>
-          <Text weight="semibold">{category.budget || "None"}</Text>
+          <Text weight="semibold">{formatMoney(category.budget, userInfo.baseCurrency) || "None"}</Text>
         </div>
+
         <div className="flex flex-col justify-start gap-2">
+
           <Text className="text-gray-400" weight="semibold">
             Description
           </Text>
