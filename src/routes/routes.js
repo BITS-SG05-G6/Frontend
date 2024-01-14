@@ -23,7 +23,7 @@ import PublicPageLayout from "../components/layout/PublicPageLayout";
 import PrivatePageLayout from "../components/layout/PrivatePageLayout";
 import AuthLayout from "../components/layout/AuthLayout";
 import { AboutUs } from "../pages/public/AboutUs";
-import { FAQ } from "../pages/public/FAQ";
+import  {FAQ}  from "../pages/public/faq";
 import { Policy } from "../pages/public/Policy";
 
 // Public routes
