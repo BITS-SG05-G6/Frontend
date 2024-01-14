@@ -4,9 +4,10 @@ import * as axiosInstance from "../../services/wallet";
 import { WalletContext } from "../../context/walletContext";
 import { NotificationContext } from "../../context/notificationContext";
 import Alert from "../../components/common/Alert";
+import Loading from "../../components/common/Loading";
 
 const Wallet = () => {
-  const { wallets, handleUpdateWallet } = useContext(WalletContext);
+  const { wallets, handleUpdateWallet, isLoading } = useContext(WalletContext);
   const {
     setMessage,
     setIsMessageVisible,
@@ -36,6 +37,10 @@ const Wallet = () => {
   };
   return (
     <>
+      {isLoading ? (
+        <Loading isLoading={isLoading} />
+      ) : (
+        <>
       {isMessageVisible && <Alert message={message} type={notiType} />}
       <div className="grid grid-cols-1 gap-10 px-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <Card add="wallet" />
@@ -58,6 +63,8 @@ const Wallet = () => {
           </div>
         ))}
       </div>
+      </>
+      )}
     </>
   );
 };

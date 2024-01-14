@@ -4,15 +4,21 @@ import BillForm from "../../components/Bill/BillForm";
 import Alert from "../../components/common/Alert";
 import { BillContext } from "../../context/billContext";
 import { NotificationContext } from "../../context/notificationContext";
+import Loading from "../../components/common/Loading";
 
 function Bills() {
-  const { bills } = useContext(BillContext);
-  const { isMessageVisible, message, notiType } =
-    useContext(NotificationContext);
+  const { bills, isLoading } = useContext(BillContext);
+  const { isMessageVisible, message, notiType } = useContext(NotificationContext);
+
+
 
   return (
     <>
-      {isMessageVisible && <Alert message={message} type={notiType} />}
+      {isLoading ? (
+        <Loading isLoading={isLoading} />
+      ) : (
+        <>
+          {isMessageVisible && <Alert message={message} type={notiType} />}
       <div className="flex px-10 lg:justify-end lg:px-6">
         <BillForm />
       </div>
@@ -23,6 +29,9 @@ function Bills() {
           </div>
         ))}
       </div>
+        </>
+      )
+      }
     </>
   );
 }

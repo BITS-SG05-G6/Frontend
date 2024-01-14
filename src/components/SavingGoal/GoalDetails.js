@@ -4,7 +4,8 @@ import { format } from "date-fns";
 import GoalEditForm from "./GoalEditForm";
 
 function GoalDetails({ goal }) {
-  const progress = Math.floor((goal.total / goal.target) * 100);
+  let result = Math.floor((goal.total / goal.target) * 100);
+  const progress = result <= 100 ? result : 100;
   return (
     <div className="w-96">
       <div className=" bg-white rounded-[10px] border border-gray-300 flex flex-col gap-5 p-6">

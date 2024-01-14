@@ -8,7 +8,8 @@ import ConfirmationModal from "../common/ConfirmationModal";
 
 function GoalRow({ goal, onDelete, href }) {
   const { userInfo } = useContext(AuthContext);
-  const progress = Math.floor((goal.total / goal.target) * 100);
+  let result = Math.floor((goal.total / goal.target) * 100);
+  const progress = result <= 100 ? result : 100;
   const styles = {
     borderColor: goal.color,
   };
