@@ -1,7 +1,7 @@
 import axiosInstance from "./axios";
 
 export const signup = async (username, password) => {
-  const res = await axiosInstance.post("/login", { username, password });
+  const res = await axiosInstance.post("/signup", { username, password });
 
   try {
     if (res.status === 200) {
@@ -48,9 +48,9 @@ export const getProfile = async () => {
   }
 };
 
-export const updateProfile = async (userData) => {
+export const updateProfile = async (username, baseCurrency, password, rate) => {
   try {
-    const res = await axiosInstance.put("/updateprofile", userData);
+    const res = await axiosInstance.put("/updateprofile", {username, baseCurrency, password, rate});
 
     if (res.status === 200) {
       return res.data;

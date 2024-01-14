@@ -39,8 +39,7 @@ const TransactionEditForm = ({ transaction }) => {
   const selectedCurrency = watch("currency");
   const { wallets } = useContext(WalletContext);
   const { goals } = useContext(SavingContext);
-  const { rate, setDate, setBaseCurrency, setExchangeCurrency } =
-    useContext(ExchangeContext);
+  const { rate, setDate } = useContext(ExchangeContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
 
   const categoryType =
@@ -61,7 +60,7 @@ const TransactionEditForm = ({ transaction }) => {
         d.amount,
         d.exchangeAmount,
         d.description,
-        d.goal
+        d.goal,
       )
       .then((res) => {
         console.log(res);
@@ -81,40 +80,17 @@ const TransactionEditForm = ({ transaction }) => {
       });
   };
 
-  const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
-
   useEffect(() => {
     setDate(
       selectedDate
         ? format(new Date(selectedDate), "yyyy-MM-dd")
-        : format(new Date(), "yyyy-MM-dd")
+        : format(new Date(), "yyyy-MM-dd"),
     );
-    setBaseCurrency(
-      selectedCurrency !== userInfo.baseCurrency
-        ? userInfo.baseCurrency
-        : otherCurrency
-    );
-    setExchangeCurrency(
-      selectedCurrency !== userInfo.baseCurrency
-        ? otherCurrency
-        : userInfo.baseCurrency
-    );
+
     if (selectedType === "Saving") {
       setValue("currency", userInfo.baseCurrency);
     }
-  }, [
-    selectedCurrency,
-    setValue,
-    selectedDate,
-    otherCurrency,
-    userInfo.baseCurrency,
-    setBaseCurrency,
-    setDate,
-    setExchangeCurrency,
-    rate,
-    selectedType,
-    reset,
-  ]);
+  }, [setValue, selectedDate, userInfo.baseCurrency, setDate, selectedType]);
 
   const openModal = () => {
     document.getElementById(transaction._id).showModal();
@@ -172,14 +148,14 @@ const TransactionEditForm = ({ transaction }) => {
         </Text>
       </Button>
       <dialog id={transaction._id} className="modal">
-        <div className="modal-box flex flex-col justify-center w-full">
+        <div className="modal-box flex w-full flex-col justify-center">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Edit {transaction.title} Transaction
           </Text>
-          <div className="modal-action mx-0 block w-full overflow-scroll no-scrollbar">
+          <div className="no-scrollbar modal-action mx-0 block w-full overflow-scroll">
             <form
               method="dialog"
-              className="flex flex-col gap-4 justify-start text-end"
+              className="flex flex-col justify-start gap-4 text-end"
             >
               <Button
                 variant="close"
@@ -206,7 +182,7 @@ const TransactionEditForm = ({ transaction }) => {
                       labelType="side"
                     />
                     {errors.title && (
-                      <Text className="text-red-500 mt-3">
+                      <Text className="mt-3 text-red-500">
                         {errors.title.message}
                       </Text>
                     )}
@@ -230,7 +206,7 @@ const TransactionEditForm = ({ transaction }) => {
                       labelType="side"
                     />
                     {errors.date && (
-                      <Text className="text-red-500 mt-3 text-start">
+                      <Text className="mt-3 text-start text-red-500">
                         {errors.date.message}
                       </Text>
                     )}
@@ -253,7 +229,7 @@ const TransactionEditForm = ({ transaction }) => {
                           categories.map((category) =>
                             category._id === e.target.value
                               ? setType(category.type)
-                              : null
+                              : null,
                           );
                         }}
                         options={categories}
@@ -264,7 +240,9 @@ const TransactionEditForm = ({ transaction }) => {
                 />
               )}
 
-              {selectedCategory === undefined || selectedCategory === "none" || selectedType ? (
+              {selectedCategory === undefined ||
+              selectedCategory === "none" ||
+              selectedType ? (
                 <Controller
                   name="type"
                   control={control}
@@ -282,23 +260,22 @@ const TransactionEditForm = ({ transaction }) => {
                         none={false}
                       />
                       {errors.type && (
-                        <Text className="text-red-500 text-start mt-3">
+                        <Text className="mt-3 text-start text-red-500">
                           {errors.type.message}
                         </Text>
                       )}
                     </div>
                   )}
                 />
-              ) : (
-                null
-                // <FormInput
-                //   label="Type"
-                //   name="categoryType"
-                //   value={type}
-                //   disabled
-                //   labelType="side"
-                // />
-              )}
+              ) : null
+              // <FormInput
+              //   label="Type"
+              //   name="categoryType"
+              //   value={type}
+              //   disabled
+              //   labelType="side"
+              // />
+              }
 
               {wallets && (
                 <Controller
@@ -317,7 +294,7 @@ const TransactionEditForm = ({ transaction }) => {
                         placeholder="Please choose a wallet"
                       />
                       {errors.wallet && (
-                        <Text className="text-red-500 px-36 mt-3">
+                        <Text className="mt-3 px-36 text-red-500">
                           {errors.wallet.message}
                         </Text>
                       )}
@@ -345,7 +322,7 @@ const TransactionEditForm = ({ transaction }) => {
                         none={false}
                       />
                       {errors.goal && (
-                        <Text className="text-end text-red-500 mt-3">
+                        <Text className="mt-3 text-end text-red-500">
                           {errors.goal.message}
                         </Text>
                       )}
@@ -374,7 +351,7 @@ const TransactionEditForm = ({ transaction }) => {
                         none={false}
                       />
                       {errors.currency && (
-                        <Text className="text-red-500 mt-3">
+                        <Text className="mt-3 text-red-500">
                           {errors.currency.message}
                         </Text>
                       )}
@@ -406,7 +383,7 @@ const TransactionEditForm = ({ transaction }) => {
                       labelType="side"
                     />
                     {errors.amount && (
-                      <Text className="text-red-500 mt-3">
+                      <Text className="mt-3 text-red-500">
                         {errors.amount.message}
                       </Text>
                     )}
@@ -430,7 +407,7 @@ const TransactionEditForm = ({ transaction }) => {
                         type="number"
                         placeholder={formatMoney(
                           field.value,
-                          userInfo.baseCurrency
+                          userInfo.baseCurrency,
                         )}
                         disabled
                         labelType="side"

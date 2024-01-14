@@ -28,7 +28,7 @@ function DashboardListRow({ obj, list }) {
                             </div>
                             <Text className='pt-1' variant='text-sm' weight='semibold'>{obj.name}</Text>
                         </div>
-                        <Text variant='text-sm' weight='semibold'>{formatMoney(obj.amount, userInfo.baseCurrency)}</Text>
+                        <Text variant='text-sm' weight='semibold'>{formatMoney(obj.amount, obj.baseCurrency)}</Text>
 
                     </td>
                 </>
@@ -43,7 +43,7 @@ function DashboardListRow({ obj, list }) {
                         <Text variant='text-sm' weight='semibold' className={`badge badge-outline ${obj.type.toLowerCase() === 'expense'? 'text-red-200': 'text-green-200'}`}>{obj.type}</Text>
                     </td>
                     <td>
-                        <Text variant='text-sm' weight='semibold'>{formatMoney(obj.amount, userInfo.baseCurrency)}</Text>
+                        <Text variant='text-sm' weight='semibold'>{formatMoney(obj.amount, obj.currency)}</Text>
                     </td>
                     <td>
                         <Text variant='text-sm' weight='semibold' className='text-gray-500'>{format(new Date(obj.date), "dd-MM-yyyy")}</Text>
@@ -56,7 +56,7 @@ function DashboardListRow({ obj, list }) {
                 <>
                     <td className="flex justify-between items-center">
                         <Text className='pt-1' variant='text-sm' weight='semibold'>{obj.title}</Text>
-                        <Text variant='text-sm'>{formatMoney(obj.amount, userInfo.baseCurrency)}</Text>
+                        <Text variant='text-sm'>{formatMoney(obj.amount, obj.currency)}</Text>
                         <Text variant='text-sm' weight='semibold' className={`badge badge-outline ${obj.status.toLowerCase() === 'paid'? 'text-green-500': 'text-yellow-800'}`}>{obj.status}</Text>
                     </td>
                 </>
