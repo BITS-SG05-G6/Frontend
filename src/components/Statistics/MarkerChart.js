@@ -19,8 +19,7 @@ const MarkerChart = ({ savingID }) => {
         let response = [];
         if (selectedType === "Total") {
           response = await axiosInstance.savingGoalStatistic(savingID);
-        }
-        else if (selectedType === "This Month") {
+        } else if (selectedType === "This Month") {
           response = await axiosInstance.savingGoalThisMonthStatistic(savingID);
           // console.log(response);
         } else if (selectedType === "Last Month") {
@@ -93,21 +92,17 @@ const MarkerChart = ({ savingID }) => {
 
   return (
     <div id="chart">
-      <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
-        <div className="flex flex-row justify-between w-full">
-          <div className="flex items-center ml-4">
-            <Text children="Wallet Detail" weight="bold" />
-          </div>
-          <div className="flex items-center mr-10 mt-5">
-            <Select
-              name="type"
-              size="small"
-              value={selectedType}
-              onChange={handleTypeChange}
-              options={typeTrendStatistic}
-              className=""
-            />
-          </div>
+      <div className="rounded-lg border-[1px] border-gray-300 shadow-md">
+        <div className="flex w-full flex-col justify-between pt-5">
+          <Text children="Wallet Detail" weight="bold" />
+          <Select
+            name="type"
+            size="small"
+            value={selectedType}
+            onChange={handleTypeChange}
+            options={typeTrendStatistic}
+            className="mr-5 mt-5"
+          />
         </div>
         <ReactApexChart {...chartData} type="bar" height={350} />
       </div>

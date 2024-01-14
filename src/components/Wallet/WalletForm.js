@@ -19,17 +19,22 @@ const WalletForm = ({ children }) => {
   } = useForm();
 
   const { handleUpdateWallet } = useContext(WalletContext);
-  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
-
+  const { setIsMessageVisible, setMessage, setNotiType } =
+    useContext(NotificationContext);
 
   const onSubmit = async (d) => {
     // console.log(d);
     await axiosInstance
-      .createWallet(d.name, d.amount, d.color, d.icon, d.description, d.exchangeAmount)
+      .createWallet(
+        d.name,
+        d.amount,
+        d.color,
+        d.icon,
+        d.description,
+        d.exchangeAmount,
+      )
       .then((res) => {
-        document
-        .getElementById("my_modal_3")
-          .close();
+        document.getElementById("my_modal_3").close();
         handleUpdateWallet();
         console.log(res);
         setMessage(res);
@@ -52,7 +57,7 @@ const WalletForm = ({ children }) => {
       <Button
         onClick={() => document.getElementById("my_modal_3").showModal()}
         variant="card"
-        className="h-80 w-full"
+        className="h-80 w-72 xl:w-64"
       >
         <Text variant="text-md" weight="bold">
           + Add New Wallet
@@ -60,12 +65,15 @@ const WalletForm = ({ children }) => {
       </Button>
 
       <dialog id="my_modal_3" className="modal">
-        <div className="modal-box flex flex-col justify-center w-full overflow-visible">
+        <div className="modal-box flex w-full flex-col justify-center overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add New Wallet
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
-            <form method="dialog" className="flex flex-col gap-4 justify-start text-end">
+            <form
+              method="dialog"
+              className="flex flex-col justify-start gap-4 text-end"
+            >
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
@@ -88,15 +96,13 @@ const WalletForm = ({ children }) => {
                       labelType="side"
                     />
                     {errors.name && (
-                      <Text className="text-red-500 mt-3">
+                      <Text className="mt-3 text-red-500">
                         {errors.name.message}
                       </Text>
                     )}
                   </div>
                 )}
               />
-
-        
 
               <Controller
                 name="amount"
@@ -119,7 +125,7 @@ const WalletForm = ({ children }) => {
                       placeholder="e.g: 0"
                     />
                     {errors.amount && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.amount.message}
                       </Text>
                     )}
@@ -138,7 +144,7 @@ const WalletForm = ({ children }) => {
                       onChange={(e) => field.onChange(e.target.value)}
                     />
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}
@@ -157,7 +163,7 @@ const WalletForm = ({ children }) => {
                       onChange={(e) => field.onChange(e.target.value)}
                     />
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}

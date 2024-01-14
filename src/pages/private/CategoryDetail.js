@@ -30,12 +30,14 @@ function CategoryDetail() {
 
   return (
     <DetailPageLayout>
-      <div className="flex flex-col flex-1 gap-10 pr-5">
-        <DetailChartCategory categoryId={id} />
-        <TransactionList transactions={transactions} />
+      <div className="flex w-full flex-col items-center justify-center gap-10 lg:grid lg:grid-cols-3">
+        <div className="flex flex-col gap-10">
+          <DetailChartCategory categoryId={id} />
+          <TransactionList transactions={transactions} />
+        </div>
+        {/* render the components based on the data fetching */}
+        <CategoryDetails category={category} />
       </div>
-      {/* render the components based on the data fetching */}
-      <CategoryDetails category={category} />
     </DetailPageLayout>
   );
 }

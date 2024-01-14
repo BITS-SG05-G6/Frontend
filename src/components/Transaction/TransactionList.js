@@ -6,13 +6,15 @@ import { TransactionContext } from "../../context/transactionContext";
 import { NotificationContext } from "../../context/notificationContext";
 
 function TransactionList({ transactions }) {
-  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
+  const { setIsMessageVisible, setMessage, setNotiType } =
+    useContext(NotificationContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
-  const handleDel = async(id) => {
-    await axiosInstance.deleteTransaction(id)
-    .then((res) => {
-      handleUpdateTransaction();
-      setMessage(res.message);
+  const handleDel = async (id) => {
+    await axiosInstance
+      .deleteTransaction(id)
+      .then((res) => {
+        handleUpdateTransaction();
+        setMessage(res.message);
         setIsMessageVisible(true);
         setNotiType("success");
 
@@ -20,17 +22,17 @@ function TransactionList({ transactions }) {
           setMessage(null);
           setIsMessageVisible(false);
         }, 3000);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    <div className="px-10">
+    <div className="w-full overflow-x-auto lg:col-span-2">
       {transactions ? (
-        <table className="table table-sm text-center">
+        <table className="table table-sm min-w-full table-auto text-center">
           <thead>
-            <tr className="text-[#78778B] uppercase">
+            <tr className="uppercase text-[#78778B]">
               <th>Title</th>
               <th>Category</th>
               <th>Amount</th>
@@ -46,16 +48,22 @@ function TransactionList({ transactions }) {
             ))}
           </tbody>
         </table>
-      ) :
-        (
-          <div className="flex flex-col justify-center items-center">
-            <img src={require("../../assets/notransaction.png")} width='15%' height='15%' alt="no transaction" className=""></img>
-            <div>
-              <Text className='text-slate-400' variant='text-sm'>No transaction so far!</Text>
-            </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center">
+          <img
+            src={require("../../assets/notransaction.png")}
+            width="15%"
+            height="15%"
+            alt="no transaction"
+            className=""
+          ></img>
+          <div>
+            <Text className="text-slate-400" variant="text-sm">
+              No transaction so far!
+            </Text>
           </div>
-        )}
-
+        </div>
+      )}
     </div>
   );
 }
