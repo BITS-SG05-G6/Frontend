@@ -11,35 +11,36 @@ import * as axiosInstance from "../../services/statistics";
 import TrendStatistic from "../../components/Statistics/TrendStatistic";
 
 function Dashboard() {
-  // Fetch overview of monthly income and expense
-  const [overview, setOverview] = useState({});
-  const [totalSaving, setTotalSaving] = useState(0);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axiosInstance.compareExpenseIncomeByMonth();
+   // Fetch overview of monthly income and expense
+    const [overview, setOverview] = useState({});
+    const [totalSaving,setTotalSaving] = useState(0);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await axiosInstance.compareExpenseIncomeThisMonth();
 
-        // console.log(res);
-        setOverview(res);
-      } catch (err) {
-        setOverview({
-          Income: 0,
-          Expense: 0,
-        });
-      }
-    }
+                // console.log(res);
+                setOverview(res);
+            }
+            catch (err) {
+                setOverview({
+                    Income: 0,
+                    Expense: 0
+                });
+            }
+        }
 
-    async function totalSavingMonthly() {
-      try {
-        const res = await axiosInstance.totalSavingMonthly();
-        setTotalSaving(res);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchData();
-    totalSavingMonthly();
-  }, []);
+        async function totalSavingMonthly() {
+            try {
+                const res = await axiosInstance.totalSavingMonthly();
+                setTotalSaving(res);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetchData();
+        totalSavingMonthly()
+    }, []);
   // Fetch transactions
   const { transactions, setPage, setSelectedDate } =
     useContext(TransactionContext);
