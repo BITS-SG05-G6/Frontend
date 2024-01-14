@@ -6,8 +6,6 @@ import {
 } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 import { useContext, useEffect, useState } from "react";
-import * as axiosInstance from "../../services/statistics";
-import Cookies from "js-cookie";
 import { statisticExpensesWeekly, statisticExpensesMonthly } from '../../services/statistics';
 import { AuthContext } from "../../context/authContext";
 
@@ -46,7 +44,7 @@ export default function TrendStatistic({ typeOfData, title }) {
   const categories = Object.keys(expenseData).sort();
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);
-  console.log(expenseData)
+  // console.log(expenseData)
   // Configuration for the line chart using ApexCharts
   const chartConfig = {
     type: "line",

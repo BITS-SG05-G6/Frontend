@@ -15,7 +15,6 @@ import { AuthContext } from "./context/authContext";
 function App() {
   // Authenticate user for private routes
   const { userInfo } = useContext(AuthContext);
-  console.log(userInfo);
   return (
     <Router>
       <div className="App">

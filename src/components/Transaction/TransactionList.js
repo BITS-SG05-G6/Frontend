@@ -3,13 +3,23 @@ import Text from "../common/Text";
 import * as axiosInstance from "../../services/transactions";
 import { useContext } from "react";
 import { TransactionContext } from "../../context/transactionContext";
+import { NotificationContext } from "../../context/notificationContext";
 
 function TransactionList({ transactions }) {
+  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const handleDel = async(id) => {
     await axiosInstance.deleteTransaction(id)
     .then((res) => {
       handleUpdateTransaction();
+      setMessage(res.message);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
     })
     .catch((err) => {
       console.log(err);
@@ -30,14 +40,8 @@ function TransactionList({ transactions }) {
           <tbody>
             {transactions.map((transaction) => (
               <TransactionCard
-                id={transaction._id}
-                title={transaction.title}
-                category={transaction.category}
-                amount={transaction.amount}
-                color={transaction.color}
+                transaction={transaction}
                 handleDel={() => handleDel(transaction._id)}
-                type={transaction.type}
-                currency={transaction.currency}
               />
             ))}
           </tbody>

@@ -138,7 +138,6 @@ export const compareExpenseIncomeByMonth = async() => {
   const res = await axiosInstance.get(`/statistic/exin/month`);
     try {
         if (res.status === 200) {
-          console.log(res.data);
           return res.data;
         }
       } catch (err) {
@@ -209,4 +208,14 @@ export const totalSavingMonthly = async() => {
       }
 }
 
-
+//Dashboard total this month expense
+export const compareExpenseIncomeThisMonth = async() => {
+  const res = await axiosInstance.get(`/statistic/exin/thismonth`);
+    try {
+        if (res.status === 200) {
+          return res.data;
+        }
+      } catch (err) {
+        return err;
+      }
+}

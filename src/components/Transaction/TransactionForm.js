@@ -58,7 +58,7 @@ const TransactionForm = ({
     : type;
     
   const onSubmit = async (d) => {
-    // console.log(d);
+    console.log(d);
     const categoryValue = category ? category.id : d.category;
     const walletValue = wallet ? wallet.id : d.wallet;
     const goalValue = goal ? goal.id : d.goal;
@@ -140,8 +140,9 @@ const TransactionForm = ({
     setValue("exchangeAmount", exchangeValue)
 
     // console.log(exchangeValue);
-    const walletValue = wallet ? wallet : wallets.find((wallet) => wallet.id === selectedWallet);
-    if (walletValue && selectedType === "Expense") {
+    const walletValue = wallet ? wallet : wallets.find((wallet) => wallet._id === selectedWallet);
+    console.log(walletValue);
+    if (walletValue && categoryType === "Expense") {
       if (selectedCurrency === userInfo.baseCurrency) {
         return value > walletValue.amount ? `Your wallet is not enough. Balance: ${walletValue.amount} ${userInfo.baseCurrency}` : true;
       } else {
@@ -266,7 +267,7 @@ const TransactionForm = ({
                           onChange={(e) => {
                             field.onChange(e.target.value);
                             categories.map((category) =>
-                              category.id === e.target.value
+                              category._id === e.target.value
                                 ? setType(category.type)
                                 : null
                             );

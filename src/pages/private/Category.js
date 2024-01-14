@@ -10,15 +10,24 @@ import Loading from "../../components/common/Loading";
 const Category = () => {
   const { type, setType, categories, handleUpdateCategory, isLoading } =
     useContext(CategoryContext);
-  const { isMessageVisible, message, notiType } = useContext(NotificationContext);
+    const { setMessage, setIsMessageVisible, setNotiType, isMessageVisible, message, notiType } =
+    useContext(NotificationContext);
 
   const handleDel = async (id) => {
 
     await axiosInstance
       .deleteCategory(id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         handleUpdateCategory();
+        setMessage(res);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
