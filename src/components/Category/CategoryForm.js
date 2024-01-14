@@ -24,7 +24,8 @@ const CategoryForm = ({ categoryType }) => {
   });
 
   const { handleUpdateCategory } = useContext(CategoryContext);
-  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
+  const { setIsMessageVisible, setMessage, setNotiType } =
+    useContext(NotificationContext);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -36,14 +37,14 @@ const CategoryForm = ({ categoryType }) => {
         d.color,
         d.icon,
         d.description,
-        d.budget
+        d.budget,
       )
       .then((res) => {
         // console.log(res);
         reset();
         document.getElementById("my_modal_2").close();
         handleUpdateCategory();
-        setNotiType("success")
+        setNotiType("success");
         setMessage(res);
         setIsMessageVisible(true);
 
@@ -64,19 +65,22 @@ const CategoryForm = ({ categoryType }) => {
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => document.getElementById("my_modal_2").showModal()}
         variant="card"
-        className="h-80 w-full"
+        className="h-80 w-72 xl:w-64"
       >
         <Text variant="text-md" weight="bold">
           + Add New Category
         </Text>
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
-        <div className="modal-box flex flex-col justify-center w-full overflow-visible">
+        <div className="modal-box flex w-full flex-col justify-center overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add New Category
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
-            <form method="dialog" className="flex flex-col gap-4 justify-start text-end">
+            <form
+              method="dialog"
+              className="flex flex-col justify-start gap-4 text-end"
+            >
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
@@ -97,7 +101,7 @@ const CategoryForm = ({ categoryType }) => {
                       labelType="side"
                     />
                     {errors.name && (
-                      <Text className="text-red-500 mt-3">
+                      <Text className="mt-3 text-red-500">
                         {errors.name.message}
                       </Text>
                     )}
@@ -141,7 +145,7 @@ const CategoryForm = ({ categoryType }) => {
                     />
                     {/* <FormInput /> */}
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}
@@ -161,7 +165,7 @@ const CategoryForm = ({ categoryType }) => {
                       onChange={(e) => field.onChange(e.target.value)}
                     />
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}
@@ -180,7 +184,7 @@ const CategoryForm = ({ categoryType }) => {
                       onChange={(e) => field.onChange(e.target.value)}
                     />
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}

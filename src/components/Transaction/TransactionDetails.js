@@ -1,23 +1,33 @@
 import { format } from "date-fns";
 import Text from "../common/Text";
-import { cn } from "../../utils/cn"
+import { cn } from "../../utils/cn";
 import { formatMoney } from "../../utils/formatMoney";
 import Button from "../common/Button";
 
 function TransactionDetails({ transaction, onClose }) {
   return (
-    <div className="w-96">
+    <div className="mb-10 w-full xl:mb-0 xl:w-96">
       {transaction ? (
-        <div className=" bg-white rounded-[10px] border border-gray-300 flex flex-col px-6 py-3">
-          <div className="text-right">
+        <div className=" flex flex-col rounded-[10px] border border-gray-300 bg-white px-6 py-3">
+           <div className="text-right">
             <Button onClick={onClose} variant='close' className='text-black'>X</Button>
-          </div>
-          <div className="px-2 py-3 flex flex-col gap-2">
-
-            <div className="text-gray-800 text-xl font-semibold text-center">
+           </div>
+          <div className="flex flex-col gap-2 px-2 py-3">
+            <div className="text-center text-xl font-semibold text-gray-800">
               {transaction.title}
             </div>
-            <Text variant="text-lg" weight="bold" className={cn(transaction.type === "Expense" ? "text-red-400" : "text-green-400", "text-center")}>{formatMoney(transaction.amount, transaction.currency)}</Text>
+            <Text
+              variant="text-lg"
+              weight="bold"
+              className={cn(
+                transaction.type === "Expense"
+                  ? "text-red-400"
+                  : "text-green-400",
+                "text-center",
+              )}
+            >
+              {formatMoney(transaction.amount, transaction.currency)}
+            </Text>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -29,7 +39,6 @@ function TransactionDetails({ transaction, onClose }) {
             <div className="flex justify-between">
               <Text className="text-gray-400">Category</Text>
               {transaction.category ? (
-
                 <Text
                   variant="text-sm"
                   className="rounded-2xl px-3 py-1"
@@ -40,23 +49,19 @@ function TransactionDetails({ transaction, onClose }) {
                 >
                   {transaction.category}
                 </Text>
-
               ) : (
-
                 <Text
                   variant="text-sm"
-                  className="bg-[#FCDDEC] rounded-2xl px-3 py-1 text-[#EF5CA8]"
+                  className="rounded-2xl bg-[#FCDDEC] px-3 py-1 text-[#EF5CA8]"
                 >
                   None
                 </Text>
-
               )}
             </div>
 
             <div className="flex justify-between">
               <Text className="text-gray-400">Wallet</Text>
               {transaction.wallet ? (
-
                 <Text
                   variant="text-sm"
                   className="rounded-2xl px-3 py-1"
@@ -66,24 +71,19 @@ function TransactionDetails({ transaction, onClose }) {
                   }}
                 >
                   {transaction.wallet}
-                </Text>
-
               ) : (
-
                 <Text
                   variant="text-sm"
-                  className="bg-[#FCDDEC] rounded-2xl px-3 py-1 text-[#EF5CA8]"
+                  className="rounded-2xl bg-[#FCDDEC] px-3 py-1 text-[#EF5CA8]"
                 >
                   None
                 </Text>
-
               )}
             </div>
 
             <div className="flex justify-between">
               <Text className="text-gray-400">Goal</Text>
               {transaction.saving ? (
-
                 <Text
                   variant="text-sm"
                   className="rounded-2xl px-3 py-1"
@@ -94,16 +94,13 @@ function TransactionDetails({ transaction, onClose }) {
                 >
                   {transaction.saving}
                 </Text>
-
               ) : (
-
                 <Text
                   variant="text-sm"
-                  className="bg-[#FCDDEC] rounded-2xl px-3 py-1 text-[#EF5CA8]"
+                  className="rounded-2xl bg-[#FCDDEC] px-3 py-1 text-[#EF5CA8]"
                 >
                   None
                 </Text>
-
               )}
             </div>
 
@@ -114,11 +111,11 @@ function TransactionDetails({ transaction, onClose }) {
               </Text>
             </div>
 
-            <div className="flex flex-col gap-2 justify- text-start">
+            <div className="justify- flex flex-col gap-2 text-start">
               <Text className="text-gray-400">Description</Text>
 
               <textarea
-                className="textarea min-h-fit textarea-md border-slate-400 rounded border text-sm"
+                className="border-slate-400 textarea textarea-md min-h-fit rounded border text-sm"
                 value={transaction.description}
                 placeholder={transaction.description}
                 disabled
@@ -127,7 +124,7 @@ function TransactionDetails({ transaction, onClose }) {
           </div>
         </div>
       ) : (
-        <div className="relative top-1/3 flex flex-col justify-start items-center">
+        <div className="relative top-1/3 flex flex-col items-center justify-start">
           <img
             src={require("../../assets/transactionplaceholder.png")}
             width="30%"

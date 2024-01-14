@@ -10,11 +10,16 @@ import Loading from "../../components/common/Loading";
 const Category = () => {
   const { type, setType, categories, handleUpdateCategory, isLoading } =
     useContext(CategoryContext);
-    const { setMessage, setIsMessageVisible, setNotiType, isMessageVisible, message, notiType } =
-    useContext(NotificationContext);
+  const {
+    setMessage,
+    setIsMessageVisible,
+    setNotiType,
+    isMessageVisible,
+    message,
+    notiType,
+  } = useContext(NotificationContext);
 
   const handleDel = async (id) => {
-
     await axiosInstance
       .deleteCategory(id)
       .then((res) => {
@@ -40,44 +45,42 @@ const Category = () => {
         <Loading isLoading={isLoading} />
       ) : (
         <>
-          {
-            isMessageVisible && (
-              <Alert message={message} type={notiType} />
-            )
-          }
-          <div className="flex justify-end px-6 gap-4">
-            <Button
-              variant={type === "Expense" ? "" : "roundOutline"}
-              onClick={() => setType("Expense")}
-            >
-              Expense
-            </Button>
-            <Button
-              variant={type === "Income" ? "" : "roundOutline"}
-              onClick={() => setType("Income")}
-            >
-              Income
-            </Button>
-          </div>
+  {isMessageVisible && <Alert message={message} type={notiType} />}
+      <div className="flex justify-end gap-4 px-6">
+        <Button
+          variant={type === "Expense" ? "" : "roundOutline"}
+          onClick={() => setType("Expense")}
+        >
+          Expense
+        </Button>
+        <Button
+          variant={type === "Income" ? "" : "roundOutline"}
+          onClick={() => setType("Income")}
+        >
+          Income
+        </Button>
+      </div>
 
-          <div className="grid gap-10 grid-cols-4 px-10">
-            <Card add="category" type={type} />
-            {categories.map((category) =>
-              category.type === type ? (
-                <Card
-                  id={category._id}
-                  icon={category.icon}
-                  color={category.color}
-                  name={category.name}
-                  amount={category.budget}
-                  handleDel={() => handleDel(category._id)}
-                  type={category.type}
-                  href={`/category/${category._id}`}
-                  variety="Category"
-                />
-              ) : null
-            )}
-          </div>
+      <div className="grid grid-cols-1 gap-10 px-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <Card add="category" type={type} />
+        {categories.map((category) =>
+          category.type === type ? (
+            <div className="flex items-center justify-center">
+              <Card
+                id={category._id}
+                icon={category.icon}
+                color={category.color}
+                name={category.name}
+                amount={category.budget}
+                handleDel={() => handleDel(category._id)}
+                type={category.type}
+                href={`/category/${category._id}`}
+                variety="Category"
+              />
+            </div>
+          ) : null,
+        )}
+      </div>
         </>)}
     </>
   );
