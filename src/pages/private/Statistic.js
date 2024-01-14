@@ -16,7 +16,6 @@ import DetailChartWallet from "../../components/Statistics/DetailChartWallet";
 import MarkerChart from "../../components/Statistics/MarkerChart";
 
 const StatisticPage = () => {
-
   const type = ["This Week", "Last Month", "Total"];
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
   //Chart  - Trend Statistic Chart
@@ -210,12 +209,12 @@ const StatisticPage = () => {
     <>
       <div className="px-10">
         {/* Trending Income/Expense Statistic */}
-        <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex items-center ml-4">
+        <div className="w-full rounded-lg border-[1px] border-gray-300 shadow-md">
+          <div className="flex w-full flex-row justify-between">
+            <div className="ml-4 flex items-center">
               <Text children="Trend Statistic" weight="bold" />
             </div>
-            <div className="flex items-center mr-10 mt-5">
+            <div className="mr-10 mt-5 flex items-center">
               <Select
                 name="type"
                 size="small"
@@ -234,7 +233,7 @@ const StatisticPage = () => {
         </div>
       </div>
 
-      <div class="grid grid-cols-3 gap-6 px-10">
+      <div class="mb-6 flex flex-col gap-6 px-10 lg:grid-cols-2 xl:grid xl:grid-cols-3">
         {/* Chart Distribution */}
         {/* <div className="shadow-md">
             <div className="flex flex-row justify-between w-full">
@@ -256,91 +255,76 @@ const StatisticPage = () => {
           </div> */}
 
         {/*  Income/Expense Ratio Statistic */}
-
-        <div className="col-span-2">
-          <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex items-center ml-4">
-                <Text children="Income/Expense Ratio" weight="bold" />
-              </div>
-              <div className="flex items-center mr-10">
-                <Select
-                  name="type"
-                  size="small"
-                  value={selectedTypeChart5}
-                  onChange={handleTypeChangeChart5}
-                  options={type}
-                  className=" mt-5"
-                />
-              </div>
+        <div className="w-full lg:col-span-2">
+          <div className="rounded-lg border-[1px] border-gray-300 shadow-md">
+            <div className="flex w-full flex-col items-center justify-between pt-5">
+              <Text children="Income/Expense Ratio" weight="bold" />
+              <Select
+                name="type"
+                size="small"
+                value={selectedTypeChart5}
+                onChange={handleTypeChangeChart5}
+                options={type}
+                className="mr-5 mt-5"
+              />
             </div>
             <BarChart data={InExVal} categories={InExKey} />
           </div>
         </div>
 
         {/* Category Expense */}
-        <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex items-center ml-4">
-              <Text children="Category Expense" weight="bold" />
-            </div>
-            <div className="flex items-center mr-10">
-              <Select
-                name="type"
-                size="small"
-                value={selectedTypeChart4}
-                onChange={handleTypeChangeChart4}
-                options={type}
-                className="mt-5"
-              />
-            </div>
+        <div className="w-full rounded-lg border-[1px] border-gray-300 shadow-md lg:col-span-1">
+          <div className="flex w-full flex-col items-center justify-between pt-5">
+            <Text children="Category Expense" weight="bold" />
+            <Select
+              name="type"
+              size="small"
+              value={selectedTypeChart4}
+              onChange={handleTypeChangeChart4}
+              options={type}
+              className="mr-5 mt-5"
+            />
           </div>
           <PieChart data={ExpenseAmount} categories={Category} />
         </div>
 
         {/* Category Income */}
-        <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex items-center ml-4">
-              <Text children="Category Income" weight="bold" />
-            </div>
-            <div className="flex items-center mr-10">
-              <Select
-                name="type"
-                size="small"
-                value={selectedTypeChart3}
-                onChange={handleTypeChangeChart3}
-                options={type}
-                className=" mt-5"
-              />
-            </div>
+        <div className="rounded-lg border-[1px] border-gray-300 shadow-md lg:col-span-1">
+          <div className="flex w-full flex-col items-center justify-between pt-5">
+            <Text children="Category Income" weight="bold" />
+            <Select
+              name="type"
+              size="small"
+              value={selectedTypeChart3}
+              onChange={handleTypeChangeChart3}
+              options={type}
+              className="mr-5 mt-5"
+            />
           </div>
           <PieChart data={IncomeAmount} categories={CategoryIncome} />
         </div>
         {/* Wallet Expense */}
-        <div className="col-span-2">
-          <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex items-center ml-4">
-                <Text children="Wallet Expense" weight="bold" />
-              </div>
-              <div className="flex items-center mr-10">
-                <Select
-                  name="type"
-                  size="small"
-                  value={selectedTypeChart6}
-                  onChange={handleTypeChangeChart6}
-                  options={type}
-                  className=" mt-5"
-                />
-              </div>
+        <div className="lg:col-span-2">
+          <div className="rounded-lg border-[1px] border-gray-300 shadow-md">
+            <div className="flex w-full flex-col items-center justify-between pt-5">
+              <Text children="Wallet Expense" weight="bold" />
+              <Select
+                name="type"
+                size="small"
+                value={selectedTypeChart6}
+                onChange={handleTypeChangeChart6}
+                options={type}
+                className="mr-5 mt-5"
+              />
             </div>
             <BarChart data={walletAmount} categories={categoryWallet} />
           </div>
         </div>
         {/* <DetailChartCategory categoryId="658e99463f4a2d1d811e398d"/>
         <DetailChartWallet walletID = "659befee71c3f3fcc72281e1"/> */}
-        <MarkerChart savingID="659a7abf6171a533263e6b06"/>
+        <div className="xl:col-span-3">
+          <MarkerChart savingID="659a7abf6171a533263e6b06" />
+        </div>
       </div>
     </>
   );

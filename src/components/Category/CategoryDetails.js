@@ -7,9 +7,9 @@ import Button from "../common/Button";
 function CategoryDetails({ category }) {
   console.log(category);
   return (
-    <div className="w-96">
-      <div className=" bg-white rounded-[10px] border border-gray-300 flex flex-col gap-5 p-6">
-        <div className="px-2 py-3 flex flex-col gap-2 text-center">
+    <div className="mb-10 w-full lg:col-span-1 lg:w-96">
+      <div className=" flex w-full flex-col gap-5 rounded-[10px] border border-gray-300 bg-white p-6">
+        <div className="flex w-full flex-col gap-2 px-2 py-3 text-center">
           <Text weight="bold" variant="text-xl">
             {category.name}
           </Text>
@@ -19,7 +19,7 @@ function CategoryDetails({ category }) {
           {/* Icon */}
           <div className="flex justify-center">
             <div
-              className="p-4 rounded-xl w-40 h-40 flex justify-center items-center"
+              className="flex h-40 w-40 items-center justify-center rounded-xl p-4"
               style={{
                 backgroundColor: `${category.color}30`,
               }}
@@ -31,11 +31,12 @@ function CategoryDetails({ category }) {
                     size="4x"
                     color={category.color}
                   />
-                ) : null
+                ) : null,
               )}
             </div>
           </div>
         </div>
+
         {/*Description section */}
         <div className="flex justify-between">
           <Text className="text-gray-400">Type</Text>
@@ -45,12 +46,12 @@ function CategoryDetails({ category }) {
           <Text className="text-gray-400">Budget</Text>
           <Text weight="semibold">{category.budget || "None"}</Text>
         </div>
-        <div className="flex flex-col gap-2 justify-start">
+        <div className="flex flex-col justify-start gap-2">
           <Text className="text-gray-400" weight="semibold">
             Description
           </Text>
           <textarea
-            className="textarea min-h-fit textarea-md rounded border border-gray-400 text-sm"
+            className="textarea textarea-md min-h-fit rounded border border-gray-400 text-sm"
             value={category.description}
             placeholder="Description"
             disabled

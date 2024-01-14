@@ -49,9 +49,7 @@ const PieChart = ({ title, data, categories }) => {
   };
 
   return (
-    <div id="chart" className="flex flex-col ">
-      
-
+    <div id="chart" className="flex flex-col">
       <Chart {...chartConfig} className="flex justify-center" />
     </div>
   );
