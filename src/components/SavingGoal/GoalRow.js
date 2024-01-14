@@ -1,5 +1,3 @@
-import Text from "../common/Text";
-import Button from "../common/Button";
 import Badge from "../common/Badge";
 import { format } from "date-fns";
 import TransactionForm from "../Transaction/TransactionForm";
@@ -39,7 +37,7 @@ function GoalRow({ goal, onDelete, href }) {
         <div className="flex flex-row justify-between">
           <span className="text-sm font-normal text-[#666666]">Target:</span>
           <span className="text-sm font-medium text-[#181818]">
-            {goal.target}
+            {formatMoney(goal.target, userInfo.baseCurrency)}
           </span>
         </div>
 
@@ -47,14 +45,14 @@ function GoalRow({ goal, onDelete, href }) {
         <div className="flex flex-row justify-between">
           <span className="text-sm font-normal text-[#666666]">Progress:</span>
           <span className="text-sm font-medium text-[#181818]">
-            {goal.total}
+            {formatMoney(goal.total, userInfo.baseCurrency)}
           </span>
         </div>
 
         {/* Started Date */}
         <div className="flex flex-row justify-between">
           <span className="text-sm font-normal text-[#666666]">
-            Started Date:
+            Start Date:
           </span>
           <span className="text-sm font-medium text-[#181818]">
             {format(new Date(goal.startDate), "dd-MM-yyyy")}
@@ -62,6 +60,14 @@ function GoalRow({ goal, onDelete, href }) {
         </div>
 
         {/* Ended Date */}
+        <div className="flex flex-row justify-between">
+          <span className="text-sm font-normal text-[#666666]">
+            End Date:
+          </span>
+          <span className="text-sm font-medium text-[#181818]">
+            {goal.endDate ? format(new Date(goal.startDate), "dd-MM-yyyy") : "None"}
+          </span>
+        </div>
         {/* <div className="flex flex-row justify-between">
           <span className="text-sm font-normal text-[#666666]"></span>
           <span className="text-sm font-medium text-[#181818]"></span>
@@ -92,7 +98,7 @@ function GoalRow({ goal, onDelete, href }) {
           variant="blueButton"
           goal={{ id: goal._id, name: goal.name, type: "Saving" }}
         />
-        <Button variant="lightPrimary">Edit</Button>
+        {/* <Button variant="lightPrimary">Edit</Button> */}
         <ConfirmationModal
           idModal={`eleteConfirmation-${goal._id}}`}
           btnName="Delete"

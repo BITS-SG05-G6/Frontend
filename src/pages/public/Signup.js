@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/common/Alert";
 import Button from "../../components/common/Button";
 import FormInput from "../../components/common/FormInput";
 import Text from "../../components/common/Text";
+import { NotificationContext } from "../../context/notificationContext";
 import * as axiosInstance from "../../services/auth";
 
 const Signup = () => {
@@ -16,28 +18,7 @@ const Signup = () => {
   });
 
   const navigate = useNavigate();
-
-  function handleCallbackResponse(res) {
-    console.log("Encoded KWT ID token: " + res.credential);
-  }
-
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: "635121721005",
-      callback: handleCallbackResponse,
-    });
-
-    // google.accounts.id.render()
-    google.accounts.id.renderButton(document.getElementById("signUpDiv"), {
-      theme: "outline",
-      size: "large",
-      shape: "square",
-      text: "Sign in with Google",
-      logo_alignment: "center",
-    });
-  }, []);
-  const [loginError, setLoginError] = React.useState("");
+  const { setIsMessageVisible, isMessageVisible, message, setMessage, setNotiType, notiType } = useContext(NotificationContext);
 
   const onSubmit = async (d) => {
     await axiosInstance
@@ -45,28 +26,30 @@ const Signup = () => {
       .then((res) => {
         console.log(res);
         navigate("/login");
+        setMessage(res);
+        setIsMessageVisible(true);
+        setNotiType("success");
+
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
       })
       .catch((err) => {
-        console.log(err.response.data.error.message);
-        setLoginError("Wrong password or username, please try again!");
+        console.log(err);
+        setMessage(err.response.data.error.message);
+        setIsMessageVisible(true);
+        setNotiType("error")
+        // Hide the error after 3 seconds
+        setTimeout(() => {
+          setMessage(null);
+          setIsMessageVisible(false);
+        }, 3000);
+        // setLoginError("Wrong password or username, please try again!");
       });
   };
 
   return (
-    // <div className="flex justify-between h-screen relative">
-    //   <div className="w-1/2 flex justify-center items-center">
-    //     <Text
-    //       className="absolute top-6 left-6 text-[#EF5DA8]"
-    //       variant="text-xl"
-    //       weight="bold"
-    //       noLink={false}
-    //       href="/"
-    //     >
-    //       Wise
-    //       <Text className="text-black" variant="text-xl" weight="bold">
-    //         Wallet
-    //       </Text>
-    //     </Text>
     <>
       <div className="flex flex-col w-1/2">
         <div className="flex flex-col gap-3 mb-12">
@@ -75,9 +58,10 @@ const Signup = () => {
           </Text>
           <Text>Welcome! Please enter your details</Text>
         </div>
-        {loginError && <div className="text-red-500">{loginError}</div>}
-
-        <form className="flex flex-col gap-6 max-w-sm">
+        {isMessageVisible && (
+          <Alert message={message} type={notiType}/>
+        )}
+        <form className="flex flex-col gap-6 max-w-sm ">
           <Controller
             name="username"
             control={control}

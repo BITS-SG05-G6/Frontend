@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 // import Select from "react-select";
 import Text from "../../components/common/Text";
 import { AuthContext } from "../../context/authContext";
 import { ExchangeContext } from "../../context/exchangeContext";
 import FormInput from "../../components/common/FormInput";
-import Button from "../../components/common/Button";
 import ConfirmationModal from "../../components/common/ConfirmationModal";
 import * as axiosInstance from "../../services/auth";
 import { currencyList } from "../../components/svgs/OptionList";
@@ -17,14 +16,14 @@ function UserProfile() {
     control,
     formState: { errors },
     setValue,
-    watch
+    watch,
   } = useForm({
     mode: "onChange",
   });
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo, fetchData } = useContext(AuthContext);
   const password = watch("password");
   const { rate } = useContext(ExchangeContext);
-
+  // console.log(rate);
   const onSubmit = async (data, e) => {
     const { username, password, baseCurrency } = data;
     setValue("rate", rate);
@@ -33,7 +32,6 @@ function UserProfile() {
       username,
       password,
       baseCurrency,
-      rate
     }).reduce((acc, key) => {
       // console.log(data[key] !== userInfo[key]);
       // Check if the field value has changed or is not empty
@@ -57,20 +55,21 @@ function UserProfile() {
     // console.log(data);
 
     // Handle the form submission logic with updatedData
-    // await axiosInstance
-    //   .updateProfile(updatedData)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    await axiosInstance
+      .updateProfile(updatedData.username, updatedData.baseCurrency, updatedData.password, rate)
+      .then((res) => {
+        console.log(res);
+        fetchData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
-    <div className="ml-10 px-10 py-10 w-4/6">
+    <div className="ml-10 w-4/6 px-10 py-10">
       {/* Title */}
-      <div className="flex flex-col mb-10">
+      <div className="mb-10 flex flex-col">
         <span className="text-xl font-semibold">Account Information</span>
         <span className="text-sm font-normal text-[#929EAE]">
           Update your account information
@@ -81,7 +80,7 @@ function UserProfile() {
       <div>
         <form>
           {/* Title & Edit Button */}
-          <div className="flex flex-row justify-between mb-9">
+          <div className="mb-9 flex flex-row justify-between">
             <span className="text-lg font-semibold">Personal Information</span>
             {/* <button className="text-lg font-semibold text-[#EF5DA8]">
               Edit
@@ -104,38 +103,36 @@ function UserProfile() {
                 )}
               />
 
-
               <Controller
                 name="baseCurrency"
                 control={control}
                 defaultValue={userInfo.baseCurrency}
                 render={({ field }) => (
                   <div>
-                      <Select
-                        label="Currency"
-                        name="currency"
-                        value={field.value}
-                        onChange={(e) => {
-                          field.onChange(e.target.value);
-                        }}
-                        options={currencyList}
-                        placeholder="Please choose a currency"
-                        none={false}
-                        labelType="up"
-                      />
-                      {errors.currency && (
-                        <Text className="mt-3 text-red-500">
-                          {errors.currency.message}
-                        </Text>
-                      )}
-                    </div>
+                    <Select
+                      label="Currency"
+                      name="currency"
+                      value={field.value}
+                      onChange={(e) => {
+                        field.onChange(e.target.value);
+                      }}
+                      options={currencyList}
+                      placeholder="Please choose a currency"
+                      none={false}
+                      labelType="up"
+                    />
+                    {errors.currency && (
+                      <Text className="mt-3 text-red-500">
+                        {errors.currency.message}
+                      </Text>
+                    )}
+                  </div>
                 )}
               />
 
-<Controller
+              <Controller
                 name="password"
                 control={control}
-                defaultValue={""}
                 render={({ field }) => (
                   <FormInput
                     {...field}
@@ -146,35 +143,34 @@ function UserProfile() {
                 )}
               />
 
-              {
-                password && <Controller
-                name="confirmPassword"
-                control={control}
-                defaultValue={""}
-                rules={{
-                  required: "Confirm password is required",
-                  validate: (value) =>
-                    value === password || "Password does not match",
-                }}
-                render={({ field }) => (
-                  <div>
-                    <FormInput
-                      {...field}
-                      type="password"
-                      label={"Confirm Password"}
-                      size={"noMaxWidth"}
-                    />
-                    {errors.confirmPassword && (
-                      <Text className="text-red-500 mt-3">
-                        {errors.confirmPassword.message}
-                      </Text>
-                    )}
-                  </div>
-                )}
-              />
-              }
+              {password && (
+                <Controller
+                  name="confirmPassword"
+                  control={control}
+                  defaultValue={""}
+                  rules={{
+                    required: "Confirm password is required",
+                    validate: (value) =>
+                      value === password || "Password does not match",
+                  }}
+                  render={({ field }) => (
+                    <div>
+                      <FormInput
+                        {...field}
+                        type="password"
+                        label={"Confirm Password"}
+                        size={"noMaxWidth"}
+                      />
+                      {errors.confirmPassword && (
+                        <Text className="mt-3 text-red-500">
+                          {errors.confirmPassword.message}
+                        </Text>
+                      )}
+                    </div>
+                  )}
+                />
+              )}
             </div>
-
           </div>
           <div className="mt-10">
             <ConfirmationModal

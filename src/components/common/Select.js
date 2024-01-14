@@ -15,20 +15,8 @@ const SelectVariant = cva(
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
-
-const LabelVariants = cva("form-control w-full", {
-  variants: {
-    labelType: {
-      side: "form-control w-full flex flex-row gap-10 justify-between ",
-      up: "form-control w-full",
-    },
-  },
-  defaultVariants: {
-    labelType: "side",
-  },
-});
 
 const Select = ({
   size,
@@ -36,75 +24,114 @@ const Select = ({
   label,
   value,
   onChange,
-  options, disabled, placeholder, none = true, labelType}) => {
-    return (
-      <>
-      <label className={cn(LabelVariants({ labelType }))}>
-        {
-        labelType === "side" ?
-        <>
-        <div className="label w-12 p-0 text-start">
-          <Text variant="text-sm" weight="semibold" className="label-text w-12 ">
-            {label}
-          </Text>
-        </div>
-            <select
+  options,
+  disabled,
+  placeholder,
+  none = true,
+  labelType,
+}) => {
+  return (
+    <>
+      {labelType === "up" ? (
+        <label className="form-control w-full">
+          <div className="label w-full">
+            <Text variant="text-sm" weight="semibold" className="label-text">
+              {label}
+            </Text>
+          </div>
+          <select
             value={value}
             onChange={onChange}
             className={cn(SelectVariant({ size, className }))}
             disabled={disabled}
-            >
-              <option disabled selected={value === undefined}>{placeholder}</option>
-              {none === true ? <option key="none" value="none">None</option> : null}
-              {
-                options.length > 1 && options.map((option) => {
-                   if (option.id) {
-                    //  return <div>{option.name}</div>
-                    return <option key={option.id} value={option.id}>{option.name}</option>
-                  } else if (option._id) {
-                    return <option key={option._id} value={option._id}>{option.name}</option>
-                  }
-                  else {
-                    return <option key={option} value={option}>{option}</option>
-                  }
-                })
-              }
-          
-            </select>
-            </> : <>
-            <div className="label w-full">
-              <Text variant="text-sm" weight="semibold" className="label-text">
+          >
+            <option disabled selected={value === undefined}>
+              {placeholder}
+            </option>
+            {none === true ? (
+              <option key="none" value="none">
+                None
+              </option>
+            ) : null}
+            {options.length > 1 &&
+              options.map((option) => {
+                if (option.id) {
+                  //  return <div>{option.name}</div>
+                  return (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  );
+                } else if (option._id) {
+                  return (
+                    <option key={option._id} value={option._id}>
+                      {option.name}
+                    </option>
+                  );
+                } else {
+                  return (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  );
+                }
+              })}
+          </select>
+        </label>
+      ) : (
+        <>
+          <label className="form-control flex w-full flex-row justify-between gap-10 ">
+            <div className="label w-12 p-0 text-start">
+              <Text
+                variant="text-sm"
+                weight="semibold"
+                className="label-text w-12 "
+              >
                 {label}
               </Text>
             </div>
             <select
-            value={value}
-            onChange={onChange}
-            className={cn(SelectVariant({ size, className }))}
-            disabled={disabled}
+              value={value}
+              onChange={onChange}
+              className={cn(SelectVariant({ size, className }))}
+              disabled={disabled}
             >
-              <option disabled selected={value === undefined}>{placeholder}</option>
-              {none === true ? <option key="none" value="none">None</option> : null}
-              {
-                options.length > 1 && options.map((option) => {
-                   if (option.id) {
+              <option disabled selected={value === undefined}>
+                {placeholder}
+              </option>
+              {none === true ? (
+                <option key="none" value="none">
+                  None
+                </option>
+              ) : null}
+              {options.length > 1 &&
+                options.map((option) => {
+                  if (option.id) {
                     //  return <div>{option.name}</div>
-                    return <option key={option.id} value={option.id}>{option.name}</option>
+                    return (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
+                      </option>
+                    );
                   } else if (option._id) {
-                    return <option key={option._id} value={option._id}>{option.name}</option>
+                    return (
+                      <option key={option._id} value={option._id}>
+                        {option.name}
+                      </option>
+                    );
+                  } else {
+                    return (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    );
                   }
-                  else {
-                    return <option key={option} value={option}>{option}</option>
-                  }
-                })
-              }
-          
+                })}
             </select>
-          </>
-              }
-            </label>
-
-      </>
-    );
-}
+          </label>
+        </>
+      )}
+    </>
+  );
+};
 export default Select;

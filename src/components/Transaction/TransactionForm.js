@@ -49,8 +49,7 @@ const TransactionForm = ({
   const selectedCurrency = watch("currency");
   const { wallets } = useContext(WalletContext);
   const { goals } = useContext(SavingContext);
-  const { rate, setDate } =
-    useContext(ExchangeContext);
+  const { rate, setDate } = useContext(ExchangeContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const categoryType = category
     ? category.type
@@ -121,14 +120,9 @@ const TransactionForm = ({
   }, [
     setValue,
     selectedDate,
-   
     userInfo.baseCurrency,
-    
     setDate,
-    
-    rate,
     selectedType,
-    reset,
   ]);
 
   const openModal = () => {
@@ -170,11 +164,10 @@ const TransactionForm = ({
     }
     setValue("exchangeAmount", exchangeValue);
 
-    // console.log(exchangeValue);
     const walletValue = wallet
       ? wallet
       : wallets.find((wallet) => wallet._id === selectedWallet);
-    console.log(walletValue);
+    // console.log(walletValue);
     if (walletValue && categoryType === "Expense") {
       if (selectedCurrency === userInfo.baseCurrency) {
         return value > walletValue.amount
