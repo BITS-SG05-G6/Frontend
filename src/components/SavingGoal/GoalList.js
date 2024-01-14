@@ -2,15 +2,18 @@ import GoalRow from "./GoalRow";
 import { Link } from "react-router-dom";
 
 function GoalList({ goals, onDelete }) {
-    return (
-        <div className="px-3 py-3 flex flex-col gap-2">
-            {goals && (
-                goals.map((goal) => (
-                    <GoalRow goal={goal} onDelete={onDelete} href={`/planning/${goal._id}`} />
-                ))
-            )}
-        </div>
-    );
+  return (
+    <div className="3xl:grid-cols-5 grid grid-cols-1 gap-5 px-3 py-3 md:grid-cols-2 md:gap-10 lg:grid-cols-3 lg:gap-10 xl:grid-cols-4">
+      {goals &&
+        goals.map((goal) => (
+          <GoalRow
+            goal={goal}
+            onDelete={onDelete}
+            href={`/planning/${goal._id}`}
+          />
+        ))}
+    </div>
+  );
 }
 
 export default GoalList;

@@ -9,11 +9,16 @@ import * as axiosInstance from "../../services/category";
 const Category = () => {
   const { type, setType, categories, handleUpdateCategory } =
     useContext(CategoryContext);
-    const { setMessage, setIsMessageVisible, setNotiType, isMessageVisible, message, notiType } =
-    useContext(NotificationContext);
+  const {
+    setMessage,
+    setIsMessageVisible,
+    setNotiType,
+    isMessageVisible,
+    message,
+    notiType,
+  } = useContext(NotificationContext);
 
   const handleDel = async (id) => {
-    
     await axiosInstance
       .deleteCategory(id)
       .then((res) => {
@@ -35,12 +40,8 @@ const Category = () => {
 
   return (
     <>
-{
-      isMessageVisible && (
-        <Alert message={message} type={notiType}/>
-      )
-    }
-      <div className="flex justify-end px-6 gap-4">
+      {isMessageVisible && <Alert message={message} type={notiType} />}
+      <div className="flex justify-end gap-4 px-6">
         <Button
           variant={type === "Expense" ? "" : "roundOutline"}
           onClick={() => setType("Expense")}
@@ -55,22 +56,24 @@ const Category = () => {
         </Button>
       </div>
 
-      <div className="grid gap-10 grid-cols-4 px-10">
+      <div className="grid grid-cols-1 gap-10 px-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <Card add="category" type={type} />
         {categories.map((category) =>
           category.type === type ? (
-            <Card
-              id={category._id}
-              icon={category.icon}
-              color={category.color}
-              name={category.name}
-              amount={category.budget}
-              handleDel={() => handleDel(category._id)}
-              type={category.type}
-              href={`/category/${category._id}`}
-              variety="Category"
-            />
-          ) : null
+            <div className="flex items-center justify-center">
+              <Card
+                id={category._id}
+                icon={category.icon}
+                color={category.color}
+                name={category.name}
+                amount={category.budget}
+                handleDel={() => handleDel(category._id)}
+                type={category.type}
+                href={`/category/${category._id}`}
+                variety="Category"
+              />
+            </div>
+          ) : null,
         )}
       </div>
     </>

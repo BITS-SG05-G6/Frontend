@@ -7,24 +7,20 @@ import { NotificationContext } from "../../context/notificationContext";
 
 function Bills() {
   const { bills } = useContext(BillContext);
-  const { isMessageVisible, message, notiType } = useContext(NotificationContext);
+  const { isMessageVisible, message, notiType } =
+    useContext(NotificationContext);
 
   return (
     <>
-    {
-      isMessageVisible && (
-        <Alert message={message} type={notiType}/>
-      )
-    }
-      <div className="flex justify-end px-6">
+      {isMessageVisible && <Alert message={message} type={notiType} />}
+      <div className="flex px-10 lg:justify-end lg:px-6">
         <BillForm />
       </div>
-      <div className="px-10 grid grid-cols-4 gap-6">
-
+      <div className="grid grid-cols-1 gap-6 px-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {bills.map((bill) => (
-          <BillCard
-            bill={bill}
-          />
+          <div className="flex items-center justify-center">
+            <BillCard bill={bill} />
+          </div>
         ))}
       </div>
     </>

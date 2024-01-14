@@ -41,7 +41,7 @@ const ButtonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 const Button = ({
@@ -56,7 +56,7 @@ const Button = ({
   id,
   value,
   type,
-  disabled
+  disabled,
 }) => {
   return href ? (
     <Link
