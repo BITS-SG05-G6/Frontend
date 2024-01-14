@@ -70,7 +70,7 @@ function TransactionDetails({ transaction, onClose }) {
                     color: transaction.walletColor,
                   }}
                 >
-                  {transaction.wallet}
+                  {transaction.wallet} </Text>
               ) : (
                 <Text
                   variant="text-sm"
