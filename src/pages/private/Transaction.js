@@ -14,10 +14,8 @@ const Transaction = () => {
   const { setPage, selectedDate, setSelectedDate, transactions } =
     useContext(TransactionContext);
   const {
-    setIsMessageVisible,
     isMessageVisible,
     message,
-    setMessage,
     notiType,
   } = useContext(NotificationContext);
 
@@ -36,7 +34,6 @@ const Transaction = () => {
   function handleTransactionChange() {
     setTransaction(null);
     navigate('/transaction');
-
   }
 
   useEffect(() => {
