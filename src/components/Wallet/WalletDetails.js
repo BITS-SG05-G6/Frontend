@@ -2,10 +2,12 @@ import Text from "../common/Text";
 import { IconList } from "../svgs/IconList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WalletEditForm from "./WalletEditForm";
-import Button from "../common/Button";
+import { formatMoney } from "../../utils/formatMoney";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 function WalletDetails({ wallet }) {
-  console.log(wallet);
+  const { userInfo } = useContext(AuthContext);
   return (
     <div className="w-96">
       <div className=" bg-white rounded-[10px] border border-gray-300 flex flex-col gap-5 p-6">
@@ -14,7 +16,7 @@ function WalletDetails({ wallet }) {
             {wallet.name}
           </Text>
           <Text variant="text-md" weight="semibold" className="text-primary">
-            {wallet.amount}
+            {formatMoney(wallet.amount, userInfo.baseCurrency)}
           </Text>
           {/* Icon */}
           <div className="flex justify-center">
