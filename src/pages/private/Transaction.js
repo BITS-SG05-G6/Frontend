@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Alert from "../../components/common/Alert";
 import TransactionCalendar from "../../components/Transaction/TransactionCalendar";
 import TransactionDetails from "../../components/Transaction/TransactionDetails";
@@ -10,6 +10,7 @@ import { TransactionContext } from "../../context/transactionContext";
 import * as axiosInstance from "../../services/transactions";
 
 const Transaction = () => {
+  const navigate = useNavigate();
   const { setPage, selectedDate, setSelectedDate, transactions } =
     useContext(TransactionContext);
   const {
@@ -31,19 +32,27 @@ const Transaction = () => {
   if (selectedDate === null) {
     setSelectedDate(new Date());
   }
-  // console.log(id);
+
+  function handleTransactionChange() {
+    setTransaction(null);
+    navigate('/transaction');
+
+  }
 
   useEffect(() => {
     async function fetchTransaction() {
-      await axiosInstance
-        .getTransactionDetail(id)
-        .then((res) => {
-          // console.log(res);
-          setTransaction(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      try {
+        await axiosInstance.getTransactionDetail(id)
+          .then((res) => {
+            setTransaction(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+      catch (err) {
+
+      }
     }
     fetchTransaction();
   }, [id]);

@@ -10,8 +10,10 @@ const WalletProvider = ({ children }) => {
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const [isUpdate, setIsUpdate] = useState(false);
   const [newWallet, setNewWallet] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const handleUpdateWallet = () => {
-    setNewWallet(newWallet === "true" ? "false" : "true");
+    setIsLoading(true);
+    setNewWallet(!newWallet);
   };
 
   const [wallets, setWallets] = useState([
@@ -27,6 +29,7 @@ const WalletProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsLoading(true);
         await axiosInstance.getWallets().then((res) => {
           setWallets(res);
         });
@@ -40,6 +43,9 @@ const WalletProvider = ({ children }) => {
           },
         ]);
       }
+      finally {
+        setTimeout(() => setIsLoading(false), 1000);
+      }
     }
 
     fetchData();
@@ -50,6 +56,8 @@ const WalletProvider = ({ children }) => {
     wallets,
     isUpdate,
     setIsUpdate,
+    isLoading, 
+    setIsLoading
   };
 
   return (

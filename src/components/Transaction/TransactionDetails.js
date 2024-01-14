@@ -2,12 +2,16 @@ import { format } from "date-fns";
 import Text from "../common/Text";
 import { cn } from "../../utils/cn";
 import { formatMoney } from "../../utils/formatMoney";
+import Button from "../common/Button";
 
-function TransactionDetails({ transaction }) {
+function TransactionDetails({ transaction, onClose }) {
   return (
     <div className="mb-10 w-full xl:mb-0 xl:w-96">
       {transaction ? (
-        <div className=" flex flex-col rounded-[10px] border border-gray-300 bg-white p-6">
+        <div className=" flex flex-col rounded-[10px] border border-gray-300 bg-white px-6 py-3">
+           <div className="text-right">
+            <Button onClick={onClose} variant='close' className='text-black'>X</Button>
+           </div>
           <div className="flex flex-col gap-2 px-2 py-3">
             <div className="text-center text-xl font-semibold text-gray-800">
               {transaction.title}
@@ -67,7 +71,6 @@ function TransactionDetails({ transaction }) {
                   }}
                 >
                   {transaction.wallet}
-                </Text>
               ) : (
                 <Text
                   variant="text-sm"

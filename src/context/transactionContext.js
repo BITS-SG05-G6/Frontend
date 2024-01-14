@@ -8,8 +8,10 @@ const TransactionProvider = ({ children }) => {
   const { userInfo } = useContext(AuthContext)
 
   const [updateTransaction, setUpdateTransaction] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleUpdateTransaction = () => {
+    setIsLoading(true);
     setUpdateTransaction(updateTransaction === true ? false : true);
   };
 
@@ -21,6 +23,7 @@ const TransactionProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsLoading(true);
         let res;
        if (selectedDate) {
         res = await axiosInstance.getTransactions(selectedDate);
@@ -38,6 +41,9 @@ const TransactionProvider = ({ children }) => {
       catch (err) {
         setTransactions(null);
       }
+      finally {
+        setTimeout(() => setIsLoading(false), 1000);
+      }
     }
 
     fetchData();
@@ -49,7 +55,9 @@ const TransactionProvider = ({ children }) => {
     selectedDate,
     setSelectedDate,
     transactions,
-    setPage
+    setPage,
+    isLoading,
+    setIsLoading
   }
 
   return (

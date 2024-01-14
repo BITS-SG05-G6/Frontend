@@ -58,8 +58,7 @@ const SideBar = () => {
         <SideBarField path='/profile' title="My Profile" icon={<ProfileIcon />} />
       </div>
 
-      <div className="flex gap-2 flex-col absolute bottom-6">
-        <SideBarField path='/faq' title="Help" icon={<HelpIcon />} />
+      <div className="absolute bottom-6">
         <SideBarField path='/' title="Log Out" icon={<LogoutIcon />} onClick={logOut}/>
       </div>
     </div>

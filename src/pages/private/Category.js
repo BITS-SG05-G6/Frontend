@@ -5,9 +5,10 @@ import Card from "../../components/common/Card";
 import { CategoryContext } from "../../context/categoryContext";
 import { NotificationContext } from "../../context/notificationContext";
 import * as axiosInstance from "../../services/category";
+import Loading from "../../components/common/Loading";
 
 const Category = () => {
-  const { type, setType, categories, handleUpdateCategory } =
+  const { type, setType, categories, handleUpdateCategory, isLoading } =
     useContext(CategoryContext);
   const {
     setMessage,
@@ -40,7 +41,11 @@ const Category = () => {
 
   return (
     <>
-      {isMessageVisible && <Alert message={message} type={notiType} />}
+      {isLoading ? (
+        <Loading isLoading={isLoading} />
+      ) : (
+        <>
+  {isMessageVisible && <Alert message={message} type={notiType} />}
       <div className="flex justify-end gap-4 px-6">
         <Button
           variant={type === "Expense" ? "" : "roundOutline"}
@@ -76,6 +81,7 @@ const Category = () => {
           ) : null,
         )}
       </div>
+        </>)}
     </>
   );
 };

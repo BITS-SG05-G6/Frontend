@@ -320,11 +320,6 @@ const StatisticPage = () => {
             <BarChart data={walletAmount} categories={categoryWallet} />
           </div>
         </div>
-        {/* <DetailChartCategory categoryId="658e99463f4a2d1d811e398d"/>
-        <DetailChartWallet walletID = "659befee71c3f3fcc72281e1"/> */}
-        <div className="xl:col-span-3">
-          <MarkerChart savingID="659a7abf6171a533263e6b06" />
-        </div>
       </div>
     </>
   );

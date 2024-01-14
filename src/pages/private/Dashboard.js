@@ -9,15 +9,18 @@ import { BillContext } from "../../context/billContext";
 import { useContext, useEffect, useState } from "react";
 import * as axiosInstance from "../../services/statistics";
 import TrendStatistic from "../../components/Statistics/TrendStatistic";
+import Loading from "../../components/common/Loading";
 
 function Dashboard() {
    // Fetch overview of monthly income and expense
     const [overview, setOverview] = useState({});
-    const [totalSaving,setTotalSaving] = useState(0);
+    const [totalSaving, setTotalSaving] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await axiosInstance.compareExpenseIncomeThisMonth();
+                setIsLoading(true);
+                const res = await axiosInstance.compareExpenseIncomeByMonth();
 
                 // console.log(res);
                 setOverview(res);
@@ -28,6 +31,9 @@ function Dashboard() {
                     Expense: 0
                 });
             }
+            finally {
+                setTimeout(() => setIsLoading(false), 1000);
+            }
         }
 
         async function totalSavingMonthly() {
@@ -35,12 +41,13 @@ function Dashboard() {
                 const res = await axiosInstance.totalSavingMonthly();
                 setTotalSaving(res);
             } catch (err) {
-                console.log(err);
+                setTotalSaving(0);
             }
         }
         fetchData();
         totalSavingMonthly()
     }, []);
+  
   // Fetch transactions
   const { transactions, setPage, setSelectedDate } =
     useContext(TransactionContext);
@@ -57,6 +64,11 @@ function Dashboard() {
 
   return (
     <>
+     
+            {isLoading ? (
+                <Loading isLoading={isLoading} />
+            ) : (
+                <>
       <div className="xl:grid xl:grid-cols-3 xl:px-3">
         <div className="col-span-2 flex flex-col">
           {/*Balance overview */}
@@ -111,6 +123,7 @@ function Dashboard() {
           </SectionLayout>
         </div>
       </div>
+</>)}
     </>
   );
 }

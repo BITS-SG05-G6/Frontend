@@ -6,10 +6,15 @@ export const BillContext = createContext(null);
 
 const BillProvider = ({ children }) => {
   const { userInfo } = useContext(AuthContext)
-
+  const [isLoading, setIsLoading] = useState(true);
   const [newBill, setNewBill] = useState(false);
 
+  function handleLoading() {
+    setIsLoading(!isLoading);
+  }
+
   const handleUpdateBill = () => {
+    setIsLoading(true);
     setNewBill(newBill === true ? false : true);
   };
 
@@ -21,6 +26,7 @@ const BillProvider = ({ children }) => {
         await axiosInstance.getAllBills()
         .then((res) => {
           setBills(res);
+          setTimeout(handleLoading,  1000);
         })
         .catch((err) => {
           setBills(null);
@@ -29,6 +35,9 @@ const BillProvider = ({ children }) => {
       } catch (err) {
         setBills(null);
       }
+      finally {
+        setIsLoading(true);
+      }
     }
 
     fetchData();
@@ -36,7 +45,10 @@ const BillProvider = ({ children }) => {
 
   const billList = {
     bills,
-    handleUpdateBill
+    handleUpdateBill,
+    isLoading,
+    handleLoading,
+    setIsLoading
   };
 
   return (
