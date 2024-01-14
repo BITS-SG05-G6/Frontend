@@ -49,7 +49,7 @@ const TransactionForm = ({
   const selectedCurrency = watch("currency");
   const { wallets } = useContext(WalletContext);
   const { goals } = useContext(SavingContext);
-  const { rate, setDate, setBaseCurrency, setExchangeCurrency } =
+  const { rate, setDate } =
     useContext(ExchangeContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const categoryType = category
@@ -108,36 +108,24 @@ const TransactionForm = ({
       });
   };
 
-  const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
-
   useEffect(() => {
     setDate(
       selectedDate
         ? format(new Date(selectedDate), "yyyy-MM-dd")
         : format(new Date(), "yyyy-MM-dd"),
     );
-    setBaseCurrency(
-      selectedCurrency !== userInfo.baseCurrency
-        ? userInfo.baseCurrency
-        : otherCurrency,
-    );
-    setExchangeCurrency(
-      selectedCurrency !== userInfo.baseCurrency
-        ? otherCurrency
-        : userInfo.baseCurrency,
-    );
+
     if (selectedType === "Saving") {
       setValue("currency", userInfo.baseCurrency);
     }
   }, [
-    selectedCurrency,
     setValue,
     selectedDate,
-    otherCurrency,
+   
     userInfo.baseCurrency,
-    setBaseCurrency,
+    
     setDate,
-    setExchangeCurrency,
+    
     rate,
     selectedType,
     reset,
