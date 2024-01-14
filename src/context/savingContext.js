@@ -14,9 +14,6 @@ const SavingProvider = ({ children }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  function handleLoading() {
-    setIsLoading(!isLoading);
-  }
 
   const handleUpdateGoal = () => {
     setIsLoading(true);
@@ -29,14 +26,15 @@ const SavingProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsLoading(true);
         await axiosInstance.viewSavingGoals().then((res) => {
           setGoals(res);
-          setTimeout(handleLoading, 1000);
         });
       } catch (err) {
         setGoals([]);
-      } finally {
-        setIsLoading(true);
+      } 
+      finally {
+        setTimeout(() => setIsLoading(false), 1000);
       }
     }
 
@@ -50,7 +48,6 @@ const SavingProvider = ({ children }) => {
     isUpdate,
     setIsUpdate,
     isLoading,
-    handleLoading,
     setIsLoading
   };
 

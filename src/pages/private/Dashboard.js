@@ -9,15 +9,18 @@ import { BillContext } from "../../context/billContext";
 import { useContext, useEffect, useState } from "react";
 import * as axiosInstance from "../../services/statistics";
 import TrendStatistic from "../../components/Statistics/TrendStatistic";
+import Loading from "../../components/common/Loading";
 
 function Dashboard() {
 
     // Fetch overview of monthly income and expense
     const [overview, setOverview] = useState({});
-    const [totalSaving,setTotalSaving] = useState(0);
+    const [totalSaving, setTotalSaving] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         async function fetchData() {
             try {
+                setIsLoading(true);
                 const res = await axiosInstance.compareExpenseIncomeByMonth();
 
                 // console.log(res);
@@ -29,6 +32,9 @@ function Dashboard() {
                     Expense: 0
                 });
             }
+            finally {
+                setTimeout(() => setIsLoading(false), 1000);
+            }
         }
 
         async function totalSavingMonthly() {
@@ -36,7 +42,7 @@ function Dashboard() {
                 const res = await axiosInstance.totalSavingMonthly();
                 setTotalSaving(res);
             } catch (err) {
-                console.log(err);
+                setTotalSaving(0);
             }
         }
         fetchData();
@@ -57,37 +63,41 @@ function Dashboard() {
 
     return (
         <>
-
-            <div className="grid grid-cols-3 px-3">
-                <div className="col-span-2 flex flex-col">
-                    {/*Balance overview */}
-                    <div className="px-5 py-5 flex justify-evenly gap-5">
-                        <OverviewCard type='balance' isPrimary amount={overview.Income} />
-                        <OverviewCard type='spending' amount={overview.Expense} />
-                        <OverviewCard type='savings' amount={totalSaving.totalMonthlySaving}/>
+            {isLoading ? (
+                <Loading isLoading={isLoading} />
+            ) : (
+                <>
+                    <div className="grid grid-cols-3 px-3">
+                        <div className="col-span-2 flex flex-col">
+                            {/*Balance overview */}
+                            <div className="px-5 py-5 flex justify-evenly gap-5">
+                                <OverviewCard type='balance' isPrimary amount={overview.Income} />
+                                <OverviewCard type='spending' amount={overview.Expense} />
+                                <OverviewCard type='savings' amount={totalSaving.totalMonthlySaving} />
+                            </div>
+                            {/* Statistic */}
+                            <div className='px-6'>
+                                <TrendStatistic typeOfData='Monthly' title='Monthly expense habit' />
+                            </div>
+                            {/* Transaction overview */}
+                            <div className="px-5">
+                                <SectionLayout className='ps-5' title='Recent Transactions' viewList='true' href='/transaction'>
+                                    <DashboardList listType='transaction' array={recentTransactions} />
+                                </SectionLayout>
+                            </div>
+                        </div>
+                        <div>
+                            {/* Wallet overview */}
+                            <SectionLayout className='ps-5 pr-10' title='My Wallets' viewList='true' href='/wallets' >
+                                <DashboardList listType='wallet' array={recentWallets} />
+                            </SectionLayout>
+                            {/* Bill overview */}
+                            <SectionLayout className='ps-5 pr-10' title='My Invoices' viewList='true' href='/invoices'>
+                                <DashboardList listType='bill' array={recentBills} />
+                            </SectionLayout>
+                        </div>
                     </div>
-                    {/* Statistic */}
-                    <div className='px-6'>
-                        <TrendStatistic typeOfData='Monthly' title='Monthly expense habit' />
-                    </div>
-                    {/* Transaction overview */}
-                    <div className="px-5">
-                        <SectionLayout className='ps-5' title='Recent Transactions' viewList='true' href='/transaction'>
-                            <DashboardList listType='transaction' array={recentTransactions} />
-                        </SectionLayout>
-                    </div>
-                </div>
-                <div>
-                    {/* Wallet overview */}
-                    <SectionLayout className='ps-5 pr-10' title='My Wallets' viewList='true' href='/wallets' >
-                        <DashboardList listType='wallet' array={recentWallets} />
-                    </SectionLayout>
-                    {/* Bill overview */}
-                    <SectionLayout className='ps-5 pr-10' title='My Invoices' viewList='true' href='/invoices'>
-                        <DashboardList listType='bill' array={recentBills} />
-                    </SectionLayout>
-                </div>
-            </div>
+                </>)}
         </>
 
     );

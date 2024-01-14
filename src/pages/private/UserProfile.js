@@ -4,9 +4,7 @@ import Select from "react-select";
 import Text from "../../components/common/Text";
 import { AuthContext } from "../../context/authContext";
 import FormInput from "../../components/common/FormInput";
-import Button from "../../components/common/Button";
 import ConfirmationModal from "../../components/common/ConfirmationModal";
-import * as axiosInstance from "../../services/auth";
 
 function UserProfile() {
   const {

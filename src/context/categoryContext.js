@@ -10,9 +10,12 @@ const CategoryProvider = ({ children }) => {
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const [newCategory, setNewCategory] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const handleUpdateCategory = () => {
-    setNewCategory(newCategory === true ? false : true);
+    setIsLoading(true);
+    setNewCategory(!newCategory);
   };
 
   const [type, setType] = useState("Expense");
@@ -29,6 +32,7 @@ const CategoryProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsLoading(true);
         await axiosInstance.getCategories().then((res) => {
           setCategories(res);
         });
@@ -43,6 +47,11 @@ const CategoryProvider = ({ children }) => {
           },
         ]);
       }
+      finally {
+        setTimeout(() => setIsLoading(false), 1000)
+        console.log(isLoading)
+      }
+
     }
 
     fetchData();
@@ -55,6 +64,8 @@ const CategoryProvider = ({ children }) => {
     categories,
     isUpdate,
     setIsUpdate,
+    isLoading,
+    setIsLoading
   };
 
   return (

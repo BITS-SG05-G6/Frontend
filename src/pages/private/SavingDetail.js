@@ -12,12 +12,13 @@ function SavingDetail() {
   const { id } = useParams();
   const [goal, setGoal] = useState({});
   const [goalTransactions, setGoalTransactions] = useState([]);
-  const { handleUpdateGoal, isUpdate, isLoading, handleLoading, setIsLoading } = useContext(SavingContext);
+  const { handleUpdateGoal, isUpdate, isLoading, setIsLoading } = useContext(SavingContext);
 
 
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsLoading(true);
         // Fetch data based on the params id
         const goalData = await savingGoal.viewSavingGoal(id);
         console.log(goalData);
@@ -26,10 +27,9 @@ function SavingDetail() {
           setGoalTransactions(goalData.transactions);
         }
         handleUpdateGoal();
-        setTimeout(handleLoading, 1000);
       } catch (err) { }
       finally {
-        setIsLoading(true);
+        setTimeout(() => setIsLoading(false), 1000);
       }
     }
     fetchData();
