@@ -10,15 +10,16 @@ import TrendStatistic from "../../components/Statistics/TrendStatistic";
 import Loading from "../../components/common/Loading";
 
 function Dashboard() {
-  // Fetch overview of monthly income and expense
-  const [overview, setOverview] = useState({});
-  const [totalSaving, setTotalSaving] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await axiosInstance.compareExpenseIncomeByMonth();
+   // Fetch overview of monthly income and expense
+    const [overview, setOverview] = useState({});
+    const [totalSaving, setTotalSaving] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setIsLoading(true);
+                const res = await axiosInstance.compareExpenseIncomeThisMonth();
+
 
         // console.log(res);
         setOverview(res);
