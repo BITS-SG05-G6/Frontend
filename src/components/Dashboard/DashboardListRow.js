@@ -25,7 +25,7 @@ function DashboardListRow({ obj, list }) {
                       <FontAwesomeIcon
                         icon={i.icon}
                         color={obj.color}
-                      ></FontAwesomeIcon>
+                      />
                     ) : null,
                   )}
               </div>
@@ -34,7 +34,7 @@ function DashboardListRow({ obj, list }) {
               </Text>
             </div>
             <Text variant="text-sm" weight="semibold">
-              {formatMoney(obj.amount, obj.baseCurrency)}
+              {formatMoney(obj.amount, userInfo.baseCurrency)}
             </Text>
           </td>
         </>

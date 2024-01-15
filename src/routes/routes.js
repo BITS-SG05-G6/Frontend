@@ -24,8 +24,8 @@ import PrivatePageLayout from "../components/layout/PrivatePageLayout";
 import DetailPageLayout from "../components/layout/DetailPageLayout";
 import AuthLayout from "../components/layout/AuthLayout";
 import { AboutUs } from "../pages/public/AboutUs";
-import  { FAQ }  from "../pages/public/FAQ";
 import { Policy } from "../pages/public/Policy";
+import FAQ from "../pages/public/faq";
 
 // Public routes
 export const publicRoutes = [

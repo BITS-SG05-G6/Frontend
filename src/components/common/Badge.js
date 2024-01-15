@@ -4,7 +4,7 @@ import { cn } from "../../utils/cn";
 import Text from "./Text";
 
 const BadgeVariants = cva(
-  "px-2 py-1 whitespace-nowrap rounded-full border-[1px]",
+  "px-4 py-1 whitespace-nowrap rounded-full border-[1px]",
   {
     variants: {
       variant: {
