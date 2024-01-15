@@ -44,15 +44,13 @@ function TransactionCard({ transaction, handleDel }) {
       <td
         className={cn(
           transaction.type === "Expense" ? "text-red-400" : "text-green-400",
-          "w-20 text-center font-bold",
+          "w-32 text-center font-bold",
         )}
       >
         {formatMoney(transaction.amount, transaction.currency)}
       </td>
       <td className="flex flex-col justify-center gap-2 xl:flex-row">
-        {/* <Button variant="blueButton">Edit</Button> */}
         <TransactionEditForm transaction={transaction} />
-        {/* <Button href="/transaction" variant="redButton" onClick={openConfirmationDelete}>Delete</Button> */}
         <ConfirmationModal
           idModal={`deleteConfirmation-${transaction._id}`}
           btnName="Delete"

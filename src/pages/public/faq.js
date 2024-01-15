@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-export function FAQ() {
-  const [box1, setBox1] = useState(false);
-  const [box2, setBox2] = useState(false);
-  const [box3, setBox3] = useState(false);
-  const [box4, setBox4] = useState(false);
+export default function FAQ() {
+    const [box1, setBox1] = useState(false);
+    const [box2, setBox2] = useState(false);
+    const [box3, setBox3] = useState(false);
+    const [box4, setBox4] = useState(false);
 
   return (
     <div>
@@ -199,59 +199,60 @@ export function FAQ() {
                 How to recover password?
               </h2>
 
-              {box4 ? (
-                <svg
-                  role="button"
-                  aria-label="close dropdown"
-                  width="10"
-                  height="6"
-                  viewBox="0 0 10 6"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 5L5 1L9 5"
-                    stroke="#4B5563"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  width="10"
-                  role="button"
-                  aria-label="open dropdown"
-                  height="6"
-                  viewBox="0 0 10 6"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 1L5 5L9 1"
-                    stroke="#4B5563"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              )}
+                            {box4 ? (
+                                <svg
+                                    role="button"
+                                    aria-label="close dropdown"
+                                    width="10"
+                                    height="6"
+                                    viewBox="0 0 10 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M1 5L5 1L9 5"
+                                        stroke="#4B5563"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            ) : (
+                                <svg
+                                    width="10"
+                                    role="button"
+                                    aria-label="open dropdown"
+                                    height="6"
+                                    viewBox="0 0 10 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M1 1L5 5L9 1"
+                                        stroke="#4B5563"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            )}
+                        </div>
+                        {box4 && (
+                            <ul>
+                                <li>
+                                    <p className="text-base leading-normal text-gray-600 mt-4  text-left">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                        Voluptatem, cupiditate voluptate animi repellat accusantium
+                                        ullam quo vitae nihil voluptatum ad sapiente quibusdam iure
+                                        vel! Temporibus adipisci libero incidunt officia eos!
+                                    </p>
+                                </li>
+                            </ul>
+                        )}
+                    </div>
+                </div>
             </div>
-            {box4 && (
-              <ul>
-                <li>
-                  <p className="mt-4 text-left text-base leading-normal  text-gray-600">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Voluptatem, cupiditate voluptate animi repellat accusantium
-                    ullam quo vitae nihil voluptatum ad sapiente quibusdam iure
-                    vel! Temporibus adipisci libero incidunt officia eos!
-                  </p>
-                </li>
-              </ul>
-            )}
-          </div>
+
         </div>
-      </div>
-    </div>
-  );
+    );
 }
