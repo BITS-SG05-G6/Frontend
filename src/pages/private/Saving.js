@@ -9,11 +9,8 @@ import Loading from "../../components/common/Loading";
 
 function Saving() {
   const { goals, handleUpdateGoal, isLoading } = useContext(SavingContext);
-  const {
-    isMessageVisible,
-    message,
-    notiType,
-  } = useContext(NotificationContext);
+  const { isMessageVisible, message, notiType } =
+    useContext(NotificationContext);
   // Delete a goal
   async function handleDelete(id) {
     try {
@@ -31,18 +28,18 @@ function Saving() {
       ) : (
         <>
           {isMessageVisible && <Alert message={message} type={notiType} />}
-          <div className="flex justify-end px-6">
+          <div className="flex justify-end px-4 lg:px-6">
             <GoalForm buttonName="New Goal" icon="file-invoice-dollar" />
           </div>
-          <div className="px-10">
-            <div className="flex flex-col flex-1 gap-10 pr-5">
+          <div className="px-4 lg:px-10">
+            <div className="flex flex-1 flex-col gap-10 xl:pr-5">
               <GoalList goals={goals} onDelete={handleDelete} />
             </div>
           </div>
-        </>)}
+        </>
+      )}
     </>
   );
-
 }
 
 export default Saving;

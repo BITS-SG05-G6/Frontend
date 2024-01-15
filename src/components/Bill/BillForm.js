@@ -15,6 +15,7 @@ import { AuthContext } from "../../context/authContext";
 import { ExchangeContext } from "../../context/exchangeContext";
 import { NotificationContext } from "../../context/notificationContext";
 import { formatMoney } from "../../utils/formatMoney";
+import { format } from "date-fns";
 
 const BillForm = () => {
   const {
@@ -31,12 +32,11 @@ const BillForm = () => {
     },
   });
   const { userInfo } = useContext(AuthContext);
-  const { rate, setDate, setBaseCurrency, setExchangeCurrency} = useContext(ExchangeContext);
+  const { rate, setDate } = useContext(ExchangeContext);
   const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
   const reminder = watch("reminder");
   const selectedCurrency = watch("currency");
   const selectedDate = watch("date");
-  const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
   const { handleUpdateBill } = useContext(BillContext);
 
   const onSubmit = async (d) => {
@@ -71,10 +71,15 @@ const BillForm = () => {
   };
 
   useEffect(() => {
-    setBaseCurrency(selectedCurrency !== userInfo.baseCurrency ? userInfo.baseCurrency : otherCurrency);
-    setExchangeCurrency(selectedCurrency !== userInfo.baseCurrency ? otherCurrency : userInfo.baseCurrency);
-
-  }, [selectedCurrency, setValue, selectedDate, otherCurrency, userInfo.baseCurrency, setBaseCurrency, setDate, setExchangeCurrency, rate])
+    setDate(
+      selectedDate
+        ? format(new Date(selectedDate), "yyyy-MM-dd")
+        : format(new Date(), "yyyy-MM-dd"),
+    );
+  }, [
+    selectedDate,
+    setDate
+  ]);
 
   // console.log(rate);
   const handleOnChange = (value) => {

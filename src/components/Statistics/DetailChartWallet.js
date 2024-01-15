@@ -5,7 +5,7 @@ import LineChart from "./LineChart";
 import Text from "../common/Text";
 import Select from "../common/Select";
 
-const DetailChartWallet = ({walletID}) => {
+const DetailChartWallet = ({ walletID }) => {
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
   console.log(walletID);
   const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
@@ -20,11 +20,8 @@ const DetailChartWallet = ({walletID}) => {
       try {
         let response = [];
         if (selectedType === "This Week") {
-          response = await axiosInstance.getWalletStatisticsWeek(
-            walletID
-          );
-        }
-        else if (selectedType === "This Month") {
+          response = await axiosInstance.getWalletStatisticsWeek(walletID);
+        } else if (selectedType === "This Month") {
           response = await axiosInstance.getWalletStatisticsThisMonth(walletID);
           console.log(response);
         } else if (selectedType === "Last Month") {
@@ -41,12 +38,12 @@ const DetailChartWallet = ({walletID}) => {
   const expenses = categories.map((date) => expenseData[date].Expense || 0);
   const incomes = categories.map((date) => expenseData[date].Income || 0);
   return (
-    <div className="shadow-md border-[1px] border-gray-300 rounded-lg">
-      <div className="flex flex-row justify-between w-full">
-        <div className="flex items-center ml-4">
+    <div className="rounded-lg border-[1px] border-gray-300 shadow-md">
+      <div className="flex w-full flex-row justify-between">
+        <div className="ml-4 flex items-center">
           <Text children="Wallet Detail" weight="bold" />
         </div>
-        <div className="flex items-center mr-10 mt-5">
+        <div className="mr-10 mt-5 flex items-center">
           <Select
             name="type"
             size="small"

@@ -7,13 +7,12 @@ import MarkerChart from "../../components/Statistics/MarkerChart";
 import Loading from "../../components/common/Loading";
 import { SavingContext } from "../../context/savingContext";
 
-
 function SavingDetail() {
   const { id } = useParams();
   const [goal, setGoal] = useState({});
   const [goalTransactions, setGoalTransactions] = useState([]);
-  const { handleUpdateGoal, isUpdate, isLoading, setIsLoading } = useContext(SavingContext);
-
+  const { handleUpdateGoal, isUpdate, isLoading, setIsLoading } =
+    useContext(SavingContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -27,8 +26,8 @@ function SavingDetail() {
           setGoalTransactions(goalData.transactions);
         }
         handleUpdateGoal();
-      } catch (err) { }
-      finally {
+      } catch (err) {
+      } finally {
         setTimeout(() => setIsLoading(false), 1000);
       }
     }
@@ -40,19 +39,17 @@ function SavingDetail() {
       {isLoading ? (
         <Loading isLoading={isLoading} />
       ) : (
-        <>
-          <div className="flex flex-col flex-1 gap-10 pr-5">
-            {/* <BackToPrev className='text-left' /> */}
+        <div className="flex w-full flex-col lg:px-8 xl:grid xl:grid-cols-3">
+          <div className="mb-6 flex w-full flex-col gap-10 xl:col-span-2 xl:flex-1 xl:pr-5">
             <MarkerChart savingID={id} />
-
             <TransactionList transactions={goalTransactions} />
-
           </div>
           {/* render the components based on the data fetching */}
-          <GoalDetails goal={goal} />
-        </>
-      )
-      }
+          <div className="flex w-full items-center justify-center xl:col-span-1 xl:h-full xl:items-start">
+            <GoalDetails goal={goal} />
+          </div>
+        </div>
+      )}
     </>
   );
 }

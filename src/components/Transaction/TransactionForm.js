@@ -49,8 +49,7 @@ const TransactionForm = ({
   const selectedCurrency = watch("currency");
   const { wallets } = useContext(WalletContext);
   const { goals } = useContext(SavingContext);
-  const { rate, setDate, setBaseCurrency, setExchangeCurrency } =
-    useContext(ExchangeContext);
+  const { rate, setDate } = useContext(ExchangeContext);
   const { handleUpdateTransaction } = useContext(TransactionContext);
   const categoryType = category
     ? category.type
@@ -108,39 +107,22 @@ const TransactionForm = ({
       });
   };
 
-  const otherCurrency = userInfo.baseCurrency === "VND" ? "USD" : "VND";
-
   useEffect(() => {
     setDate(
       selectedDate
         ? format(new Date(selectedDate), "yyyy-MM-dd")
         : format(new Date(), "yyyy-MM-dd"),
     );
-    setBaseCurrency(
-      selectedCurrency !== userInfo.baseCurrency
-        ? userInfo.baseCurrency
-        : otherCurrency,
-    );
-    setExchangeCurrency(
-      selectedCurrency !== userInfo.baseCurrency
-        ? otherCurrency
-        : userInfo.baseCurrency,
-    );
+
     if (selectedType === "Saving") {
       setValue("currency", userInfo.baseCurrency);
     }
   }, [
-    selectedCurrency,
     setValue,
     selectedDate,
-    otherCurrency,
     userInfo.baseCurrency,
-    setBaseCurrency,
     setDate,
-    setExchangeCurrency,
-    rate,
     selectedType,
-    reset,
   ]);
 
   const openModal = () => {
@@ -182,11 +164,10 @@ const TransactionForm = ({
     }
     setValue("exchangeAmount", exchangeValue);
 
-    // console.log(exchangeValue);
     const walletValue = wallet
       ? wallet
       : wallets.find((wallet) => wallet._id === selectedWallet);
-    console.log(walletValue);
+    // console.log(walletValue);
     if (walletValue && categoryType === "Expense") {
       if (selectedCurrency === userInfo.baseCurrency) {
         return value > walletValue.amount

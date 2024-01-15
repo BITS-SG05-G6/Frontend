@@ -6,11 +6,14 @@ import Text from "./Text";
 
 function Header({ title, username }) {
   return (
-    <div className="flex justify-between px-10 pt-7 items-center">
+    <div className="flex items-center justify-between px-10 pt-7">
       <Text variant="text-xl" weight="bold">
         {title}
       </Text>
-      <div className="items-center gap-6 flex">
+      {/* <button onClick={toggleSidebar}>
+        <FontAwesomeIcon icon="fa-solid fa-bars" />
+      </button> */}
+      <div className="flex items-center gap-6">
         {/* <Icon svg={<BellIcon />} fillColor="#929EAE" /> */}
 
         {/* <div className="w-10">

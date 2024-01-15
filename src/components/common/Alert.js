@@ -3,7 +3,6 @@ import { cva } from "class-variance-authority";
 import React, { useContext } from "react";
 import { NotificationContext } from "../../context/notificationContext";
 import { cn } from "../../utils/cn";
-import Text from "./Text";
 import {
   faCircleXmark,
   faCircleCheck,
@@ -14,7 +13,7 @@ const AlertVariants = cva(
   {
     variants: {
       type: {
-        error: "bg-[#F07C69]",
+        error: "alert-error",
         success: "alert-success"
       },
     },
