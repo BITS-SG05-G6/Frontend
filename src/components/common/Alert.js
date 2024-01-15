@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 
 const AlertVariants = cva(
-  "alert absolute z-50 w-[500px] top-8 right-8 text-white",
+  "alert absolute z-50 top-20 right-2 xl:top-8 xl:right-8 text-white w-80 xl:w-[500px] xl:h-16 h-10 flex",
   {
     variants: {
       type: {
