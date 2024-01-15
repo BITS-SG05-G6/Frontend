@@ -68,7 +68,7 @@ const CategoryForm = ({ categoryType }) => {
         </Text>
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
-        <div className="modal-box flex w-full flex-col justify-center overflow-visible">
+        <div className="modal-box flex w-4/5 flex-col justify-center overflow-visible md:mx-5 md:w-full">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add New Category
           </Text>
@@ -95,6 +95,7 @@ const CategoryForm = ({ categoryType }) => {
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
+                      className="w-52 sm:w-full"
                     />
                     {errors.name && (
                       <Text className="mt-3 text-red-500">
@@ -119,6 +120,7 @@ const CategoryForm = ({ categoryType }) => {
                         value={field.value}
                         onChange={(e) => field.onChange(e.target.value)}
                         labelType="side"
+                        className="w-52 sm:w-full"
                       />
                     </div>
                   )}
@@ -138,6 +140,7 @@ const CategoryForm = ({ categoryType }) => {
                       disabled
                       // options={types}
                       labelType="side"
+                      className="w-52 sm:w-full"
                     />
                     {/* <FormInput /> */}
                     {errors.type && (

@@ -12,48 +12,9 @@ function PrivatePageLayout({ header, children, username }) {
   };
 
   return (
-    <div className="relative">
-      {/* <div className="absolute bottom-0 top-0 xl:hidden">
-        <MobileSideBar />
-      </div> */}
-      {/* {isSidebarOpen && (
-        <div className="w-scree top-0 z-50 h-screen opacity-5 "></div>
-      )} */}
-
-      {/* <button onClick={toggleSidebar}>
-        <FontAwesomeIcon icon={faBars} className="h-6 w-6" color="#F06293" />
-      </button> */}
-
-      {/* {isSidebarOpen && ( */}
-      {/* <div
-        className="fleft-0 fixed top-0 z-10 h-full w-64 -translate-x-64 bg-white transition delay-150"
-        style={
-          isSidebarOpen
-            ? { transform: "translateX(0)" }
-            : { transform: "translateX(-16rem)" }
-        }
-      >
-        <SideBar />
-        {isSidebarOpen && (
-          <div className="relative top-0 h-screen w-screen bg-black opacity-50">
-            <button className="absolute right-2 top-10" onClick={toggleSidebar}>
-              <FontAwesomeIcon
-                icon={faXmark}
-                className="h-6 w-6"
-                color="white"
-              />
-            </button>
-          </div>
-        )}
-      </div> */}
-      {/* )} */}
-
-      {/* Mobile SideBar */}
+    <div>
       {isSidebarOpen && (
-        <div
-          className="xl:hidden"
-          // style={isSidebarOpen ? { display: "block" } : { display: "none" }}
-        >
+        <div className="xl:hidden">
           <SideBar toggleSidebar={toggleSidebar} />
         </div>
       )}
@@ -75,7 +36,7 @@ function PrivatePageLayout({ header, children, username }) {
             />
           </button>
         </div>
-        <div className="flex flex-col gap-5 xl:pl-64">
+        <div className="mb-10 flex flex-col gap-5 xl:mb-0 xl:pl-64">
           <Header title={header} username={username} />
           {children}
         </div>

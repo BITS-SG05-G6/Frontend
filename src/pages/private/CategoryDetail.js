@@ -40,7 +40,7 @@ function CategoryDetail() {
       ) : (
         <>
           <div className="flex w-full flex-col items-center justify-center gap-10 xl:grid xl:grid-cols-3">
-            <div className="flex w-full flex-col gap-10 xl:col-span-2">
+            <div className="flex w-full flex-col gap-10 xl:col-span-2 xl:h-full xl:items-start">
               <DetailChartCategory categoryId={id} />
               <TransactionList transactions={transactions} />
             </div>

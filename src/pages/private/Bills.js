@@ -12,13 +12,13 @@ function Bills() {
     useContext(NotificationContext);
 
   return (
-    <div className="px-4 lg:px-10">
+    <div>
       {isLoading ? (
         <Loading isLoading={isLoading} />
       ) : (
         <>
           {isMessageVisible && <Alert message={message} type={notiType} />}
-          <div className="mb-8 flex w-full justify-end lg:px-6">
+          <div className="mb-8 flex w-full justify-end px-4 lg:px-6">
             <BillForm />
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
