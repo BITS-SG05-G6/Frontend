@@ -76,13 +76,17 @@ function DashboardListRow({ obj, list }) {
       {/*Render row for Bill section */}
       {list === "bill" && (
         <>
-          <td className="flex items-center justify-between">
+          <td>
             <Text className="pt-1" variant="text-sm" weight="semibold">
               {obj.title}
             </Text>
+          </td>
+          <td>
             <Text variant="text-sm">
               {formatMoney(obj.amount, obj.currency)}
             </Text>
+          </td>
+          <td>
             <Text
               variant="text-sm"
               weight="semibold"

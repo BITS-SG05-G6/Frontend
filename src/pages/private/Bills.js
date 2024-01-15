@@ -8,31 +8,29 @@ import Loading from "../../components/common/Loading";
 
 function Bills() {
   const { bills, isLoading } = useContext(BillContext);
-  const { isMessageVisible, message, notiType } = useContext(NotificationContext);
-
-
+  const { isMessageVisible, message, notiType } =
+    useContext(NotificationContext);
 
   return (
-    <>
+    <div className="px-4 lg:px-10">
       {isLoading ? (
         <Loading isLoading={isLoading} />
       ) : (
         <>
           {isMessageVisible && <Alert message={message} type={notiType} />}
-      <div className="flex px-10 lg:justify-end lg:px-6">
-        <BillForm />
-      </div>
-      <div className="grid grid-cols-1 gap-6 px-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {bills.map((bill) => (
-          <div className="flex items-center justify-center">
-            <BillCard bill={bill} />
+          <div className="mb-8 flex w-full justify-end lg:px-6">
+            <BillForm />
           </div>
-        ))}
-      </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {bills.map((bill) => (
+              <div className="flex items-center justify-center">
+                <BillCard bill={bill} />
+              </div>
+            ))}
+          </div>
         </>
-      )
-      }
-    </>
+      )}
+    </div>
   );
 }
 
