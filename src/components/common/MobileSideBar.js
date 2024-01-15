@@ -17,7 +17,7 @@ import * as axiosInstance from "../../services/auth";
 import Cookies from "js-cookie";
 import { AuthContext } from "../../context/authContext";
 
-const SideBar = () => {
+const MobileSideBar = () => {
   const { fetchData } = useContext(AuthContext);
 
   const logOut = async () => {
@@ -33,24 +33,22 @@ const SideBar = () => {
       });
   };
   return (
-    <div className="fixed z-10 flex h-screen flex-col bg-neutral-50 px-3 lg:w-64">
+    <div className="fixed z-10 flex h-screen w-screen flex-col items-center bg-neutral-50 px-3">
       {/* Logo section */}
-      <div className="block">
-        <Text
-          className="absolute left-8 top-8 text-[#EF5DA8]"
-          variant="text-xl"
-          weight="bold"
-          noLink={false}
-          href="/dashboard"
-        >
-          Wise
-          <Text className="text-black" variant="text-xl" weight="bold">
-            Wallet
-          </Text>
+      <Text
+        className="absolute left-8 top-8 text-[#EF5DA8]"
+        variant="text-xl"
+        weight="bold"
+        noLink={false}
+        href="/dashboard"
+      >
+        Wise
+        <Text className="text-black" variant="text-xl" weight="bold">
+          Wallet
         </Text>
-      </div>
+      </Text>
       {/*  Side bar navigation */}
-      <div className="mt-20 flex flex-col gap-2 ">
+      <div className="mt-20 flex w-full flex-col gap-2">
         <SideBarField
           path="/dashboard"
           title="Dashboard"
@@ -65,7 +63,7 @@ const SideBar = () => {
           path="/category"
           title="My Categories"
           icon={<CategoryIcon />}
-        ></SideBarField>
+        />
         <SideBarField
           path="/invoices"
           title="My Invoices"
@@ -105,4 +103,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default MobileSideBar;

@@ -22,8 +22,8 @@ function WalletDetail() {
           setWallet(walletData.wallet);
           setTransactions(walletData.transactions);
         }
-      } catch (err) { }
-      finally {
+      } catch (err) {
+      } finally {
         setTimeout(() => setIsLoading(false), 1000);
       }
     }
@@ -34,15 +34,17 @@ function WalletDetail() {
       {isLoading ? (
         <Loading isLoading={isLoading} />
       ) : (
-        <>
-          <div className="flex flex-col flex-1 gap-10 pr-5">
+        <div className="flex w-full flex-col pl-0 lg:px-8 xl:grid xl:grid-cols-3">
+          <div className="mb-6 flex w-full flex-col gap-10 xl:col-span-2 xl:flex-1 xl:pr-5">
             <DetailChartWallet walletID={id} />
             <TransactionList transactions={transactions} />
           </div>
-          <WalletDetails wallet={wallet} />
-        </>)}
+          <div className="flex w-full items-center justify-center xl:col-span-1 xl:h-full xl:items-start">
+            <WalletDetails wallet={wallet} />
+          </div>
+        </div>
+      )}
     </>
-
   );
 }
 

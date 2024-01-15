@@ -10,7 +10,6 @@ import * as axiosInstance from "../../services/auth";
 import { currencyList } from "../../components/svgs/OptionList";
 import Select from "../../components/common/Select";
 
-
 function UserProfile() {
   const {
     handleSubmit,
@@ -57,7 +56,12 @@ function UserProfile() {
 
     // Handle the form submission logic with updatedData
     await axiosInstance
-      .updateProfile(updatedData.username, updatedData.baseCurrency, updatedData.password, rate)
+      .updateProfile(
+        updatedData.username,
+        updatedData.baseCurrency,
+        updatedData.password,
+        rate,
+      )
       .then((res) => {
         console.log(res);
         fetchData();
@@ -68,9 +72,9 @@ function UserProfile() {
   };
 
   return (
-    <div className="ml-10 w-4/6 px-10 py-10">
+    <div className="w-full px-10 py-10 lg:ml-10 lg:w-4/6">
       {/* Title */}
-      <div className="mb-10 flex flex-col">
+      <div className="mb-10 flex flex-col ">
         <span className="text-xl font-semibold">Account Information</span>
         <span className="text-sm font-normal text-[#929EAE]">
           Update your account information
@@ -89,7 +93,7 @@ function UserProfile() {
           </div>
           {/* Form Details */}
           <div className="flex flex-col gap-5">
-            <div className="grid grid-cols-2 gap-7">
+            <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
               <Controller
                 name="username"
                 control={control}
@@ -109,7 +113,7 @@ function UserProfile() {
                 control={control}
                 defaultValue={userInfo.baseCurrency}
                 render={({ field }) => (
-                  <div>
+                  <div className="w-full">
                     <Select
                       label="Currency"
                       name="currency"

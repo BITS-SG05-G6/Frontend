@@ -11,7 +11,7 @@ const ProgressCard = ({ icon, color, add, name, amount, used }) => {
   console.log((used / amount) * 100);
   return (
     <Box
-      className="flex justify-center items-center gap-10 flex-col h-80 max-w-xs"
+      className="flex h-80 max-w-xs flex-col items-center justify-center gap-10"
       color="gray"
     >
       {add ? (
@@ -22,20 +22,25 @@ const ProgressCard = ({ icon, color, add, name, amount, used }) => {
             {name}
           </Text>
           <div
-            className="p-4 rounded-xl"
+            className="rounded-xl p-4"
             style={{ backgroundColor: `${color}30` }}
           >
             {IconList.map((i) =>
               i.value === icon ? (
                 <FontAwesomeIcon icon={i.icon} size="2xl" color={color} />
-              ) : null
+              ) : null,
             )}
           </div>
-          <Text weight="bold">{used}/{amount} VND</Text>
-          <div className="w-40 rounded-lg" style={{background: `${color}30`}}>
+          <Text weight="bold">
+            {used}/{amount} VND
+          </Text>
+          <div className="w-40 rounded-lg" style={{ background: `${color}30` }}>
             <div
-              className={`h-3 bg-purple-200 rounded-lg`}
-              style={{ width: `${(used / amount) * 100}%`, background: `${color}`}}
+              className={`h-3 rounded-lg bg-purple-200`}
+              style={{
+                width: `${(used / amount) * 100}%`,
+                background: `${color}`,
+              }}
             ></div>
           </div>
         </>

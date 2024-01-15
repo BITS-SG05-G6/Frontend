@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/authContext";
 import { formatMoney } from "../../utils/formatMoney";
 import ConfirmationModal from "../common/ConfirmationModal";
 import Text from "../common/Text";
+import { Link } from "react-router-dom";
 
 function GoalRow({ goal, onDelete, href }) {
   const { userInfo } = useContext(AuthContext);
@@ -15,19 +16,40 @@ function GoalRow({ goal, onDelete, href }) {
     borderColor: goal.color,
   };
 
+  console.log(progress);
   return (
     <div className="flex flex-col gap-6 rounded-xl border-2 border-solid px-6 py-6">
       {/* Title */}
       <Text className="text-left text-lg font-medium" href={href}>{goal.name}</Text>
 
+
       {/* Progress */}
       <div className="flex flex-col">
-        <progress
+        <div
+          className="w-full rounded-lg"
+          style={{ background: `${goal.color}30` }}
+        >
+          <div
+            className={`h-3 rounded-lg bg-purple-200`}
+            style={{
+              width: `${progress}%`,
+              background: `${goal.color}`,
+            }}
+          ></div>
+        </div>
+        {/* <progress
           className={`progress progress-success w-full`}
           value={progress}
           max="100"
-          color={styles}
-        ></progress>
+          // color={styles}
+          style={{
+            "--value": progress,
+            "--size": "7rem",
+            background: `${goal.color}20`,
+            color: `${goal.color}`,
+          }}
+        ></progress> */}
+
         <span className="text-xs font-normal text-[#666666] opacity-80">
           {progress}/100
         </span>
@@ -63,17 +85,13 @@ function GoalRow({ goal, onDelete, href }) {
 
         {/* Ended Date */}
         <div className="flex flex-row justify-between">
-          <span className="text-sm font-normal text-[#666666]">
-            End Date:
-          </span>
+          <span className="text-sm font-normal text-[#666666]">End Date:</span>
           <span className="text-sm font-medium text-[#181818]">
-            {goal.endDate ? format(new Date(goal.startDate), "dd-MM-yyyy") : "None"}
+            {goal.endDate
+              ? format(new Date(goal.startDate), "dd-MM-yyyy")
+              : "None"}
           </span>
         </div>
-        {/* <div className="flex flex-row justify-between">
-          <span className="text-sm font-normal text-[#666666]"></span>
-          <span className="text-sm font-medium text-[#181818]"></span>
-        </div> */}
 
         {/* Status */}
         <div className="flex flex-row justify-between">

@@ -13,11 +13,8 @@ const Transaction = () => {
   const navigate = useNavigate();
   const { setPage, selectedDate, setSelectedDate, transactions } =
     useContext(TransactionContext);
-  const {
-    isMessageVisible,
-    message,
-    notiType,
-  } = useContext(NotificationContext);
+  const { isMessageVisible, message, notiType } =
+    useContext(NotificationContext);
 
   setPage("transaction");
   const { id } = useParams();
@@ -33,23 +30,21 @@ const Transaction = () => {
 
   function handleTransactionChange() {
     setTransaction(null);
-    navigate('/transaction');
+    navigate("/transaction");
   }
 
   useEffect(() => {
     async function fetchTransaction() {
       try {
-        await axiosInstance.getTransactionDetail(id)
+        await axiosInstance
+          .getTransactionDetail(id)
           .then((res) => {
             setTransaction(res);
           })
           .catch((err) => {
             console.log(err);
-          })
-      }
-      catch (err) {
-
-      }
+          });
+      } catch (err) {}
     }
     fetchTransaction();
   }, [id]);
@@ -58,14 +53,14 @@ const Transaction = () => {
     <>
       {isMessageVisible && <Alert message={message} type={notiType} />}
       {/* Create Button */}
-      <div className="flex justify-start pl-10 xl:justify-end xl:px-6">
+      <div className="flex w-full justify-end px-4 pl-10 lg:px-6">
         <TransactionForm
           buttonName="Create Transaction"
           icon="file-invoice-dollar"
         />
       </div>
       {/* Main Content Page */}
-      <div className="flex flex-col justify-between gap-5 px-10 xl:flex-row xl:justify-center xl:gap-12">
+      <div className="flex flex-col justify-between gap-5 px-4 lg:px-10 xl:flex-row xl:justify-center xl:gap-12">
         <div className="flex flex-col items-center justify-center gap-10 xl:pr-5">
           {/* Calendar */}
           <TransactionCalendar
