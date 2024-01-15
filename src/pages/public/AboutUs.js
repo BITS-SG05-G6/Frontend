@@ -7,6 +7,8 @@ import imageXian from "../../assets/xian.png";
 import imageQuynhAnh from "../../assets/quynhanh.jpeg";
 import imageTuanAnh from "../../assets/tuananh.jpeg";
 
+import logoIcon from "../../assets/logoIcon.png";
+
 export function AboutUs() {
   return (
     <div className="mx-4 md:mx-8 lg:mx-20">
@@ -14,9 +16,9 @@ export function AboutUs() {
       <div className="mb-10 flex flex-col items-center justify-center rounded-xl bg-[#EF5DA8] px-4 py-8 md:px-8 md:py-12 lg:px-20 lg:py-20">
         {/* Logo */}
         <img
-          src="https://picsum.photos/200"
+          src={logoIcon}
           alt=""
-          className="mb-4 h-12 w-12 rounded-xl md:mb-8 md:h-16 md:w-16"
+          className="mb-4 h-12 w-12 rounded-xl bg-white px-3 py-3 md:mb-8 md:h-16 md:w-16"
         />
 
         {/* Title */}
