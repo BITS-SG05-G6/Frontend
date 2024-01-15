@@ -210,18 +210,15 @@ const StatisticPage = () => {
       <div className="px-10">
         {/* Trending Income/Expense Statistic */}
         <div className="w-full rounded-lg border-[1px] border-gray-300 shadow-md">
-          <div className="flex w-full flex-row justify-between">
-            <div className="ml-4 flex items-center">
-              <Text children="Trend Statistic" weight="bold" />
-            </div>
-            <div className="mr-10 mt-5 flex items-center">
+          <div className="flex w-full flex-col justify-between pt-5 lg:flex-row">
+            <Text children="Trend Statistic" weight="bold" className="" />
+            <div className="mr-5 mt-5">
               <Select
                 name="type"
                 size="small"
                 value={selectedType}
                 onChange={handleTypeChange}
                 options={typeTrendStatistic}
-                className=""
               />
             </div>
           </div>
