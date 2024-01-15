@@ -15,8 +15,7 @@ function GoalRow({ goal, onDelete, href }) {
   const progress = result <= 100 ? result : 100;
 
   return (
-
-    <div className="flex w-full flex-col items-center justify-center gap-3 rounded-lg border border-gray-400 bg-white px-5 py-3 transition duration-75 ease-linear hover:border-[3px] hover:border-[#A5A6F6] lg:flex-row">
+    <div className="flex w-full flex-col items-center justify-center gap-3 rounded-lg border border-[3px] border-gray-200 bg-white px-5 py-3 transition duration-75 ease-linear hover:border-[#A5A6F6] lg:flex-row">
       {/*Progress */}
       <div className="h-28 w-28">
         <div

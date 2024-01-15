@@ -35,7 +35,7 @@ const SideBar = ({ toggleSidebar }) => {
       });
   };
   return (
-    <div className="fixed z-10 flex h-screen w-full flex-col bg-neutral-50 px-3 lg:w-64">
+    <div className="fixed flex h-screen w-full flex-col bg-neutral-50 px-3 lg:w-64">
       {/* Logo section */}
       <div className="mx-3 mt-3 flex items-center justify-between">
         <Text
@@ -53,13 +53,13 @@ const SideBar = ({ toggleSidebar }) => {
 
         <button
           onClick={toggleSidebar}
-          className="flex items-center justify-center rounded-lg border-[1px] border-solid px-3 py-3 xl:hidden"
+          className="flex items-center justify-center rounded-lg border-[1px] border-solid px-3 py-3 lg:hidden"
         >
           <FontAwesomeIcon icon={faXmark} className="h-6 w-6" color="#F06293" />
         </button>
       </div>
       {/*  Side bar navigation */}
-      <div className="mt-20 flex flex-col gap-2 ">
+      <div className="mt-10 flex flex-col gap-2">
         <SideBarField
           onClick={toggleSidebar}
           path="/dashboard"

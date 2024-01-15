@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col bg-[#EF5DA8] p-10 gap-10">
+    <div className="flex flex-col gap-10 bg-[#EF5DA8] p-10">
       <div className="flex justify-around">
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <Text
-            variant="text-lg"
-            className="text-white flex items-center"
+            variant="text-2xl"
+            className="flex items-center text-white"
             weight="bold"
           >
             Wise{""}
             <Text
-              variant="text-lg"
-              className="text-black flex items-center"
+              variant="text-2xl"
+              className="flex items-center text-black"
               weight="bold"
             >
               Wallet
@@ -22,7 +22,7 @@ const Footer = () => {
           </Text>
         </div>
 
-        <div className="flex flex-col text-[#FCDDEC] items-start">
+        <div className="flex flex-col items-start text-[#FCDDEC]">
           <Text variant="text-md" weight="semibold" className="text-white">
             More Information
           </Text>
