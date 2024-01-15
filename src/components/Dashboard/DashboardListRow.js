@@ -25,7 +25,7 @@ function DashboardListRow({ obj, list }) {
                       <FontAwesomeIcon
                         icon={i.icon}
                         color={obj.color}
-                      ></FontAwesomeIcon>
+                      />
                     ) : null,
                   )}
               </div>
