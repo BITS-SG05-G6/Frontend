@@ -15,6 +15,7 @@ function GoalRow({ goal, onDelete, href }) {
     borderColor: goal.color,
   };
 
+  console.log(progress);
   return (
     <div className="flex flex-col gap-6 rounded-xl border-2 border-solid px-6 py-6">
       {/* Title */}
@@ -24,12 +25,31 @@ function GoalRow({ goal, onDelete, href }) {
 
       {/* Progress */}
       <div className="flex flex-col">
-        <progress
+        <div
+          className="w-full rounded-lg"
+          style={{ background: `${goal.color}30` }}
+        >
+          <div
+            className={`h-3 rounded-lg bg-purple-200`}
+            style={{
+              width: `${progress}%`,
+              background: `${goal.color}`,
+            }}
+          ></div>
+        </div>
+        {/* <progress
           className={`progress progress-success w-full`}
           value={progress}
           max="100"
-          color={styles}
-        ></progress>
+          // color={styles}
+          style={{
+            "--value": progress,
+            "--size": "7rem",
+            background: `${goal.color}20`,
+            color: `${goal.color}`,
+          }}
+        ></progress> */}
+
         <span className="text-xs font-normal text-[#666666] opacity-80">
           {progress}/100
         </span>

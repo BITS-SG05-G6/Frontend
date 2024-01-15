@@ -33,9 +33,9 @@ const SideBar = () => {
       });
   };
   return (
-    <div className="fixed z-10 flex h-screen flex-col bg-neutral-50 px-3 xl:w-64">
+    <div className="fixed z-10 flex h-screen flex-col bg-neutral-50 px-3 lg:w-64">
       {/* Logo section */}
-      <div className="hidden xl:block">
+      <div className="block">
         <Text
           className="absolute left-8 top-8 text-[#EF5DA8]"
           variant="text-xl"
