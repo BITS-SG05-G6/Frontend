@@ -32,7 +32,7 @@ function SavingDetail() {
       }
     }
     fetchData();
-  }, [id, isUpdate, setIsLoading, handleUpdateGoal]);
+  }, [id, isUpdate]);
 
   return (
     <>

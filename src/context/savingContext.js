@@ -37,7 +37,7 @@ const SavingProvider = ({ children }) => {
     }
 
     fetchData();
-  }, [userInfo?.id, newGoal, handleUpdateTransaction, goalEditSuccess]);
+  }, [userInfo?.id, newGoal, goalEditSuccess]);
 
   const goalList = {
     handleUpdateGoal,
