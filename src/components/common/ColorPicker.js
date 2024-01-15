@@ -4,7 +4,7 @@ import Text from "./Text";
 function ColorPicker({ label, value, onChange }) {
   return (
     <>
-      <label className="form-control w-full flex items-center flex-row gap-10 justify-between">
+      <label className="form-control flex w-full flex-row items-center justify-between gap-10">
         <Text
           variant="text-sm"
           weight="semibold"
@@ -12,21 +12,19 @@ function ColorPicker({ label, value, onChange }) {
         >
           {label}
         </Text>
-        <div className="w-full max-w-xs text-sm flex items-center gap-6">
+        <div className="flex w-full max-w-xs items-center gap-6 text-sm">
           <input
             type="color"
             value={value}
             onChange={onChange}
-            className="focus:outline-none focus:border-none bg-transparent rounded-full w-12 h-12 cursor-pointer"
+            className="h-12 w-12 cursor-pointer rounded-full bg-transparent focus:border-none focus:outline-none"
           />
           <input
             type="text"
-            value={value
-              .toUpperCase()
-            }
+            value={value.toUpperCase()}
             disabled
             onChange={onChange}
-            className="input input-bordered"
+            className="input input-bordered w-36 md:w-auto"
             style={{
               backgroundColor: `${value}40`,
               color: value,

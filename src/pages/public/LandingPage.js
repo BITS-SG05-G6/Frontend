@@ -87,7 +87,7 @@ export default function LandingPage() {
           </div>
         </Box>
 
-        <Box className="grid max-w-screen-xl grid-cols-1 px-4 py-16 md:grid-cols-2 md:px-24">
+        <Box className="grid max-w-screen-xl grid-cols-1 bg-[#EDEEFC] px-4 py-16 md:grid-cols-2 md:px-24">
           <div className="mb-6 flex items-center justify-center">
             <img
               className="h-auto w-full"
@@ -122,7 +122,7 @@ export default function LandingPage() {
           </div>
         </Box>
 
-        <Box className="grid max-w-screen-xl grid-cols-1 px-4 py-16 md:grid-cols-2 md:px-24">
+        <Box className="grid max-w-screen-xl grid-cols-1 bg-[#FCDDEC] px-4 py-16 md:grid-cols-2 md:px-24">
           <div className="flex items-center justify-start">
             <img
               className="h-auto w-full"

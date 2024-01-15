@@ -8,21 +8,21 @@ const InputVariants = cva(
   {
     variants: {
       size: {
-        default: "w-full max-w-xs text-sm",
-        small: "w-full max-w-sm text-sm",
-        noMaxWidth: "w-full text-sm pr-5",
+        default: "w-8/12 sm:w-full max-w-xs text-sm",
+        small: "w-8/12 sm:w-full max-w-sm text-sm",
+        noMaxWidth: "w-8/12 sm:w-full text-sm pr-5",
       },
     },
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 const LabelVariants = cva("form-control w-full", {
   variants: {
     labelType: {
-      side: "form-control w-full flex flex-row gap-10 justify-between ",
+      side: "form-control w-full flex flex-row gap-5 md:gap-10 justify-between ",
       up: "form-control w-full",
     },
   },
@@ -47,7 +47,7 @@ function FormInput({
       <label className={cn(LabelVariants({ labelType }))}>
         {labelType === "side" ? (
           <>
-            <div className="label w-18 p-0">
+            <div className="w-18 label">
               <Text variant="text-sm" weight="semibold" className="label-text ">
                 {label}
               </Text>

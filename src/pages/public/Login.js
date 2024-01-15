@@ -38,7 +38,7 @@ const Login = () => {
         Cookies.set("token", res.token);
       })
       .catch((err) => {
-        // console.log(err.response.data.error);
+        console.log(err);
         setMessage(err.response.data.error.message);
         setIsMessageVisible(true);
         setNotiType("error");
