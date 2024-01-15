@@ -10,7 +10,7 @@ function SideBarField({ title, icon, path, onClick }) {
       to={path}
       className={({
         isActive,
-      }) => `flex h-11 max-w-sm justify-start gap-2 rounded-lg border-none bg-neutral-50 px-11 py-3 pe-4 ps-4 text-sm shadow-none hover:bg-[#F472B6] xl:pe-20 
+      }) => `flex h-11 max-w-sm justify-start gap-2 rounded-lg border-none bg-neutral-50 px-11 py-3 pe-20 ps-4 text-sm shadow-none hover:bg-[#F472B6] 
                 ${isActive ? setIsActive(true) : setIsActive(false)}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -28,7 +28,7 @@ function SideBarField({ title, icon, path, onClick }) {
         fillColor="#929EAE"
       />
       <div
-        className={`hidden font-semibold text-gray-400 xl:block ${isHovered ? "text-white" : ""} ${isActive ? "text-white" : ""}`}
+        className={`block font-semibold text-gray-400 ${isHovered ? "text-white" : ""} ${isActive ? "text-white" : ""}`}
       >
         {title}
       </div>

@@ -1,5 +1,3 @@
-import SideBar from "../../components/common/SideBar";
-import Header from "../../components/common/Header";
 import OverviewCard from "../../components/Dashboard/OverviewCard";
 import DashboardList from "../../components/Dashboard/DashboardList";
 import SectionLayout from "../../components/layout/SectionLayout";
