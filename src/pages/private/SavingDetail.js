@@ -20,7 +20,7 @@ function SavingDetail() {
         setIsLoading(true);
         // Fetch data based on the params id
         const goalData = await savingGoal.viewSavingGoal(id);
-        console.log(goalData);
+        // console.log(goalData);
         if (goalData) {
           setGoal(goalData.savingGoal);
           setGoalTransactions(goalData.transactions);
@@ -32,7 +32,7 @@ function SavingDetail() {
       }
     }
     fetchData();
-  }, [id, isUpdate]);
+  }, [id, isUpdate, setIsLoading, handleUpdateGoal]);
 
   return (
     <>

@@ -1,5 +1,4 @@
 import GoalRow from "./GoalRow";
-import { Link } from "react-router-dom";
 
 function GoalList({ goals, onDelete }) {
   return (

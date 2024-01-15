@@ -25,7 +25,6 @@ const MarkerChart = ({ savingID }) => {
         } else if (selectedType === "Last Month") {
           response = await axiosInstance.savingGoalLastMonthStatistic(savingID);
         }
-        console.log("Target list: ", response.targetsList);
         setData(response.targetsList || []);
       } catch (error) {
         console.error("Error fetching expenses:", error);
@@ -33,7 +32,7 @@ const MarkerChart = ({ savingID }) => {
     };
     fetchData();
   }, [selectedType, savingID]);
-  console.log(data);
+  // console.log(data);
 
   const chartData = {
     series: [

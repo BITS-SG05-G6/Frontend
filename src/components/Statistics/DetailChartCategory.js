@@ -7,7 +7,7 @@ import Select from "../common/Select";
 
 const DetailChartCategory = ({ categoryId }) => {
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
-  console.log(categoryId);
+  // console.log(categoryId);
   const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
 
   //Line chart data
@@ -24,18 +24,18 @@ const DetailChartCategory = ({ categoryId }) => {
         } else if (selectedType === "This Month") {
           response =
             await axiosInstance.getCategoryStatisticsThisMonth(categoryId);
-          console.log("category detail", response);
+          // console.log("category detail", response);
         } else if (selectedType === "Last Month") {
           response =
             await axiosInstance.getCategoryStatisticsLastMonth(categoryId);
         }
         setExpenseData(response || []);
       } catch (error) {
-        console.error("Error fetching expenses:", error);
+        // console.error("Error fetching expenses:", error);
       }
     };
     fetchData();
-  }, [selectedType]);
+  }, [selectedType, categoryId]);
   const categories = Object.keys(expenseData).sort();
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);

@@ -14,7 +14,6 @@ const SavingProvider = ({ children }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-
   const handleUpdateGoal = () => {
     setIsLoading(true);
     setNewGoal(!newGoal);
@@ -32,8 +31,7 @@ const SavingProvider = ({ children }) => {
         });
       } catch (err) {
         setGoals([]);
-      } 
-      finally {
+      } finally {
         setTimeout(() => setIsLoading(false), 1000);
       }
     }
@@ -48,7 +46,7 @@ const SavingProvider = ({ children }) => {
     isUpdate,
     setIsUpdate,
     isLoading,
-    setIsLoading
+    setIsLoading,
   };
 
   return (

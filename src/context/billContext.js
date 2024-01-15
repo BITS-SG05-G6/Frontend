@@ -5,7 +5,7 @@ import { AuthContext } from "./authContext";
 export const BillContext = createContext(null);
 
 const BillProvider = ({ children }) => {
-  const { userInfo } = useContext(AuthContext)
+  const { userInfo } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [newBill, setNewBill] = useState(false);
 
@@ -18,24 +18,23 @@ const BillProvider = ({ children }) => {
     setNewBill(newBill === true ? false : true);
   };
 
-  const [bills, setBills] = useState([])
+  const [bills, setBills] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        await axiosInstance.getAllBills()
-        .then((res) => {
-          setBills(res);
-          setTimeout(handleLoading,  1000);
-        })
-        .catch((err) => {
-          setBills(null);
-        })
-        
+        await axiosInstance
+          .getAllBills()
+          .then((res) => {
+            setBills(res);
+            setTimeout(handleLoading, 1000);
+          })
+          .catch((err) => {
+            setBills(null);
+          });
       } catch (err) {
         setBills(null);
-      }
-      finally {
+      } finally {
         setIsLoading(true);
       }
     }
@@ -48,13 +47,11 @@ const BillProvider = ({ children }) => {
     handleUpdateBill,
     isLoading,
     handleLoading,
-    setIsLoading
+    setIsLoading,
   };
 
   return (
-    <BillContext.Provider value={billList}>
-      {children}
-    </BillContext.Provider>
+    <BillContext.Provider value={billList}>{children}</BillContext.Provider>
   );
 };
 

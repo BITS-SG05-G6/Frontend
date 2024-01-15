@@ -13,12 +13,9 @@ function GoalRow({ goal, onDelete, href }) {
   const { userInfo } = useContext(AuthContext);
   let result = Math.floor((goal.total / goal.target) * 100);
   const progress = result <= 100 ? result : 100;
-  const styles = {
-    borderColor: goal.color,
-  };
 
-  console.log(progress);
   return (
+
     <div className="flex w-full flex-col items-center justify-center gap-3 rounded-lg border border-gray-400 bg-white px-5 py-3 transition duration-75 ease-linear hover:border-[3px] hover:border-[#A5A6F6] lg:flex-row">
       {/*Progress */}
       <div className="h-28 w-28">

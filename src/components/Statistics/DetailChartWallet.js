@@ -7,7 +7,7 @@ import Select from "../common/Select";
 
 const DetailChartWallet = ({ walletID }) => {
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
-  console.log(walletID);
+  // console.log(walletID);
   const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
 
   //Line chart data
@@ -23,7 +23,6 @@ const DetailChartWallet = ({ walletID }) => {
           response = await axiosInstance.getWalletStatisticsWeek(walletID);
         } else if (selectedType === "This Month") {
           response = await axiosInstance.getWalletStatisticsThisMonth(walletID);
-          console.log(response);
         } else if (selectedType === "Last Month") {
           response = await axiosInstance.getWalletStatisticsLastMonth(walletID);
         }
@@ -33,7 +32,7 @@ const DetailChartWallet = ({ walletID }) => {
       }
     };
     fetchData();
-  }, [selectedType]);
+  }, [selectedType, walletID]);
   const categories = Object.keys(expenseData).sort();
   const expenses = categories.map((date) => expenseData[date].Expense || 0);
   const incomes = categories.map((date) => expenseData[date].Income || 0);

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { cn } from "../../utils/cn";
 import { formatMoney } from "../../utils/formatMoney";
-import Button from "../common/Button";
 import Text from "../common/Text";
 import ConfirmationModal from "../common/ConfirmationModal";
 import TransactionEditForm from "./TransactionEditForm";

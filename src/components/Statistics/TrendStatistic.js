@@ -1,9 +1,4 @@
 // Import necessary components and libraries
-import {
-  Card,
-  CardBody,
-  CardHeader,
-} from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 import { useContext, useEffect, useState } from "react";
 import { statisticExpensesWeekly, statisticExpensesMonthly } from '../../services/statistics';
@@ -16,11 +11,6 @@ export default function TrendStatistic({ typeOfData, title }) {
   const { userInfo } = useContext(AuthContext)
   // Fetch expense data based on typeOfData when component mounts or typeOfData changes
   useEffect(() => {
-    // Retrieve user ID from the JWT token stored in cookies
-    // const token = Cookies.get("token");
-    // const decodedToken = jwtDecode(token);
-    // const userId = decodedToken.id;
-
     // Fetch data based on the type provided (Weekly or Monthly)
     const fetchData = async () => {
       try {
@@ -38,7 +28,7 @@ export default function TrendStatistic({ typeOfData, title }) {
       }
     };
     fetchData();
-  }, [typeOfData]);
+  }, [typeOfData, userInfo._id]);
 
   // Extract categories, expenses, and incomes from fetched expense data
   const categories = Object.keys(expenseData).sort();

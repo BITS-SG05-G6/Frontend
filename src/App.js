@@ -7,9 +7,8 @@ import {
   Navigate,
 } from "react-router-dom";
 
-
 import { publicRoutes, privateRoutes } from "./routes/routes";
-import Error from './pages/public/Error';
+import Error from "./pages/public/Error";
 import { AuthContext } from "./context/authContext";
 
 function App() {
@@ -35,7 +34,7 @@ function App() {
                       <Page />
                     </Layout>
                   ) : (
-                    <Navigate to='/dashboard' replace />
+                    <Navigate to="/dashboard" replace />
                   )
                 }
               ></Route>
@@ -68,7 +67,6 @@ function App() {
         </Routes>
       </div>
     </Router>
-
   );
 }
 

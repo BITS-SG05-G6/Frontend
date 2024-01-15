@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Chart from "react-apexcharts";
-import Text from "../common/Text";
-import Select from "../common/Select";
 
 const PieChart = ({ title, data, categories }) => {
   const colors = [
@@ -41,11 +39,6 @@ const PieChart = ({ title, data, categories }) => {
       //   align: "middle",
       // },
     },
-  };
-  const type = ["Last Week", "Last Month", "Total"];
-  const [selectedType, setSelectedType] = useState("Last Week"); // State to track selected type
-  const handleTypeChange = (event) => {
-    setSelectedType(event.target.value); // Update selectedType state on option change
   };
 
   return (

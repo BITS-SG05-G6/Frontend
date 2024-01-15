@@ -6,7 +6,6 @@ import Text from "../../components/common/Text";
 import Alert from "../../components/common/Alert";
 import Cookies from "js-cookie";
 import * as axiosInstance from "../../services/auth";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { NotificationContext } from "../../context/notificationContext";
 
@@ -35,7 +34,6 @@ const Login = () => {
     await axiosInstance
       .signin(d.username, d.password)
       .then(async (res) => {
-        console.log(res);
         fetchData();
         Cookies.set("token", res.token);
       })

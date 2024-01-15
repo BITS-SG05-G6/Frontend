@@ -60,7 +60,6 @@ const TransactionForm = ({
         : type;
 
   const onSubmit = async (d) => {
-    console.log(d);
     const categoryValue = category ? category.id : d.category;
     const walletValue = wallet ? wallet.id : d.wallet;
     const goalValue = goal ? goal.id : d.goal;
@@ -117,13 +116,7 @@ const TransactionForm = ({
     if (selectedType === "Saving") {
       setValue("currency", userInfo.baseCurrency);
     }
-  }, [
-    setValue,
-    selectedDate,
-    userInfo.baseCurrency,
-    setDate,
-    selectedType,
-  ]);
+  }, [setValue, selectedDate, userInfo.baseCurrency, setDate, selectedType]);
 
   const openModal = () => {
     document

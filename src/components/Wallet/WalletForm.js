@@ -23,7 +23,6 @@ const WalletForm = ({ children }) => {
     useContext(NotificationContext);
 
   const onSubmit = async (d) => {
-    // console.log(d);
     await axiosInstance
       .createWallet(
         d.name,
@@ -36,7 +35,6 @@ const WalletForm = ({ children }) => {
       .then((res) => {
         document.getElementById("my_modal_3").close();
         handleUpdateWallet();
-        console.log(res);
         setMessage(res);
         setIsMessageVisible(true);
         setNotiType("success");

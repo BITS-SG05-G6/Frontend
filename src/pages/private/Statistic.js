@@ -2,18 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import * as axiosInstance from "../../services/statistics";
 import Select from "../../components/common/Select";
-import SideBar from "../../components/common/SideBar";
 import Text from "../../components/common/Text";
-import Header from "../../components/common/Header";
 import PieChart from "../../components/Statistics/PieChart";
-import Cookies from "js-cookie";
-// import { jwtDecode } from "jwt-decode";
 import LineChart from "../../components/Statistics/LineChart";
 import BarChart from "../../components/Statistics/BarChart";
-import StatisticCard from "../../components/Statistics/StatisticCard";
-import DetailChartCategory from "../../components/Statistics/DetailChartCategory";
-import DetailChartWallet from "../../components/Statistics/DetailChartWallet";
-import MarkerChart from "../../components/Statistics/MarkerChart";
 
 const StatisticPage = () => {
   const type = ["This Week", "Last Month", "Total"];
@@ -108,8 +100,7 @@ const StatisticPage = () => {
     };
     fetchData();
   }, [selectedTypeChart2]);
-  const distributionVal = Object.values(distributionData);
-  const distributionKey = Object.keys(distributionData);
+
 
   //Category Income
   const [inCatData, setInCatData] = useState([]);

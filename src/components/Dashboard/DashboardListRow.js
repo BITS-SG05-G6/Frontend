@@ -56,7 +56,7 @@ function DashboardListRow({ obj, list }) {
             <Text
               variant="text-sm"
               weight="semibold"
-              className={`badge badge-outline ${obj.type.toLowerCase() === "expense" ? "text-red-200" : "text-green-200"}`}
+              className={`badge badge-outline ${obj.type.toLowerCase() === "expense" ? "text-red-200" :  obj.type.toLowerCase() === "income" ? "text-green-200" : "text-yellow-700"} `}
             >
               {obj.type}
             </Text>
@@ -81,7 +81,7 @@ function DashboardListRow({ obj, list }) {
               {obj.title}
             </Text>
           </td>
-          <td>
+          <td className="w-32">
             <Text variant="text-sm">
               {formatMoney(obj.amount, obj.currency)}
             </Text>

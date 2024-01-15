@@ -1,12 +1,10 @@
 // Import necessary components and libraries
 import Chart from "react-apexcharts";
-import Select from "../common/Select";
-import Text from "../common/Text";
 
 // Define the TrendStatistic component
 export default function LineChart({ title, expenses, categories, incomes }) {
   // Configuration for the line chart using ApexCharts
-  
+
   const chartConfig = {
     type: "line",
     height: 340,
@@ -33,7 +31,7 @@ export default function LineChart({ title, expenses, categories, incomes }) {
       dataLabels: {
         enabled: false,
       },
-      colors: ["#00E396","#F178B6"],
+      colors: ["#00E396", "#F178B6"],
 
       stroke: {
         lineCap: "round",
@@ -99,11 +97,8 @@ export default function LineChart({ title, expenses, categories, incomes }) {
     },
   };
 
-
   return (
     <div id="chart" className="">
-
-
       <Chart {...chartConfig} />
     </div>
   );

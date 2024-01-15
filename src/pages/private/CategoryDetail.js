@@ -20,7 +20,6 @@ function CategoryDetail() {
         setIsLoading(true);
         // Fetch data based on the params id
         const categoryData = await categoryService.getCategory(id);
-        console.log(categoryData);
         if (categoryData) {
           setCategory(categoryData.category);
           setTransactions(categoryData.transactions);

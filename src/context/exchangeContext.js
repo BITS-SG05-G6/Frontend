@@ -12,11 +12,6 @@ const ExchangeProvider = ({ children }) => {
   const [rate, setRate] = useState();
 
  useEffect(() => {
-  //  if (userInfo) {
-  //   setBaseCurrency(userInfo ? userInfo.baseCurrency : 'VND');
-  //   setExchangeCurrency(userInfo.baseCurrency === "VND" ? "USD" : "VND")
-  // }
-
     const key = "cb5347e747dfa7cf87c485d418f4f77b5bc48547";
     const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${date}?api_key=${key}&from=USD&to=VND&amount=1&format=json`;
 
@@ -24,7 +19,6 @@ const ExchangeProvider = ({ children }) => {
 
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data)
         setRate(Math.floor(data.rates.VND.rate_for_amount));
     })
     .catch((error) => console.error('Error fetching exchange rates:', error));
