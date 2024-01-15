@@ -28,7 +28,7 @@ function DashboardListRow({ obj, list }) {
                             </div>
                             <Text className='pt-1' variant='text-sm' weight='semibold'>{obj.name}</Text>
                         </div>
-                        <Text variant='text-sm' weight='semibold'>{formatMoney(obj.amount, obj.baseCurrency)}</Text>
+                        <Text variant='text-sm' weight='semibold'>{formatMoney(obj.amount, userInfo.baseCurrency)}</Text>
 
                     </td>
                 </>
