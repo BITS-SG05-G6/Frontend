@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function FAQ() {
+export default function FAQ() {
   const [box1, setBox1] = useState(false);
   const [box2, setBox2] = useState(false);
   const [box3, setBox3] = useState(false);
