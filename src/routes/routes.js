@@ -24,7 +24,7 @@ import PrivatePageLayout from "../components/layout/PrivatePageLayout";
 import DetailPageLayout from "../components/layout/DetailPageLayout";
 import AuthLayout from "../components/layout/AuthLayout";
 import { AboutUs } from "../pages/public/AboutUs";
-import FAQ from "../pages/public/faq";
+import FrequentlyAskedQuestions from "../pages/public/FrequentlyAskedQuestions";
 import { Policy } from "../pages/public/Policy";
 
 // Public routes
@@ -51,7 +51,7 @@ export const publicRoutes = [
   },
   {
     path: "/faq",
-    component: FAQ,
+    component: FrequentlyAskedQuestions,
     layout: PublicPageLayout,
   },
   {
