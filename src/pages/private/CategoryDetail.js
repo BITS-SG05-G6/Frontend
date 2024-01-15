@@ -6,6 +6,7 @@ import * as categoryService from "../../services/category";
 import TransactionList from "../../components/Transaction/TransactionList";
 import { CategoryContext } from "../../context/categoryContext";
 import Loading from "../../components/common/Loading";
+import TransactionForm from "../../components/Transaction/TransactionForm";
 
 function CategoryDetail() {
   const { id } = useParams();
@@ -39,6 +40,9 @@ function CategoryDetail() {
         <Loading isLoading={isLoading} />
       ) : (
         <>
+        <TransactionForm buttonName="Add"
+                  variant="blueButton"
+                  category={{ id: category.id, name: category.name, type: category.type, amount: category.amount }}/>
           <div className="flex w-full flex-col items-center justify-center gap-10 xl:grid xl:grid-cols-3">
             <div className="flex w-full flex-col gap-10 xl:col-span-2 xl:h-full xl:items-start">
               <DetailChartCategory categoryId={id} />

@@ -9,7 +9,7 @@ const InputVariants = cva(
     variants: {
       size: {
         default: "w-8/12 sm:w-full max-w-xs text-sm",
-        small: "w-8/12 sm:w-full max-w-sm text-sm",
+        small: "w-full max-w-sm text-sm",
         noMaxWidth: "w-8/12 sm:w-full text-sm pr-5",
       },
     },
@@ -47,7 +47,7 @@ function FormInput({
       <label className={cn(LabelVariants({ labelType }))}>
         {labelType === "side" ? (
           <>
-            <div className="w-18 label">
+            <div className="w-18 label p-0">
               <Text variant="text-sm" weight="semibold" className="label-text ">
                 {label}
               </Text>

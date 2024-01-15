@@ -46,12 +46,13 @@ function CategoryDetails({ category }) {
         </div>
         <div className="flex justify-between">
           <Text className="text-gray-400">Budget</Text>
-          <Text weight="semibold">{formatMoney(category.budget, userInfo.baseCurrency) || "None"}</Text>
+          <Text weight="semibold">
+            {formatMoney(category.budget, userInfo.baseCurrency) || "None"}
+          </Text>
         </div>
 
         <div className="flex flex-col justify-start gap-2">
-
-          <Text className="text-gray-400 text-start" weight="semibold">
+          <Text className="text-start text-gray-400" weight="semibold">
             Description
           </Text>
           <textarea

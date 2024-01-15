@@ -8,7 +8,7 @@ const SelectVariant = cva(
   {
     variants: {
       size: {
-        default: "w-full lg:max-w-xs text-sm",
+        default: "w-8/12 sm:w-full max-w-xs text-sm",
         small: "w-sm text-sm",
       },
     },
@@ -33,7 +33,7 @@ const Select = ({
   return (
     <>
       {labelType === "up" ? (
-        <label className="form-control w-full">
+        <label className="form-control w-full ">
           <div className="label w-full">
             <Text variant="text-sm" weight="semibold" className="label-text">
               {label}
@@ -80,12 +80,12 @@ const Select = ({
         </label>
       ) : (
         <>
-          <label className="form-control flex w-full flex-row justify-between gap-10 ">
-            <div className="label w-12 p-0 text-start">
+          <label className="form-control flex w-full flex-row justify-between gap-5 md:gap-10 ">
+            <div className="w-18 label p-0 text-start">
               <Text
                 variant="text-sm"
                 weight="semibold"
-                className="label-text w-12 "
+                className="w-18 label-text"
               >
                 {label}
               </Text>

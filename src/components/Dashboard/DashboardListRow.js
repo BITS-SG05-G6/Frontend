@@ -22,10 +22,7 @@ function DashboardListRow({ obj, list }) {
                 {obj.icon &&
                   IconList.map((i) =>
                     i.value === obj.icon ? (
-                      <FontAwesomeIcon
-                        icon={i.icon}
-                        color={obj.color}
-                      />
+                      <FontAwesomeIcon icon={i.icon} color={obj.color} />
                     ) : null,
                   )}
               </div>
@@ -56,7 +53,7 @@ function DashboardListRow({ obj, list }) {
             <Text
               variant="text-sm"
               weight="semibold"
-              className={`badge badge-outline ${obj.type.toLowerCase() === "expense" ? "text-red-200" :  obj.type.toLowerCase() === "income" ? "text-green-200" : "text-yellow-700"} `}
+              className={`badge badge-outline ${obj.type.toLowerCase() === "expense" ? "text-red-200" : obj.type.toLowerCase() === "income" ? "text-green-200" : "text-yellow-700"} `}
             >
               {obj.type}
             </Text>

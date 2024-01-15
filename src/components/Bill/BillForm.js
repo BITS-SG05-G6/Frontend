@@ -33,7 +33,8 @@ const BillForm = () => {
   });
   const { userInfo } = useContext(AuthContext);
   const { rate, setDate } = useContext(ExchangeContext);
-  const { setIsMessageVisible, setMessage, setNotiType } = useContext(NotificationContext);
+  const { setIsMessageVisible, setMessage, setNotiType } =
+    useContext(NotificationContext);
   const reminder = watch("reminder");
   const selectedCurrency = watch("currency");
   const selectedDate = watch("date");
@@ -49,7 +50,7 @@ const BillForm = () => {
         d.date,
         d.frequency,
         d.description,
-        d.exchangeAmount
+        d.exchangeAmount,
       )
       .then((res) => {
         reset();
@@ -76,22 +77,19 @@ const BillForm = () => {
         ? format(new Date(selectedDate), "yyyy-MM-dd")
         : format(new Date(), "yyyy-MM-dd"),
     );
-  }, [
-    selectedDate,
-    setDate
-  ]);
+  }, [selectedDate, setDate]);
 
   // console.log(rate);
   const handleOnChange = (value) => {
     let exchangeValue;
     if (selectedCurrency === "VND") {
-      exchangeValue = parseFloat((value/rate).toFixed(2));
+      exchangeValue = parseFloat((value / rate).toFixed(2));
     } else {
       exchangeValue = value * rate;
     }
-    setValue("exchangeAmount", exchangeValue)
+    setValue("exchangeAmount", exchangeValue);
     return true;
-  }
+  };
 
   return (
     <>
@@ -106,12 +104,15 @@ const BillForm = () => {
         </Text>
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
-        <div className="modal-box flex flex-col justify-center w-full overflow-visible">
+        <div className="modal-box flex w-full flex-col justify-center overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add New Invoice
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
-            <form method="dialog" className="flex flex-col gap-4 justify-start text-end">
+            <form
+              method="dialog"
+              className="flex flex-col justify-start gap-4 text-end"
+            >
               <Button variant="close" className="text-black" size="fix">
                 x
               </Button>
@@ -132,7 +133,7 @@ const BillForm = () => {
                       labelType="side"
                     />
                     {errors.title && (
-                      <Text className="text-red-500 mt-3">
+                      <Text className="mt-3 text-red-500">
                         {errors.title.message}
                       </Text>
                     )}
@@ -156,7 +157,7 @@ const BillForm = () => {
                       labelType="side"
                     />
                     {errors.date && (
-                      <Text className="text-red-500 mt-3">
+                      <Text className="mt-3 text-red-500">
                         {errors.date.message}
                       </Text>
                     )}
@@ -184,7 +185,7 @@ const BillForm = () => {
                       none={false}
                     />
                     {errors.currency && (
-                      <Text className="text-red-500 mt-3">
+                      <Text className="mt-3 text-red-500">
                         {errors.currency.message}
                       </Text>
                     )}
@@ -215,7 +216,7 @@ const BillForm = () => {
                       labelType="side"
                     />
                     {errors.amount && (
-                      <Text className="text-red-500 mt-3">
+                      <Text className="mt-3 text-red-500">
                         {errors.amount.message}
                       </Text>
                     )}
@@ -223,7 +224,8 @@ const BillForm = () => {
                 )}
               />
 
-              {selectedCurrency && selectedCurrency !== userInfo.baseCurrency ? (
+              {selectedCurrency &&
+              selectedCurrency !== userInfo.baseCurrency ? (
                 <Controller
                   name="exchangeAmount"
                   control={control}
@@ -237,14 +239,16 @@ const BillForm = () => {
                         name="exchangeAmount"
                         type="number"
                         // value={field.value}
-                        placeholder={formatMoney(field.value, userInfo.baseCurrency)
-                        }
+                        placeholder={formatMoney(
+                          field.value,
+                          userInfo.baseCurrency,
+                        )}
                         // placeholder={field.value}
                         disabled
                         labelType="side"
                       />
                       {errors.exchangeAmount && (
-                        <Text className="text-red-500 px-36 mt-3">
+                        <Text className="mt-3 px-36 text-red-500">
                           {errors.exchangeAmount.message}
                         </Text>
                       )}
@@ -269,7 +273,7 @@ const BillForm = () => {
                       }}
                     />
                     {errors.reminder && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.reminder.message}
                       </Text>
                     )}
@@ -299,7 +303,7 @@ const BillForm = () => {
                           none={false}
                         />
                         {errors.frequency && (
-                          <Text className="text-red-500 px-32 mt-3">
+                          <Text className="mt-3 px-32 text-red-500">
                             {errors.frequency.message}
                           </Text>
                         )}

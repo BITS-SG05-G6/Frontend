@@ -14,22 +14,19 @@ const AlertVariants = cva(
     variants: {
       type: {
         error: "alert-error",
-        success: "alert-success"
+        success: "alert-success",
       },
     },
     defaultVariants: {
       type: "error",
     },
-  }
+  },
 );
 
 function Alert({ message, type, className }) {
   const { setIsMessageVisible } = useContext(NotificationContext);
   return (
-    <div
-      role="alert"
-      className={cn(AlertVariants({type, className}))}
-    >
+    <div role="alert" className={cn(AlertVariants({ type, className }))}>
       <button onClick={() => setIsMessageVisible(false)}>
         {type === "error" ? (
           <FontAwesomeIcon icon={faCircleXmark} />

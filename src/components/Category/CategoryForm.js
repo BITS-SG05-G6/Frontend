@@ -68,7 +68,7 @@ const CategoryForm = ({ categoryType }) => {
         </Text>
       </Button>
       <dialog id="my_modal_2" className="modal overflow-visible">
-        <div className="modal-box flex w-4/5 flex-col justify-center overflow-visible md:mx-5 md:w-full">
+        <div className="modal-box flex w-full flex-col justify-center overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Add New Category
           </Text>
@@ -85,7 +85,9 @@ const CategoryForm = ({ categoryType }) => {
                 name="name"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Name is required!" }}
+                rules={{
+                  required: "Name is required!",
+                }}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -95,7 +97,6 @@ const CategoryForm = ({ categoryType }) => {
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       labelType="side"
-                      className="w-52 sm:w-full"
                     />
                     {errors.name && (
                       <Text className="mt-3 text-red-500">
@@ -105,6 +106,7 @@ const CategoryForm = ({ categoryType }) => {
                   </div>
                 )}
               />
+
               {/* Budget field */}
               {categoryType === "Income" ? null : (
                 <Controller
@@ -120,7 +122,7 @@ const CategoryForm = ({ categoryType }) => {
                         value={field.value}
                         onChange={(e) => field.onChange(e.target.value)}
                         labelType="side"
-                        className="w-52 sm:w-full"
+                        // className="w-52 sm:w-full"
                       />
                     </div>
                   )}
@@ -140,7 +142,7 @@ const CategoryForm = ({ categoryType }) => {
                       disabled
                       // options={types}
                       labelType="side"
-                      className="w-52 sm:w-full"
+                      // className="w-52 sm:w-full"
                     />
                     {/* <FormInput /> */}
                     {errors.type && (

@@ -2,18 +2,18 @@ import React from "react";
 
 function MemberCard({ imgSrc, name, role }) {
   return (
-    <div className="flex flex-col rounded-lg relative">
+    <div className="relative flex flex-col rounded-lg">
       {/* Background */}
       <img
         src={imgSrc}
         alt=""
-        className="rounded-xl w-[300px] h-[350px] object-cover"
+        className="h-[350px] w-[300px] rounded-xl object-cover"
       />
 
       {/* Name & Role */}
-      <div className="absolute left-0 bottom-[-50px] bg-white border-2 border-solid flex flex-col px-5 py-5 rounded-2xl w-4/5">
-        <span className="text-xl font-semibold text-left">{name}</span>
-        <span className="text-base font-medium text-left">{role}</span>
+      <div className="absolute bottom-[-50px] left-0 flex w-4/5 flex-col rounded-2xl border-2 border-solid bg-white px-5 py-5">
+        <span className="text-left text-xl font-semibold">{name}</span>
+        <span className="text-left text-base font-medium">{role}</span>
       </div>
     </div>
   );

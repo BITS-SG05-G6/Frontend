@@ -35,7 +35,7 @@ const SideBar = ({ toggleSidebar }) => {
       });
   };
   return (
-    <div className="fixed flex h-screen w-full flex-col bg-neutral-50 px-3 lg:w-64">
+    <div className="fixed z-10 flex h-screen w-full flex-col bg-neutral-50 px-3 lg:w-64">
       {/* Logo section */}
       <div className="mx-3 mt-3 flex items-center justify-between">
         <Text

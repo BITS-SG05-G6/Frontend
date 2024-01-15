@@ -33,7 +33,7 @@ const MobileSideBar = () => {
       });
   };
   return (
-    <div className="fixed z-10 flex h-screen w-screen flex-col items-center bg-neutral-50 px-3">
+    <div className="z-1000 fixed flex h-screen w-screen flex-col items-center bg-neutral-50 px-3">
       {/* Logo section */}
       <Text
         className="absolute left-8 top-8 text-[#EF5DA8]"

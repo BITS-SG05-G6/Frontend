@@ -58,7 +58,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="flex w-full flex-col items-center justify-center xl:w-1/2">
+      <div className="flex w-full flex-col items-center justify-center xl:w-1/2 px-4">
         <div className="mb-12 flex flex-col gap-3">
           <Text variant="text-2xl" weight="bold">
             Create new account

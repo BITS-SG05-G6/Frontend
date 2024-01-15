@@ -12,15 +12,12 @@ function SectionLayout({ title, children, className, viewList, href }) {
           {title}
         </Text>
         {viewList && (
-          <div className="flex cursor-pointer gap-2 group-hover:text-purple-300">
+          <span className="flex cursor-pointer gap-2 hover:text-purple-300">
             <Text variant="text-sm" weight="semibold" href={href}>
               View All
             </Text>
-            <FontAwesomeIcon
-              icon={faChevronRight}
-              className="h-3 w-3 pt-1"
-            ></FontAwesomeIcon>
-          </div>
+            <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 pt-1" />
+          </span>
         )}
       </div>
       {/* Other part of the section */}

@@ -10,7 +10,6 @@ function Bills() {
   const { bills, isLoading } = useContext(BillContext);
   const { isMessageVisible, message, notiType } =
     useContext(NotificationContext);
-
   return (
     <div>
       {isLoading ? (
@@ -21,7 +20,7 @@ function Bills() {
           <div className="mb-8 flex w-full justify-end px-4 lg:px-6">
             <BillForm />
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 px-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {bills.map((bill) => (
               <div className="flex items-center justify-center">
                 <BillCard bill={bill} />
