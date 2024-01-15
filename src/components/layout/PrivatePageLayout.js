@@ -11,13 +11,6 @@ function PrivatePageLayout({ header, children, username }) {
 
   return (
     <>
-      <div className="block xl:hidden">
-        <Header
-          title={header}
-          username={username}
-          onMenuClick={toggleSidebar}
-        />
-      </div>
       <div className="hidden xl:block">
         <SideBar />
       </div>
