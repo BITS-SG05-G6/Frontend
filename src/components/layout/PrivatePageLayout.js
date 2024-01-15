@@ -18,7 +18,7 @@ function PrivatePageLayout({ header, children, username }) {
       <div className="">
         <SideBar />
       </div>
-      <div className="flex flex-col gap-5 pl-16 xl:pl-64">
+      <div className="flex flex-col gap-5 pl-[70px] xl:pl-64">
         <Header title={header} username={username} />
         {children}
       </div>
