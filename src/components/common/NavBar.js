@@ -3,29 +3,34 @@ import Down from "../svgs/Down";
 import English from "../svgs/English";
 import Button from "./Button";
 import Text from "./Text";
-import { Link } from "react-scroll";
+import { Link } from "react-router-dom";
+
 const NavBar = () => {
   return (
-    <div className="flex justify-between my-4 mx-6 items-center">
+    <div className="mx-6 my-4 flex items-center justify-between">
       <div className="flex-1">
-        <Text
-          className="absolute top-6 left-6 text-[#EF5DA8]"
-          variant="text-xl"
-          weight="bold"
-          noLink={false}
-          href="/"
-        >
-          Wise
-          <Text className="text-black" variant="text-xl" weight="bold">
-            Wallet
+        <Link to={"/"}>
+          <Text
+            className="absolute left-6 top-6 text-[#EF5DA8]"
+            variant="text-xl"
+            weight="bold"
+            noLink={false}
+          >
+            Wise
+            <Text className="text-black" variant="text-xl" weight="bold">
+              Wallet
+            </Text>
           </Text>
-        </Text>
+        </Link>
       </div>
 
-      <div className="flex flex-1 justify-end items-center gap-4">
-        <ul className="flex flex-row justify-between space-x-4">
-          <li className="font-semibold">
-            <a href="/aboutus">About Us</a>
+      <div className="flex flex-1 items-center justify-end gap-4">
+        <ul className="flex flex-row justify-between gap-5">
+          <li className="font-semibold hover:text-[#F06293]">
+            <Link to="/aboutus">About Us</Link>
+          </li>
+          <li className="font-semibold hover:text-[#F06293]">
+            <Link to="/faq">FAQ</Link>
           </li>
           {/* <li className="font-semibold">
             <Link
