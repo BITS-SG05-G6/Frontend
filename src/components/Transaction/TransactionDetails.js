@@ -122,7 +122,7 @@ function TransactionDetails({ transaction, onClose }) {
           </div>
         </div>
       ) : (
-        <div className="fixed top-1/3 flex flex-col items-center justify-start">
+        <div className="relative top-1/3 flex flex-col items-center justify-start">
           <img
             src={require("../../assets/transactionplaceholder.png")}
             width="30%"
