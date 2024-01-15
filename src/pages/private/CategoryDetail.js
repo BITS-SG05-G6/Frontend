@@ -9,7 +9,8 @@ import Loading from "../../components/common/Loading";
 
 function CategoryDetail() {
   const { id } = useParams();
-  const { isUpdate, isLoading, setIsLoading, handleUpdateCategory } = useContext(CategoryContext);
+  const { isUpdate, isLoading, setIsLoading, handleUpdateCategory } =
+    useContext(CategoryContext);
   const [category, setCategory] = useState({});
   const [transactions, setTransactions] = useState([]);
 
@@ -25,8 +26,8 @@ function CategoryDetail() {
           setTransactions(categoryData.transactions);
         }
         handleUpdateCategory();
-      } catch (err) { }
-      finally {
+      } catch (err) {
+      } finally {
         setTimeout(() => setIsLoading(false), 1000);
       }
     }
@@ -39,14 +40,16 @@ function CategoryDetail() {
         <Loading isLoading={isLoading} />
       ) : (
         <>
-          <div className="flex w-full flex-col items-center justify-center gap-10 lg:grid lg:grid-cols-3">
-        <div className="flex flex-col gap-10">
-          <DetailChartCategory categoryId={id} />
-          <TransactionList transactions={transactions} />
-        </div>
-        {/* render the components based on the data fetching */}
-        <CategoryDetails category={category} />
-      </div>
+          <div className="flex w-full flex-col items-center justify-center gap-10 xl:grid xl:grid-cols-3">
+            <div className="flex w-full flex-col gap-10 xl:col-span-2">
+              <DetailChartCategory categoryId={id} />
+              <TransactionList transactions={transactions} />
+            </div>
+            {/* render the components based on the data fetching */}
+            <div className="flex w-full items-center justify-center xl:col-span-1 xl:h-full xl:items-start">
+              <CategoryDetails category={category} />
+            </div>
+          </div>
         </>
       )}
     </>

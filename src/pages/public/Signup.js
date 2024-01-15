@@ -18,7 +18,14 @@ const Signup = () => {
   });
 
   const navigate = useNavigate();
-  const { setIsMessageVisible, isMessageVisible, message, setMessage, setNotiType, notiType } = useContext(NotificationContext);
+  const {
+    setIsMessageVisible,
+    isMessageVisible,
+    message,
+    setMessage,
+    setNotiType,
+    notiType,
+  } = useContext(NotificationContext);
 
   const onSubmit = async (d) => {
     await axiosInstance
@@ -39,7 +46,7 @@ const Signup = () => {
         console.log(err);
         setMessage(err.response.data.error.message);
         setIsMessageVisible(true);
-        setNotiType("error")
+        setNotiType("error");
         // Hide the error after 3 seconds
         setTimeout(() => {
           setMessage(null);
@@ -51,17 +58,15 @@ const Signup = () => {
 
   return (
     <>
-      <div className="flex flex-col w-1/2">
-        <div className="flex flex-col gap-3 mb-12">
+      <div className="flex w-full flex-col items-center justify-center xl:w-1/2">
+        <div className="mb-12 flex flex-col gap-3">
           <Text variant="text-2xl" weight="bold">
             Create new account
           </Text>
           <Text>Welcome! Please enter your details</Text>
         </div>
-        {isMessageVisible && (
-          <Alert message={message} type={notiType}/>
-        )}
-        <form className="flex flex-col gap-6 max-w-sm ">
+        {isMessageVisible && <Alert message={message} type={notiType} />}
+        <form className="flex w-full max-w-sm flex-col gap-6">
           <Controller
             name="username"
             control={control}
@@ -84,7 +89,7 @@ const Signup = () => {
                   onChange={(e) => field.onChange(e.target.value)}
                 />
                 {errors.username && (
-                  <Text className="text-red-500 mt-3">
+                  <Text className="mt-3 text-red-500">
                     {errors.username.message}
                   </Text>
                 )}
@@ -115,7 +120,7 @@ const Signup = () => {
                   onChange={(e) => field.onChange(e.target.value)}
                 />
                 {errors.password && (
-                  <Text className="text-red-500 mt-3">
+                  <Text className="mt-3 text-red-500">
                     {errors.password.message}
                   </Text>
                 )}
@@ -128,7 +133,7 @@ const Signup = () => {
           <div id="signUpDiv" className="object-cover"></div>
         </form>
 
-        <div className="mt-6 text-center max-w-sm">
+        <div className="mt-6 max-w-sm text-center">
           <Text variant="text-sm" className="text-gray-300">
             Already have an account?
           </Text>
