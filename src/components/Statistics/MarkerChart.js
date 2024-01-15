@@ -92,15 +92,17 @@ const MarkerChart = ({ savingID }) => {
   return (
     <div id="chart">
       <div className="rounded-lg border-[1px] border-gray-300 shadow-md">
-        <div className="flex w-full flex-col justify-between pt-5">
-          <Text children="Wallet Detail" weight="bold" />
+      <div className="flex w-full items-center pt-5 lg:flex-row">
+            <div className="ml-16">
+              <Text children="Spending statistic" weight="bold" className="" />
+              </div>
           <Select
             name="type"
             size="small"
             value={selectedType}
             onChange={handleTypeChange}
             options={typeTrendStatistic}
-            className="mr-5 mt-5"
+            className="mr-8"
           />
         </div>
         <ReactApexChart {...chartData} type="bar" height={350} />
