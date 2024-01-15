@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { formatMoney } from "../../utils/formatMoney";
 import ConfirmationModal from "../common/ConfirmationModal";
+import { Link } from "react-router-dom";
 
 function GoalRow({ goal, onDelete, href }) {
   const { userInfo } = useContext(AuthContext);
@@ -17,7 +18,9 @@ function GoalRow({ goal, onDelete, href }) {
   return (
     <div className="flex flex-col gap-6 rounded-xl border-2 border-solid px-6 py-6">
       {/* Title */}
-      <span className="text-left text-lg font-medium">{goal.name}</span>
+      <Link to={href}>
+        <span className="text-left text-lg font-medium">{goal.name}</span>
+      </Link>
 
       {/* Progress */}
       <div className="flex flex-col">
@@ -62,17 +65,13 @@ function GoalRow({ goal, onDelete, href }) {
 
         {/* Ended Date */}
         <div className="flex flex-row justify-between">
-          <span className="text-sm font-normal text-[#666666]">
-            End Date:
-          </span>
+          <span className="text-sm font-normal text-[#666666]">End Date:</span>
           <span className="text-sm font-medium text-[#181818]">
-            {goal.endDate ? format(new Date(goal.startDate), "dd-MM-yyyy") : "None"}
+            {goal.endDate
+              ? format(new Date(goal.startDate), "dd-MM-yyyy")
+              : "None"}
           </span>
         </div>
-        {/* <div className="flex flex-row justify-between">
-          <span className="text-sm font-normal text-[#666666]"></span>
-          <span className="text-sm font-medium text-[#181818]"></span>
-        </div> */}
 
         {/* Status */}
         <div className="flex flex-row justify-between">

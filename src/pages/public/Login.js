@@ -21,23 +21,29 @@ const Login = () => {
 
   const { fetchData } = useContext(AuthContext);
 
-  const { setIsMessageVisible, isMessageVisible, message, setMessage, setNotiType, notiType } = useContext(NotificationContext);
+  const {
+    setIsMessageVisible,
+    isMessageVisible,
+    message,
+    setMessage,
+    setNotiType,
+    notiType,
+  } = useContext(NotificationContext);
 
   const onSubmit = async (d) => {
     // navigate("/");
     await axiosInstance
       .signin(d.username, d.password)
-      .then(async(res) => {
+      .then(async (res) => {
         console.log(res);
         fetchData();
         Cookies.set("token", res.token);
-       
       })
       .catch((err) => {
         // console.log(err.response.data.error);
         setMessage(err.response.data.error.message);
         setIsMessageVisible(true);
-        setNotiType("error")
+        setNotiType("error");
         // Hide the error after 3 seconds
         setTimeout(() => {
           setMessage(null);
@@ -46,22 +52,19 @@ const Login = () => {
       });
   };
 
-
   return (
-    // 
+    //
     <>
-      <div className="flex flex-col w-1/2">
-        <div className="flex flex-col gap-3 mb-12">
+      <div className="flex w-full flex-col items-center justify-center xl:w-1/2">
+        <div className="mb-12 flex flex-col gap-3">
           <Text variant="text-2xl" weight="bold">
             Welcome back
           </Text>
           <Text>Welcome back! Please enter your details</Text>
         </div>
         {/* Alert */}
-        {isMessageVisible && (
-          <Alert message={message} type={notiType}/>
-        )}
-        <form className="flex flex-col gap-6 max-w-sm">
+        {isMessageVisible && <Alert message={message} type={notiType} />}
+        <form className="flex w-full max-w-sm flex-col gap-6">
           <Controller
             name="username"
             control={control}
@@ -84,7 +87,7 @@ const Login = () => {
                   onChange={(e) => field.onChange(e.target.value)}
                 />
                 {errors.username && (
-                  <Text className="text-red-500 mt-3">
+                  <Text className="mt-3 text-red-500">
                     {errors.username.message}
                   </Text>
                 )}
@@ -108,7 +111,7 @@ const Login = () => {
                   onChange={(e) => field.onChange(e.target.value)}
                 />
                 {errors.password && (
-                  <Text className="text-red-500 mt-3">
+                  <Text className="mt-3 text-red-500">
                     {errors.password.message}
                   </Text>
                 )}
@@ -122,7 +125,7 @@ const Login = () => {
           </Button>
         </form>
 
-        <div className="mt-6 text-center max-w-sm">
+        <div className="mt-6 max-w-sm text-center">
           <Text variant="text-sm" className="text-gray-300">
             Don’t have an account?
           </Text>
@@ -137,15 +140,15 @@ const Login = () => {
           </Text>
         </div>
       </div>
-    </ >
+    </>
 
-      // <div className="w-1/2 object-cover">
-      //   <img
-      //     className="w-full h-full object-cover"
-      //     src={require("../assets/loginside.png")}
-      //     alt="login"
-      //   />
-      // </div>
+    // <div className="w-1/2 object-cover">
+    //   <img
+    //     className="w-full h-full object-cover"
+    //     src={require("../assets/loginside.png")}
+    //     alt="login"
+    //   />
+    // </div>
     // </div>
   );
 };

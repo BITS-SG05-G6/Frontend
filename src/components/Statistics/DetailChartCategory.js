@@ -40,7 +40,7 @@ const DetailChartCategory = ({ categoryId }) => {
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);
   return (
-    <div className="w-full rounded-lg border-[1px] border-gray-300 shadow-md ">
+    <div className="w-full rounded-lg border-[1px] border-gray-300 shadow-md lg:col-span-2">
       <div className="flex w-full flex-row justify-between">
         <div className="ml-4 flex items-center">
           <Text children="Category Detail" weight="bold" />
