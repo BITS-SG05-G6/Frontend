@@ -9,29 +9,27 @@ const AuthProvider = ({ children }) => {
   async function fetchData() {
     try {
       await axiosInstance
-      .getProfile()
-      .then((res) => {
-        setUserInfo(res);
-      })
-      .catch((err) => {
-        setUserInfo(null);
-      });
-    } catch(err) {
-      setUserInfo(null)
+        .getProfile()
+        .then((res) => {
+          setUserInfo(res);
+        })
+        .catch((err) => {
+          setUserInfo(null);
+        });
+    } catch (err) {
+      setUserInfo(null);
     }
   }
 
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, []);
 
-  // console.log(userInfo);
-
-  return(
-    <AuthContext.Provider value={{userInfo, fetchData}}>
+  return (
+    <AuthContext.Provider value={{ userInfo, fetchData }}>
       {children}
     </AuthContext.Provider>
-  )
+  );
 };
 
 export default AuthProvider;

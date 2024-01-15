@@ -63,7 +63,6 @@ const TransactionEditForm = ({ transaction }) => {
         d.goal,
       )
       .then((res) => {
-        console.log(res);
         closeModal();
         handleUpdateTransaction();
         setMessage(res.message);
@@ -240,41 +239,42 @@ const TransactionEditForm = ({ transaction }) => {
                 />
               )}
 
-              {selectedCategory === undefined ||
-              selectedCategory === "none" ||
-              selectedType ? (
-                <Controller
-                  name="type"
-                  control={control}
-                  render={({ field }) => (
-                    <div>
-                      <Select
-                        label="Type"
-                        name="type"
-                        value={field.value}
-                        onChange={(e) => {
-                          field.onChange(e.target.value);
-                        }}
-                        options={transactionType}
-                        placeholder="Please choose a type"
-                        none={false}
-                      />
-                      {errors.type && (
-                        <Text className="mt-3 text-start text-red-500">
-                          {errors.type.message}
-                        </Text>
-                      )}
-                    </div>
-                  )}
-                />
-              ) : null
-              // <FormInput
-              //   label="Type"
-              //   name="categoryType"
-              //   value={type}
-              //   disabled
-              //   labelType="side"
-              // />
+              {
+                selectedCategory === undefined ||
+                selectedCategory === "none" ||
+                selectedType ? (
+                  <Controller
+                    name="type"
+                    control={control}
+                    render={({ field }) => (
+                      <div>
+                        <Select
+                          label="Type"
+                          name="type"
+                          value={field.value}
+                          onChange={(e) => {
+                            field.onChange(e.target.value);
+                          }}
+                          options={transactionType}
+                          placeholder="Please choose a type"
+                          none={false}
+                        />
+                        {errors.type && (
+                          <Text className="mt-3 text-start text-red-500">
+                            {errors.type.message}
+                          </Text>
+                        )}
+                      </div>
+                    )}
+                  />
+                ) : null
+                // <FormInput
+                //   label="Type"
+                //   name="categoryType"
+                //   value={type}
+                //   disabled
+                //   labelType="side"
+                // />
               }
 
               {wallets && (

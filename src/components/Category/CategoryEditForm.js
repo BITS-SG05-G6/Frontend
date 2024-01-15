@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -24,16 +24,11 @@ const CategoryEditForm = ({ category }) => {
 
   const {
     setIsMessageVisible,
-    isMessageVisible,
-    message,
     setMessage,
     setNotiType,
   } = useContext(NotificationContext);
 
-  const [isHovered, setIsHovered] = useState(false);
-
   const onSubmit = async (d) => {
-    console.log(d);
     await axiosInstance
       .updateCategory(
         category.id,
@@ -45,7 +40,6 @@ const CategoryEditForm = ({ category }) => {
         d.budget
       )
       .then((res) => {
-        console.log(res);
         reset();
         document.getElementById(`${category.id}edit`).close();
         setIsUpdate(!isUpdate);

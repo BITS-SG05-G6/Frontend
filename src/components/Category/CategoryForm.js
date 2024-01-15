@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "../common/Button";
 import Text from "../common/Text";
 import FormInput from "../common/FormInput";
@@ -26,8 +26,6 @@ const CategoryForm = ({ categoryType }) => {
   const { handleUpdateCategory } = useContext(CategoryContext);
   const { setIsMessageVisible, setMessage, setNotiType } =
     useContext(NotificationContext);
-
-  const [isHovered, setIsHovered] = useState(false);
 
   const onSubmit = async (d) => {
     await axiosInstance
@@ -61,8 +59,6 @@ const CategoryForm = ({ categoryType }) => {
   return (
     <>
       <Button
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onClick={() => document.getElementById("my_modal_2").showModal()}
         variant="card"
         className="h-80 w-72 xl:w-64"

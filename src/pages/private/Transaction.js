@@ -72,7 +72,10 @@ const Transaction = () => {
           <TransactionList transactions={transactions} />
         </div>
         {/* Details */}
-        <TransactionDetails onClose={handleTransactionChange} transaction={transaction} />
+        <TransactionDetails
+          onClose={handleTransactionChange}
+          transaction={transaction}
+        />
       </div>
     </>
   );

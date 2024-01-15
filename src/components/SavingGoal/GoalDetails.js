@@ -2,8 +2,12 @@ import Text from "../common/Text";
 import Badge from "../common/Badge";
 import { format } from "date-fns";
 import GoalEditForm from "./GoalEditForm";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
+import { formatMoney } from "../../utils/formatMoney";
 
 function GoalDetails({ goal }) {
+  const { userInfo } = useContext(AuthContext)
   let result = Math.floor((goal.total / goal.target) * 100);
   const progress = result <= 100 ? result : 100;
   return (
@@ -14,7 +18,7 @@ function GoalDetails({ goal }) {
             {goal.name}
           </Text>
           <Text variant="text-md" weight="semibold" className="text-primary">
-            {goal.target}
+            {formatMoney(goal.target, userInfo.baseCurrency)}
           </Text>
           {/*Progress */}
           <div className="text-center">
@@ -39,7 +43,7 @@ function GoalDetails({ goal }) {
               Current progress
             </Text>
             <Text weight="semibold" className="text-pink-300">
-              {goal.total}
+              {formatMoney(goal.total, userInfo.baseCurrency)}
             </Text>
           </div>
           {/*Start date and end date section */}
@@ -54,16 +58,16 @@ function GoalDetails({ goal }) {
             </div>
           )}
 
-          {goal.endDate && (
+          
             <div className="flex justify-between">
               <Text className="text-gray-400" weight="semibold">
                 End Date
               </Text>
               <Text weight="semibold">
-                {format(new Date(goal.endDate), "dd-MM-yyyy")}
+                {goal.endDate ? format(new Date(goal.endDate), "dd-MM-yyyy") : "None"}
               </Text>
             </div>
-          )}
+          
           {/*Status*/}
           <div className="flex justify-between">
             <Text className="text-gray-400" weight="semibold">
@@ -72,11 +76,11 @@ function GoalDetails({ goal }) {
             <Badge
               status={goal.status}
               variant={goal.status === "On-going" ? "blue" : "green"}
-            ></Badge>
+            />
           </div>
           {/*Description section */}
           <div className="flex flex-col justify-start gap-2">
-            <Text className="text-gray-400" weight="semibold">
+            <Text className="text-gray-400 text-start" weight="semibold">
               Description
             </Text>
             <textarea

@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Chart from "react-apexcharts";
-import Text from "../common/Text";
-import Select from "../common/Select";
 
-
-const BarChart = ({data, categories }) => {
+const BarChart = ({ data, categories }) => {
   const colors = [
     "#EF5DA8",
     "#00E396",
@@ -31,15 +28,14 @@ const BarChart = ({data, categories }) => {
         height: 350,
 
         toolbar: {
-            show: false,
-          },
-        
+          show: false,
+        },
       },
       colors: colors,
-    //   title: {
-    //     text: title,
-    //     align: "middle",
-    //   },
+      //   title: {
+      //     text: title,
+      //     align: "middle",
+      //   },
       plotOptions: {
         bar: {
           columnWidth: "45%",
@@ -74,12 +70,9 @@ const BarChart = ({data, categories }) => {
       },
     },
   };
-  const type = ["Last Week", "Last Month", "Total"];
 
   return (
     <div id="chart" className="">
-
-
       <Chart {...chartData} />
     </div>
   );

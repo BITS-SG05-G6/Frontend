@@ -9,13 +9,20 @@ import Loading from "../../components/common/Loading";
 
 function Saving() {
   const { goals, handleUpdateGoal, isLoading } = useContext(SavingContext);
-  const { isMessageVisible, message, notiType } =
+  const { isMessageVisible, message, notiType, setIsMessageVisible, setMessage, setNotiType } =
     useContext(NotificationContext);
   // Delete a goal
   async function handleDelete(id) {
     try {
       const res = await axiosInstance.deleteSavingGoal(id);
-      console.log(res);
+      setMessage(res);
+      setIsMessageVisible(true);
+      setNotiType("success");
+
+      setTimeout(() => {
+        setMessage(null);
+        setIsMessageVisible(false);
+      }, 3000);
       handleUpdateGoal();
     } catch (err) {
       console.log(err);

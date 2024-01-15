@@ -42,8 +42,7 @@ const WalletProvider = ({ children }) => {
             color: "",
           },
         ]);
-      }
-      finally {
+      } finally {
         setTimeout(() => setIsLoading(false), 1000);
       }
     }
@@ -56,8 +55,8 @@ const WalletProvider = ({ children }) => {
     wallets,
     isUpdate,
     setIsUpdate,
-    isLoading, 
-    setIsLoading
+    isLoading,
+    setIsLoading,
   };
 
   return (

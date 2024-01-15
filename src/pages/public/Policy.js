@@ -1,7 +1,7 @@
 export function Policy() {
   return (
-    <div className="flex flex-col justify-center items-center mx-20">
-      <h1 className="mb-10 text-4xl text-[#EF5DA8] font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+    <div className="mx-20 flex flex-col items-center justify-center">
+      <h1 className="text-slate-900 mb-10 text-4xl font-extrabold tracking-tight text-[#EF5DA8] sm:text-5xl">
         Privacy Policy
       </h1>
 
@@ -9,11 +9,11 @@ export function Policy() {
         <p className="text-wrap text-center">
           This Privacy Policy governs the manner in which Money Lover collects,
           uses, maintains and discloses information collected from users (each,
-          a "User") of the <a href="">webiste</a> website ("Site"). This privacy
+          a "User") of the webiste website ("Site"). This privacy
           policy applies to the Site and all products and services offered by
           WiseWallet.
         </p>
-        <h2 className="text-2xl text-left text-[#EF5DA8]   m-4 font-extrabold tracking-tight text-slate-900">
+        <h2 className="text-slate-900 m-4 text-left   text-2xl font-extrabold tracking-tight text-[#EF5DA8]">
           1. Collection of personal information
         </h2>
         <p className="text-wrap  m-4 text-justify">
@@ -22,7 +22,7 @@ export function Policy() {
           your email address, which is required for you to be able to login to
           the Website and access any purchased Tailwind UI products.
         </p>
-        <h2 className="text-2xl text-left m-4 font-extrabold tracking-tight text-slate-900 text-[#EF5DA8] ">
+        <h2 className="text-slate-900 m-4 text-left text-2xl font-extrabold tracking-tight text-[#EF5DA8] ">
           2. Personal identification information
         </h2>
         <p className="text-wrap  m-4 text-justify">
@@ -37,7 +37,7 @@ export function Policy() {
           identification information, except that it may prevent them from
           engaging in certain Site related activities.
         </p>
-        <h2 className=" m-4 text-2xl text-left font-extrabold tracking-tight text-slate-900 text-[#EF5DA8] ">
+        <h2 className=" text-slate-900 m-4 text-left text-2xl font-extrabold tracking-tight text-[#EF5DA8] ">
           3. Web browser cookies
         </h2>
         <p className="text-wrap m-4 text-justify">
@@ -48,7 +48,7 @@ export function Policy() {
           being sent. If they do so, note that some parts of the Site may not
           function properly.
         </p>
-        <h2 className="text-2xl text-left m-4 font-extrabold tracking-tight text-slate-900 text-[#EF5DA8] ">
+        <h2 className="text-slate-900 m-4 text-left text-2xl font-extrabold tracking-tight text-[#EF5DA8] ">
           4. How we protect your information
         </h2>
         <p className="text-wrap m-4 text-justify">
@@ -60,7 +60,7 @@ export function Policy() {
           Users happens over a SSL secured communication channel and is
           encrypted and protected with digital signatures.
         </p>
-        <h2 className="text-2xl text-left m-4 font-extrabold tracking-tight text-slate-900 text-[#EF5DA8] ">
+        <h2 className="text-slate-900 m-4 text-left text-2xl font-extrabold tracking-tight text-[#EF5DA8] ">
           5. Contact Us
         </h2>
         <p className="text-wrap m-4 text-justify">

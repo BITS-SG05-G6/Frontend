@@ -6,7 +6,7 @@ const Error = () => {
     <div className="flex justify-center items-center w-screen h-screen">
       <div className="w-full flex flex-col justify-center items-center max-w-lg gap-6">
         {/* 404 Image */}
-        <img src={Image} alt="404 Image" width={350} height={350} />
+        <img src={Image} alt="404" width={350} height={350} />
         {/* Title */}
         <span className="text-3xl font-bold">Thunder 404</span>
         {/* Description */}

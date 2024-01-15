@@ -2,7 +2,6 @@ import Text from "../common/Text";
 import { IconList } from "../svgs/IconList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CategoryEditForm from "./CategoryEditForm";
-import Button from "../common/Button";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { formatMoney } from "../../utils/formatMoney";
@@ -52,7 +51,7 @@ function CategoryDetails({ category }) {
 
         <div className="flex flex-col justify-start gap-2">
 
-          <Text className="text-gray-400" weight="semibold">
+          <Text className="text-gray-400 text-start" weight="semibold">
             Description
           </Text>
           <textarea

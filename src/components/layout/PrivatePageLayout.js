@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "../common/Header";
 import SideBar from "../common/SideBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function PrivatePageLayout({ header, children, username }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

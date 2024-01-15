@@ -12,7 +12,6 @@ const CategoryProvider = ({ children }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-
   const handleUpdateCategory = () => {
     setIsLoading(true);
     setNewCategory(!newCategory);
@@ -46,12 +45,9 @@ const CategoryProvider = ({ children }) => {
             amount: 0,
           },
         ]);
+      } finally {
+        setTimeout(() => setIsLoading(false), 1000);
       }
-      finally {
-        setTimeout(() => setIsLoading(false), 1000)
-        console.log(isLoading)
-      }
-
     }
 
     fetchData();
@@ -65,7 +61,7 @@ const CategoryProvider = ({ children }) => {
     isUpdate,
     setIsUpdate,
     isLoading,
-    setIsLoading
+    setIsLoading,
   };
 
   return (

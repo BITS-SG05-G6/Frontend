@@ -5,7 +5,7 @@ import { AuthContext } from "./authContext";
 export const TransactionContext = createContext(null);
 
 const TransactionProvider = ({ children }) => {
-  const { userInfo } = useContext(AuthContext)
+  const { userInfo } = useContext(AuthContext);
 
   const [updateTransaction, setUpdateTransaction] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +17,7 @@ const TransactionProvider = ({ children }) => {
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   // Page useState for rendering transaction list
-  const [page, setPage] = useState('transaction');
+  const [page, setPage] = useState("transaction");
   const [transactions, setTransactions] = useState(null);
 
   useEffect(() => {
@@ -25,29 +25,25 @@ const TransactionProvider = ({ children }) => {
       try {
         setIsLoading(true);
         let res;
-       if (selectedDate) {
-        res = await axiosInstance.getTransactions(selectedDate);
-       }
-       else {
-        if (page ==='dashboard') {
-          res = await axiosInstance.getTransactions();
+        if (selectedDate) {
+          res = await axiosInstance.getTransactions(selectedDate);
+        } else {
+          if (page === "dashboard") {
+            res = await axiosInstance.getTransactions();
+          } else {
+            setTransactions(null);
+          }
         }
-        else {
-          setTransactions(null);
-        }
-       }
         setTransactions(res.transactions);
-      }
-      catch (err) {
+      } catch (err) {
         setTransactions(null);
-      }
-      finally {
+      } finally {
         setTimeout(() => setIsLoading(false), 1000);
       }
     }
 
     fetchData();
-  }, [selectedDate, updateTransaction, page, userInfo])
+  }, [selectedDate, updateTransaction, page, userInfo]);
 
   const transactionList = {
     handleUpdateTransaction,
@@ -57,14 +53,14 @@ const TransactionProvider = ({ children }) => {
     transactions,
     setPage,
     isLoading,
-    setIsLoading
-  }
+    setIsLoading,
+  };
 
   return (
     <TransactionContext.Provider value={transactionList}>
       {children}
     </TransactionContext.Provider>
-  )
+  );
 };
 
 export default TransactionProvider;

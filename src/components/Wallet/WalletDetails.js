@@ -40,7 +40,7 @@ function WalletDetails({ wallet }) {
         </div>
         {/*Description section */}
         <div className="flex flex-col justify-start gap-2">
-          <Text className="text-gray-400" weight="semibold">
+          <Text className="text-start text-gray-400" weight="semibold">
             Description
           </Text>
           <textarea

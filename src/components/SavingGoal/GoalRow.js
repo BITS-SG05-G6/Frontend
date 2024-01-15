@@ -6,22 +6,16 @@ import { AuthContext } from "../../context/authContext";
 import { formatMoney } from "../../utils/formatMoney";
 import ConfirmationModal from "../common/ConfirmationModal";
 import Text from "../common/Text";
-import { Link } from "react-router-dom";
 
 function GoalRow({ goal, onDelete, href }) {
   const { userInfo } = useContext(AuthContext);
   let result = Math.floor((goal.total / goal.target) * 100);
   const progress = result <= 100 ? result : 100;
-  const styles = {
-    borderColor: goal.color,
-  };
 
-  console.log(progress);
   return (
     <div className="flex flex-col gap-6 rounded-xl border-2 border-solid px-6 py-6">
       {/* Title */}
       <Text className="text-left text-lg font-medium" href={href}>{goal.name}</Text>
-
 
       {/* Progress */}
       <div className="flex flex-col">
