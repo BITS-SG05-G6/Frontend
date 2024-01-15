@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function GoalList({ goals, onDelete }) {
   return (
-    <div className="3xl:grid-cols-5 grid grid-cols-1 gap-5 py-3 md:grid-cols-2 md:gap-10 md:px-3 lg:grid-cols-3 lg:gap-10 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-5 py-3 md:grid-cols-2 lg:flex lg:flex-col">
       {goals &&
         goals.map((goal) => (
           <GoalRow
