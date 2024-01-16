@@ -28,6 +28,7 @@ const SavingProvider = ({ children }) => {
         setIsLoading(true);
         await axiosInstance.viewSavingGoals().then((res) => {
           setGoals(res);
+          handleUpdateTransaction();
         });
       } catch (err) {
         setGoals([]);

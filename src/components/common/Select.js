@@ -8,7 +8,7 @@ const SelectVariant = cva(
   {
     variants: {
       size: {
-        default: "w-8/12 sm:w-full max-w-xs text-sm",
+        default: "w-8/12 sm:w-full text-sm",
         small: "w-sm text-sm",
       },
     },
@@ -33,7 +33,7 @@ const Select = ({
   return (
     <>
       {labelType === "up" ? (
-        <label className="form-control w-full ">
+        <label className="form-control w-full">
           <div className="label w-full">
             <Text variant="text-sm" weight="semibold" className="label-text">
               {label}

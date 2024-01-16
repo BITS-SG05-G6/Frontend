@@ -30,11 +30,11 @@ const ButtonVariants = cva(
         bill: "btn bg-transparent rounded-lg px-6 py-6 flex flex-col gap-4 w-72 border-solid border-2 border-gray-200 text-black",
       },
       size: {
-        default: "h-10 py-2 px-4 text-sm",
+        default: "h-10 py-2 px-4 text-sm max-w-sm",
         sm: "h-9 py-2 rounded-md text-xs",
         lg: "h-11 px-9 text-sm max-w-sm",
         xl: "h-12 px-12 text-sm",
-        card: "h-10 py-2 px-4 text-sm ",
+        card: "text-sm max-w-sm w-20",
         fix: "absolute right-2 top-2",
       },
     },

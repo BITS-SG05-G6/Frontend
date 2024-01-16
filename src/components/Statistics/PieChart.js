@@ -34,10 +34,6 @@ const PieChart = ({ title, data, categories }) => {
           },
         },
       ],
-      // title: {
-      //   text: "Pie chart",
-      //   align: "middle",
-      // },
     },
   };
 

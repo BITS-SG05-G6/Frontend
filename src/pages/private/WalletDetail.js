@@ -38,7 +38,6 @@ function WalletDetail() {
         <Loading isLoading={isLoading} />
       ) : (
         <>
-          
           <div className="flex w-full flex-col pl-0 lg:px-8 xl:grid xl:grid-cols-3">
             <div className="mb-6 flex w-full flex-col gap-10 xl:col-span-2 xl:flex-1 xl:pr-5">
               <DetailChartWallet walletID={id} />
@@ -48,15 +47,15 @@ function WalletDetail() {
               <WalletDetails wallet={wallet} />
             </div>
             <TransactionForm
-            buttonName="Add"
-            variant="blueButton"
-            wallet={{
-              id: wallet._id,
-              name: wallet.name,
-              currency: userInfo.baseCurrency,
-              amount: wallet.amount,
-            }}
-          />
+              buttonName="Add"
+              variant="blueButton"
+              wallet={{
+                id: wallet._id,
+                name: wallet.name,
+                currency: userInfo.baseCurrency,
+                amount: wallet.amount,
+              }}
+            />
           </div>
         </>
       )}

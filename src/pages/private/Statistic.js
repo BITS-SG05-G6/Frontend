@@ -12,8 +12,6 @@ const StatisticPage = () => {
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
   //Chart  - Trend Statistic Chart
   const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
-  //Chart  - Distribution chart
-  const [selectedTypeChart2, setSelectedTypeChart2] = useState(type[2]);
   //Chart  - Category Income
   const [selectedTypeChart3, setSelectedTypeChart3] = useState(type[2]);
   //Chart  - Category Expense
@@ -27,12 +25,6 @@ const StatisticPage = () => {
   //Chart  - Trend Statistic Chart
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value); // Update selectedType state on option change
-  };
-
-  //Chart  - Distribution chart
-
-  const handleTypeChangeChart2 = (event) => {
-    setSelectedTypeChart2(event.target.value);
   };
 
   //Chart  - Category Income
@@ -78,28 +70,6 @@ const StatisticPage = () => {
   const categories = Object.keys(expenseData).sort();
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);
-
-  //Distribution data
-  const [distributionData, setDistributionData] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let response = [];
-        if (selectedTypeChart2 === "This Week") {
-          response = await axiosInstance.ExpensesDistributionLastWeek();
-        } else if (selectedTypeChart2 === "Last Month") {
-          response = await axiosInstance.ExpensesDistributionLastMonth();
-        } else if (selectedTypeChart2 === "Total") {
-          response = await axiosInstance.ExpensesDistribution();
-        }
-
-        setDistributionData(response || []);
-      } catch (error) {
-        console.error("Error fetching expenses:", error);
-      }
-    };
-    fetchData();
-  }, [selectedTypeChart2]);
 
   //Category Income
   const [inCatData, setInCatData] = useState([]);
@@ -223,33 +193,13 @@ const StatisticPage = () => {
       </div>
 
       <div class="mb-6 flex flex-col gap-6 px-10 lg:grid-cols-2 xl:grid xl:grid-cols-3">
-        {/* Chart Distribution */}
-        {/* <div className="shadow-md">
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex items-center ml-4">
-                <Text children="Distribution Expense Data" weight="bold" />
-              </div>
-              <div className="flex items-center mr-10">
-                <Select
-                  name="type"
-                  size="small"
-                  value={selectedTypeChart2}
-                  onChange={handleTypeChangeChart2}
-                  options={type}
-                  className=""
-                />
-              </div>
-            </div>
-            <BarChart data={distributionVal} categories={distributionKey} />
-          </div> */}
-
         {/*  Income/Expense Ratio Statistic */}
         <div className="w-full lg:col-span-2">
           <div className="rounded-lg border-[1px] border-gray-300 shadow-md">
             <div className="flex w-full items-center justify-between pt-5 lg:flex-row">
-            <div className="">
-              <Text children="Income / Expense " weight="bold" className="" />
-            </div>
+              <div className="">
+                <Text children="Income / Expense " weight="bold" className="" />
+              </div>
               <Select
                 name="type"
                 size="small"
@@ -265,7 +215,7 @@ const StatisticPage = () => {
 
         {/* Category Expense */}
         <div className="w-full rounded-lg border-[1px] border-gray-300 shadow-md lg:col-span-1">
-        <div className="flex w-full items-center justify-between pt-5 lg:flex-row">
+          <div className="flex w-full items-center justify-between pt-5 lg:flex-row">
             <div className="">
               <Text children="Category Expense" weight="bold" className="" />
             </div>
@@ -283,7 +233,7 @@ const StatisticPage = () => {
 
         {/* Category Income */}
         <div className="rounded-lg border-[1px] border-gray-300 shadow-md lg:col-span-1">
-        <div className="flex w-full items-center justify-between pt-5 lg:flex-row">
+          <div className="flex w-full items-center justify-between pt-5 lg:flex-row">
             <div className="">
               <Text children="Category Income" weight="bold" className="" />
             </div>
@@ -301,10 +251,10 @@ const StatisticPage = () => {
         {/* Wallet Expense */}
         <div className="lg:col-span-2">
           <div className="rounded-lg border-[1px] border-gray-300 shadow-md">
-          <div className="flex w-full items-center justify-between pt-5 lg:flex-row">
-            <div className="">
-              <Text children="Wallet Expense" weight="bold" className="" />
-            </div>
+            <div className="flex w-full items-center justify-between pt-5 lg:flex-row">
+              <div className="">
+                <Text children="Wallet Expense" weight="bold" className="" />
+              </div>
               <Select
                 name="type"
                 size="small"

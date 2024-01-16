@@ -55,7 +55,6 @@ const BillForm = () => {
       .then((res) => {
         reset();
         document.getElementById("my_modal_2").close();
-        // console.log(res);
         handleUpdateBill();
         setMessage(res.message);
         setIsMessageVisible(true);
@@ -79,7 +78,6 @@ const BillForm = () => {
     );
   }, [selectedDate, setDate]);
 
-  // console.log(rate);
   const handleOnChange = (value) => {
     let exchangeValue;
     if (selectedCurrency === "VND") {

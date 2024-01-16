@@ -50,7 +50,12 @@ export const getProfile = async () => {
 
 export const updateProfile = async (username, baseCurrency, password, rate) => {
   try {
-    const res = await axiosInstance.put("/updateprofile", {username, baseCurrency, password, rate});
+    const res = await axiosInstance.put("/updateprofile", {
+      username,
+      baseCurrency,
+      password,
+      rate,
+    });
 
     if (res.status === 200) {
       return res.data;

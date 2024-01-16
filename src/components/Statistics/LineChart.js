@@ -24,10 +24,6 @@ export default function LineChart({ title, expenses, categories, incomes }) {
           show: false,
         },
       },
-      //   title: {
-      //     text: title,
-      //     align: "middle",
-      //   },
       dataLabels: {
         enabled: false,
       },
@@ -76,17 +72,12 @@ export default function LineChart({ title, expenses, categories, incomes }) {
       },
       grid: {
         show: true,
-        // borderColor: "#dddddd",
         strokeDashArray: 1,
         xaxis: {
           lines: {
             show: true,
           },
         },
-        // padding: {
-        //   top: 10,
-        //   right: 20,
-        // },
       },
       fill: {
         opacity: 0.8,

@@ -6,8 +6,6 @@ import { AuthContext } from "../../context/authContext";
 import { formatMoney } from "../../utils/formatMoney";
 import ConfirmationModal from "../common/ConfirmationModal";
 import Text from "../common/Text";
-import Button from "../common/Button";
-import { Link } from "react-router-dom";
 
 function GoalRow({ goal, onDelete, href }) {
   const { userInfo } = useContext(AuthContext);
@@ -15,7 +13,7 @@ function GoalRow({ goal, onDelete, href }) {
   const progress = result <= 100 ? result : 100;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-3 rounded-lg border border-[3px] border-gray-200 bg-white px-5 py-3 transition duration-75 ease-linear hover:border-[#A5A6F6] lg:flex-row">
+    <div className="flex w-full flex-col items-center justify-center gap-3 rounded-lg border-[3px] border-gray-200 bg-white px-5 py-3 transition duration-75 ease-linear hover:border-[#A5A6F6] lg:flex-row">
       {/*Progress */}
       <div className="h-28 w-28">
         <div
@@ -78,9 +76,9 @@ function GoalRow({ goal, onDelete, href }) {
         <TransactionForm
           buttonName="Add"
           variant="blueButton"
+          size="card"
           goal={{ id: goal._id, name: goal.name, type: "Saving" }}
         />
-        {/* <Button variant="lightPrimary">Edit</Button> */}
         <ConfirmationModal
           idModal={`eleteConfirmation-${goal._id}}`}
           btnName="Delete"
