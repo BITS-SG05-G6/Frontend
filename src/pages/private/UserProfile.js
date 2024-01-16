@@ -131,10 +131,11 @@ function UserProfile() {
                         label="Currency"
                         name="currency"
                         value={field.value}
-                        className="w-full"
+                        // className="w-full"
                         onChange={(e) => {
                           field.onChange(e.target.value);
                         }}
+                        size="full"
                         options={currencyList}
                         placeholder="Please choose a currency"
                         none={false}
@@ -167,6 +168,7 @@ function UserProfile() {
                         label={"New Password"}
                         size={"noMaxWidth"}
                         className="w-full"
+
                       />
                       {errors.password && (
                         <Text className="mt-3 text-red-500">

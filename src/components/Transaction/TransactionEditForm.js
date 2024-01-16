@@ -43,11 +43,13 @@ const TransactionEditForm = ({ transaction }) => {
   const { handleUpdateTransaction } = useContext(TransactionContext);
 
   const categoryType =
+  selectedType ? selectedType :
     selectedCategory === "none" || selectedCategory === undefined
       ? selectedType
       : type;
 
   const onSubmit = async (d) => {
+    console.log(categoryType);
     await axiosInstance
       .updateTransaction(
         transaction._id,
