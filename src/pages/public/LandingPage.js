@@ -19,10 +19,11 @@ export default function LandingPage() {
         <div className="flex max-w-5xl overflow-hidden">
           <img
             className="h-auto w-full"
-            src={"https://i.ibb.co/nBkbx96/dashboard.webp"}
+            src={require("../../assets/dashboard.webp")}
             alt="dashboard"
-            width="100%"
-            height="auto"
+            loading="lazy" // Add lazy loading for asynchronous loading
+            width="100%" // Explicit width to prevent layout shifts
+            height="auto" // Maintain aspect ratio
           />
         </div>
         <div className="flex flex-col items-center justify-center">
