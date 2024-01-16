@@ -8,7 +8,7 @@ const SelectVariant = cva(
   {
     variants: {
       size: {
-        default: "w-8/12 sm:w-full text-sm",
+        default: "w-8/12 sm:w-full lg:max-w-xs text-sm",
         small: "w-sm text-sm",
       },
     },
