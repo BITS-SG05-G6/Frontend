@@ -7,7 +7,7 @@ export const SavingContext = createContext(null);
 
 const SavingProvider = ({ children }) => {
   const { userInfo } = useContext(AuthContext);
-  const { handleUpdateTransaction } = useContext(TransactionContext);
+  const { handleUpdateTransaction, updateTransaction } = useContext(TransactionContext);
 
   const [newGoal, setNewGoal] = useState(false);
   const [goalEditSuccess, setGoalEditSuccess] = useState(false);

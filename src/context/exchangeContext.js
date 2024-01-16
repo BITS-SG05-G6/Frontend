@@ -12,7 +12,7 @@ const ExchangeProvider = ({ children }) => {
   const [rate, setRate] = useState();
 
   useEffect(() => {
-    const key = "cb5347e747dfa7cf87c485d418f4f77b5bc48547";
+    const key = "a792a2809d1633c295e8d7e282eceecdb3222f97";
     const apiUrl = `https://api.getgeoapi.com/v2/currency/historical/${date}?api_key=${key}&from=USD&to=VND&amount=1&format=json`;
 
     fetch(apiUrl)
