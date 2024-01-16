@@ -75,7 +75,7 @@ const CategoryEditForm = ({ category }) => {
           openModal();
         }}
         variant="blueButton"
-        size="lg"
+        size="card"
       >
         Edit
       </Button>

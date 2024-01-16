@@ -40,16 +40,6 @@ function CategoryDetail() {
         <Loading isLoading={isLoading} />
       ) : (
         <div className="flex w-full flex-col items-end gap-5">
-          <TransactionForm
-            buttonName="Add"
-            variant="blueButton"
-            category={{
-              id: category.id,
-              name: category.name,
-              type: category.type,
-              amount: category.amount,
-            }}
-          />
           <div className="flex w-full flex-col items-center justify-center gap-10 xl:grid xl:grid-cols-3">
             <div className="flex w-full flex-col gap-10 xl:col-span-2 xl:h-full xl:items-start">
               <DetailChartCategory categoryId={id} />

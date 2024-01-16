@@ -5,6 +5,7 @@ import WalletEditForm from "./WalletEditForm";
 import { formatMoney } from "../../utils/formatMoney";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import TransactionForm from "../Transaction/TransactionForm";
 
 function WalletDetails({ wallet }) {
   const { userInfo } = useContext(AuthContext);
@@ -50,8 +51,19 @@ function WalletDetails({ wallet }) {
             disabled
           />
         </div>
-        <div>
+        <div className="flex justify-center items-center gap-5">
           <WalletEditForm wallet={wallet} />
+          <TransactionForm
+            buttonName="Add"
+            variant="outlineRound"
+            size="card"
+            wallet={{
+              id: wallet._id,
+              name: wallet.name,
+              currency: userInfo.baseCurrency,
+              amount: wallet.amount,
+            }}
+          />
         </div>
       </div>
     </div>

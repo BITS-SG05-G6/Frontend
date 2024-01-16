@@ -61,8 +61,8 @@ function GoalEditForm({ goal }) {
           e.stopPropagation();
           openModal();
         }}
-        variant="blueButton"
-        size="lg"
+        variant="outlineRound"
+        size="card"
       >
         Edit
       </Button>

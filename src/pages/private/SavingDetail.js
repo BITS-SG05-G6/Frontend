@@ -6,6 +6,7 @@ import TransactionList from "../../components/Transaction/TransactionList";
 import MarkerChart from "../../components/Statistics/MarkerChart";
 import Loading from "../../components/common/Loading";
 import { SavingContext } from "../../context/savingContext";
+import TransactionForm from "../../components/Transaction/TransactionForm";
 
 function SavingDetail() {
   const { id } = useParams();

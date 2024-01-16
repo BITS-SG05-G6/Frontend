@@ -5,6 +5,7 @@ import GoalEditForm from "./GoalEditForm";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { formatMoney } from "../../utils/formatMoney";
+import TransactionForm from "../Transaction/TransactionForm";
 
 function GoalDetails({ goal }) {
   const { userInfo } = useContext(AuthContext);
@@ -92,8 +93,14 @@ function GoalDetails({ goal }) {
             />
           </div>
           {/* Edit Button Form */}
-          <div>
+          <div className="flex items-center justify-center gap-5">
             <GoalEditForm goal={goal} />
+            <TransactionForm
+          buttonName="Add"
+          variant="blueButton"
+          size="card"
+          goal={{ id: goal._id, name: goal.name, type: "Saving" }}
+        />
           </div>
         </div>
       </div>

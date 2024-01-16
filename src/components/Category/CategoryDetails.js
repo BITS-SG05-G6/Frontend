@@ -5,6 +5,7 @@ import CategoryEditForm from "./CategoryEditForm";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { formatMoney } from "../../utils/formatMoney";
+import TransactionForm from "../Transaction/TransactionForm";
 
 function CategoryDetails({ category }) {
   const { userInfo } = useContext(AuthContext);
@@ -61,8 +62,20 @@ function CategoryDetails({ category }) {
             disabled
           />
         </div>
-        <div>
+        <div className="flex justify-center items-center gap-5">
           <CategoryEditForm category={category} />
+        
+          <TransactionForm
+            buttonName="Add"
+            variant="outlineRound"
+            size="card"
+            category={{
+              id: category.id,
+              name: category.name,
+              type: category.type,
+              amount: category.amount,
+            }}
+          />
         </div>
       </div>
     </div>

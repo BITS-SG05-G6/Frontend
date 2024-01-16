@@ -72,7 +72,7 @@ const WalletEditForm = ({ wallet }) => {
           openModal();
         }}
         variant="blueButton"
-        size="lg"
+        size="card"
       >
         Edit
       </Button>
