@@ -18,7 +18,8 @@ function ConfirmationModal({
       <Button
         type={"button"}
         // size={btnSize}
-        variant={variant}
+        variant={"redButton"}
+        size={"card"}
         onClick={() => document.getElementById(idModal).showModal()}
       >
         {btnName}
