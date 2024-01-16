@@ -1,13 +1,13 @@
 import React from "react";
 import MemberCard from "../../components/AboutUs/MemberCard";
 
-import imageThong from "../../assets/thanhthong.jpeg";
-import imageHaAnh from "../../assets/haanh.jpeg";
-import imageXian from "../../assets/xian.png";
-import imageQuynhAnh from "../../assets/quynhanh.jpeg";
-import imageTuanAnh from "../../assets/tuananh.jpeg";
+import imageThong from "../../assets/thanhthong.webp";
+import imageHaAnh from "../../assets/haanh.webp";
+import imageXian from "../../assets/xian.webp";
+import imageQuynhAnh from "../../assets/quynhanh.webp";
+import imageTuanAnh from "../../assets/tuananh.webp";
 
-import logoIcon from "../../assets/logoIcon.png";
+import logoIcon from "../../assets/logoIcon.webp";
 
 export function AboutUs() {
   return (

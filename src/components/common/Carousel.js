@@ -8,7 +8,7 @@ const Caroursel = () => {
         "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "gray",
     },
     {
@@ -16,7 +16,7 @@ const Caroursel = () => {
         "\"It's is both attractive and highly adaptable. It's exactly what I've been looking for. Definitely worth the investment.\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "blue",
     },
     {
@@ -24,7 +24,7 @@ const Caroursel = () => {
         "\"I'd be lost without it. It's incredible. It's is the real deal! Since I invested in it I made over 100,000 dollars profits.\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "yellow",
     },
     {
@@ -32,7 +32,7 @@ const Caroursel = () => {
         "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "purple",
     },
     {
@@ -40,7 +40,7 @@ const Caroursel = () => {
         "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "pink",
     },
     {
@@ -48,7 +48,7 @@ const Caroursel = () => {
         "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "gray",
     },
     {
@@ -56,7 +56,7 @@ const Caroursel = () => {
         "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "blue",
     },
     {
@@ -64,7 +64,7 @@ const Caroursel = () => {
         "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "gray",
     },
     {
@@ -72,7 +72,7 @@ const Caroursel = () => {
         "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
-      img: require("../../assets/reviewer.png"),
+      img: require("../../assets/reviewer.webp"),
       color: "purple",
     },
   ];

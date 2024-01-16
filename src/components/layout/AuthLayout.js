@@ -22,7 +22,7 @@ function AuthLayout({ children }) {
       <div className="hidden object-cover xl:block xl:w-1/2">
         <img
           className="h-full w-full object-cover"
-          src={require("../../assets/loginside.png")}
+          src={require("../../assets/loginside.webp")}
           alt="login"
         />
       </div>
