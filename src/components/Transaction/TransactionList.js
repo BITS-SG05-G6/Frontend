@@ -51,7 +51,7 @@ function TransactionList({ transactions }) {
       ) : (
         <div className="flex flex-col items-center justify-center">
           <img
-            src={require("../../assets/notransaction.png")}
+            src={require("../../assets/notransaction.webp")}
             width="15%"
             height="15%"
             alt="no transaction"

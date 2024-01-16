@@ -6,20 +6,22 @@ const Footer = () => {
     <div className="flex flex-col gap-10 bg-[#EF5DA8] p-10">
       <div className="flex justify-around">
         <div className="flex items-center justify-center">
-          <Text
-            variant="text-2xl"
-            className="flex items-center text-white"
-            weight="bold"
-          >
-            Wise{""}
+          <Link to={"/"}>
             <Text
               variant="text-2xl"
-              className="flex items-center text-black"
+              className="flex items-center text-white"
               weight="bold"
             >
-              Wallet
+              Wise{""}
+              <Text
+                variant="text-2xl"
+                className="flex items-center text-black"
+                weight="bold"
+              >
+                Wallet
+              </Text>
             </Text>
-          </Text>
+          </Link>
         </div>
 
         <div className="flex flex-col items-start text-[#FCDDEC]">
