@@ -39,7 +39,7 @@ function CategoryDetail() {
       {isLoading ? (
         <Loading isLoading={isLoading} />
       ) : (
-        <>
+        <div className="flex w-full flex-col items-end gap-5">
           <TransactionForm
             buttonName="Add"
             variant="blueButton"
@@ -60,7 +60,7 @@ function CategoryDetail() {
               <CategoryDetails category={category} />
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );
