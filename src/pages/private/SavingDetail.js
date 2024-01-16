@@ -39,14 +39,16 @@ function SavingDetail() {
       {isLoading ? (
         <Loading isLoading={isLoading} />
       ) : (
-        <div className="flex w-full flex-col lg:px-8 xl:grid xl:grid-cols-3">
-          <div className="mb-6 flex w-full flex-col gap-10 xl:col-span-2 xl:flex-1 xl:pr-5">
-            <MarkerChart savingID={id} />
-            <TransactionList transactions={goalTransactions} />
-          </div>
-          {/* render the components based on the data fetching */}
-          <div className="flex w-full items-center justify-center xl:col-span-1 xl:h-full xl:items-start">
-            <GoalDetails goal={goal} />
+        <div className="flex w-full flex-col items-end gap-5">
+          <div className="flex w-full flex-col lg:px-8 xl:grid xl:grid-cols-3">
+            <div className="mb-6 flex w-full flex-col gap-10 xl:col-span-2 xl:flex-1 xl:pr-5">
+              <MarkerChart savingID={id} />
+              <TransactionList transactions={goalTransactions} />
+            </div>
+            {/* render the components based on the data fetching */}
+            <div className="flex w-full items-center justify-center xl:col-span-1 xl:h-full xl:items-start">
+              <GoalDetails goal={goal} />
+            </div>
           </div>
         </div>
       )}
