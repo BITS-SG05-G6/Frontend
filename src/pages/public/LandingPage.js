@@ -21,9 +21,8 @@ export default function LandingPage() {
             className="h-auto w-full"
             src={"https://i.ibb.co/nBkbx96/dashboard.webp"}
             alt="dashboard"
-            loading="lazy" // Add lazy loading for asynchronous loading
-            width="100%" // Explicit width to prevent layout shifts
-            height="auto" // Maintain aspect ratio
+            width="100%"
+            height="auto"
           />
         </div>
         <div className="flex flex-col items-center justify-center">
