@@ -18,7 +18,7 @@ export default function LandingPage() {
         <div className="flex max-w-5xl overflow-hidden">
           <img
             className="h-auto w-full"
-            src={require("../../assets/dashboard.png")}
+            src={require("../../assets/dashboard.webp")}
             alt="dashboard"
           />
         </div>
@@ -81,7 +81,7 @@ export default function LandingPage() {
           <div className="h-full w-full">
             <img
               className="h-auto w-full"
-              src={require("../../assets/balance.png")}
+              src={require("../../assets/balance.webp")}
               alt="pic1"
             />
           </div>
@@ -91,7 +91,7 @@ export default function LandingPage() {
           <div className="mb-6 flex items-center justify-center">
             <img
               className="h-auto w-full"
-              src={require("../../assets/phone.png")}
+              src={require("../../assets/phone.webp")}
               alt="pic2"
             />
           </div>
@@ -126,7 +126,7 @@ export default function LandingPage() {
           <div className="flex items-center justify-start">
             <img
               className="h-auto w-full"
-              src={require("../../assets/invoice.png")}
+              src={require("../../assets/invoice.webp")}
               alt="pic3"
             />
           </div>

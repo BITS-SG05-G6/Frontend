@@ -8,8 +8,14 @@ function TransactionDetails({ transaction, onClose }) {
   return (
     <div className="mb-10 w-full xl:mb-0 xl:w-96">
       {transaction ? (
-        <div className=" flex flex-col rounded-[10px] border border-gray-300 bg-white px-6 py-3 relative">
-            <Button onClick={onClose} variant='close' className='text-black absolute right-5'>X</Button>
+        <div className=" relative flex flex-col rounded-[10px] border border-gray-300 bg-white px-6 py-3">
+          <Button
+            onClick={onClose}
+            variant="close"
+            className="absolute right-5 text-black"
+          >
+            X
+          </Button>
           <div className="flex flex-col gap-2 px-2 py-3">
             <div className="text-center text-xl font-semibold text-gray-800">
               {transaction.title}
@@ -68,7 +74,8 @@ function TransactionDetails({ transaction, onClose }) {
                     color: transaction.walletColor,
                   }}
                 >
-                  {transaction.wallet} </Text>
+                  {transaction.wallet}{" "}
+                </Text>
               ) : (
                 <Text
                   variant="text-sm"
@@ -124,7 +131,7 @@ function TransactionDetails({ transaction, onClose }) {
       ) : (
         <div className="relative top-1/3 flex flex-col items-center justify-start">
           <img
-            src={require("../../assets/transactionplaceholder.png")}
+            src={require("../../assets/transactionplaceholder.webp")}
             width="30%"
             height="30%"
             className=""
