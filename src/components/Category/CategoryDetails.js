@@ -16,7 +16,6 @@ function CategoryDetails({ category }) {
             {category.name}
           </Text>
           <Text variant="text-md" weight="semibold" className="text-primary">
-            {/* {category.amount} */}
           </Text>
           {/* Icon */}
           <div className="flex justify-center">

@@ -53,7 +53,7 @@ const Login = () => {
   return (
     //
     <>
-      <div className="flex w-full flex-col items-center justify-center xl:w-1/2 px-4">
+      <div className="flex w-full flex-col items-center justify-center px-4 xl:w-1/2">
         <div className="mb-12 flex flex-col gap-3">
           <Text variant="text-2xl" weight="bold">
             Welcome back

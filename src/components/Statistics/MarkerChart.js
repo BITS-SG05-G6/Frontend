@@ -21,7 +21,6 @@ const MarkerChart = ({ savingID }) => {
           response = await axiosInstance.savingGoalStatistic(savingID);
         } else if (selectedType === "This Month") {
           response = await axiosInstance.savingGoalThisMonthStatistic(savingID);
-          // console.log(response);
         } else if (selectedType === "Last Month") {
           response = await axiosInstance.savingGoalLastMonthStatistic(savingID);
         }
@@ -32,7 +31,6 @@ const MarkerChart = ({ savingID }) => {
     };
     fetchData();
   }, [selectedType, savingID]);
-  // console.log(data);
 
   const chartData = {
     series: [

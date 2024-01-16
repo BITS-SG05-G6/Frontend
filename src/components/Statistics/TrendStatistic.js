@@ -1,14 +1,17 @@
 // Import necessary components and libraries
 import Chart from "react-apexcharts";
 import { useContext, useEffect, useState } from "react";
-import { statisticExpensesWeekly, statisticExpensesMonthly } from '../../services/statistics';
+import {
+  statisticExpensesWeekly,
+  statisticExpensesMonthly,
+} from "../../services/statistics";
 import { AuthContext } from "../../context/authContext";
 
 // Define the TrendStatistic component
 export default function TrendStatistic({ typeOfData, title }) {
   // State to hold fetched expense data
   const [expenseData, setExpenseData] = useState([]);
-  const { userInfo } = useContext(AuthContext)
+  const { userInfo } = useContext(AuthContext);
   // Fetch expense data based on typeOfData when component mounts or typeOfData changes
   useEffect(() => {
     // Fetch data based on the type provided (Weekly or Monthly)
@@ -34,7 +37,6 @@ export default function TrendStatistic({ typeOfData, title }) {
   const categories = Object.keys(expenseData).sort();
   const expenses = categories.map((date) => expenseData[date].expense || 0);
   const incomes = categories.map((date) => expenseData[date].income || 0);
-  // console.log(expenseData)
   // Configuration for the line chart using ApexCharts
   const chartConfig = {
     type: "line",
@@ -43,11 +45,10 @@ export default function TrendStatistic({ typeOfData, title }) {
       {
         name: "Income",
         data: incomes,
-        
       },
       {
         name: "Expenses",
-        data: expenses, 
+        data: expenses,
       },
     ],
     options: {
@@ -64,7 +65,7 @@ export default function TrendStatistic({ typeOfData, title }) {
         enabled: false,
       },
       colors: ["#F178B6", "#ACCCCC"],
-      
+
       stroke: {
         lineCap: "round",
         curve: "smooth",
@@ -73,8 +74,8 @@ export default function TrendStatistic({ typeOfData, title }) {
         size: 6,
         strokeWidth: 0,
         hover: {
-          size: 9
-        }
+          size: 9,
+        },
       },
       xaxis: {
         axisTicks: {
@@ -102,23 +103,18 @@ export default function TrendStatistic({ typeOfData, title }) {
             fontWeight: 400,
           },
 
-          datetimeUTC: false, 
+          datetimeUTC: false,
         },
         tickAmount: 6,
       },
       grid: {
         show: true,
-        // borderColor: "#dddddd",
         strokeDashArray: 1,
         xaxis: {
           lines: {
             show: true,
           },
         },
-        // padding: {
-        //   top: 10,
-        //   right: 20,
-        // },
       },
       fill: {
         opacity: 0.8,
@@ -127,19 +123,10 @@ export default function TrendStatistic({ typeOfData, title }) {
         theme: "dark",
       },
     },
-    
   };
   return (
     <div>
-      {/* <CardHeader
-        floated={false}
-        shadow={false}
-        color="transparent"
-        className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
-      ></CardHeader> */}
-     
-        <Chart {...chartConfig} />
-      
+      <Chart {...chartConfig} />
     </div>
   );
 }

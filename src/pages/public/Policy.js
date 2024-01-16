@@ -9,9 +9,8 @@ export function Policy() {
         <p className="text-wrap text-center">
           This Privacy Policy governs the manner in which Money Lover collects,
           uses, maintains and discloses information collected from users (each,
-          a "User") of the webiste website ("Site"). This privacy
-          policy applies to the Site and all products and services offered by
-          WiseWallet.
+          a "User") of the webiste website ("Site"). This privacy policy applies
+          to the Site and all products and services offered by WiseWallet.
         </p>
         <h2 className="text-slate-900 m-4 text-left   text-2xl font-extrabold tracking-tight text-[#EF5DA8]">
           1. Collection of personal information

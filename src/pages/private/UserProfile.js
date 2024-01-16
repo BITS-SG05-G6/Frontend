@@ -85,7 +85,7 @@ function UserProfile() {
   return (
     <>
       {isMessageVisible && <Alert message={message} type={notiType} />}
-      <div className="w-full px-10 py-10 lg:ml-10 lg:w-4/6">
+      <div className="w-fit-content px-10 py-10 lg:ml-10">
         {/* Title */}
         <div className="mb-10 flex flex-col ">
           <span className="text-xl font-semibold">Account Information</span>
@@ -102,13 +102,10 @@ function UserProfile() {
               <span className="text-lg font-semibold">
                 Personal Information
               </span>
-              {/* <button className="text-lg font-semibold text-[#EF5DA8]">
-              Edit
-            </button> */}
             </div>
             {/* Form Details */}
-            <div className="flex flex-col gap-5">
-              <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
+            <div className="flex w-full flex-col gap-5">
+              <div className="grid w-full grid-cols-1 gap-7 lg:grid-cols-2">
                 <Controller
                   name="username"
                   control={control}
@@ -119,6 +116,7 @@ function UserProfile() {
                       label={"Username"}
                       size={"noMaxWidth"}
                       disabled
+                      className="w-full"
                     />
                   )}
                 />
@@ -133,6 +131,7 @@ function UserProfile() {
                         label="Currency"
                         name="currency"
                         value={field.value}
+                        className="w-full"
                         onChange={(e) => {
                           field.onChange(e.target.value);
                         }}
@@ -153,13 +152,28 @@ function UserProfile() {
                 <Controller
                   name="password"
                   control={control}
+                  rules={{
+                    pattern: {
+                      value: /^(?=.*[A-Z]).{8,}$/,
+                      message:
+                        "At least one uppercase letter and be at least 8 characters long",
+                    },
+                  }}
                   render={({ field }) => (
-                    <FormInput
-                      {...field}
-                      type="password"
-                      label={"New Password"}
-                      size={"noMaxWidth"}
-                    />
+                    <>
+                      <FormInput
+                        {...field}
+                        type="password"
+                        label={"New Password"}
+                        size={"noMaxWidth"}
+                        className="w-full"
+                      />
+                      {errors.password && (
+                        <Text className="mt-3 text-red-500">
+                          {errors.password.message}
+                        </Text>
+                      )}
+                    </>
                   )}
                 />
 
@@ -180,6 +194,7 @@ function UserProfile() {
                           type="password"
                           label={"Confirm Password"}
                           size={"noMaxWidth"}
+                          className="w-full"
                         />
                         {errors.confirmPassword && (
                           <Text className="mt-3 text-red-500">

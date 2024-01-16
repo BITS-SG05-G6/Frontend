@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import * as axiosInstance from "../../services/detailStatistic";
 import LineChart from "./LineChart";
 import Text from "../common/Text";
@@ -7,7 +6,6 @@ import Select from "../common/Select";
 
 const DetailChartWallet = ({ walletID }) => {
   const typeTrendStatistic = ["This Week", "This Month", "Last Month"];
-  // console.log(walletID);
   const [selectedType, setSelectedType] = useState(typeTrendStatistic[0]);
 
   //Line chart data

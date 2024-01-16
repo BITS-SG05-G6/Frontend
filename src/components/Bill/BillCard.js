@@ -12,15 +12,12 @@ function BillCard({ bill }) {
   const { setIsMessageVisible, setMessage, setNotiType } =
     useContext(NotificationContext);
 
-  // const status =
   const { handleUpdateBill } = useContext(BillContext);
 
   const handleDel = async () => {
-    // console.log(bill._id);
     await axiosInstance
       .deleteBill(bill._id)
       .then((res) => {
-        // console.log(res);
         handleUpdateBill();
       })
       .catch((err) => {
@@ -32,7 +29,6 @@ function BillCard({ bill }) {
     await axiosInstance
       .payBill(bill._id)
       .then((res) => {
-        // console.log(res);
         handleUpdateBill();
         setMessage(res);
         setIsMessageVisible(true);
@@ -102,14 +98,6 @@ function BillCard({ bill }) {
 
       {/* Buttons */}
       <div className="flex w-full flex-row justify-end gap-2">
-        {/* <Button
-          className={"ml-auto"}
-          variant={"redButton"}
-          children={"Cancel"}
-          size={"sm"}
-          onClick={handleDel}
-        /> */}
-
         <ConfirmationModal
           idModal={`deleteConfirmation${bill._id}`}
           btnName="Cancel"
@@ -122,7 +110,7 @@ function BillCard({ bill }) {
         <Button
           variant={"blueButton"}
           children={"Pay"}
-          size={"sm"}
+          size={"card"}
           onClick={handlePay}
           disabled={bill.status === "Paid"}
         />
