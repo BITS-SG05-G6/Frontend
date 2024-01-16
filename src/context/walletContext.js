@@ -51,7 +51,7 @@ const WalletProvider = ({ children }) => {
       fetchData();
     }
     
-  }, [userInfo, newWallet, handleUpdateTransaction]);
+  }, [userInfo?._id, newWallet, handleUpdateTransaction]);
 
   const walletList = {
     handleUpdateWallet,

@@ -38,11 +38,9 @@ const BillProvider = ({ children }) => {
         setIsLoading(true);
       }
     }
-    if (userInfo) {
-      fetchData();
-    }
+    fetchData();
     
-  }, [userInfo?.id, newBill]);
+  }, [userInfo?._id, newBill]);
 
   const billList = {
     bills,

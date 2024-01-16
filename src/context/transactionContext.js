@@ -45,7 +45,7 @@ const TransactionProvider = ({ children }) => {
       fetchData();
     }
     
-  }, [selectedDate, updateTransaction, page, userInfo]);
+  }, [selectedDate, updateTransaction, page, userInfo?._id]);
 
   const transactionList = {
     handleUpdateTransaction,

@@ -41,7 +41,7 @@ function App() {
             );
           })}
           {/*Create private routes */}
-          {userInfo &&
+          {
             privateRoutes.map((route, index) => {
               // {
               //   /*Set up routes for public pages */

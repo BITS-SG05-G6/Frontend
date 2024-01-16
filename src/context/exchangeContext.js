@@ -21,7 +21,7 @@ const ExchangeProvider = ({ children }) => {
         setRate(Math.floor(data.rates.VND.rate_for_amount));
       })
       .catch((error) => console.error("Error fetching exchange rates:", error));
-  }, [date, userInfo]);
+  }, [date, userInfo?._id]);
 
   const exchangeList = {
     setDate,
