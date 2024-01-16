@@ -19,7 +19,7 @@ export default function LandingPage() {
         <div className="flex max-w-5xl overflow-hidden">
           <img
             className="h-auto w-full"
-            src={require("../../assets/Dashboard.png")}
+            src={"https://i.ibb.co/nBkbx96/dashboard.webp"}
             alt="dashboard"
             loading="lazy" // Add lazy loading for asynchronous loading
             width="100%" // Explicit width to prevent layout shifts
