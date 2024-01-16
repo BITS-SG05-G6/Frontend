@@ -4,67 +4,76 @@ import CarourselItem from "./CarouselItem";
 const Caroursel = () => {
   const items = [
     {
-      description: "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
+      description:
+        "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "gray"
+      color: "gray",
     },
     {
-      description: "\"It's is both attractive and highly adaptable. It's exactly what I've been looking for. Definitely worth the investment.\"",
+      description:
+        "\"It's is both attractive and highly adaptable. It's exactly what I've been looking for. Definitely worth the investment.\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "blue"
+      color: "blue",
     },
     {
-      description: "\"I'd be lost without it. It's incredible. It's is the real deal! Since I invested in it I made over 100,000 dollars profits.\"",
+      description:
+        "\"I'd be lost without it. It's incredible. It's is the real deal! Since I invested in it I made over 100,000 dollars profits.\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "yellow"
+      color: "yellow",
     },
     {
-      description: "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
+      description:
+        "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "purple"
+      color: "purple",
     },
     {
-      description: "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
+      description:
+        "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "pink"
+      color: "pink",
     },
     {
-      description: "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
+      description:
+        "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "gray"
+      color: "gray",
     },
     {
-      description: "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
+      description:
+        "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "blue"
+      color: "blue",
     },
     {
-      description: "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
+      description:
+        "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "gray"
+      color: "gray",
     },
     {
-      description: "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
+      description:
+        "\"I can't say enough about it. Thanks for the great service. It's the perfect solution for our business. You've saved our business!\"",
       author: "Heiden Brown",
       jobTitle: "Upwork CEO",
       img: require("../../assets/reviewer.png"),
-      color: "purple"
+      color: "purple",
     },
   ];
 
@@ -91,7 +100,7 @@ const Caroursel = () => {
   // }, []);
   return (
     <>
-      <div className=" flex overflow-x-auto space-x-4 p-4 no-scrollbar gap-10">
+      <div className=" no-scrollbar flex gap-10 space-x-4 overflow-x-auto p-4">
         {items.map((item, index) => {
           return <CarourselItem item={item} index={index} />;
         })}

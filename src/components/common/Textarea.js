@@ -8,14 +8,14 @@ const TextareaVariant = cva(
   {
     variants: {
       size: {
-        default: "w-full max-w-xs text-sm",
+        default: "w-8/12 sm:w-full max-w-xs text-sm",
         small: "w-sm text-sm",
       },
     },
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 const Textarea = ({
@@ -24,20 +24,20 @@ const Textarea = ({
   label,
   value,
   onChange,
-  labelClassName
+  labelClassName,
 }) => {
   return (
     <>
-      <label className="form-control w-full flex flex-row gap-10 justify-between">
-        <div className="label w-12 p-0">
-          <Text variant="text-sm" weight="semibold" className={cn("label-text", labelClassName ? labelClassName : "w-12")}>
+      <label className="form-control flex w-full flex-row justify-between gap-5 md:gap-10 ">
+        <div className="w-18 label p-0">
+          <Text variant="text-sm" weight="semibold">
             {label}
           </Text>
         </div>
-     
+
         <textarea
-        value={value}
-        onChange={onChange}
+          value={value}
+          onChange={onChange}
           className={cn(TextareaVariant({ size, className }))}
         ></textarea>
       </label>

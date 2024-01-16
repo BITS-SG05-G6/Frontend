@@ -101,6 +101,13 @@ const TransactionEditForm = ({ transaction }) => {
     setValue("currency", transaction.currency);
     setValue("amount", transaction.amount);
     setValue("description", transaction.description);
+    let exchangeValue;
+    if (transaction.currency === "VND") {
+      exchangeValue = parseFloat((transaction.amount / rate).toFixed(2));
+    } else {
+      exchangeValue = transaction.amount * rate;
+    }
+    setValue("exchangeAmount", exchangeValue);
   };
 
   const closeModal = () => {

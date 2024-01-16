@@ -6,12 +6,15 @@ import * as walletService from "../../services/wallet";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/common/Loading";
+import TransactionForm from "../../components/Transaction/TransactionForm";
+import { AuthContext } from "../../context/authContext";
 
 function WalletDetail() {
   const { id } = useParams();
   const [wallet, setWallet] = useState({});
   const [transactions, setTransactions] = useState([]);
   const { isUpdate, isLoading, setIsLoading } = useContext(WalletContext);
+  const { userInfo } = useContext(AuthContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -34,15 +37,28 @@ function WalletDetail() {
       {isLoading ? (
         <Loading isLoading={isLoading} />
       ) : (
-        <div className="flex w-full flex-col pl-0 lg:px-8 xl:grid xl:grid-cols-3">
-          <div className="mb-6 flex w-full flex-col gap-10 xl:col-span-2 xl:flex-1 xl:pr-5">
-            <DetailChartWallet walletID={id} />
-            <TransactionList transactions={transactions} />
+        <>
+          
+          <div className="flex w-full flex-col pl-0 lg:px-8 xl:grid xl:grid-cols-3">
+            <div className="mb-6 flex w-full flex-col gap-10 xl:col-span-2 xl:flex-1 xl:pr-5">
+              <DetailChartWallet walletID={id} />
+              <TransactionList transactions={transactions} />
+            </div>
+            <div className="flex w-full items-center justify-center xl:col-span-1 xl:h-full xl:items-start">
+              <WalletDetails wallet={wallet} />
+            </div>
+            <TransactionForm
+            buttonName="Add"
+            variant="blueButton"
+            wallet={{
+              id: wallet._id,
+              name: wallet.name,
+              currency: userInfo.baseCurrency,
+              amount: wallet.amount,
+            }}
+          />
           </div>
-          <div className="flex w-full items-center justify-center xl:col-span-1 xl:h-full xl:items-start">
-            <WalletDetails wallet={wallet} />
-          </div>
-        </div>
+        </>
       )}
     </>
   );

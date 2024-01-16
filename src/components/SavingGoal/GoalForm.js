@@ -32,7 +32,7 @@ function GoalForm({ buttonName, icon }) {
         d.color,
         d.startDate,
         d.endDate,
-        d.description
+        d.description,
       )
       .then((res) => {
         document.getElementById("my_modal_4").close();
@@ -54,19 +54,11 @@ function GoalForm({ buttonName, icon }) {
   };
 
   const openModal = () => {
-    document
-      .getElementById(
-         "my_modal_4"
-      )
-      .showModal();
+    document.getElementById("my_modal_4").showModal();
   };
 
   const closeModal = () => {
-    document
-      .getElementById(
-        "my_modal_4"
-      )
-      .close();
+    document.getElementById("my_modal_4").close();
     reset();
   };
 
@@ -74,16 +66,15 @@ function GoalForm({ buttonName, icon }) {
     <>
       <Button
         onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            openModal();
-        }
-        }
+          e.preventDefault();
+          e.stopPropagation();
+          openModal();
+        }}
         variant="primary"
       >
         {icon
           ? IconList.map((i) =>
-              i.value === icon ? <FontAwesomeIcon icon={i.icon} /> : null
+              i.value === icon ? <FontAwesomeIcon icon={i.icon} /> : null,
             )
           : null}
         <Text variant="text-sm" weight="bold">
@@ -92,16 +83,21 @@ function GoalForm({ buttonName, icon }) {
       </Button>
 
       <dialog id="my_modal_4" className="modal">
-        <div className="modal-box flex flex-col justify-center w-full overflow-visible">
+        <div className="modal-box flex w-full flex-col justify-center overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
             New Goal
           </Text>
           <div className="modal-action mx-0 block w-full overflow-visible">
             <form
               method="dialog"
-              className="flex flex-col gap-4 justify-start text-end"
+              className="flex flex-col justify-start gap-4 text-end"
             >
-              <Button variant="close" className="text-black" size="fix" onClick={() => closeModal()}>
+              <Button
+                variant="close"
+                className="text-black"
+                size="fix"
+                onClick={() => closeModal()}
+              >
                 x
               </Button>
 
@@ -123,7 +119,7 @@ function GoalForm({ buttonName, icon }) {
                       labelType="side"
                     />
                     {errors.name && (
-                      <Text className="text-red-500 text-end mt-3">
+                      <Text className="mt-3 text-end text-red-500">
                         {errors.name.message}
                       </Text>
                     )}
@@ -143,23 +139,23 @@ function GoalForm({ buttonName, icon }) {
                   },
                 }}
                 render={({ field }) => (
-                    <div>
-                      <FormInput
-                        type="number"
-                        label="Target"
-                        name="target"
-                        value={field.value}
-                        onChange={(e) => field.onChange(e.target.value)}
-                        labelType="side"
-                        placeholder="e.g: 0"
-                      />
-                      {errors.target && (
-                        <Text className="text-red-500 mt-3">
-                          {errors.target.message}
-                        </Text>
-                      )}
-                    </div>
-                  )}
+                  <div>
+                    <FormInput
+                      type="number"
+                      label="Target"
+                      name="target"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      labelType="side"
+                      placeholder="e.g: 0"
+                    />
+                    {errors.target && (
+                      <Text className="mt-3 text-red-500">
+                        {errors.target.message}
+                      </Text>
+                    )}
+                  </div>
+                )}
               />
               <Controller
                 name="color"
@@ -173,7 +169,7 @@ function GoalForm({ buttonName, icon }) {
                       onChange={(e) => field.onChange(e.target.value)}
                     />
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}
@@ -197,7 +193,7 @@ function GoalForm({ buttonName, icon }) {
                       labelType="side"
                     />
                     {errors.date && (
-                      <Text className="text-red-500 px-36 mt-3">
+                      <Text className="mt-3 px-36 text-red-500">
                         {errors.date.message}
                       </Text>
                     )}
@@ -221,7 +217,7 @@ function GoalForm({ buttonName, icon }) {
                       labelType="side"
                     />
                     {errors.date && (
-                      <Text className="text-red-500 px-36 mt-3">
+                      <Text className="mt-3 px-36 text-red-500">
                         {errors.date.message}
                       </Text>
                     )}
@@ -247,7 +243,11 @@ function GoalForm({ buttonName, icon }) {
                 <Button size="xl" onClick={handleSubmit(onSubmit)}>
                   Save
                 </Button>
-                <Button variant="roundOutline" size="xl" onClick={() => closeModal()}>
+                <Button
+                  variant="roundOutline"
+                  size="xl"
+                  onClick={() => closeModal()}
+                >
                   Cancel
                 </Button>
               </div>

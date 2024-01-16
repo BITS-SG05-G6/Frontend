@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/authContext";
 import { formatMoney } from "../../utils/formatMoney";
 
 function GoalDetails({ goal }) {
-  const { userInfo } = useContext(AuthContext)
+  const { userInfo } = useContext(AuthContext);
   let result = Math.floor((goal.total / goal.target) * 100);
   const progress = result <= 100 ? result : 100;
   return (
@@ -58,16 +58,17 @@ function GoalDetails({ goal }) {
             </div>
           )}
 
-          
-            <div className="flex justify-between">
-              <Text className="text-gray-400" weight="semibold">
-                End Date
-              </Text>
-              <Text weight="semibold">
-                {goal.endDate ? format(new Date(goal.endDate), "dd-MM-yyyy") : "None"}
-              </Text>
-            </div>
-          
+          <div className="flex justify-between">
+            <Text className="text-gray-400" weight="semibold">
+              End Date
+            </Text>
+            <Text weight="semibold">
+              {goal.endDate
+                ? format(new Date(goal.endDate), "dd-MM-yyyy")
+                : "None"}
+            </Text>
+          </div>
+
           {/*Status*/}
           <div className="flex justify-between">
             <Text className="text-gray-400" weight="semibold">
@@ -80,7 +81,7 @@ function GoalDetails({ goal }) {
           </div>
           {/*Description section */}
           <div className="flex flex-col justify-start gap-2">
-            <Text className="text-gray-400 text-start" weight="semibold">
+            <Text className="text-start text-gray-400" weight="semibold">
               Description
             </Text>
             <textarea

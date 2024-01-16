@@ -22,11 +22,8 @@ const CategoryEditForm = ({ category }) => {
     mode: "onChange",
   });
 
-  const {
-    setIsMessageVisible,
-    setMessage,
-    setNotiType,
-  } = useContext(NotificationContext);
+  const { setIsMessageVisible, setMessage, setNotiType } =
+    useContext(NotificationContext);
 
   const onSubmit = async (d) => {
     await axiosInstance
@@ -37,7 +34,7 @@ const CategoryEditForm = ({ category }) => {
         d.color,
         d.icon,
         d.description,
-        d.budget
+        d.budget,
       )
       .then((res) => {
         reset();
@@ -83,7 +80,7 @@ const CategoryEditForm = ({ category }) => {
         Edit
       </Button>
       <dialog id={`${category.id}edit`} className="modal overflow-visible">
-        <div className="modal-box flex flex-col justify-center w-full overflow-visible">
+        <div className="modal-box flex w-full flex-col justify-center overflow-visible">
           <Text variant="text-xl" weight="semibold" className="text-center">
             Edit {category && category.name}
           </Text>
@@ -108,7 +105,7 @@ const CategoryEditForm = ({ category }) => {
                       labelType="side"
                     />
                     {errors.name && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.name.message}
                       </Text>
                     )}
@@ -152,7 +149,7 @@ const CategoryEditForm = ({ category }) => {
                     />
                     {/* <FormInput /> */}
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}
@@ -172,7 +169,7 @@ const CategoryEditForm = ({ category }) => {
                       onChange={(e) => field.onChange(e.target.value)}
                     />
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}
@@ -191,7 +188,7 @@ const CategoryEditForm = ({ category }) => {
                       onChange={(e) => field.onChange(e.target.value)}
                     />
                     {errors.type && (
-                      <Text className="text-red-500 px-32 mt-3">
+                      <Text className="mt-3 px-32 text-red-500">
                         {errors.type.message}
                       </Text>
                     )}
