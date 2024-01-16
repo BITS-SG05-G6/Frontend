@@ -41,28 +41,33 @@ function App() {
             );
           })}
           {/*Create private routes */}
-          {privateRoutes.map((route, index) => {
-            // {
-            //   /*Set up routes for public pages */
-            // }
-            const Page = route.component;
-            const Layout = route.layout === null ? Fragment : route.layout;
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  userInfo ? (
-                    <Layout header={route.header} username={userInfo.username}>
-                      <Page />
-                    </Layout>
-                  ) : (
-                    <Navigate to="/login" replace />
-                  )
-                }
-              ></Route>
-            );
-          })}
+          {userInfo &&
+            privateRoutes.map((route, index) => {
+              // {
+              //   /*Set up routes for public pages */
+              // }
+              const Page = route.component;
+              const Layout = route.layout === null ? Fragment : route.layout;
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    userInfo ? (
+                      <Layout
+                        header={route.header}
+                        username={userInfo.username}
+                      >
+                        <Page />
+                        userInfo ?
+                      </Layout>
+                    ) : (
+                      <Navigate to="/login" replace />
+                    )
+                  }
+                ></Route>
+              );
+            })}
           <Route path="*" element={<Error />}></Route>
         </Routes>
       </div>
