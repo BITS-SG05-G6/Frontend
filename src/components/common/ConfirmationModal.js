@@ -1,23 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "./Button";
 import Text from "./Text";
 
-function ConfirmationModal({
-  idModal,
-  btnName,
-  btnSize,
-  btnType,
-  onSubmit,
-  message,
-  variant,
-}) {
-  const [isOpen, setIsOpen] = useState(false);
+function ConfirmationModal({ idModal, btnName, btnType, onSubmit, message }) {
   return (
     <div>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
       <Button
         type={"button"}
-        // size={btnSize}
         variant={"redButton"}
         size={"card"}
         onClick={() => document.getElementById(idModal).showModal()}
@@ -29,7 +19,6 @@ function ConfirmationModal({
           <Text variant="text-2xl" weight="bold" className="text-[#EF5DA8]">
             Are you sure?
           </Text>
-          {/* <p className="py-4">{message}</p> */}
           <Text weight="medium">{message}</Text>
           <div className="">
             <form

@@ -32,10 +32,6 @@ const BarChart = ({ data, categories }) => {
         },
       },
       colors: colors,
-      //   title: {
-      //     text: title,
-      //     align: "middle",
-      //   },
       plotOptions: {
         bar: {
           columnWidth: "45%",
@@ -57,7 +53,6 @@ const BarChart = ({ data, categories }) => {
             fontWeight: 400,
           },
         },
-        // tickAmount: 2,
       },
       xaxis: {
         categories: categories,

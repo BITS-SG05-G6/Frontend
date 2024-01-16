@@ -38,7 +38,6 @@ const CategoryForm = ({ categoryType }) => {
         d.budget,
       )
       .then((res) => {
-        // console.log(res);
         reset();
         document.getElementById("my_modal_2").close();
         handleUpdateCategory();
@@ -131,7 +130,6 @@ const CategoryForm = ({ categoryType }) => {
               <Controller
                 name="type"
                 control={control}
-                // defaultValue={type}
                 render={({ field }) => (
                   <div>
                     <FormInput
@@ -140,9 +138,7 @@ const CategoryForm = ({ categoryType }) => {
                       value={categoryType}
                       onChange={(e) => field.onChange(e.target.value)}
                       disabled
-                      // options={types}
                       labelType="side"
-                      // className="w-52 sm:w-full"
                     />
                     {/* <FormInput /> */}
                     {errors.type && (

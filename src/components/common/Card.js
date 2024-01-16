@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
 import Box from "./Box";
-import Button from "./Button";
 import Text from "./Text";
 import { IconList } from "../svgs/IconList";
 import CategoryForm from "../Category/CategoryForm";
@@ -77,17 +76,20 @@ const Card = ({
             <Text weight="bold">
               {formatMoney(amount, userInfo.baseCurrency)}
             </Text>
-            <div className="grid w-full grid-cols-2 justify-around">
+            <div className="grid w-full grid-cols-2 text-center">
               {variety === "Category" ? (
                 <TransactionForm
                   buttonName="Add"
                   variant="blueButton"
+                  size="card"
                   category={{ id: id, name: name, type: type, amount: amount }}
                 />
               ) : (
                 <TransactionForm
                   buttonName="Add"
+                  size="card"
                   variant="blueButton"
+              
                   wallet={{
                     id: id,
                     name: name,

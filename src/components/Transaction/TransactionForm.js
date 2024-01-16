@@ -27,6 +27,7 @@ const TransactionForm = ({
   className,
   variant,
   icon,
+  size,
 }) => {
   const {
     control,
@@ -176,7 +177,7 @@ const TransactionForm = ({
   };
 
   return (
-    <>
+    <div>
       <Button
         onClick={(e) => {
           e.preventDefault();
@@ -184,7 +185,7 @@ const TransactionForm = ({
           openModal();
         }}
         variant={variant}
-        size="card"
+        size={size}
         className={className}
       >
         {icon
@@ -556,7 +557,7 @@ const TransactionForm = ({
           </div>
         </div>
       </dialog>
-    </>
+    </div>
   );
 };
 

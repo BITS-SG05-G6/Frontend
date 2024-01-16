@@ -113,7 +113,6 @@ const CategoryEditForm = ({ category }) => {
                 )}
               />
               {/* Budget field */}
-              {/* {categoryType === "Income" ? null : ( */}
               <Controller
                 name="budget"
                 control={control}
@@ -131,7 +130,6 @@ const CategoryEditForm = ({ category }) => {
                   </div>
                 )}
               />
-              {/* )} */}
               <Controller
                 name="type"
                 control={control}
@@ -144,7 +142,6 @@ const CategoryEditForm = ({ category }) => {
                       value={category && category.type}
                       onChange={(e) => field.onChange(e.target.value)}
                       disabled
-                      // options={types}
                       labelType="side"
                     />
                     {/* <FormInput /> */}

@@ -148,7 +148,7 @@ const TransactionEditForm = ({ transaction }) => {
           openModal();
         }}
         variant="blueButton"
-        className="w-full sm:w-fit"
+        size="card"
       >
         <Text variant="text-sm" weight="bold">
           Edit
