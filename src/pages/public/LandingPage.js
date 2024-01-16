@@ -10,6 +10,7 @@ import Text from "../../components/common/Text";
 import Button from "../../components/common/Button";
 import Box from "../../components/common/Box";
 import Caroursel from "../../components/common/Carousel";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   return (
@@ -18,8 +19,11 @@ export default function LandingPage() {
         <div className="flex max-w-5xl overflow-hidden">
           <img
             className="h-auto w-full"
-            src={require("../../assets/dashboard.webp")}
+            src={require("../../assets/Dashboard.png")}
             alt="dashboard"
+            loading="lazy" // Add lazy loading for asynchronous loading
+            width="100%" // Explicit width to prevent layout shifts
+            height="auto" // Maintain aspect ratio
           />
         </div>
         <div className="flex flex-col items-center justify-center">
@@ -45,7 +49,7 @@ export default function LandingPage() {
             </Text>
           </Text>
 
-          <Button variant="cirTrans" size="lg">
+          <Button variant="cirTrans" size="lg" href={"/signup"}>
             Get Started
           </Button>
         </div>
@@ -60,22 +64,16 @@ export default function LandingPage() {
             </Text>
 
             <Text variant="text-2xl" weight="bold" className="text-left">
-              Get organize all of your finances
+              Get organized with all of your finances
             </Text>
             <Text variant="text-xs" className="text-justify text-[#24365E]">
               Spending only what you have is not a sustainable way to get by.
-              Put money aside for emergencies, building up your savings account
-              and taking advantage of opportunities for rewards are all steps
-              that
+              Put money aside for emergencies, build up your savings account,
+              and take advantage of opportunities for rewards.
             </Text>
-            <Text
-              noLink={false}
-              variant="text-sm"
-              href="/signup"
-              className="text-[#67C9CB]"
-            >
+            <Link to={"/signup"} className="text-sm text-[#67C9CB]">
               Get Started
-            </Text>
+            </Link>
           </div>
 
           <div className="h-full w-full">
@@ -103,22 +101,17 @@ export default function LandingPage() {
             </Text>
 
             <Text variant="text-2xl" weight="bold" className="text-left">
-              Your digital financial assistance
+              Your digital financial assistant
             </Text>
             <Text variant="text-xs" className="text-justify text-[#24365E]">
-              Your digital accountant is always at hand, wherever you are. Just
-              install the application on your phone to experience a new money
+              Your digital accountant is always at hand, wherever you are.
+              Install the application on your phone to experience a new money
               management experience.
             </Text>
 
-            <Text
-              noLink={false}
-              variant="text-sm"
-              href="/signup"
-              className="text-[#A6A5E1]"
-            >
+            <Link to={"/signup"} className="text-sm text-[#A6A5E1]">
               Get Started
-            </Text>
+            </Link>
           </div>
         </Box>
 
@@ -138,22 +131,17 @@ export default function LandingPage() {
             </Text>
 
             <Text variant="text-2xl" weight="bold" className="text-left">
-              Invoicing like you never had before
+              Invoicing like never before
             </Text>
             <Text variant="text-xs" className="text-justify text-[#24365E]">
-              Up-to-the-minute details about your invoices and your business
+              Up-to-the-minute details about your invoices and business
               processes are saved in its web interface. Plus, it has a contact
               us feature for customers and businesses.
             </Text>
 
-            <Text
-              noLink={false}
-              variant="text-sm"
-              href="/signup"
-              className="text-[#EF5DA8]"
-            >
+            <Link to="/signup" className="text-sm text-[#EF5DA8]">
               Get Started
-            </Text>
+            </Link>
           </div>
         </Box>
       </div>
