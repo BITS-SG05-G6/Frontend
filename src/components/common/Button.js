@@ -34,6 +34,7 @@ const ButtonVariants = cva(
         sm: "h-9 py-2 rounded-md text-xs",
         lg: "h-11 px-9 text-sm max-w-sm",
         xl: "h-12 px-12 text-sm",
+        card: "h-10 py-2 px-4 text-sm ",
         fix: "absolute right-2 top-2",
       },
     },
