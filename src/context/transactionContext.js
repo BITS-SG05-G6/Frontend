@@ -41,8 +41,10 @@ const TransactionProvider = ({ children }) => {
         setTimeout(() => setIsLoading(false), 1000);
       }
     }
-
-    fetchData();
+    if (userInfo) {
+      fetchData();
+    }
+    
   }, [selectedDate, updateTransaction, page, userInfo]);
 
   const transactionList = {

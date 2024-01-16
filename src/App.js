@@ -59,7 +59,6 @@ function App() {
                         username={userInfo.username}
                       >
                         <Page />
-                        userInfo ?
                       </Layout>
                     ) : (
                       <Navigate to="/login" replace />

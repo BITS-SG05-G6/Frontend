@@ -49,9 +49,11 @@ const CategoryProvider = ({ children }) => {
         setTimeout(() => setIsLoading(false), 1000);
       }
     }
-
-    fetchData();
-  }, [userInfo?.id, type, newCategory, handleUpdateTransaction]);
+    if (userInfo) {
+      fetchData();
+    }
+    
+  }, [userInfo, type, newCategory, handleUpdateTransaction]);
 
   const categoryList = {
     handleUpdateCategory,

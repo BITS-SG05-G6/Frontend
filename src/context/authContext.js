@@ -21,9 +21,9 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+    // fetchData();
+  // }, []);
 
   return (
     <AuthContext.Provider value={{ userInfo, fetchData }}>
