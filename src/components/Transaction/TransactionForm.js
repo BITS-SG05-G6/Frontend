@@ -184,6 +184,7 @@ const TransactionForm = ({
           openModal();
         }}
         variant={variant}
+        size="card"
         className={className}
       >
         {icon

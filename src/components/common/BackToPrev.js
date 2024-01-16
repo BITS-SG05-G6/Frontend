@@ -10,7 +10,7 @@ function BackToPrev({ className }) {
   return (
     <div
       onClick={handleGoBack}
-      className={`h-10 w-10 cursor-pointer ${className} text-[#F472B6]`}
+      className={`flex h-10 w-10 cursor-pointer items-center justify-center ${className} text-[#F472B6]`}
     >
       <FontAwesomeIcon icon={faArrowLeft} size="xl" />
     </div>

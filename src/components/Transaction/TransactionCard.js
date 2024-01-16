@@ -49,7 +49,7 @@ function TransactionCard({ transaction, handleDel }) {
       >
         {formatMoney(transaction.amount, transaction.currency)}
       </td>
-      <td className="flex flex-col justify-center gap-2 xl:flex-row">
+      <td className="flex flex-col items-center justify-center gap-2 sm:flex-row">
         <TransactionEditForm transaction={transaction} />
         <ConfirmationModal
           idModal={`deleteConfirmation-${transaction._id}`}
