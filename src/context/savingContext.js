@@ -7,7 +7,7 @@ export const SavingContext = createContext(null);
 
 const SavingProvider = ({ children }) => {
   const { userInfo } = useContext(AuthContext);
-  const { handleUpdateTransaction, updateTransaction } = useContext(TransactionContext);
+  const { updateTransaction } = useContext(TransactionContext);
 
   const [newGoal, setNewGoal] = useState(false);
   const [goalEditSuccess, setGoalEditSuccess] = useState(false);
@@ -28,7 +28,6 @@ const SavingProvider = ({ children }) => {
         setIsLoading(true);
         await axiosInstance.viewSavingGoals().then((res) => {
           setGoals(res);
-          handleUpdateTransaction();
         });
       } catch (err) {
         setGoals([]);
@@ -39,7 +38,7 @@ const SavingProvider = ({ children }) => {
 
       fetchData();
   
-  }, [userInfo?._id, newGoal, goalEditSuccess]);
+  }, [userInfo?._id, newGoal, goalEditSuccess, updateTransaction]);
 
   const goalList = {
     handleUpdateGoal,
