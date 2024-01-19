@@ -15,7 +15,7 @@ const TransactionProvider = ({ children }) => {
     setUpdateTransaction(updateTransaction === true ? false : true);
   };
 
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState(null);
   // Page useState for rendering transaction list
   const [page, setPage] = useState("transaction");
   const [transactions, setTransactions] = useState(null);
